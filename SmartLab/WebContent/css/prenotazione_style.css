@@ -42,6 +42,11 @@ h1{
 	background: #2E363F;
 }
 
+#right_sidebar h1{
+	color: white;
+	font-size: 24px;
+}
+
 /* Contenuto principale */
 #main_content{
 	background: none repeat scroll 0 0 #eeeeee;
@@ -78,6 +83,9 @@ h1{
 	font-size: 16px;
 }
 
+#div_tb_prenota_content{
+	display: none;
+}
 
 /* Style tabella dei dati */
 .table_scroll{
@@ -131,3 +139,54 @@ h1{
     vertical-align: top;
     border-top: 1px solid #555555;
 }
+
+/* Sidebar Navigation (left side) */
+#sidebar {
+	top: 38px;
+	display: block;
+	float: left;
+	position: fixed;
+	width: 220px;
+	bottom: 0px;
+	background: #2E363F;
+}
+
+#sidebar > ul {
+	list-style: none;
+	margin: 0px 0 0;
+	padding: 0;
+	position: absolute;
+	width: 220px;
+	border-bottom: 1px solid #37414b;
+}
+
+#sidebar > ul > li {
+	display: block;
+	position: relative;
+    border-top: 1px solid #37414b;
+    border-bottom: 1px solid #1f262d;
+	line-height: 20px;
+}
+
+#sidebar > ul > li > a {
+	text-decoration: none;
+    padding: 10px 0 10px 15px;
+    display: block;
+    color: #939da8;
+}
+
+#sidebar > ul > li.active {
+    background-color: #27a9e3; border-bottom: 1px solid #27a9e3;  border-top: 1px solid #27a9e3;
+}
+
+#sidebar > ul > li.active a{ color:#fff; text-decoration:none;}
+
+#sidebar > ul > li.active > a {
+	background: url("../images/menu-active.png") no-repeat scroll right center transparent !important;
+	text-decoration:none;
+}
+
+#sidebar > ul > li > a:hover {
+	background-color: #27a9e3; color:#fff;
+}
+
