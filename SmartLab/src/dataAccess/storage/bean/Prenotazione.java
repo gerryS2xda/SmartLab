@@ -6,7 +6,7 @@ public class Prenotazione {
 
 	//instance field
 	private int id;
-	private LocalDate data;
+	private String data;
 	private String fascia_oraria;
 	private boolean stato; 
 	private String studente; //sostituire con oggetto studente
@@ -16,7 +16,7 @@ public class Prenotazione {
 	//constructor
 	public Prenotazione(){
 		id = 0;
-		data = LocalDate.now();
+		data = LocalDate.now().toString();
 		fascia_oraria = "";
 		stato = false;
 		studente = "";
@@ -26,7 +26,7 @@ public class Prenotazione {
 	
 	public Prenotazione(String fascia_or, String stud, int post){
 		id = 0;
-		data = LocalDate.now();
+		data = LocalDate.now().toString();
 		fascia_oraria = fascia_or;
 		stato = false;
 		studente = stud;
@@ -34,7 +34,7 @@ public class Prenotazione {
 		laboratorio = 0; //si puo' ottenere dall'oggetto Postazione
 	}
 	
-	public Prenotazione(LocalDate d, String fascia_or, String stud, int post, int lab){
+	public Prenotazione(String d, String fascia_or, String stud, int post, int lab){
 		data = d;
 		fascia_oraria = fascia_or;
 		studente = stud;
@@ -53,7 +53,7 @@ public class Prenotazione {
 	/**
 	 * @return the data
 	 */
-	public LocalDate getData() {
+	public String getData() {
 		return data;
 	}
 
@@ -96,7 +96,7 @@ public class Prenotazione {
 	/**
 	 * @param data the data to set
 	 */
-	public void setData(LocalDate data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
@@ -135,7 +135,7 @@ public class Prenotazione {
 	//other method
 	public String toString(){
 		String str = "Prenotazione n.ro "+ id;
-		return str += " \nData: " + data.toString() + "\nFascia oraria: " + fascia_oraria 
+		return str += " \nData: " + data + "\nFascia oraria: " + fascia_oraria 
 				+ "\nEmail studente: " + studente + "\nNumero postazione: " + postazione + "\nNome laboratorio: " + laboratorio;
 	}
 

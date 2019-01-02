@@ -87,7 +87,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		Prenotazione pr = new Prenotazione();
 		
 		pr.setID(res.getInt(1));
-		pr.setData(res.getDate(2).toLocalDate());
+		pr.setData(res.getDate(2).toLocalDate().toString());
 		pr.setFasciaOraria(res.getTime(3).toString());
 		pr.setStatus(res.getBoolean(4));
 		pr.setStudente(res.getString(5));
@@ -108,7 +108,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		while(res.next()){
 			Prenotazione pr = new Prenotazione();
 			pr.setID(res.getInt(1));
-			pr.setData(res.getDate(2).toLocalDate());
+			pr.setData(res.getDate(2).toLocalDate().toString());
 			pr.setFasciaOraria(res.getTime(3).toString());
 			pr.setStatus(res.getBoolean(4));
 			pr.setStudente(res.getString(5));
