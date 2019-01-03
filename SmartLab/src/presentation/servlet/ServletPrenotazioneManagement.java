@@ -7,9 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.Gson;
+import com.project.utils.Utils;
 
 import businessLogic.prenotazione.PrenotazioneManager;
+import dataAccess.storage.bean.Prenotazione;
 
 @WebServlet("/prenotazione-serv")
 public class ServletPrenotazioneManagement extends HttpServlet {
@@ -56,10 +61,44 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			}else{
 				response.getWriter().write(json.toJson("{\"status\": \"occupata\"}"));
 			}
+		}else if(action.equals("lista_pren")){
+			//costruisci risposta JSON
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			
+			String stud = "g.laucella@student.unisa.it"; //ottiene mail da obj Student presente in sessione
+			
+			String str = "{";
+			List<Prenotazione> prenotazioni = manager.getListPrenotazioniByStudent(stud);
+			int i = 0;
+			for(Prenotazione p : prenotazioni){
+				str+= "\"pren" + i + "\":" + p.toString() + ",";
+				i++;
+			}
+			str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+			response.getWriter().write(json.toJson(str));
+		}else if(action.equals("pren_status")){
+			//costruisci risposta JSON
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			
+			int id = Integer.parseInt(request.getParameter("id_pren"));
+			Prenotazione pr = manager.findPrenotazioneById(id);
+			
+			if(pr.isPrenotazioneActive()){
+				response.getWriter().write(json.toJson("{\"status\": \"active\"}"));
+			}else{
+				response.getWriter().write(json.toJson("{\"status\": \"scaduta\"}"));
+			}
+		}else if(action.equals("del_pren")){
+			
+			int id = Integer.parseInt(request.getParameter("id_pren"));
+			Prenotazione pr = manager.findPrenotazioneById(id);
+			manager.annullaPrenotazione(pr);
+			
 		}
 	}
-
-	
+		
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
