@@ -31,3 +31,6 @@ context.xml
 
 # JDT-specific (Eclipse Java Development Tools)     
 .classpath
+
+# settings folder of Eclipse #
+.settings/
