@@ -133,10 +133,10 @@ public class Prenotazione {
 	}
 	
 	//other method
-	public String toString(){
-		String str = "Prenotazione n.ro "+ id;
-		return str += " \nData: " + data + "\nFascia oraria: " + fascia_oraria 
-				+ "\nEmail studente: " + studente + "\nNumero postazione: " + postazione + "\nNome laboratorio: " + laboratorio;
+	public String toString(){	//adattato per costruzione della stringa JSON
+		String str = "{\"id\":" + id + ", \"data\": \"" + data + "\", \"fasciaOr\": \"" + fascia_oraria + "\", "
+				+ "\"email\": \"" + studente + "\", \"postazione\": " + postazione + ", \"laboratorio\": \"" + laboratorio + "\"}";
+		return str;
 	}
 
 }
