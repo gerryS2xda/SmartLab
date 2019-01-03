@@ -25,7 +25,7 @@ function effettuaPrenotazione(button){	//pulsante "Prenota"
 	var post = td.eq(0).text();
 	var f = td.eq(1).children().val(); //dammi il valore della <select> che e' stato impostato
 	var lab = $(".title_page").text();
-	$.post("prenotazione-serv", {"action": "effettua", "postazione": post, "fascia_or": f, "lab": lab}, function(resp, stat, xhr){
+	$.post("../prenotazione-serv", {"action": "effettua", "postazione": post, "fascia_or": f, "lab": lab}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp);
 			var esito = o.esito;
@@ -48,7 +48,7 @@ function verifyPostazioneAvailable(item){
 	var td = row.find("td"); //dammi tutti gli <td> che sono discendenti di <tr> selezionato prima
 	var post = td.eq(0).text();
 	var lab = $(".title_page").text();
-	$.post("prenotazione-serv", {"action": "check_post", "postazione": post, "fascia_or": x, "lab": lab}, function(resp, stat, xhr){
+	$.post("../prenotazione-serv", {"action": "check_post", "postazione": post, "fascia_or": x, "lab": lab}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp);
 			var status = o.status;

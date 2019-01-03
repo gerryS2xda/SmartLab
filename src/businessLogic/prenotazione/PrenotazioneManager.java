@@ -40,8 +40,6 @@ public class PrenotazioneManager {
 			rep.add(pr); 
 		}catch(SQLException e){
 			System.out.println("Errore: problema nell'aggiungere la prenotazione al DB!!");
-		}finally{
-			rep.closeConnection();
 		}
 		
 		return pr;
@@ -63,8 +61,6 @@ public class PrenotazioneManager {
 			rep.delete(pr);
 		}catch(SQLException e){
 			System.out.println("Errore: problema nella rimozione della prenotazione dal DB");
-		}finally{
-			rep.closeConnection();
 		}
 	}
 	
@@ -83,8 +79,6 @@ public class PrenotazioneManager {
 			pr = rep.findItemByQuery(new PrenotazioneById(id));
 		}catch(SQLException e){
 			System.out.println("Prenotazione non trovata!!");
-		}finally{
-			rep.closeConnection();
 		}
 		return pr;
 		
@@ -101,8 +95,6 @@ public class PrenotazioneManager {
 			rep.update(pr);
 		}catch(SQLException e){
 			System.out.println("Errore: problema nell'aggiornare una prenotazione dal DB");
-		}finally{
-			rep.closeConnection();
 		}
 	}
 	
@@ -119,8 +111,6 @@ public class PrenotazioneManager {
 			prenotazioni = rep.query(new PrenotazioneByStudent(stud));
 		}catch(SQLException e){
 			System.out.println("Errore: lo studente non ha effettuato prenotazioni");
-		}finally{
-			rep.closeConnection();
 		}
 		return prenotazioni;
 	} 
@@ -167,5 +157,6 @@ public class PrenotazioneManager {
 	}
 
 }
+
 
 

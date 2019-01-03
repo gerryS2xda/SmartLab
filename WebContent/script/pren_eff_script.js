@@ -6,7 +6,7 @@ function loadContent(){
 
 //Funzioni per la gestione della tabella "Prenotazioni Effettuate"
 function loadTableBody(){
-	$.post("lista_pren", {"action": "lista_pren"}, function(reso, stat, xhr){
+	$.post("../prenotazione-serv", {"action": "lista_pren"}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
 			var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
@@ -33,13 +33,15 @@ function deletePrenotazione(item){	//usata da checkbox per cancellare le prenota
 		if(isPrenotazioneActive(id)){
 			var esito = confirm("Desidera annullare la prenotazione n.ro " + id + " del " + td.eq(1).text() + " ?");
 			if(esito){
-				$.post("posta-contr", {"action": "del_pren", "id_pren" : id}, function(resp, stat, xhr){
+				$.post("../prenotazione-serv", {"action": "del_pren", "id_pren" : id}, function(resp, stat, xhr){
 					if(xhr.readyState == 4 && stat == "success"){
 						row.remove();	//rimuovi la riga interessata
 					}else{
 						window.location.href = "./error.jsp"; //pagina errore 404
 					} 
 				});
+			}else{
+				item.prop('checked', false);
 			}
 		}
 	}
@@ -47,7 +49,7 @@ function deletePrenotazione(item){	//usata da checkbox per cancellare le prenota
 
 function isPrenotazioneActive(id){
 	var b = true;
-	$.post("posta-contr", {"action": "pren_status", "id_pren" : id}, function(resp, stat, xhr){
+	$.post("../prenotazione-serv", {"action": "pren_status", "id_pren" : id}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp);
 			var esito = o.esito;
