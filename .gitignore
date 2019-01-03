@@ -23,9 +23,11 @@
 hs_err_pid*
 /build/
 
-# web.xml #
-web.xml
-
 # context.xml #
 context.xml
 
+# Eclipse Core      
+.project
+
+# JDT-specific (Eclipse Java Development Tools)     
+.classpath
