@@ -19,10 +19,6 @@ public class ServletPostazioneManagement extends HttpServlet {
      */
     public ServletPostazioneManagement() {
         super();
-        asdasdasd
-        asd
-        das
-        ads
         // TODO Auto-generated constructor stub
     }
 
