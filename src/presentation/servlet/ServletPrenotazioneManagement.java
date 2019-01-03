@@ -66,7 +66,7 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 			
-			String stud = "g.laucella@student.unisa.it"; //ottiene mail da obj Student presente in sessione
+			String stud = "g.laucella@studenti.unisa.it"; //ottiene mail da obj Student presente in sessione
 			
 			String str = "{";
 			List<Prenotazione> prenotazioni = manager.getListPrenotazioniByStudent(stud);
