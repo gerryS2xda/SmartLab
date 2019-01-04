@@ -1,17 +1,17 @@
-package laboratorioTest;
+package assegnamentoTest;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import businessLogic.laboratorio.ListaLab;
+import businessLogic.assegnamento.AssegnamentoSql;
 
-public class ListaLabTest {
+public class AssegnamentoSqlTest {
 	
 	@Test
     public void testGetInstance() {
         System.out.println("getInstance");
-        ListaLab result = ListaLab.getInstance();
+        AssegnamentoSql result = AssegnamentoSql.getInstance("lab1","resp1");
         assertNotNull(result);
         // TODO review the generated test code and remove the default call to fail.
         
@@ -20,9 +20,9 @@ public class ListaLabTest {
 	@Test
 	public void testToSqlQuery() {
 		System.out.println("toSqlQuery");
-		ListaLab lista=new ListaLab();
-		ListaLab result=ListaLab.getInstance();
-		assertEquals(lista.toSqlQuery(),result.toSqlQuery());
+		AssegnamentoSql ass=new AssegnamentoSql("lab1","resp1");
+		AssegnamentoSql result=AssegnamentoSql.getInstance("lab1","resp1");
+		assertEquals(ass.toSqlQuery(),result.toSqlQuery());
 	}
 
 }
