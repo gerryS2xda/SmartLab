@@ -1,4 +1,4 @@
-package businessLogic_Postazione.postazione;
+package businessLogic.Postazione;
 
 import dataAccess.storage.SqlSpecification;
 

@@ -1,4 +1,4 @@
-package businessLogic_Postazione.postazione;
+package businessLogic.Postazione;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
