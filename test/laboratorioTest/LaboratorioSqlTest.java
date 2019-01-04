@@ -20,7 +20,7 @@ public class LaboratorioSqlTest {
 	
 	@Test
 	public void testToSqlQuery() {
-		
+		LaboratorioSql lab=new LaboratorioSql("lab1");
 	}
 
 }
