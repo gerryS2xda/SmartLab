@@ -57,7 +57,9 @@ public class LaboratorioManager {
 	    * @return lista laboratori
 	    */
 	    public List<Laboratorio> getLaboratoryList(){
-			return null;}
+	    	
+			return null;
+		}
 	  /** mostra una statistica di utilizzo di un laboratorio in termini di quante postazioni vengono         * occupate al giorno.
 	    *@param lab laboratori su desidera vedere la statistica di utilizzo
 	    *@return statistiche di utilizzo di un laboratorio 
