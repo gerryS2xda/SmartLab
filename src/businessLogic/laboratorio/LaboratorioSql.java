@@ -4,6 +4,17 @@ import dataAccess.storage.SqlSpecification;
 
 public class LaboratorioSql implements SqlSpecification {
 	
+	private static LaboratorioSql instance;
+
+    public static LaboratorioSql getInstance(String lab) {
+
+        if (instance == null) {
+            instance = new LaboratorioSql(lab);
+        }
+        return instance;
+
+    }
+	
 	public static final String TABLE_NAME = "laboratorio";
 	
 	private String laboratorio;
