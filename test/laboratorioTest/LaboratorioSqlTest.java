@@ -24,6 +24,7 @@ public class LaboratorioSqlTest {
 		LaboratorioSql lab=new LaboratorioSql("lab1");
 		LaboratorioSql result=LaboratorioSql.getInstance("lab1");
 		assertEquals(lab.toSqlQuery(),result.toSqlQuery());
+		
 	}
 
 }
