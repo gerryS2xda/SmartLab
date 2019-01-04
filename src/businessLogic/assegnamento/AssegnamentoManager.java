@@ -1,10 +1,8 @@
-package businessLogic.Postazione;
+package businessLogic.assegnamento;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import businessLogic.assegnamento.AssegnamentoRepository;
-import businessLogic.assegnamento.ListaRespAss;
 import dataAccess.storage.bean.Assegnamento;
 	/** contiene tutte le operazione necessarie per gestire la relazione tra laboratorio e responsabile
 	*@author giuseppe paolisi
