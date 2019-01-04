@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import businessLogic_Postazione.postazione.PostazioneRepository;
+import businessLogic.Postazione.PostazioneRepository;
 import dataAccess.storage.Specification;
 import dataAccess.storage.bean.Postazione;
 

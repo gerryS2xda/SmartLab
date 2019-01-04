@@ -44,7 +44,7 @@ public class LaboratorioManager {
 					repository.delete(lab);
 				} catch (SQLException e) {
 					flag=false;
-					System.err.println("non è possibile aggiungere il laboratorio al sistema");
+					System.err.println("non è possibile eliminare il laboratorio dal sistema");
 					e.printStackTrace();
 				}
 	    	}else{
@@ -57,7 +57,13 @@ public class LaboratorioManager {
 	    * @return lista laboratori
 	    */
 	    public List<Laboratorio> getLaboratoryList(){
-	    	
+	    	LaboratorioRepository repository=new LaboratorioRepository();
+	    	try {
+				return repository.query(new ListaLab());
+			} catch (SQLException e) {
+				System.err.println("non è possibile ritornare la lista dei laboratori");
+				e.printStackTrace();
+			}
 			return null;
 		}
 	  /** mostra una statistica di utilizzo di un laboratorio in termini di quante postazioni vengono         * occupate al giorno.
