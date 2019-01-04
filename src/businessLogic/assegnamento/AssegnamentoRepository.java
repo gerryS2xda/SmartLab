@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import businessLogic.laboratorio.LaboratorioRepository;
 import dataAccess.storage.Connessione;
 import dataAccess.storage.Specification;
 import dataAccess.storage.Repository;
@@ -14,7 +15,18 @@ import dataAccess.storage.SqlSpecification;
 
 import dataAccess.storage.bean.Assegnamento;
 public class AssegnamentoRepository extends Connessione implements Repository<Assegnamento>{
+	
+	private static AssegnamentoRepository instance;
 
+    public static AssegnamentoRepository getInstance() {
+
+        if (instance == null) {
+            instance = new AssegnamentoRepository();
+        }
+        return instance;
+
+    }
+	
     public static final String TABLE_NAME = "assegnamento";//nome della tabella su cui saranno effettuate le operazioni
 
 
