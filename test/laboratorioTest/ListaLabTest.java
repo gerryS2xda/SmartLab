@@ -21,7 +21,7 @@ public class ListaLabTest {
 	public void testToSqlQuery() {
 		ListaLab lista=new ListaLab();
 		ListaLab result=ListaLab.getInstance();
-		assertEquals(lista,result);
+		assertEquals(lista.toSqlQuery(),result.toSqlQuery());
 	}
 
 }
