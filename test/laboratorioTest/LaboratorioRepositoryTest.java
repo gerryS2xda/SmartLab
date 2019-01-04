@@ -36,9 +36,54 @@ public class LaboratorioRepositoryTest {
 		assertEquals(lab,result);
 		instance.delete(lab);
 	}
-	/*@Test
-	public void test() {
-		fail("Not yet implemented");
-	}*/
+	
+	@Test
+	public void testDelete() throws SQLException{
+		System.out.println("delete");
+		Laboratorio lab= new Laboratorio();
+		lab.setNome("Lab1");
+		lab.setPosti(100);
+		lab.setIDlaboratorio("12345678");
+		lab.setStato(true);
+		//-----------------
+		LaboratorioRepository instance= LaboratorioRepository.getInstance();
+		instance.add(lab);
+		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
+		instance.delete(lab);
+		Laboratorio result=instance.findItemByQuery(sql);
+		assertEquals(null,result);
+	}
+	
+	@Test
+	public void testFindItemByQuery() throws SQLException{
+		System.out.println("findItemByQuery");
+		Laboratorio lab= new Laboratorio();
+		lab.setNome("Lab1");
+		lab.setPosti(100);
+		lab.setIDlaboratorio("12345678");
+		lab.setStato(true);
+		//-----------------
+		LaboratorioRepository instance= LaboratorioRepository.getInstance();
+		instance.add(lab);
+		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
+		Laboratorio result=instance.findItemByQuery(sql);
+		assertEquals(lab,result);
+	}
+	
+	@Test
+	public void testQuery() throws SQLException{
+		System.out.println("query");
+		Laboratorio lab= new Laboratorio();
+		lab.setNome("Lab1");
+		lab.setPosti(100);
+		lab.setIDlaboratorio("12345678");
+		lab.setStato(true);
+		//-----------------
+		LaboratorioRepository instance= LaboratorioRepository.getInstance();
+		instance.add(lab);
+		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
+		Laboratorio result=instance.findItemByQuery(sql);
+		assertEquals(lab,result);
+	}
 
 }
