@@ -14,6 +14,18 @@ import dataAccess.storage.Repository;
 import dataAccess.storage.SqlSpecification;
 
 public class LaboratorioRepository extends Connessione implements Repository<Laboratorio>{
+	
+	
+	private static LaboratorioRepository instance;
+
+    public static LaboratorioRepository getInstance() {
+
+        if (instance == null) {
+            instance = new LaboratorioRepository();
+        }
+        return instance;
+
+    }
 
     public static final String TABLE_NAME = "laboratorio";//nome della tabella su cui saranno effettuate le operazioni
 
