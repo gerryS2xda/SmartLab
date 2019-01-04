@@ -20,8 +20,10 @@ public class LaboratorioSqlTest {
 	
 	@Test
 	public void testToSqlQuery() {
+		System.out.println("toSqlQuery");
 		LaboratorioSql lab=new LaboratorioSql("lab1");
-		
+		LaboratorioSql result=LaboratorioSql.getInstance("lab1");
+		assertEquals(lab.toSqlQuery(),result.toSqlQuery());
 	}
 
 }
