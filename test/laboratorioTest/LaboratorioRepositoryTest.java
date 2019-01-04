@@ -17,7 +17,7 @@ public class LaboratorioRepositoryTest {
         System.out.println("getInstance");
         LaboratorioRepository result = LaboratorioRepository.getInstance();
         assertNotNull(result);
-        // TODO review the generated test code and remove the default call to fail.
+        
         
 	}
 	@Test
