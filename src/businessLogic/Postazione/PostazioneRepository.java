@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import businessLogic.laboratorio.LaboratorioRepository;
 import dataAccess.storage.Connessione;
 import dataAccess.storage.Repository;
 import dataAccess.storage.Specification;
@@ -15,8 +16,19 @@ import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 
 public class PostazioneRepository extends Connessione implements Repository<Postazione>{
+	
+	private static PostazioneRepository instance;
 
-	 public static final String TABLE_NAME = "laboratorio";
+    public static PostazioneRepository getInstance() {
+
+        if (instance == null) {
+            instance = new PostazioneRepository();
+        }
+        return instance;
+
+    }
+
+	 public static final String TABLE_NAME = "postazione";
 	 
 	@Override
 	public void add(Postazione pos) throws SQLException {

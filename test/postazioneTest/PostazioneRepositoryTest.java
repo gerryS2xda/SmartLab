@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 import businessLogic.Postazione.PostazioneRepository;
+import businessLogic.Postazione.PostazioneSql;
 import dataAccess.storage.Specification;
 import dataAccess.storage.bean.Postazione;
 
@@ -21,7 +22,7 @@ public class PostazioneRepositoryTest
         assertNotNull(result);
 
 	}
-}
+	
 	@Test
 	public void testAdd() throws SQLException
 	{
@@ -77,9 +78,10 @@ public class PostazioneRepositoryTest
 		pos.setLaboratorio("lab1");
 		
 		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
-		instance.add(pos);
+		
 		
 		PostazioneRepository instance = PostazioneRepository.getInstance();
+		instance.add(pos);
 		Postazione test=instance.findItemByQuery(sql);
 		assertEquals(pos,test);
 		instance.delete(pos);
