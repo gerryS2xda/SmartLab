@@ -103,9 +103,9 @@ public class PostazioneRepository extends Connessione implements Repository<Post
 
 			while (rs.next()) {
 
-                pos.setNumero(rs.getInt("IDlaboratorio"));
-				pos.setLaboratorio(rs.getString("nome"));
-				pos.setStato(rs.getBoolean("posti"));
+                pos.setNumero(rs.getInt("numero"));
+				pos.setLaboratorio(rs.getString("laboratorio"));
+				pos.setStato(rs.getBoolean("stato"));
               
 
 			}

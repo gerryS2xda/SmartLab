@@ -10,7 +10,7 @@ import businessLogic.laboratorio.LaboratorioRepository;
 import businessLogic.laboratorio.LaboratorioSql;
 import dataAccess.storage.bean.Laboratorio;
 
-public class LaboratorioRepositoriTest {
+public class LaboratorioRepositoryTest {
 	
 	@Test
     public void testGetInstance() {
