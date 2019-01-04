@@ -3,11 +3,14 @@ package laboratorioTest;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
 import businessLogic.laboratorio.LaboratorioRepository;
 import businessLogic.laboratorio.LaboratorioSql;
+import businessLogic.laboratorio.ListaLab;
 import dataAccess.storage.bean.Laboratorio;
 
 public class LaboratorioRepositoryTest {
@@ -17,7 +20,6 @@ public class LaboratorioRepositoryTest {
         System.out.println("getInstance");
         LaboratorioRepository result = LaboratorioRepository.getInstance();
         assertNotNull(result);
-        // TODO review the generated test code and remove the default call to fail.
         
 	}
 	@Test
@@ -68,6 +70,7 @@ public class LaboratorioRepositoryTest {
 		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
 		Laboratorio result=instance.findItemByQuery(sql);
 		assertEquals(lab,result);
+		instance.delete(lab);
 	}
 	
 	@Test
@@ -78,12 +81,11 @@ public class LaboratorioRepositoryTest {
 		lab.setPosti(100);
 		lab.setIDlaboratorio("12345678");
 		lab.setStato(true);
+		List<Laboratorio> laboratori =new ArrayList<Laboratorio>();
 		//-----------------
-		LaboratorioRepository instance= LaboratorioRepository.getInstance();
-		instance.add(lab);
-		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
-		Laboratorio result=instance.findItemByQuery(sql);
-		assertEquals(lab,result);
+		LaboratorioRepository.getInstance().add(lab);
+		laboratori=LaboratorioRepository.getInstance().query(new ListaLab());
+		assertTrue(!laboratori.isEmpty());
 	}
 
 }
