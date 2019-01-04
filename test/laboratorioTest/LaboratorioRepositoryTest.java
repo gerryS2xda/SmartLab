@@ -83,9 +83,11 @@ public class LaboratorioRepositoryTest {
 		lab.setStato(true);
 		List<Laboratorio> laboratori =new ArrayList<Laboratorio>();
 		//-----------------
+
 		LaboratorioRepository.getInstance().add(lab);
 		laboratori=LaboratorioRepository.getInstance().query(new ListaLab());
 		assertTrue(!laboratori.isEmpty());
+
 	}
 
 }
