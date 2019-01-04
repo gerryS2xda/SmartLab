@@ -2,7 +2,7 @@ package postazioneTest;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import businessLogic_Postazione.postazione.ListaPos;
+import businessLogic.postazione.ListaPos;
 public class ListaPosTest {
 
 	@Test
@@ -18,7 +18,7 @@ public class ListaPosTest {
 		System.out.println("toSqlQuery");
 		ListaPos lista=new ListaPos();
 		ListaPos result=ListaPos.getInstance();
-		assertEquals(lista.toSqlQuery(),result.toSqlQuery());
+		assertEqual(lista.toSqlQuery(),result.toSqlQuery());
 	}
 
 }

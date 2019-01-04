@@ -2,6 +2,7 @@ package postazioneTest;
 
 import static org.junit.Assert.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -48,14 +49,14 @@ public class PostazioneRepositoryTest
 		instance.add(pos);
 		instance.delete(pos);
 		Postazione test=instance.findItemByQuery(sql);
-		assertTrue(null,test);
+		assertEquals(null,test);
 	}
 	
 	public void findItemByQuery(Specification specification) throws SQLException
 	{
 		System.out.println("findItemByQuery");
 		Postazione pos=new Postazione();
-		businessLogic.Postazione.PostazioneRepository instance = PostazioneRepository.getInstance();
+		PostazioneRepository instance = PostazioneRepository.getInstance();
 		
 		pos.setNumero(1);
 		pos.setLaboratorio("lab1");
@@ -63,12 +64,26 @@ public class PostazioneRepositoryTest
 		
 		instance.add(pos);
 		Postazione test=instance.findItemByQuery(sql);
-		assertEqual(pos,test);
+		assertEquals(pos,test);
+		instance.delete(pos);
 	}
 	
-	public void query(Specification specification) throws SQLException 
+	public void query() throws SQLException 
 	{
-		System.out.println("add");
+		System.out.println("query");
+		Postazione pos=new Postazione();
+		
+		pos.setNumero(1);
+		pos.setLaboratorio("lab1");
+		
+		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
+		instance.add(pos);
+		
+		PostazioneRepository instance = PostazioneRepository.getInstance();
+		Postazione test=instance.findItemByQuery(sql);
+		assertEquals(pos,test);
+		instance.delete(pos);
+		
 	}
 	
 	

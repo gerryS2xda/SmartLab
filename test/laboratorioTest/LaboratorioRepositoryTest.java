@@ -84,6 +84,7 @@ public class LaboratorioRepositoryTest {
 		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
 		Laboratorio result=instance.findItemByQuery(sql);
 		assertEquals(lab,result);
+		instance.delete(lab);
 	}
 
 }
