@@ -54,9 +54,16 @@ public class PostazioneRepositoryTest
 	public void findItemByQuery(Specification specification) throws SQLException
 	{
 		System.out.println("findItemByQuery");
-		PostazioneRepository instance = PostazioneRepository.getInstance();
+		Postazione pos=new Postazione();
+		businessLogic.Postazione.PostazioneRepository instance = PostazioneRepository.getInstance();
+		
+		pos.setNumero(1);
+		pos.setLaboratorio("lab1");
 		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
 		
+		instance.add(pos);
+		Postazione test=instance.findItemByQuery(sql);
+		assertEqual(pos,test);
 	}
 	
 	public void query(Specification specification) throws SQLException 
