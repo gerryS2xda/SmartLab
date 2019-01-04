@@ -1,6 +1,8 @@
 package businessLogic.prenotazione;
 
-public class PrenotazioneByStudent implements PrenotazioneSqlSpecification{
+import dataAccess.storage.SqlSpecification;
+
+public class PrenotazioneByStudent implements SqlSpecification{
 
 	//instance field
 	private String stud;	//sostituire con oggetto Studente
