@@ -21,6 +21,6 @@ public class ListaLab implements SqlSpecification{
         return String.format(
                 "SELECT * FROM %1$s ;",
                 TABLE_NAME
-        );
+        					);
     }
 }
