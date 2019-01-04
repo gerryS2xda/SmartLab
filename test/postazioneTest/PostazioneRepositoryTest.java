@@ -1,3 +1,5 @@
+package postazioneTest;
+
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
@@ -6,6 +8,7 @@ import org.junit.Test;
 
 import businessLogic.laboratorio.LaboratorioRepository;
 import businessLogic.laboratorio.LaboratorioSql;
+import businessLogic_Postazione.postazione.PostazioneRepository;
 import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 
