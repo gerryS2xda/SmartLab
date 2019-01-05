@@ -9,6 +9,18 @@ import dataAccess.storage.bean.Laboratorio;
 *@author giuseppe paolisi
 */
 public class LaboratorioManager {
+	
+	private static LaboratorioManager instance;
+
+    public static LaboratorioManager getInstance() {
+
+        if (instance == null) {
+            instance = new LaboratorioManager();
+        }
+        return instance;
+
+    }
+	
 	 /**Crea un laboratorio in base al parametro in input
 	    *@param lab laboratorio che si vuole aggiungere al sistema
 	    *@pre lab!=null

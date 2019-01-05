@@ -16,7 +16,7 @@ public class ListaPosTest {
 	@Test
 	public void testToSqlQuery() {
 		System.out.println("toSqlQuery");
-		ListaPos lista=new ListaPos();
+		ListaPos lista=new ListaPos("");
 		ListaPos result=ListaPos.getInstance();
 		assertEquals(lista.toSqlQuery(),result.toSqlQuery());
 	}
