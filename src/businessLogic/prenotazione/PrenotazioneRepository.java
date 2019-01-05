@@ -22,7 +22,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 	 */
 	public static final String[] COLUMN_NAME = {"data", "fascia_oraria", "stato", "studente", "postazione", "laboratorio"};
 	public static final String[] COLUMN_NAME_WITH_ID = {"IDprenotazione", "data", "fascia_oraria", "stato", "studente", "postazione", "laboratorio"};
-	public static PrenotazioneRepository instance;
+	private static PrenotazioneRepository instance;
 	
 	public static PrenotazioneRepository getInstance(){
 		if(instance == null){
