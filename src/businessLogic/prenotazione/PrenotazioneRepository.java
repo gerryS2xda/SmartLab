@@ -21,6 +21,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 	 * l'id viene aggiunto in maniera automatica (auto_increment)
 	 */
 	public static final String[] COLUMN_NAME = {"data", "fascia_oraria", "stato", "studente", "postazione", "laboratorio"};
+	public static final String[] COLUMN_NAME_WITH_ID = {"IDprenotazione", "data", "fascia_oraria", "stato", "studente", "postazione", "laboratorio"};
 	public static PrenotazioneRepository instance;
 	
 	public static PrenotazioneRepository getInstance(){
@@ -47,6 +48,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		
 		
 		conn = Connessione.getConnection();
+		
 		ps = conn.prepareStatement(insertSQL);
 		
 		ps.setDate(1, Date.valueOf(item.getData()));
@@ -55,9 +57,12 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		ps.setString(4, item.getStudente());
 		ps.setInt(5, item.getPostazione());
 		ps.setInt(6, item.getLaboratorio());
-			
-		ps.executeUpdate();
 		
+		ps.executeUpdate();	
+		
+		if(Utils.isDriverManagerEnabled){
+			DMConnectionPool.releaseConnection(conn);
+		}
 	}
 	
 	public void delete(Prenotazione item)throws SQLException{
@@ -69,9 +74,12 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		
 		conn = Connessione.getConnection();
 		stmt = conn.createStatement();
-		
+				
 		stmt.executeUpdate(delSQL);
 		
+		if(Utils.isDriverManagerEnabled){
+			DMConnectionPool.releaseConnection(conn);
+		}
 	}
 	
 	public void update(Prenotazione item)throws SQLException{
@@ -80,7 +88,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		PreparedStatement ps = null;
 		
 		String updateSQL = "update " + TABLE_NAME + " set data = ?, fascia_oraria = ?, "
-				+ "stato = ?, studente = ?, laboratorio = ? where IDprenotazione = " + item.getId();
+				+ "stato = ?, studente = ?, postazione = ?, laboratorio = ? where IDprenotazione = " + item.getId();
 		
 		conn = Connessione.getConnection();
 		ps = conn.prepareStatement(updateSQL);
@@ -94,6 +102,9 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 			
 		ps.executeUpdate();
 		
+		if(Utils.isDriverManagerEnabled){
+			DMConnectionPool.releaseConnection(conn);
+		}
 	}
 	
 	public Prenotazione findItemByQuery(Specification spec)throws SQLException{
@@ -101,13 +112,15 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		Connection conn = null;
 		SqlSpecification sqlSpec = (SqlSpecification) spec;
 		Statement stmt = null;
-		Prenotazione pr = new Prenotazione();
+		Prenotazione pr = null;
 		
 		conn = Connessione.getConnection();
 		stmt = conn.createStatement();
 		
 		ResultSet res = stmt.executeQuery(sqlSpec.toSqlQuery());
+		
 		while(res.next()){
+			pr = new Prenotazione();
 			pr.setID(res.getInt(1));
 			pr.setData(res.getDate(2).toLocalDate().toString());
 			pr.setFasciaOraria(res.getString(3));
@@ -115,6 +128,11 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 			pr.setStudente(res.getString(5));
 			pr.setPostazione(res.getInt(6));
 			pr.setLaboratorio(res.getInt(7));
+			
+		}
+		
+		if(Utils.isDriverManagerEnabled){
+			DMConnectionPool.releaseConnection(conn);
 		}
 		
 		return pr;
@@ -144,6 +162,9 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 			prenotazioni.add(pr);
 		}
 		
+		if(Utils.isDriverManagerEnabled){
+			DMConnectionPool.releaseConnection(conn);
+		}
 		
 		return prenotazioni;
 	}
