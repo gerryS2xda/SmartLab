@@ -24,7 +24,7 @@ public class LaboratorioManagerTest {
 	}
 	
 	@Test
-	public void testCreateLaboratory() throws SQLException{
+	public void testCreateLaboratory(){
 		System.out.println("createLaboratory");
 		Laboratorio lab= new Laboratorio();
 		lab.setNome("Lab1");
@@ -33,16 +33,12 @@ public class LaboratorioManagerTest {
 		lab.setStato(true);
 		//---------
 		LaboratorioManager instance=LaboratorioManager.getInstance();
-		instance.createLaboratory(lab);
-		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
-		LaboratorioRepository repository=new LaboratorioRepository();
-		Laboratorio result=repository.findItemByQuery(sql);
-		assertEquals(lab,result);
-		repository.delete(lab);
+		assertTrue(instance.createLaboratory(lab));
+		instance.removeLaboratory(lab);
 	}
 
 	@Test
-	public void testDeleteLaboratory() throws SQLException{
+	public void testDeleteLaboratory(){
 		System.out.println("remuveLaboratory");
 		Laboratorio lab= new Laboratorio();
 		lab.setNome("Lab1");
@@ -51,10 +47,8 @@ public class LaboratorioManagerTest {
 		lab.setStato(true);
 		//---------
 		LaboratorioManager instance=LaboratorioManager.getInstance();
-		LaboratorioRepository repository=new LaboratorioRepository();
-		repository.add(lab);
-		instance.removeLaboratory(lab);
-		assertEquals(null,repository.findItemByQuery(new LaboratorioSql(lab.getIDlaboratorio())));
+		assertTrue(instance.removeLaboratory(lab));
+		
 	}
 	
 	@Test
@@ -68,8 +62,7 @@ public class LaboratorioManagerTest {
 		List<Laboratorio> laboratori =new ArrayList<Laboratorio>();
 		//---------
 		LaboratorioManager instance=LaboratorioManager.getInstance();
-		LaboratorioRepository repository=new LaboratorioRepository();
-		repository.add(lab);
+		instance.createLaboratory(lab);
 		laboratori=instance.getLaboratoryList();
 		assertTrue(!laboratori.isEmpty());
 	}
