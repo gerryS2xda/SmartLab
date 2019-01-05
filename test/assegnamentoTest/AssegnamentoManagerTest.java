@@ -3,6 +3,8 @@ package assegnamentoTest;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -27,7 +29,7 @@ public class AssegnamentoManagerTest {
 		System.out.println("setRespToLab");
 		Assegnamento ass= new Assegnamento();
 		ass.setLaboratorio("Lab1");
-		ass.setResponsabile("resp1");;
+		ass.setResponsabile("resp1");
 		//-----------------
 		AssegnamentoManager instance= AssegnamentoManager.getInstance();
 		instance.setRespToLab(ass);
@@ -37,6 +39,38 @@ public class AssegnamentoManagerTest {
 		assertEquals(result,ass);
 		repository.delete(ass);
 		
+	}
+	
+	@Test
+	public void testRemoveResponsabile() throws SQLException{
+		System.out.println("removeResponsabile");
+		Assegnamento ass= new Assegnamento();
+		ass.setLaboratorio("Lab1");
+		ass.setResponsabile("resp1");
+		//-----------------
+		AssegnamentoManager instance= AssegnamentoManager.getInstance();
+		instance.removeResponsabile(ass);
+		AssegnamentoRepository repository=new AssegnamentoRepository();
+		AssegnamentoSql sql=new AssegnamentoSql(ass.getLaboratorio(),ass.getResponsabile());
+		Assegnamento result=repository.findItemByQuery(sql);
+		assertEquals(null,result);
+		repository.delete(ass);
+	}
+	
+	@Test
+	public void testShowResponsabileAndLaboratorio() throws SQLException{
+		System.out.println("removeResponsabile");
+		Assegnamento ass= new Assegnamento();
+		ass.setLaboratorio("Lab1");
+		ass.setResponsabile("resp1");
+		List<Assegnamento> assegnamenti= new ArrayList<Assegnamento>();
+		//-----------------
+		AssegnamentoRepository repository=new AssegnamentoRepository();
+		repository.add(ass);
+		AssegnamentoManager instance= AssegnamentoManager.getInstance();
+		assegnamenti=instance.showResponsabileAndLaboratorio();
+		assertTrue(!assegnamenti.isEmpty());
+		repository.delete(ass);
 	}
 
 }
