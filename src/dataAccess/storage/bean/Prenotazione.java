@@ -15,33 +15,9 @@ public class Prenotazione {
 	
 	//constructor
 	public Prenotazione(){
-		id = 0;
-		data = LocalDate.now().toString();
-		fascia_oraria = "";
-		stato = false;
-		studente = "";
-		postazione = 0;
-		laboratorio = 0;
+		//vuoto
 	}
 	
-	public Prenotazione(String fascia_or, String stud, int post){
-		id = 0;
-		data = LocalDate.now().toString();
-		fascia_oraria = fascia_or;
-		stato = false;
-		studente = stud;
-		postazione = post;
-		laboratorio = 0; //si puo' ottenere dall'oggetto Postazione
-	}
-	
-	public Prenotazione(String d, String fascia_or, String stud, int post, int lab){
-		data = d;
-		fascia_oraria = fascia_or;
-		studente = stud;
-		postazione = post;
-		laboratorio = lab;
-	}
-
 	//getter and setter
 	/**
 	 * @return the id

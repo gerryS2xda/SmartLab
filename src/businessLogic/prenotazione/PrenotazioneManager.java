@@ -29,7 +29,11 @@ public class PrenotazioneManager {
 	 */
 	public Prenotazione effettuaPrenotazione(String stud, int post, String fasciaOraria){
 		
-		Prenotazione pr = new Prenotazione(fasciaOraria, stud, post);
+		Prenotazione pr = new Prenotazione();
+		pr.setData(LocalDate.now().toString());
+		pr.setFasciaOraria(fasciaOraria);
+		pr.setPostazione(post);
+		pr.setStudente(stud);
 		
 		//aggiungere il controllo della postazione
 		if(getNumPrenotazioniEffettuateOggi(stud) < 3){
