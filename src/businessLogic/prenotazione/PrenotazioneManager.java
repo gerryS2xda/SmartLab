@@ -16,7 +16,6 @@ public class PrenotazioneManager {
 	
 	private static PrenotazioneManager instance;
 	
-	//use of singleton design pattern
 	public static PrenotazioneManager getInstance(){
 		
 		if(instance == null){	//se non e' stato istanziato, crea nuova istanza
@@ -25,7 +24,7 @@ public class PrenotazioneManager {
 		return instance;
 	}
 	
-	private PrenotazioneManager(){}
+	public PrenotazioneManager(){}
 
 	/**
 	 * Restituisce la prenotazione che e' stata effettuata in base ai dati passati in input.
