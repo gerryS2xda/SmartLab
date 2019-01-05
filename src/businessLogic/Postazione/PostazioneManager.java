@@ -5,9 +5,22 @@ import java.util.ArrayList;
 import dataAccess.storage.bean.*;
 import java.util.List;
 
+import businessLogic.laboratorio.LaboratorioManager;
 import businessLogic.prenotazione.PrenotazioneManager;
 
 public class PostazioneManager {
+	
+	private static PostazioneManager instance;
+
+    public static PostazioneManager getInstance() 
+    {
+
+        if (instance == null) 
+      {
+            instance = new PostazioneManager();
+        }
+        return instance;
+    }
 	
 /**
  * Crea una postazione con i vari parametri prescelti
