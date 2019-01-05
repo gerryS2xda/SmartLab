@@ -3,11 +3,23 @@ package businessLogic.assegnamento;
 import java.sql.SQLException;
 import java.util.List;
 
+import businessLogic.laboratorio.LaboratorioManager;
 import dataAccess.storage.bean.Assegnamento;
 	/** contiene tutte le operazione necessarie per gestire la relazione tra laboratorio e responsabile
 	*@author giuseppe paolisi
 	*/
 public class AssegnamentoManager {
+	
+	private static AssegnamentoManager instance;
+
+    public static AssegnamentoManager getInstance() {
+
+        if (instance == null) {
+            instance = new AssegnamentoManager();
+        }
+        return instance;
+
+    }
 
  /** permette di assegnare un responsabile a un laboratorio
     *@param ass contiene il responsabile e il laboratorio che saranno associati
