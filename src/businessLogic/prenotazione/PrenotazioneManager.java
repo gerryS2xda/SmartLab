@@ -14,6 +14,17 @@ import dataAccess.storage.bean.Prenotazione;
 */
 public class PrenotazioneManager {
 	
+	private static PrenotazioneManager instance;
+	
+	public static PrenotazioneManager getInstance(){
+		
+		if(instance == null){	//se non e' stato istanziato, crea nuova istanza
+			instance = new PrenotazioneManager();
+		}
+		return instance;
+	}
+	
+	public PrenotazioneManager(){}
 
 	/**
 	 * Restituisce la prenotazione che e' stata effettuata in base ai dati passati in input.
@@ -29,14 +40,18 @@ public class PrenotazioneManager {
 	 */
 	public Prenotazione effettuaPrenotazione(String stud, int post, String fasciaOraria){
 		
-		Prenotazione pr = new Prenotazione(fasciaOraria, stud, post);
+		Prenotazione pr = new Prenotazione();
+		pr.setData(LocalDate.now().toString());
+		pr.setFasciaOraria(fasciaOraria);
+		pr.setPostazione(post);
+		pr.setStudente(stud);
 		
 		//aggiungere il controllo della postazione
 		if(getNumPrenotazioniEffettuateOggi(stud) < 3){
 			pr.setStatus(true); //se i controlli sono rispettati
 		}
 			
-		PrenotazioneRepository rep = new PrenotazioneRepository();
+		PrenotazioneRepository rep = PrenotazioneRepository.getInstance();
 		try{
 			rep.add(pr); 
 		}catch(SQLException e){
@@ -57,7 +72,7 @@ public class PrenotazioneManager {
 	public void annullaPrenotazione(Prenotazione pr){
 
 		
-		PrenotazioneRepository rep = new PrenotazioneRepository();
+		PrenotazioneRepository rep = PrenotazioneRepository.getInstance();
 		try{
 			rep.delete(pr);
 		}catch(SQLException e){
@@ -74,7 +89,7 @@ public class PrenotazioneManager {
 	public Prenotazione findPrenotazioneById(int id){
 		
 		if(id < 0) return null;
-		PrenotazioneRepository rep = new PrenotazioneRepository();
+		PrenotazioneRepository rep = PrenotazioneRepository.getInstance();
 		Prenotazione pr = new Prenotazione();	//da decidere se oggetto vuoto oppure null (uso di eccezione customizzata)
 		try{
 			pr = rep.findItemByQuery(new PrenotazioneById(id));
@@ -91,7 +106,7 @@ public class PrenotazioneManager {
 	 */
 	public void updatePrenotazione(Prenotazione pr){
 		
-		PrenotazioneRepository rep = new PrenotazioneRepository();
+		PrenotazioneRepository rep = PrenotazioneRepository.getInstance();
 		try{
 			rep.update(pr);
 		}catch(SQLException e){
@@ -107,7 +122,7 @@ public class PrenotazioneManager {
 	public List<Prenotazione> getListPrenotazioniByStudent(String stud){
 		
 		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
-		PrenotazioneRepository rep = new PrenotazioneRepository();
+		PrenotazioneRepository rep = PrenotazioneRepository.getInstance();
 		try{
 			prenotazioni = rep.query(new PrenotazioneByStudent(stud));
 		}catch(SQLException e){
