@@ -3,6 +3,17 @@ package businessLogic.Postazione;
 import dataAccess.storage.SqlSpecification;
 
 public class PostazioneSql implements SqlSpecification {
+	
+	private static PostazioneSql instance;
+
+    public static PostazioneSql getInstance(int num, String lab) {
+
+        if (instance == null) {
+            instance = new PostazioneSql(num,lab);
+        }
+        return instance;
+
+    }
 
 	private static final String TABLE_NAME ="Postazione";
 	private int numero;
