@@ -21,7 +21,7 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		PrenotazioneManager manager = new PrenotazioneManager();
+		PrenotazioneManager manager = PrenotazioneManager.getInstance();
 		Gson json = new Gson();
 		
 		String action = request.getParameter("action");

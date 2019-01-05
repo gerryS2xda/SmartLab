@@ -21,10 +21,18 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 	 * l'id viene aggiunto in maniera automatica (auto_increment)
 	 */
 	public static final String[] COLUMN_NAME = {"data", "fascia_oraria", "stato", "studente", "postazione", "laboratorio"};
+	public static PrenotazioneRepository instance;
 	
-			
-	//costruttore
-	public PrenotazioneRepository(){
+	public static PrenotazioneRepository getInstance(){
+		if(instance == null){
+			instance = new PrenotazioneRepository();
+		}
+		return instance;
+	}
+	
+	
+	//costruttore (uso del singleton design pattern)
+	private PrenotazioneRepository(){
 		//vuoto
 	}
 	
