@@ -9,5 +9,6 @@ CREATE TABLE laboratorio(
     nome varchar(25) NOT NULL,
     posti INTEGER(10) NOT NULL,
     stato boolean NOT NULL,
-    fascia_oraria_apertura TIME NOT NULL,
+    ora_apertura TIME NOT NULL,
+    ora_chiusura TIME NOT NULL
 );
