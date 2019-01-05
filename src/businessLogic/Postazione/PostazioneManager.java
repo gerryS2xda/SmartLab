@@ -1,17 +1,19 @@
 package businessLogic.Postazione;
 
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 import dataAccess.storage.bean.*;
+import java.util.List;
+
+import businessLogic.prenotazione.PrenotazioneManager;
 
 public class PostazioneManager {
 	
 /**
  * Crea una postazione con i vari parametri prescelti
- * @param l indica il laboratorio in cui verrà inserita la postazione, i indica il numero di    
- * postazione che gli verrà assegnato, b è lo stato della postazione.
+ * @param "laboratorio" indica il laboratorio in cui verrà inserita la postazione, "numero" indica il numero di    
+ * postazione che gli verrà assegnato, "b" è lo stato della postazione.
  * @return p ritorna una postazione
- * @post viene creata una Postazione p
  */
 	public boolean creaPostazione(int numero,String laboratorio,boolean b)
 	{
@@ -65,28 +67,49 @@ public class PostazioneManager {
  * Libera una postazione che era stata prenotata da uno studente ma non è fisicamente presente
  * @param p indica quale postazione va Liberata
  * @return boolean che indica se è andata a buon fine l’operazione (true)
- * @pre la postazione da liberare deve essere occupata
+ * 
  */
 
-	public boolean liberaPostazione(Postazione pos)
+	public boolean liberaPostazione(Prenotazione pre)
 	{
-		if(pos==null)
+		if(pre.isPrenotazioneActive())
 		{
-			return false;
+			PrenotazioneManager preMen=new PrenotazioneManager();
+			preMen.annullaPrenotazione(pre);
+			return true;
 		}
-		pos.setStato(true);
-		return true;
+		return false;
 	}
 	
 /**
  * Crea una lista di Postazioni che possiamo
- * @param L E’ il laboratorio da cui andrà a ricavare la lista delle postazioni
- * @return PostazioniList pl
- * @pre L deve esistere
+ * @param Lab E’ il laboratorio da cui andrà a ricavare la lista delle postazioni
+ * @return listaPos
+ * @pre la stringa non deve essere vuota ne null
  */
-	public boolean listaPostazioni(Laboratorio lab)
+	public List<Postazione> listaPostazioni(String lab)
 	{
-		return false;
+		List <Postazione> pos=null;
+		if(lab!=null && !lab.equals(""))
+		{
+			pos= new ArrayList<>();
+			PostazioneRepository repository=new PostazioneRepository();
+			ListaPos lista=new ListaPos(lab);
+		
+				try 
+				{
+					repository.query(lista);
+				}
+				catch (SQLException e) 
+				{
+					System.err.println("errore");
+					e.printStackTrace();
+				}
+		} else
+		{
+			System.err.println("la Stringa inserita e' vuota");
+		}
+		return pos;
 	}
 	
 /**
@@ -98,9 +121,19 @@ public class PostazioneManager {
  */
 	public boolean deletePostazione(Postazione pos)
 	{
-		
-		PostazioneRepository repository=new PostazioneRepository();
-		
+		if(pos!=null)
+		{
+			PostazioneRepository repository=new PostazioneRepository();
+			try 
+			{
+				repository.delete(pos);
+			} catch (SQLException e)
+			{
+				System.err.println("non e' andata a buon fiine");
+				e.printStackTrace();
+			}
+			
+		}
 		return false;
 	}
 
