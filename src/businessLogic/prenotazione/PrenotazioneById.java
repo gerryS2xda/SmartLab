@@ -1,6 +1,8 @@
 package businessLogic.prenotazione;
 
-public class PrenotazioneById implements PrenotazioneSqlSpecification{
+import dataAccess.storage.SqlSpecification;
+
+public class PrenotazioneById implements SqlSpecification{
 
 	//instance field
 	private int id;

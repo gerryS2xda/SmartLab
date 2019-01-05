@@ -5,6 +5,9 @@ import java.util.List;
 
 import dataAccess.storage.bean.Laboratorio;
 
+/** contiene tutte le operazione necessarie per gestire i laboratori
+*@author giuseppe paolisi
+*/
 public class LaboratorioManager {
 	 /**Crea un laboratorio in base al parametro in input
 	    *@param lab laboratorio che si vuole aggiungere al sistema

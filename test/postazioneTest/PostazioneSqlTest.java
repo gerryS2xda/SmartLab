@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import businessLogic.Postazione.PostazioneSql;
 import businessLogic.laboratorio.LaboratorioSql;
 
 public class PostazioneSqlTest {
@@ -12,7 +13,7 @@ public class PostazioneSqlTest {
 	@Test
     public void testGetInstance() {
         System.out.println("getInstance");
-        PostazioneSql result = PostazioneSql.getInstance("");
+        PostazioneSql result = PostazioneSql.getInstance(1,"");
         assertNotNull(result);
         
         

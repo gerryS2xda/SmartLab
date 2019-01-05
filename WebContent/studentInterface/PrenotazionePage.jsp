@@ -10,6 +10,9 @@
 	<body onLoad="loadContent()">
 		<header id="header_part">
 			<!--  add nav bar jsp -->
+			<span id="txt_logo">User Area</span>
+			<span id="welcome_txt">Benvenuto, Studente</span>
+			<span id="logout"><img src="./images/icon-logout.png">Logout</span>
 		</header>
 		<section id="left_sidebar">
 			<!-- add navigation bar left jsp -->

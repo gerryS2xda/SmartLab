@@ -91,7 +91,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 	public Prenotazione findItemByQuery(Specification spec)throws SQLException{
 		
 		Connection conn = null;
-		PrenotazioneSqlSpecification sqlSpec = (PrenotazioneSqlSpecification) spec;
+		SqlSpecification sqlSpec = (SqlSpecification) spec;
 		Statement stmt = null;
 		Prenotazione pr = new Prenotazione();
 		
@@ -116,7 +116,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		
 		Connection conn = null;
 		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
-		PrenotazioneSqlSpecification sqlSpec = (PrenotazioneSqlSpecification) spec;
+		SqlSpecification sqlSpec = (SqlSpecification) spec;
 		Statement stmt = null;
 		
 		

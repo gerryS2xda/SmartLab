@@ -15,6 +15,56 @@ h1{
 /* Header bar */
 #header_part {
 	height: 40px;
+	position: fixed;
+	width: 100%;
+	background-color: #1f262d;
+	z-index: 3;
+	top: 0;
+}
+
+#txt_logo{
+	position: relative;
+	color: #FFFFFF;
+	font-size: 20px;
+	top: 4px;
+	bottom: 9px;
+	left: 20px;
+}
+
+#welcome_txt{
+	position: relative;
+	font-size: 16px;
+	color: #FFFFFF;
+	top:4px;
+	bottom:9px;
+	left: 40%;
+}
+
+#logout{
+	position: relative;
+	left: 75%;
+	top: 5px;
+	color: white;
+	text-decoration: none;
+}
+
+#logout:hover{
+	padding: 12px;
+	background-color: #27a9e3;
+}
+
+#logout:focus{
+	padding: 12px;
+	background-color: #27a9e3;
+	color: black;
+}
+
+#logout img{
+	position: relative;
+	width: 16px;
+	height: 16px;
+	top: 4px;
+	padding-right: 4px;
 }
 
 /* Barra laterale sinistra*/
@@ -50,6 +100,7 @@ h1{
 /* Contenuto principale */
 #main_content{
 	background: none repeat scroll 0 0 #eeeeee;
+	margin-top: 60px;
 	margin-left: 20%;
 	margin-right: 10%;
 	position: relative;
