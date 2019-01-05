@@ -10,6 +10,7 @@ public class Laboratorio implements Serializable {
 	private int posti;
 	private boolean stato;
 	private Time apertura;
+	private Time chiusura;
 	
 	public Laboratorio(){
 		super();
@@ -18,15 +19,17 @@ public class Laboratorio implements Serializable {
 		this.posti = 0;
 		this.stato = false;
 		this.apertura = null;
+		this.chiusura = null;
 	}
 	
-	public Laboratorio(String iDlaboratorio, String nome, int posti, boolean stato, Time apertura) {
+	public Laboratorio(String iDlaboratorio, String nome, int posti, boolean stato, Time apertura, Time chiusura) {
 		super();
 		IDlaboratorio = iDlaboratorio;
 		this.nome = nome;
 		this.posti = posti;
 		this.stato = stato;
 		this.apertura = apertura;
+		this.chiusura = chiusura;
 	}
 
 	public String getIDlaboratorio() {
@@ -69,5 +72,14 @@ public class Laboratorio implements Serializable {
 		this.apertura = apertura;
 	}
 
+	public Time getChiusura() {
+		return chiusura;
+	}
+
+	public void setChiusura(Time chiusura) {
+		this.chiusura = chiusura;
+	}
+	
+	
 	
 }

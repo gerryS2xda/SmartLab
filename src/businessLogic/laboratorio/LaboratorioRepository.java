@@ -41,7 +41,7 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
 
         //IDlaboratorio è auto increment
 		String insertSQL = "INSERT INTO " + TABLE_NAME
-				+ " (nome, posti, stato,fascia_oraria_apertura) VALUES (?, ?, ?, ?)";
+				+ " (nome, posti, stato,ora_apertura, ora_chiusura) VALUES (?, ?, ?, ?, ?)";
 
         try {
 			connection = super.getConnection();
@@ -50,6 +50,7 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
 			preparedStatement.setInt(2, lab.getPosti());
 			preparedStatement.setBoolean(3, lab.isStato());
 			preparedStatement.setTime(4, lab.getApertura());
+			preparedStatement.setTime(5, lab.getChiusura());
 
 			preparedStatement.executeUpdate();
 
@@ -113,7 +114,8 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
 				lab.setNome(rs.getString("nome"));
 				lab.setPosti(rs.getInt("posti"));
                 lab.setStato(rs.getBoolean("stato"));
-                lab.setApertura(rs.getTime("fascia_oraria_apertura"));
+                lab.setApertura(rs.getTime("ora_apertura"));
+                lab.setChiusura(rs.getTime("ora_chiusura"));
 
 			}
 
@@ -150,7 +152,8 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
 				lab.setNome(rs.getString("nome"));
 				lab.setPosti(rs.getInt("posti"));
                 lab.setStato(rs.getBoolean("stato"));
-                lab.setApertura(rs.getTime("fascia_oraria_apertura"));
+                lab.setApertura(rs.getTime("ora_apertura"));
+                lab.setChiusura(rs.getTime("ora_chiusura"));
 
 				laboratori.add(lab);
 			}
