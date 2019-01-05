@@ -115,4 +115,16 @@ public class Prenotazione {
 		return str;
 	}
 
+	public boolean equals(Object otherObject){
+		boolean val = false;
+		if(otherObject instanceof Prenotazione){
+			Prenotazione pren = (Prenotazione) otherObject;
+			if(getData().equals(pren.getData()) && getFasciaOraria().equals(pren.getFasciaOraria()) && 
+					getStudente().equals(pren.getStudente()) && getPostazione() == pren.getPostazione() && 
+						getLaboratorio() == pren.getLaboratorio()){
+				val = true;
+			}
+		}
+		return val;
+	}
 }
