@@ -13,6 +13,7 @@ import dataAccess.storage.bean.Prenotazione;
  * @author gerardo michele laucella
 */
 public class PrenotazioneManager {
+	
 
 	/**
 	 * Restituisce la prenotazione che e' stata effettuata in base ai dati passati in input.
