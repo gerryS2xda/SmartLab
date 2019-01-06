@@ -57,7 +57,7 @@ public class AssegnamentoRepository extends Connessione implements Repository<As
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
-					connection.close();
+					Connessione.releaseConnection(connection);
 			}
 		}
 
@@ -83,7 +83,7 @@ public class AssegnamentoRepository extends Connessione implements Repository<As
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
-					connection.close();
+					Connessione.releaseConnection(connection);
 			}
 		}
 	}
@@ -119,7 +119,7 @@ public class AssegnamentoRepository extends Connessione implements Repository<As
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
-					connection.close();
+					Connessione.releaseConnection(connection);
 			}
 		}
 
@@ -154,7 +154,7 @@ public class AssegnamentoRepository extends Connessione implements Repository<As
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
-					connection.close();
+					Connessione.releaseConnection(connection);
 			}
 		}
 

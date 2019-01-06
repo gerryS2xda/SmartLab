@@ -55,7 +55,7 @@ public class PostazioneRepository extends Connessione implements Repository<Post
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
-					connection.close();
+					Connessione.releaseConnection(connection);
 			}
 		}
 
@@ -87,7 +87,7 @@ public class PostazioneRepository extends Connessione implements Repository<Post
 				} finally 
 				{
 					if (connection != null)
-						connection.close();
+						Connessione.releaseConnection(connection);
 				}
 	}
 	
@@ -128,7 +128,7 @@ public class PostazioneRepository extends Connessione implements Repository<Post
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
-					connection.close();
+					Connessione.releaseConnection(connection);
 			}
 		}
 
@@ -165,7 +165,7 @@ public class PostazioneRepository extends Connessione implements Repository<Post
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
-					connection.close();
+					Connessione.releaseConnection(connection);
 			}
 		}
 

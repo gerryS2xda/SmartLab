@@ -61,7 +61,7 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
-					connection.close();
+					Connessione.releaseConnection(connection);
 			}
 		}
 
@@ -86,7 +86,7 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
-					connection.close();
+					Connessione.releaseConnection(connection);
 			}
 		}
 	}
@@ -125,7 +125,7 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
-					connection.close();
+					Connessione.releaseConnection(connection);
 			}
 		}
 
@@ -164,7 +164,7 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
 					preparedStatement.close();
 			} finally {
 				if (connection != null)
-					connection.close();
+					Connessione.releaseConnection(connection);
 			}
 		}
 

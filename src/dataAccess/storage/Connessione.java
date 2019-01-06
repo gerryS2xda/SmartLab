@@ -1,45 +1,61 @@
 package dataAccess.storage;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+public class Connessione  {
 
-import com.project.utils.Utils;
-
-public class Connessione {
 	private static List<Connection> freeDbConnections;
-	private static DataSource ds;
+
 	static {
-		try{
-			if(!Utils.isDriverManagerEnabled){
-				//contesto iniziale JNDI
-				Context initCtx=new InitialContext();
-				Context envCtx=(Context) initCtx.lookup("java:comp/env");
-				//look up del data source
-				ds=(DataSource)envCtx.lookup("jdbc/smartlab");
-			}
-		}catch(NamingException e){
-			System.out.println("Error:asd" + e.getMessage());
-		}
+		freeDbConnections = new LinkedList<Connection>();
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			System.out.println("DB driver not found:"+ e.getMessage());
+		} 
 	}
 	
-	
-	public static synchronized Connection getConnection() throws SQLException {
-		
+	private static synchronized Connection createDBConnection() throws SQLException {
 		Connection newConnection = null;
-		if(Utils.isDriverManagerEnabled){
-			newConnection = DMConnectionPool.getConnection();
-		}else{
-			newConnection = ds.getConnection();
-		}
+		String ip = "localhost";
+		String port = "3306";
+		String db = "smartlab";
+		String username = "root";
+		String password = "asd123";
+
+		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);
+
+		newConnection.setAutoCommit(false);
 		return newConnection;
-	
 	}
-	
-	
+
+
+	public static synchronized Connection getConnection() throws SQLException {
+		Connection connection;
+
+		if (!freeDbConnections.isEmpty()) {
+			connection = (Connection) freeDbConnections.get(0);
+			freeDbConnections.remove(0);
+
+			try {
+				if (connection.isClosed())
+					connection = getConnection();
+			} catch (SQLException e) {
+				connection.close();
+				connection = getConnection();
+			}
+		} else {
+			connection = createDBConnection();		
+		}
+
+		return connection;
+	}
+
+	public static synchronized void releaseConnection(Connection connection) throws SQLException {
+		if(connection != null) freeDbConnections.add(connection);
+	}
 }
