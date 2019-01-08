@@ -13,7 +13,7 @@ import dataAccess.storage.Specification;
 import dataAccess.storage.Repository;
 import dataAccess.storage.SqlSpecification;
 
-public class LaboratorioRepository extends Connessione implements Repository<Laboratorio>{
+public class LaboratorioRepository implements Repository<Laboratorio>{
 	
 	
 	private static LaboratorioRepository instance;
@@ -31,7 +31,7 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
 
 
     public LaboratorioRepository(){
-		super();
+		
 	}
 
     public void add(Laboratorio lab) throws SQLException{
@@ -44,7 +44,7 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
 				+ " (nome, posti, stato,ora_apertura, ora_chiusura) VALUES (?, ?, ?, ?, ?)";
 
         try {
-			connection = super.getConnection();
+			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, lab.getNome());
 			preparedStatement.setInt(2, lab.getPosti());
@@ -74,7 +74,7 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
 		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE IDlaboratorio = ?";
 
 		try {
-			connection = super.getConnection();
+			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setString(1, lab.getIDlaboratorio());
 
@@ -104,7 +104,7 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
         String selectSQL= sqlSpecification.toSqlQuery();
         Laboratorio lab=new Laboratorio();
         try{
-            connection = super.getConnection();
+            connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -141,7 +141,7 @@ public class LaboratorioRepository extends Connessione implements Repository<Lab
         String selectSQL= sqlSpecification.toSqlQuery();
 
         try{
-            connection = super.getConnection();
+            connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
 

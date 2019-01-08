@@ -14,7 +14,7 @@ import dataAccess.storage.Repository;
 import dataAccess.storage.SqlSpecification;
 
 import dataAccess.storage.bean.Assegnamento;
-public class AssegnamentoRepository extends Connessione implements Repository<Assegnamento>{
+public class AssegnamentoRepository implements Repository<Assegnamento>{
 	
 	private static AssegnamentoRepository instance;
 
@@ -31,7 +31,7 @@ public class AssegnamentoRepository extends Connessione implements Repository<As
 
 
     public AssegnamentoRepository(){
-		super();
+		
 	}
 
     public void add(Assegnamento ass) throws SQLException{
@@ -43,7 +43,7 @@ public class AssegnamentoRepository extends Connessione implements Repository<As
 				+ " (laboratorio,responsabile) VALUES (?, ?)";
 
         try {
-			connection = super.getConnection();
+			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, ass.getLaboratorio());
 			preparedStatement.setString(2, ass.getResponsabile());
@@ -70,7 +70,7 @@ public class AssegnamentoRepository extends Connessione implements Repository<As
 		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE laboratorio = ? && addetto=?";
 
 		try {
-			connection = super.getConnection();
+			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setString(1, ass.getLaboratorio());
 			preparedStatement.setString(2, ass.getResponsabile());
@@ -102,7 +102,7 @@ public class AssegnamentoRepository extends Connessione implements Repository<As
         Assegnamento ass=new Assegnamento();
         
         try{
-            connection = super.getConnection();
+            connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -135,7 +135,7 @@ public class AssegnamentoRepository extends Connessione implements Repository<As
         String selectSQL= sqlSpecification.toSqlQuery();
 
         try{
-            connection = super.getConnection();
+            connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
 

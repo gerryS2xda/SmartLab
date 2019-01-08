@@ -61,7 +61,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		ps.executeUpdate();	
 		
 		if(Utils.isDriverManagerEnabled){
-			DMConnectionPool.releaseConnection(conn);
+			Connessione.releaseConnection(conn);
 		}
 	}
 	
@@ -78,7 +78,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		stmt.executeUpdate(delSQL);
 		
 		if(Utils.isDriverManagerEnabled){
-			DMConnectionPool.releaseConnection(conn);
+			Connessione.releaseConnection(conn);
 		}
 	}
 	
@@ -103,7 +103,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		ps.executeUpdate();
 		
 		if(Utils.isDriverManagerEnabled){
-			DMConnectionPool.releaseConnection(conn);
+			Connessione.releaseConnection(conn);
 		}
 	}
 	
@@ -132,7 +132,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		}
 		
 		if(Utils.isDriverManagerEnabled){
-			DMConnectionPool.releaseConnection(conn);
+			Connessione.releaseConnection(conn);
 		}
 		
 		return pr;
@@ -163,7 +163,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		}
 		
 		if(Utils.isDriverManagerEnabled){
-			DMConnectionPool.releaseConnection(conn);
+			Connessione.releaseConnection(conn);
 		}
 		
 		return prenotazioni;

@@ -15,7 +15,7 @@ import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 
-public class PostazioneRepository extends Connessione implements Repository<Postazione>{
+public class PostazioneRepository implements Repository<Postazione>{
 	
 	private static PostazioneRepository instance;
 
@@ -40,7 +40,7 @@ public class PostazioneRepository extends Connessione implements Repository<Post
 				+ " (nome, posti, stato,fascia_oraria_apertura) VALUES (?, ?, ?, ?)";
 		
 		try {
-			connection = super.getConnection();
+			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, pos.getNumero());
 			preparedStatement.setString(2, pos.getLaboratorio());
@@ -71,7 +71,7 @@ public class PostazioneRepository extends Connessione implements Repository<Post
 			String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE numero = ? && IDlaboratorio=?";
 
 			try {
-				connection = super.getConnection();
+				connection = Connessione.getConnection();
 				preparedStatement = connection.prepareStatement(deleteSQL);
 				preparedStatement.setInt(1, pos.getNumero());
 				preparedStatement.setString(2, pos.getLaboratorio());
@@ -109,7 +109,7 @@ public class PostazioneRepository extends Connessione implements Repository<Post
         Postazione pos= new Postazione();
         
         try{
-            connection = super.getConnection();
+            connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -146,7 +146,7 @@ public class PostazioneRepository extends Connessione implements Repository<Post
         List <Postazione> postazioni= new ArrayList<>();
         
         try{
-            connection = super.getConnection();
+            connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
 
