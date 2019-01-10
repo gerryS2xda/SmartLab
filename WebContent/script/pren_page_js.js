@@ -10,7 +10,7 @@ function loadTableBody(){
 	var str = "";
 	for(var i=0; i < size; i++){
 		str+= "<tr><td>" + i + "<td><select name=\"fascia_oraria_action\" onChange=\"verifyPostazioneAvailable($(this));\">" +
-			"<option value=\"9:00-11:00\">Mattina (9 - 11)</option><option value=\"11:00-13:00\">Mattina (11 - 13)</option>"+
+			"<option value=\"09:00-11:00\">Mattina (9 - 11)</option><option value=\"11:00-13:00\">Mattina (11 - 13)</option>"+
 			"<option value=\"13:00-15:00\">Pomeriggio (13 - 15)</option><option value=\"15:00-17:00\">Pomeriggio (15 - 17)</option>" +
 			"<option value=\"17:00-19:00\">Sera (17 - 19)</option></select></td>" +
 			"<td><button type=\"button\" onclick=\"effettuaPrenotazione($(this))\">Prenota</button></td></tr>";
