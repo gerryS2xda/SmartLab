@@ -11,6 +11,7 @@ import dataAccess.storage.bean.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Statement;
+import java.sql.Time;
 
 public class PrenotazioneRepository implements Repository<Prenotazione>{
 
@@ -20,8 +21,8 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 	 * In aggiunta e' presente la colonna 'IDprenotazione' che non e' stata inserita nella lista poiche'
 	 * l'id viene aggiunto in maniera automatica (auto_increment)
 	 */
-	public static final String[] COLUMN_NAME = {"data", "fascia_oraria", "stato", "studente", "postazione", "laboratorio"};
-	public static final String[] COLUMN_NAME_WITH_ID = {"IDprenotazione", "data", "fascia_oraria", "stato", "studente", "postazione", "laboratorio"};
+	public static final String[] COLUMN_NAME = {"data", "ora_inizio", "ora_fine", "stato", "studente", "postazione", "laboratorio"};
+	public static final String[] COLUMN_NAME_WITH_ID = {"IDprenotazione", "data", "ora_inizio", "ora_fine", "stato", "studente", "postazione", "laboratorio"};
 	private static PrenotazioneRepository instance;
 	
 	public static PrenotazioneRepository getInstance(){
@@ -44,7 +45,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		PreparedStatement ps = null;
 				
 		String insertSQL = "insert into " + Utils.getRelazioneTable(TABLE_NAME, COLUMN_NAME)
-			+ " VALUES(?,?,?,?,?,?)";
+			+ " VALUES(?,?,?,?,?,?,?)";
 		
 		try{
 			conn = Connessione.getConnection();
@@ -52,11 +53,12 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 			ps = conn.prepareStatement(insertSQL);
 			
 			ps.setDate(1, Date.valueOf(item.getData()));
-			ps.setString(2, item.getFasciaOraria());
-			ps.setBoolean(3, item.isPrenotazioneActive());
-			ps.setString(4, item.getStudente());
-			ps.setInt(5, item.getPostazione());
-			ps.setInt(6, item.getLaboratorio());
+			ps.setTime(2, Time.valueOf(item.getOraInizio()));
+			ps.setTime(3, Time.valueOf(item.getOraFine()));
+			ps.setBoolean(4, item.isPrenotazioneActive());
+			ps.setString(5, item.getStudente());
+			ps.setInt(6, item.getPostazione());
+			ps.setInt(7, item.getLaboratorio());
 			
 			ps.executeUpdate();	
 		}finally{
@@ -90,7 +92,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		Connection conn = null;
 		PreparedStatement ps = null;
 		
-		String updateSQL = "update " + TABLE_NAME + " set data = ?, fascia_oraria = ?, "
+		String updateSQL = "update " + TABLE_NAME + " set data = ?, ora_inizio = ?, ora_fine = ?, "
 				+ "stato = ?, studente = ?, postazione = ?, laboratorio = ? where IDprenotazione = " + item.getId();
 		
 		try{
@@ -98,11 +100,12 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 			ps = conn.prepareStatement(updateSQL);
 				
 			ps.setDate(1, Date.valueOf(item.getData()));
-			ps.setString(2, item.getFasciaOraria());
-			ps.setBoolean(3, item.isPrenotazioneActive());
-			ps.setString(4, item.getStudente());
-			ps.setInt(5, item.getPostazione());
-			ps.setInt(6, item.getLaboratorio());
+			ps.setTime(2, Time.valueOf(item.getOraInizio()));
+			ps.setTime(3, Time.valueOf(item.getOraFine()));
+			ps.setBoolean(4, item.isPrenotazioneActive());
+			ps.setString(5, item.getStudente());
+			ps.setInt(6, item.getPostazione());
+			ps.setInt(7, item.getLaboratorio());
 				
 			ps.executeUpdate();
 		}finally{
@@ -129,11 +132,12 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				pr = new Prenotazione();
 				pr.setID(res.getInt(1));
 				pr.setData(res.getDate(2).toLocalDate().toString());
-				pr.setFasciaOraria(res.getString(3));
-				pr.setStatus(res.getBoolean(4));
-				pr.setStudente(res.getString(5));
-				pr.setPostazione(res.getInt(6));
-				pr.setLaboratorio(res.getInt(7));
+				pr.setOraInizio(res.getTime(3).toLocalTime());
+				pr.setOraFine(res.getTime(4).toLocalTime());
+				pr.setStatus(res.getBoolean(5));
+				pr.setStudente(res.getString(6));
+				pr.setPostazione(res.getInt(7));
+				pr.setLaboratorio(res.getInt(8));
 				
 			}
 		}finally{
@@ -161,11 +165,12 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				Prenotazione pr = new Prenotazione();
 				pr.setID(res.getInt(1));
 				pr.setData(res.getDate(2).toLocalDate().toString());
-				pr.setFasciaOraria(res.getString(3));
-				pr.setStatus(res.getBoolean(4));
-				pr.setStudente(res.getString(5));
-				pr.setPostazione(res.getInt(6));
-				pr.setLaboratorio(res.getInt(7));
+				pr.setOraInizio(res.getTime(3).toLocalTime());
+				pr.setOraFine(res.getTime(4).toLocalTime());
+				pr.setStatus(res.getBoolean(5));
+				pr.setStudente(res.getString(6));
+				pr.setPostazione(res.getInt(7));
+				pr.setLaboratorio(res.getInt(8));
 				prenotazioni.add(pr);
 			}
 		}finally{

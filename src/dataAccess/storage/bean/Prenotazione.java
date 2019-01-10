@@ -1,13 +1,15 @@
 package dataAccess.storage.bean;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Prenotazione {
 
 	//instance field
 	private int id;
 	private String data;
-	private String fascia_oraria;
+	private LocalTime oraInizio; //l'ora in cui inizia la prenotazione della postazione
+	private LocalTime oraFine; //l'ora in cui termina la prenotazione della postazione
 	private boolean stato; 
 	private String studente; //sostituire con oggetto studente
 	private int postazione;  //sostituire con oggetto postazione
@@ -31,13 +33,6 @@ public class Prenotazione {
 	 */
 	public String getData() {
 		return data;
-	}
-
-	/**
-	 * @return the fascia_oraria
-	 */
-	public String getFasciaOraria() {
-		return fascia_oraria;
 	}
 
 	/**
@@ -65,6 +60,13 @@ public class Prenotazione {
 		return stato;
 	}
 	
+	public LocalTime getOraInizio() {
+		return oraInizio;
+	}
+	public LocalTime getOraFine() {
+		return oraFine;
+	}
+	
 	public void setID(int id){
 		this.id = id;
 	}
@@ -74,13 +76,6 @@ public class Prenotazione {
 	 */
 	public void setData(String data) {
 		this.data = data;
-	}
-
-	/**
-	 * @param fascia_oraria the fascia_oraria to set
-	 */
-	public void setFasciaOraria(String fascia_oraria) {
-		this.fascia_oraria = fascia_oraria;
 	}
 
 	/**
@@ -108,10 +103,19 @@ public class Prenotazione {
 		stato = s;
 	}
 	
+	public void setOraInizio(LocalTime oraInizio) {
+		this.oraInizio = oraInizio;
+	}
+	
+	public void setOraFine(LocalTime oraFine) {
+		this.oraFine = oraFine;
+	}
+	
 	//other method
 	public String toString(){	//adattato per costruzione della stringa JSON
-		String str = "{\"id\":" + id + ", \"data\": \"" + data + "\", \"fasciaOr\": \"" + fascia_oraria + "\", "
-				+ "\"email\": \"" + studente + "\", \"postazione\": " + postazione + ", \"laboratorio\": \"" + laboratorio + "\"}";
+		String str = "{\"id\":" + id + ", \"data\": \"" + data + "\", \"oraInizio\": \"" + oraInizio.toString() + "\", "
+				+ "\"oraFine\": \"" + oraFine.toString() + "\",  \"email\": \"" + studente + "\", \"postazione\": " + postazione + ", "  
+				+ "\"laboratorio\": " + laboratorio + " }";
 		return str;
 	}
 
@@ -119,9 +123,9 @@ public class Prenotazione {
 		boolean val = false;
 		if(otherObject instanceof Prenotazione){
 			Prenotazione pren = (Prenotazione) otherObject;
-			if(getData().equals(pren.getData()) && getFasciaOraria().equals(pren.getFasciaOraria()) && 
-					getStudente().equals(pren.getStudente()) && getPostazione() == pren.getPostazione() && 
-						getLaboratorio() == pren.getLaboratorio()){
+			if(getData().equals(pren.getData()) && getOraInizio().compareTo(pren.getOraInizio()) == 0 && 
+					getOraFine().compareTo(pren.getOraFine()) == 0 && getStudente().equals(pren.getStudente()) && 
+					getPostazione() == pren.getPostazione() &&  getLaboratorio() == pren.getLaboratorio()){
 				val = true;
 			}
 		}

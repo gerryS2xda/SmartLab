@@ -13,6 +13,7 @@ import businessLogic.prenotazione.PrenotazioneByStudent;
 import businessLogic.prenotazione.PrenotazioneRepository;
 import dataAccess.storage.bean.Prenotazione;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class PrenotazioneRepositoryTest {
@@ -29,7 +30,8 @@ public class PrenotazioneRepositoryTest {
 		
 		oracle = new Prenotazione();
 		oracle.setData(LocalDate.now().toString());
-		oracle.setFasciaOraria("9 - 11");
+		oracle.setOraInizio(LocalTime.parse("09:00"));
+		oracle.setOraFine(LocalTime.parse("11:00"));
 		oracle.setStatus(true);
 		oracle.setStudente("teststud@studenti.unisa.it");
 		oracle.setPostazione(100);
@@ -89,7 +91,8 @@ public class PrenotazioneRepositoryTest {
 		assertSame("Gli oggetti non fanno riferimento alla stessa istanza", actualObj, oracle);
 		
 		//modifica qualche attributo di actualObj
-		actualObj.setFasciaOraria("11 - 13");
+		actualObj.setOraInizio(LocalTime.parse("11:00"));
+		actualObj.setOraFine(LocalTime.parse("13:00"));
 		actualObj.setStudente("teststud2@studenti.unisa.it");
 		
 		//invocazione di update()

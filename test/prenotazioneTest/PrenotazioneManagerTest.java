@@ -3,6 +3,8 @@ package prenotazioneTest;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.After;
@@ -33,11 +35,11 @@ public class PrenotazioneManagerTest {
 		
 		oracle = new Prenotazione();
 		oracle.setData(LocalDate.now().toString());
-		oracle.setFasciaOraria("9 - 11");
+		oracle.setOraInizio(LocalTime.parse("09:00"));
+		oracle.setOraFine(LocalTime.parse("11:00"));
 		oracle.setStatus(true);
 		oracle.setStudente("teststud@studenti.unisa.it");
 		oracle.setPostazione(100);
-		oracle.setLaboratorio(1);
 		repository.add(oracle);
 		
 		//ottieni l'ID dopo inserimento poiche' si usa auto_increment (serve per delete)
@@ -64,7 +66,7 @@ public class PrenotazioneManagerTest {
 		System.out.println("Testing: effettua prenotazione");
 		
 		//crea oggetto prenotazione e confronta con oracle
-		Prenotazione actualObj = manager.effettuaPrenotazione("teststud@studenti.unisa.it", 100, "9 - 11");
+		Prenotazione actualObj = manager.effettuaPrenotazione("teststud@studenti.unisa.it", 100, "09:00", "11:00");
 		
 		//rimuovi la prenotazione appena inserita con effettuaPrenotazione dal DB
 		actualObj.setID(1 + oracle.getId()); 
@@ -104,12 +106,13 @@ public class PrenotazioneManagerTest {
 	public void testUpdatePrenotazione() {
 		System.out.println("Testing: aggiorna i dati di una prenotazione");
 		
-		//crea oggetto simile ad oracle e verifica che i due riferimeni puntano alla stessa istanza
+		//crea oggetto simile ad oracle e verifica che i due riferimenti puntano alla stessa istanza
 		Prenotazione actualObj = oracle;
 		assertSame("Gli oggetti non fanno riferimento alla stessa istanza", actualObj, oracle);
 				
 		//modifica qualche attributo di actualObj
-		actualObj.setFasciaOraria("11 - 13");
+		actualObj.setOraInizio(LocalTime.parse("11:00"));
+		actualObj.setOraFine(LocalTime.parse("13:00"));
 		actualObj.setStudente("teststud2@studenti.unisa.it");
 				
 		//invocazione di update()

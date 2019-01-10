@@ -32,10 +32,13 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			//ottieni oggetto studente da sessione
 			String stud = "g.laucella@studenti.unisa.it";	//da sostituire con oggetto
 			String lab = request.getParameter("lab"); //usare Postazione obj per ottenere il lab
-			int post = Integer.parseInt(request.getParameter("postazione")); //usare postazione repository per ottenere obj Postazione
-			String fascia_or = request.getParameter("fascia_or");
 			
-			manager.effettuaPrenotazione(stud, post, fascia_or);
+			int post = Integer.parseInt(request.getParameter("postazione")); //usare postazione repository per ottenere obj Postazione
+			
+			String inizio = request.getParameter("inizio");
+			String fine =  request.getParameter("fine");
+			
+			manager.effettuaPrenotazione(stud, post, inizio, fine);
 			
 			//costruisci risposta JSON
 			response.setContentType("application/json");
@@ -50,7 +53,8 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			
 			String lab = request.getParameter("lab"); //usare Postazione obj per ottenere il lab
 			int post = Integer.parseInt(request.getParameter("postazione")); //usare postazione repository per ottenere obj Postazione
-			String fascia_or = request.getParameter("fascia_or");
+			String inizio = request.getParameter("inizio");
+			String fine =  request.getParameter("fine");
 			
 			//collegarsi con la repository di postazione per ottenere un oggetto Postazione da cui vedere se e' disponibile
 			

@@ -2,6 +2,8 @@ package businessLogic.prenotazione;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,11 +40,12 @@ public class PrenotazioneManager {
 	 * @post  getNumPrenotazioniEffettuate(s) = @pre.getNumPrenotazioniEffettuate(s)+1
 	 * @post  getNumPrenotazioniEffettuateOggi(s) = @pre.getNumPrenotazioniEffettuateOggi(s)+1
 	 */
-	public Prenotazione effettuaPrenotazione(String stud, int post, String fasciaOraria){
+	public Prenotazione effettuaPrenotazione(String stud, int post, String oraInizio, String oraFine){
 		
 		Prenotazione pr = new Prenotazione();
 		pr.setData(LocalDate.now().toString());
-		pr.setFasciaOraria(fasciaOraria);
+		pr.setOraInizio(LocalTime.parse(oraInizio));
+		pr.setOraFine(LocalTime.parse(oraFine));
 		pr.setPostazione(post);
 		pr.setStudente(stud);
 		
