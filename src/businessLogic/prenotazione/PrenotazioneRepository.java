@@ -46,22 +46,23 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		String insertSQL = "insert into " + Utils.getRelazioneTable(TABLE_NAME, COLUMN_NAME)
 			+ " VALUES(?,?,?,?,?,?)";
 		
-		
-		conn = Connessione.getConnection();
-		
-		ps = conn.prepareStatement(insertSQL);
-		
-		ps.setDate(1, Date.valueOf(item.getData()));
-		ps.setString(2, item.getFasciaOraria());
-		ps.setBoolean(3, item.isPrenotazioneActive());
-		ps.setString(4, item.getStudente());
-		ps.setInt(5, item.getPostazione());
-		ps.setInt(6, item.getLaboratorio());
-		
-		ps.executeUpdate();	
-		
-		if(Utils.isDriverManagerEnabled){
-			Connessione.releaseConnection(conn);
+		try{
+			conn = Connessione.getConnection();
+			
+			ps = conn.prepareStatement(insertSQL);
+			
+			ps.setDate(1, Date.valueOf(item.getData()));
+			ps.setString(2, item.getFasciaOraria());
+			ps.setBoolean(3, item.isPrenotazioneActive());
+			ps.setString(4, item.getStudente());
+			ps.setInt(5, item.getPostazione());
+			ps.setInt(6, item.getLaboratorio());
+			
+			ps.executeUpdate();	
+		}finally{
+			if(ps != null) 
+				ps.close();
+			Connessione.releaseConnection(conn); //rilascia la connessione e la rende nuovamente disponibile
 		}
 	}
 	
@@ -72,13 +73,15 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		
 		String delSQL = "delete from " + TABLE_NAME + " where IDprenotazione = " + item.getId();
 		
-		conn = Connessione.getConnection();
-		stmt = conn.createStatement();
-				
-		stmt.executeUpdate(delSQL);
-		
-		if(Utils.isDriverManagerEnabled){
-			Connessione.releaseConnection(conn);
+		try{
+			conn = Connessione.getConnection();
+			stmt = conn.createStatement();
+					
+			stmt.executeUpdate(delSQL);
+		}finally{
+			if(stmt != null) 
+				stmt.close();
+			Connessione.releaseConnection(conn); //rilascia la connessione e la rende nuovamente disponibile
 		}
 	}
 	
@@ -90,20 +93,22 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		String updateSQL = "update " + TABLE_NAME + " set data = ?, fascia_oraria = ?, "
 				+ "stato = ?, studente = ?, postazione = ?, laboratorio = ? where IDprenotazione = " + item.getId();
 		
-		conn = Connessione.getConnection();
-		ps = conn.prepareStatement(updateSQL);
-			
-		ps.setDate(1, Date.valueOf(item.getData()));
-		ps.setString(2, item.getFasciaOraria());
-		ps.setBoolean(3, item.isPrenotazioneActive());
-		ps.setString(4, item.getStudente());
-		ps.setInt(5, item.getPostazione());
-		ps.setInt(6, item.getLaboratorio());
-			
-		ps.executeUpdate();
-		
-		if(Utils.isDriverManagerEnabled){
-			Connessione.releaseConnection(conn);
+		try{
+			conn = Connessione.getConnection();
+			ps = conn.prepareStatement(updateSQL);
+				
+			ps.setDate(1, Date.valueOf(item.getData()));
+			ps.setString(2, item.getFasciaOraria());
+			ps.setBoolean(3, item.isPrenotazioneActive());
+			ps.setString(4, item.getStudente());
+			ps.setInt(5, item.getPostazione());
+			ps.setInt(6, item.getLaboratorio());
+				
+			ps.executeUpdate();
+		}finally{
+			if(ps != null) 
+				ps.close();
+			Connessione.releaseConnection(conn); //rilascia la connessione e la rende nuovamente disponibile
 		}
 	}
 	
@@ -114,25 +119,27 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		Statement stmt = null;
 		Prenotazione pr = null;
 		
-		conn = Connessione.getConnection();
-		stmt = conn.createStatement();
-		
-		ResultSet res = stmt.executeQuery(sqlSpec.toSqlQuery());
-		
-		while(res.next()){
-			pr = new Prenotazione();
-			pr.setID(res.getInt(1));
-			pr.setData(res.getDate(2).toLocalDate().toString());
-			pr.setFasciaOraria(res.getString(3));
-			pr.setStatus(res.getBoolean(4));
-			pr.setStudente(res.getString(5));
-			pr.setPostazione(res.getInt(6));
-			pr.setLaboratorio(res.getInt(7));
+		try{
+			conn = Connessione.getConnection();
+			stmt = conn.createStatement();
 			
-		}
-		
-		if(Utils.isDriverManagerEnabled){
-			Connessione.releaseConnection(conn);
+			ResultSet res = stmt.executeQuery(sqlSpec.toSqlQuery());
+			
+			while(res.next()){
+				pr = new Prenotazione();
+				pr.setID(res.getInt(1));
+				pr.setData(res.getDate(2).toLocalDate().toString());
+				pr.setFasciaOraria(res.getString(3));
+				pr.setStatus(res.getBoolean(4));
+				pr.setStudente(res.getString(5));
+				pr.setPostazione(res.getInt(6));
+				pr.setLaboratorio(res.getInt(7));
+				
+			}
+		}finally{
+			if(stmt != null) 
+				stmt.close();
+			Connessione.releaseConnection(conn); //rilascia la connessione e la rende nuovamente disponibile
 		}
 		
 		return pr;
@@ -145,25 +152,26 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		SqlSpecification sqlSpec = (SqlSpecification) spec;
 		Statement stmt = null;
 		
-		
-		conn = Connessione.getConnection();
-		stmt = conn.createStatement();
-		ResultSet res = stmt.executeQuery(sqlSpec.toSqlQuery());
-			
-		while(res.next()){
-			Prenotazione pr = new Prenotazione();
-			pr.setID(res.getInt(1));
-			pr.setData(res.getDate(2).toLocalDate().toString());
-			pr.setFasciaOraria(res.getString(3));
-			pr.setStatus(res.getBoolean(4));
-			pr.setStudente(res.getString(5));
-			pr.setPostazione(res.getInt(6));
-			pr.setLaboratorio(res.getInt(7));
-			prenotazioni.add(pr);
-		}
-		
-		if(Utils.isDriverManagerEnabled){
-			Connessione.releaseConnection(conn);
+		try{
+			conn = Connessione.getConnection();
+			stmt = conn.createStatement();
+			ResultSet res = stmt.executeQuery(sqlSpec.toSqlQuery());
+				
+			while(res.next()){
+				Prenotazione pr = new Prenotazione();
+				pr.setID(res.getInt(1));
+				pr.setData(res.getDate(2).toLocalDate().toString());
+				pr.setFasciaOraria(res.getString(3));
+				pr.setStatus(res.getBoolean(4));
+				pr.setStudente(res.getString(5));
+				pr.setPostazione(res.getInt(6));
+				pr.setLaboratorio(res.getInt(7));
+				prenotazioni.add(pr);
+			}
+		}finally{
+			if(stmt != null) 
+				stmt.close();
+			Connessione.releaseConnection(conn); //rilascia la connessione e la rende nuovamente disponibile
 		}
 		
 		return prenotazioni;

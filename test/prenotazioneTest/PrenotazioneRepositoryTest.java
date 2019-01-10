@@ -23,9 +23,7 @@ public class PrenotazioneRepositoryTest {
 	
 	@Before
 	public void setUp() throws Exception {
-	    //attiva driver manager come connessione per Junit
-		Utils.enableDriverManager();
-		
+	  
 		//ottieni istanza di un oggetto repository
 		repository = PrenotazioneRepository.getInstance();
 		
@@ -47,7 +45,6 @@ public class PrenotazioneRepositoryTest {
 	@After
 	public void tearDown() throws Exception {
 		repository.delete(oracle);
-		Utils.disattivaDriverManager();
 	}
 
 	@Test

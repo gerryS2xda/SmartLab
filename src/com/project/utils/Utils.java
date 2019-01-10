@@ -2,7 +2,6 @@ package com.project.utils;
 
 public class Utils {
 
-	public static boolean isDriverManagerEnabled = false;
 	
 	public static String getRelazioneTable(String tn, String[] attr){
 		String str = tn + "(";
@@ -14,12 +13,4 @@ public class Utils {
 		return str;
 	}
 	
-	
-	public static void enableDriverManager(){
-		isDriverManagerEnabled = true;
-	}
-	
-	public static void disattivaDriverManager(){
-		isDriverManagerEnabled = false;
-	}
 }
