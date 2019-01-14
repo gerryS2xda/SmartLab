@@ -3,7 +3,11 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="SmartLab">
+              as the first entry and export the buildfile again. -->
+	<project basedir="." default="build" name="SmartLab">
+	<property name="src.dir" location="src" />
+	<property name="build.dir" location="bin" />
+	<property name="test.dir" location="test" />
     <property environment="env"/>
     <property name="ECLIPSE_HOME" value="../../Desktop/eclipse/"/>
     <property name="junit.output.dir" value="junit"/>
@@ -138,4 +142,6 @@
             <report format="frames" todir="${junit.output.dir}"/>
         </junitreport>
     </target>
+	<!-- add for fix 'Target "test" does not exist in the project "SmartLab"' -->
+	<target name="test" />
 </project>
