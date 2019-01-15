@@ -16,8 +16,13 @@ import dataAccess.storage.bean.Prenotazione;
 */
 public class PrenotazioneManager {
 	
+	//static field
 	private static PrenotazioneManager instance;
 	
+	//instance field
+	private PrenotazioneRepository repository;
+	
+	//static methods
 	public static PrenotazioneManager getInstance(){
 		
 		if(instance == null){	//se non e' stato istanziato, crea nuova istanza
@@ -26,7 +31,9 @@ public class PrenotazioneManager {
 		return instance;
 	}
 	
-	public PrenotazioneManager(){}
+	private PrenotazioneManager(){
+		repository = PrenotazioneRepository.getInstance();
+	}
 
 	/**
 	 * Restituisce la prenotazione che e' stata effettuata in base ai dati passati in input.
@@ -54,9 +61,9 @@ public class PrenotazioneManager {
 			pr.setStatus(true); //se i controlli sono rispettati
 		}
 			
-		PrenotazioneRepository rep = PrenotazioneRepository.getInstance();
+		repository = PrenotazioneRepository.getInstance();
 		try{
-			rep.add(pr); 
+			repository.add(pr); 
 		}catch(SQLException e){
 			System.out.println("Errore: problema nell'aggiungere la prenotazione al DB!!");
 		}
@@ -75,9 +82,9 @@ public class PrenotazioneManager {
 	public void annullaPrenotazione(Prenotazione pr){
 
 		
-		PrenotazioneRepository rep = PrenotazioneRepository.getInstance();
+		repository = PrenotazioneRepository.getInstance();
 		try{
-			rep.delete(pr);
+			repository.delete(pr);
 		}catch(SQLException e){
 			System.out.println("Errore: problema nella rimozione della prenotazione dal DB");
 		}
@@ -92,10 +99,10 @@ public class PrenotazioneManager {
 	public Prenotazione findPrenotazioneById(int id){
 		
 		if(id < 0) return null;
-		PrenotazioneRepository rep = PrenotazioneRepository.getInstance();
+		repository = PrenotazioneRepository.getInstance();
 		Prenotazione pr = new Prenotazione();	//da decidere se oggetto vuoto oppure null (uso di eccezione customizzata)
 		try{
-			pr = rep.findItemByQuery(new PrenotazioneById(id));
+			pr = repository.findItemByQuery(new PrenotazioneById(id));
 		}catch(SQLException e){
 			System.out.println("Prenotazione non trovata!!");
 		}
@@ -125,9 +132,9 @@ public class PrenotazioneManager {
 	public List<Prenotazione> getListPrenotazioniByStudent(String stud){
 		
 		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
-		PrenotazioneRepository rep = PrenotazioneRepository.getInstance();
+		repository = PrenotazioneRepository.getInstance();
 		try{
-			prenotazioni = rep.query(new PrenotazioneByStudent(stud));
+			prenotazioni = repository.query(new PrenotazioneByStudent(stud));
 		}catch(SQLException e){
 			System.out.println("Errore: lo studente non ha effettuato prenotazioni");
 		}
