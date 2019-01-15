@@ -23,18 +23,16 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 	 */
 	public static final String[] COLUMN_NAME = {"data", "ora_inizio", "ora_fine", "stato", "studente", "postazione", "laboratorio"};
 	public static final String[] COLUMN_NAME_WITH_ID = {"IDprenotazione", "data", "ora_inizio", "ora_fine", "stato", "studente", "postazione", "laboratorio"};
-	private static PrenotazioneRepository instance;
 	
+	//usato per il testing
 	public static PrenotazioneRepository getInstance(){
-		if(instance == null){
-			instance = new PrenotazioneRepository();
-		}
-		return instance;
+		
+		return new PrenotazioneRepository();
 	}
 	
 	
 	//costruttore (uso del singleton design pattern)
-	private PrenotazioneRepository(){
+	public PrenotazioneRepository(){
 		//vuoto
 	}
 	

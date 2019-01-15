@@ -16,22 +16,18 @@ import dataAccess.storage.bean.Prenotazione;
 */
 public class PrenotazioneManager {
 	
-	//static field
-	private static PrenotazioneManager instance;
-	
 	//instance field
 	private PrenotazioneRepository repository;
 	
 	//static methods
-	public static PrenotazioneManager getInstance(){
+	//usato per il testing
+	public static PrenotazioneManager getInstance(){ 
 		
-		if(instance == null){	//se non e' stato istanziato, crea nuova istanza
-			instance = new PrenotazioneManager();
-		}
-		return instance;
+		return new PrenotazioneManager();
+		
 	}
 	
-	private PrenotazioneManager(){
+	public PrenotazioneManager(){
 		repository = PrenotazioneRepository.getInstance();
 	}
 
