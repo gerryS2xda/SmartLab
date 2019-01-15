@@ -7,11 +7,11 @@ public class Avviso implements Serializable {
 	private int id;
 	private String oggetto, descrizione;
 	private Date data;
-	private Studente studente;
+	private int studente;
 	private Laboratorio lab;
 	private Postazione postazione;
 	
-	public Avviso(String og, String des, Date d, Studente s, Laboratorio l, Postazione pos){
+	public Avviso(String og, String des, Date d, int s, Laboratorio l, Postazione pos){
 		oggetto = og;
 		descrizione = des;
 		data = d;
@@ -52,11 +52,11 @@ public class Avviso implements Serializable {
 		data = nData;
 	}
 	
-	public Studente getStudente(){
+	public int getStudente(){
 		return studente;
 	}
 	
-	public void setStudente(Studente nStud){
+	public void setStudente(int nStud){
 		studente = nStud;
 	}
 	

@@ -8,9 +8,9 @@ public class Segnalazione implements Serializable {
 	private int id;
 	private String titolo, messaggio;
 	private Date data;
-	private Addetto addetto;
+	private int addetto;
 	
-	public Segnalazione(String tit, String msg, Date d, Addetto ad){
+	public Segnalazione(String tit, String msg, Date d, int ad){
 		titolo = tit;
 		messaggio = msg;
 		data = d;
@@ -49,11 +49,11 @@ public class Segnalazione implements Serializable {
 		data = nData;
 	}
 	
-	public Addetto getAddetto(){
+	public int getAddetto(){
 		return addetto;
 	}
 	
-	public void setAddetto(Addetto nAd){
+	public void setAddetto(int nAd){
 		addetto = nAd;
 	}
 
