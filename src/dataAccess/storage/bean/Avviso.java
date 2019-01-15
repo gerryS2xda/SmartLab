@@ -11,7 +11,8 @@ public class Avviso implements Serializable {
 	private String lab;
 	private int postazione;
 	
-	public Avviso(String og, String des, Date d, int s, String l, int pos){
+	public Avviso(int i, String og, String des, Date d, int s, String l, int pos){
+		id = i;
 		oggetto = og;
 		descrizione = des;
 		data = d;
