@@ -8,10 +8,10 @@ public class Avviso implements Serializable {
 	private String oggetto, descrizione;
 	private Date data;
 	private int studente;
-	private Laboratorio lab;
-	private Postazione postazione;
+	private String lab;
+	private int postazione;
 	
-	public Avviso(String og, String des, Date d, int s, Laboratorio l, Postazione pos){
+	public Avviso(String og, String des, Date d, int s, String l, int pos){
 		oggetto = og;
 		descrizione = des;
 		data = d;
@@ -60,19 +60,19 @@ public class Avviso implements Serializable {
 		studente = nStud;
 	}
 	
-	public Laboratorio getLaboratorio(){
+	public String getLaboratorio(){
 		return lab;
 	}
 	
-	public void setLaboratorio(Laboratorio nLab){
+	public void setLaboratorio(String nLab){
 		lab = nLab;
 	}
 	
-	public Postazione getPostazione(){
+	public int getPostazione(){
 		return postazione;
 	}
 	
-	public void setPostazione(Postazione nPos){
+	public void setPostazione(int nPos){
 		postazione = nPos;
 	}
 }

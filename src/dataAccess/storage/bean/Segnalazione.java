@@ -10,7 +10,8 @@ public class Segnalazione implements Serializable {
 	private Date data;
 	private int addetto;
 	
-	public Segnalazione(String tit, String msg, Date d, int ad){
+	public Segnalazione(int i, String tit, String msg, Date d, int ad){
+		id = i;
 		titolo = tit;
 		messaggio = msg;
 		data = d;
