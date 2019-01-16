@@ -6,16 +6,20 @@ import java.sql.Date;
 public class Segnalazione implements Serializable {
 	
 	private int id;
-	private String titolo, messaggio;
+	private String oggetto, descrizione;
 	private Date data;
-	private int addetto;
+	private int studente;
+	private String lab;
+	private int postazione;
 	
-	public Segnalazione(int i, String tit, String msg, Date d, int ad){
+	public Segnalazione(int i, String og, String des, Date d, int s, String l, int pos){
 		id = i;
-		titolo = tit;
-		messaggio = msg;
+		oggetto = og;
+		descrizione = des;
 		data = d;
-		addetto = ad;
+		studente = s;
+		lab = l;
+		postazione = pos;
 	}
 	
 	public int getId(){
@@ -26,20 +30,20 @@ public class Segnalazione implements Serializable {
 		id = nId;
 	}
 	
-	public String getTitolo(){
-		return titolo;
+	public String getOggetto(){
+		return oggetto;
 	}
 	
-	public void setTitolo(String nTit){
-		titolo = nTit;
+	public void setOggetto(String nSubj){
+		oggetto = nSubj;
 	}
 	
-	public String getMessaggio(){
-		return messaggio;
+	public String getDescrizione(){
+		return descrizione;
 	}
 	
-	public void setMessaggio(String nMsg){
-		messaggio = nMsg;
+	public void setDescrizione(String nDes){
+		descrizione = nDes;
 	}
 	
 	public Date getData(){
@@ -50,12 +54,27 @@ public class Segnalazione implements Serializable {
 		data = nData;
 	}
 	
-	public int getAddetto(){
-		return addetto;
+	public int getStudente(){
+		return studente;
 	}
 	
-	public void setAddetto(int nAd){
-		addetto = nAd;
+	public void setStudente(int nStud){
+		studente = nStud;
 	}
-
+	
+	public String getLaboratorio(){
+		return lab;
+	}
+	
+	public void setLaboratorio(String nLab){
+		lab = nLab;
+	}
+	
+	public int getPostazione(){
+		return postazione;
+	}
+	
+	public void setPostazione(int nPos){
+		postazione = nPos;
+	}
 }

@@ -5,20 +5,16 @@ import java.util.Date;
 public class Avviso implements Serializable {
 	
 	private int id;
-	private String oggetto, descrizione;
+	private String titolo, messaggio;
 	private Date data;
-	private int studente;
-	private String lab;
-	private int postazione;
+	private int addetto;
 	
-	public Avviso(int i, String og, String des, Date d, int s, String l, int pos){
+	public Avviso(int i, String tit, String msg, Date d, int ad) {
 		id = i;
-		oggetto = og;
-		descrizione = des;
+		titolo = tit;
+		messaggio = msg;
 		data = d;
-		studente = s;
-		lab = l;
-		postazione = pos;
+		addetto = ad;
 	}
 	
 	public int getId(){
@@ -29,20 +25,20 @@ public class Avviso implements Serializable {
 		id = nId;
 	}
 	
-	public String getOggetto(){
-		return oggetto;
+	public String getTitolo(){
+		return titolo;
 	}
 	
-	public void setOggetto(String nSubj){
-		oggetto = nSubj;
+	public void setTitolo(String nTit){
+		titolo = nTit;
 	}
 	
-	public String getDescrizione(){
-		return descrizione;
+	public String getMessaggio(){
+		return messaggio;
 	}
 	
-	public void setDescrizione(String nDes){
-		descrizione = nDes;
+	public void setMessaggio(String nMsg){
+		messaggio = nMsg;
 	}
 	
 	public Date getData(){
@@ -53,27 +49,11 @@ public class Avviso implements Serializable {
 		data = nData;
 	}
 	
-	public int getStudente(){
-		return studente;
+	public int getAddetto(){
+		return addetto;
 	}
 	
-	public void setStudente(int nStud){
-		studente = nStud;
-	}
-	
-	public String getLaboratorio(){
-		return lab;
-	}
-	
-	public void setLaboratorio(String nLab){
-		lab = nLab;
-	}
-	
-	public int getPostazione(){
-		return postazione;
-	}
-	
-	public void setPostazione(int nPos){
-		postazione = nPos;
+	public void setAddetto(int nAd){
+		addetto = nAd;
 	}
 }
