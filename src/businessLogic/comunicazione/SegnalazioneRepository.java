@@ -93,7 +93,6 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 		int id, stud, pos;
 		String og, des, lab;
 		Date data;
-		int addetto;
 		Connection con = null;
 		PreparedStatement ps = null;
 		List<Segnalazione> list = new ArrayList<Segnalazione>();
