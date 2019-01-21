@@ -89,9 +89,13 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id_pren"));
 			Prenotazione pr = manager.findPrenotazioneById(id);
 			
-			if(pr.isPrenotazioneActive()){
+			if(manager.isPrenotazioneActive(pr)){
 				response.getWriter().write(json.toJson("{\"status\": \"active\"}"));
 			}else{
+				//procedi alla modifica dello stato di questa postazione
+				pr.setStatus(false);
+				manager.updatePrenotazione(pr);
+				
 				response.getWriter().write(json.toJson("{\"status\": \"scaduta\"}"));
 			}
 		}else if(action.equals("del_pren")){

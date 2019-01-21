@@ -57,7 +57,6 @@ public class PrenotazioneManager {
 			pr.setStatus(true); //se i controlli sono rispettati
 		}
 			
-		repository = PrenotazioneRepository.getInstance();
 		try{
 			repository.add(pr); 
 		}catch(SQLException e){
@@ -77,8 +76,6 @@ public class PrenotazioneManager {
 	 */
 	public void annullaPrenotazione(Prenotazione pr){
 
-		
-		repository = PrenotazioneRepository.getInstance();
 		try{
 			repository.delete(pr);
 		}catch(SQLException e){
@@ -95,7 +92,7 @@ public class PrenotazioneManager {
 	public Prenotazione findPrenotazioneById(int id){
 		
 		if(id < 0) return null;
-		repository = PrenotazioneRepository.getInstance();
+		
 		Prenotazione pr = new Prenotazione();	//da decidere se oggetto vuoto oppure null (uso di eccezione customizzata)
 		try{
 			pr = repository.findItemByQuery(new PrenotazioneById(id));
@@ -112,9 +109,8 @@ public class PrenotazioneManager {
 	 */
 	public void updatePrenotazione(Prenotazione pr){
 		
-		PrenotazioneRepository rep = PrenotazioneRepository.getInstance();
 		try{
-			rep.update(pr);
+			repository.update(pr);
 		}catch(SQLException e){
 			System.out.println("Errore: problema nell'aggiornare una prenotazione dal DB");
 		}
@@ -128,7 +124,7 @@ public class PrenotazioneManager {
 	public List<Prenotazione> getListPrenotazioniByStudent(String stud){
 		
 		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
-		repository = PrenotazioneRepository.getInstance();
+		
 		try{
 			prenotazioni = repository.query(new PrenotazioneByStudent(stud));
 		}catch(SQLException e){
@@ -138,12 +134,20 @@ public class PrenotazioneManager {
 	} 
 	
 	/**
-	 * Verifica se una prenotazione e' attiva in base al suo stato
+	 * Verifica se una prenotazione e' ancora attiva in base alla data corrente
 	 * @param pr indica la prenotazione da controllare
 	 * @return esito della verifica
 	 */
 	public boolean isPrenotazioneActive(Prenotazione pr){
-		return pr.isPrenotazioneActive();
+		boolean val = pr.isPrenotazioneActive();
+		if(val){	//si verifica se e' ancora attiva
+			LocalDate dataCorrente = LocalDate.now(); //dammi la data corrente
+			LocalDate dataPrenotazione = LocalDate.parse(pr.getData()); //ottieni data da prenotazione
+			if(dataPrenotazione.isAfter(dataCorrente)){
+				val = false;	
+			}
+		}
+		return val;	//restituendo false, la servlet provvede a modificare il suo stato
 	}
 	
 	/**
