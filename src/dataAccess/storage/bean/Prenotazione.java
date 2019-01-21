@@ -15,9 +15,18 @@ public class Prenotazione {
 	private int postazione;  //sostituire con oggetto postazione
 	private int laboratorio; //sostituire con oggetto Laboratorio
 	
-	//constructor
+	//constructors
 	public Prenotazione(){
 		//vuoto
+	}
+	
+	//laboratorio si ottiene dall'oggetto Postazione che viene dato in input
+	public Prenotazione(String data, LocalTime oraInizio, LocalTime oraFine, String studente, int postazione){
+		this.data= data;
+		this.oraInizio = oraInizio;
+		this.oraFine = oraFine;
+		this.studente = studente;
+		this.postazione = postazione;
 	}
 	
 	//getter and setter
