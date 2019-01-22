@@ -19,7 +19,8 @@ public class PostazioneRepository implements Repository<Postazione>{
 	
 	private static PostazioneRepository instance;
 
-    public static PostazioneRepository getInstance() {
+    public static PostazioneRepository getInstance() 
+    {
 
         if (instance == null) {
             instance = new PostazioneRepository();
