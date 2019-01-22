@@ -12,6 +12,9 @@ public class Segnalazione implements Serializable {
 	private String lab;
 	private int postazione;
 	
+	public Segnalazione(){
+	}
+	
 	public Segnalazione(int i, String og, String des, Date d, int s, String l, int pos){
 		id = i;
 		oggetto = og;

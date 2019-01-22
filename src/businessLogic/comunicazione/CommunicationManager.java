@@ -1,6 +1,5 @@
 package businessLogic.comunicazione;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +9,7 @@ import dataAccess.storage.bean.Segnalazione;
 
 public class CommunicationManager {
 	
-	public void addSegnalazione(int id, String oggetto, String descrizione, Date data, int postazione, String laboratorio, int studente){
-		Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, laboratorio, postazione);
+	public void addSegnalazione(Segnalazione s){
 		SegnalazioneRepository sr = new SegnalazioneRepository();
 		try {
 			sr.add(s);
@@ -43,8 +41,7 @@ public class CommunicationManager {
 		return lista;
 	}
 	
-	public void addAvviso(int id, String titolo, String messaggio, Date data, int addetto){
-		Avviso av = new Avviso(id, titolo, messaggio, data, addetto);
+	public void addAvviso(Avviso av){
 		AvvisoRepository ar = new AvvisoRepository();
 		try {
 			ar.add(av);

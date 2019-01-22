@@ -9,6 +9,9 @@ public class Avviso implements Serializable {
 	private Date data;
 	private int addetto;
 	
+	public Avviso(){	
+	}
+	
 	public Avviso(int i, String tit, String msg, Date d, int ad) {
 		id = i;
 		titolo = tit;
