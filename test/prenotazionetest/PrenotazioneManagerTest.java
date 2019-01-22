@@ -1,4 +1,4 @@
-package prenotazioneTest;
+package prenotazionetest;
 
 import static org.junit.Assert.*;
 
@@ -78,7 +78,7 @@ public class PrenotazioneManagerTest {
 	}
 
 	@Test
-	public void testAnnullaPrenotazione() throws Exception{
+	public void testAnnullaPrenotazione() throws Exception { 
 		System.out.println("Testing: annulla prenotazione");
 		
 		//annulla la prenotazione
