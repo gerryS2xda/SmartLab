@@ -1,4 +1,4 @@
-package prenotazioneTest;
+package prenotazionetest;
 
 import static org.junit.Assert.*;
 
