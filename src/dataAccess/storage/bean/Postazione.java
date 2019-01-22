@@ -4,7 +4,7 @@ package dataAccess.storage.bean;
 public class Postazione {
 
 	private int numero;
-	private String laboratorio;
+	private String laboratorio; //id del laboratorio
 	private boolean stato;
 	
 	//costructor
