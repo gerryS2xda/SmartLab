@@ -1,0 +1,53 @@
+package dataAccess.storage.bean;
+
+
+public abstract class Utente {
+	
+	private String email;
+	private String password;
+	private String name;
+	private String surname;
+	
+	public Utente (String email, String password, String name, String surname){
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.surname = surname;
+	}
+	
+	public Utente (){
+		
+	}
+	
+	public void setEmail(String x){
+		this.email = x;
+	}
+	
+	public String getEmail(){
+		return email;
+	}
+	
+	public void setPassword(String x){
+		this.password = x;
+	}
+	
+	public String getPassword(){
+		return password;
+	}
+	
+	public void setName(String x){
+		this.name = x;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void setSurname(String x){
+		this.surname = x;
+	}
+	
+	public String getSurname(){
+		return surname;
+	}
+}
