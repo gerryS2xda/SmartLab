@@ -7,12 +7,12 @@ public class Avviso implements Serializable {
 	private int id;
 	private String titolo, messaggio;
 	private Date data;
-	private int addetto;
+	private String addetto;
 	
 	public Avviso(){	
 	}
 	
-	public Avviso(int i, String tit, String msg, Date d, int ad) {
+	public Avviso(int i, String tit, String msg, Date d, String ad) {
 		id = i;
 		titolo = tit;
 		messaggio = msg;
@@ -52,11 +52,11 @@ public class Avviso implements Serializable {
 		data = nData;
 	}
 	
-	public int getAddetto(){
+	public String getAddetto(){
 		return addetto;
 	}
 	
-	public void setAddetto(int nAd){
+	public void setAddetto(String nAd){
 		addetto = nAd;
 	}
 }
