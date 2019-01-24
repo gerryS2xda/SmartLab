@@ -30,7 +30,7 @@ public class AvvisoRepository implements Repository<Avviso> {
 			ps.setString(2, avviso.getTitolo());
 			ps.setString(3, avviso.getMessaggio());
 			ps.setDate(4, (Date) avviso.getData());
-			ps.setInt(5, avviso.getAddetto());
+			ps.setString(5, avviso.getAddetto());
 			ps.executeQuery();
 			con.commit();
 		}finally{
@@ -64,8 +64,8 @@ public class AvvisoRepository implements Repository<Avviso> {
 
 	@Override
 	public Avviso findItemByQuery(Specification spec) throws SQLException {
-		int id, ad;
-		String tit, msg;
+		int id;
+		String tit, msg, ad;
 		Date data;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -80,7 +80,7 @@ public class AvvisoRepository implements Repository<Avviso> {
 			tit = res.getString("titolo");
 			msg = res.getString("messaggio");
 			data = res.getDate("data");
-			ad = res.getInt("addetto");
+			ad = res.getString("addetto");
 			item = new Avviso(id, tit, msg, data, ad);
 		}finally{
 			con.close();
@@ -91,8 +91,8 @@ public class AvvisoRepository implements Repository<Avviso> {
 
 	@Override
 	public List<Avviso> query(Specification spec) throws SQLException {
-		int id, ad;
-		String tit, msg;
+		int id;
+		String tit, msg, ad;
 		Date data;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -108,7 +108,7 @@ public class AvvisoRepository implements Repository<Avviso> {
 				tit = res.getString("titolo");
 				msg = res.getString("messaggio");
 				data = res.getDate("data");
-				ad = res.getInt("addetto");
+				ad = res.getString("addetto");
 				Avviso tmp = new Avviso(id, tit, msg, data, ad);
 				list.add(tmp);
 			}

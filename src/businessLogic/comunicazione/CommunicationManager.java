@@ -1,6 +1,5 @@
 package businessLogic.comunicazione;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,24 +9,37 @@ import dataAccess.storage.bean.Segnalazione;
 
 public class CommunicationManager {
 	
-	public void addSegnalazione(int id, String oggetto, String descrizione, Date data, int postazione, String laboratorio, int studente){
-		Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, laboratorio, postazione);
-		SegnalazioneRepository sr = new SegnalazioneRepository();
-		try {
-			sr.add(s);
-		} catch (SQLException e) {
-			System.out.println("Errore durante l'inserimento della segnalazione");
-			e.printStackTrace();
+	public boolean addSegnalazione(Segnalazione s){
+		if(s != null){
+			SegnalazioneRepository sr = new SegnalazioneRepository();
+			try {
+				sr.add(s);
+				return true;
+			} catch (SQLException e) {
+				System.out.println("Errore durante l'inserimento della segnalazione");
+				e.printStackTrace();
+				return false;
+			}
+		}else{
+			System.out.println("Segnalazione vuota");
+			return false;
 		}
 	}
 	
-	public void deleteSegnalazione(Segnalazione s){
-		SegnalazioneRepository sr = new SegnalazioneRepository();
-		try {
-			sr.delete(s);
-		} catch (SQLException e) {
-			System.out.println("Errore durante l'eliminazione della segnalazione");
-			e.printStackTrace();
+	public boolean deleteSegnalazione(Segnalazione s){
+		if(s != null){
+			SegnalazioneRepository sr = new SegnalazioneRepository();
+			try {
+				sr.delete(s);
+				return true;
+			} catch (SQLException e) {
+				System.out.println("Errore durante l'eliminazione della segnalazione");
+				e.printStackTrace();
+				return false;
+			}
+		}else{
+			System.out.println("Segnalazione vuota");
+			return false;
 		}
 	}
 	
@@ -43,24 +55,37 @@ public class CommunicationManager {
 		return lista;
 	}
 	
-	public void addAvviso(int id, String titolo, String messaggio, Date data, int addetto){
-		Avviso av = new Avviso(id, titolo, messaggio, data, addetto);
-		AvvisoRepository ar = new AvvisoRepository();
-		try {
-			ar.add(av);
-		} catch (SQLException e) {
-			System.out.println("Errore durante l'inserimento dell'avviso");
-			e.printStackTrace();
+	public boolean addAvviso(Avviso av){
+		if(av != null){
+			AvvisoRepository ar = new AvvisoRepository();
+			try {
+				ar.add(av);
+				return true;
+			} catch (SQLException e) {
+				System.out.println("Errore durante l'inserimento dell'avviso");
+				e.printStackTrace();
+				return false;
+			}
+		}else{
+			System.out.println("Avviso vuoto");
+			return false;
 		}
 	}
 	
-	public void deleteAvviso(Avviso av){
-		AvvisoRepository ar = new AvvisoRepository();
-		try{
-			ar.delete(av);
-		}catch(SQLException e){
-			System.out.println("Errore durante la cancellazione dell'avviso");
-			e.printStackTrace();
+	public boolean deleteAvviso(Avviso av){
+		if(av != null){
+			AvvisoRepository ar = new AvvisoRepository();
+			try{
+				ar.delete(av);
+				return true;
+			}catch(SQLException e){
+				System.out.println("Errore durante la cancellazione dell'avviso");
+				e.printStackTrace();
+				return false;
+			}
+		}else{
+			System.out.println("Avviso vuoto");
+			return false;
 		}
 	}
 	
