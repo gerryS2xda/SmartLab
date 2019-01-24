@@ -1,12 +1,10 @@
 package prenotazionetest;
 
+import businessLogic.prenotazione.PrenotazioneById;
 import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import businessLogic.prenotazione.PrenotazioneById;
 
 public class PrenotazioneByIdTest {
 
@@ -31,5 +29,4 @@ public class PrenotazioneByIdTest {
 		
 		assertEquals("Le query sono diverse", oracle, actualObj);
 	}
-
 }

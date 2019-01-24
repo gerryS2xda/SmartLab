@@ -35,8 +35,7 @@ public class PrenotazioneRepositoryTest {
 		oracle.setStatus(true);
 		oracle.setStudente("teststud@studenti.unisa.it");
 		oracle.setPostazione(100);
-		oracle.setLaboratorio(1);
-		
+		oracle.setLaboratorio(1);	
 		repository.add(oracle);
 		
 		//ottieni l'ID dopo inserimento poiche' si usa auto_increment (serve per delete)

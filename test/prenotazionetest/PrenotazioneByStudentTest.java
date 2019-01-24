@@ -1,12 +1,10 @@
 package prenotazionetest;
 
+import businessLogic.prenotazione.PrenotazioneByStudent;
 import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import businessLogic.prenotazione.PrenotazioneByStudent;
 
 public class PrenotazioneByStudentTest {
 

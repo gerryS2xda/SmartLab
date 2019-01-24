@@ -149,20 +149,20 @@ public class PrenotazioneManagerTest {
 	@Test
 	public void testGetNumPrenotazioniEffettuateOggi() {
 		System.out.println("Testing: ottieni numero di prenotazione fatte oggi da uno studente");
-		
+
 		int oracleValue = 1;
 		int actualValue = manager.getNumPrenotazioniEffettuateOggi(oracle.getStudente());
-		
+
 		assertEquals("Il numero di prenotazioni effettuate non e' 1", oracleValue, actualValue);
 	}
 
 	@Test
 	public void testGetNumPrenotazioniEffettuate() {
 		System.out.println("Testing: ottieni numero di prenotazione fatte in totale da uno studente");
-		
+
 		int oracleValue = 1;
 		int actualValue = manager.getNumPrenotazioniEffettuate(oracle.getStudente());
-		
+
 		assertEquals("Il numero di prenotazioni effettuate non e' 1", oracleValue, actualValue);
 	}
 
