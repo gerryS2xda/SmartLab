@@ -1,30 +1,30 @@
 package dataAccess.storage.bean;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Sospensione {
 	private int durata;
 	private Date data;
 	private String motivazione;
-	private String studente;
-	private String addetto;
-	private int IDSospensione;
+	private Studente studente;
+	private Addetto addetto;
+	private int id;
 	
 	public Sospensione (){
 		durata = 0;
 		data = null;
 		motivazione = "";
-		studente = "";
-		addetto = "";
-		IDSospensione = 0;
+		studente = new Studente();
+		addetto = new Addetto();
+		id = 0;
 	}
 
 	public void setID (int x){
-		IDSospensione = x;
+		id = x;
 	}
 	
 	public int getID(){
-		return IDSospensione;
+		return id;
 	}
 	
 	public void setDurata(int x){
@@ -51,19 +51,38 @@ public class Sospensione {
 		return motivazione;
 	}
 	
-	public void setStudente(String x){
-		studente = x;
+	public void setStudente(Studente s){
+		studente = s;
 	}
 	
-	public String getStudente(){
+	public Studente getStudente(){
 		return studente;
 	}
 	
-	public void setAddetto(String x){
-		addetto = x;
+	public void setAddetto(Addetto a){
+		addetto = a;
 	}
 	
-	public String getAddetto(){
+	public Addetto getAddetto(){
 		return addetto;
+	}
+	
+	public String toString(){
+		String str = "{\"id\":" + id + ", \"durata\": \"" + durata + "\", \"data\": \"" + data.toString() + "\", "
+				+ "\"motivazione\": \"" + motivazione + "\"studente\": \"" + studente.toString() + "\", \"addetto\": \"" + addetto.toString() + " }";
+		return str;
+	}
+	
+	public boolean equals(Object o){
+		boolean val = false;
+		if(o instanceof Sospensione){
+			Sospensione s = (Sospensione) o;
+			if(getID() == (s.getID()) && getDurata() == (s.getDurata()) && 
+					getData().equals(s.getData()) && getMotivazione().compareTo(s.getMotivazione()) == 0 &&
+					getStudente().equals(s.getStudente()) && getAddetto().equals(s.getAddetto())){
+				val = true;
+			}
+		}
+		return val;
 	}
 }

@@ -7,6 +7,10 @@ public class Studente extends Utente {
 		stato = false;
 	}
 	
+	public Studente (){
+		
+	}
+
 	public void setStato(boolean b){
 		stato = b;
 	}

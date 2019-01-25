@@ -10,6 +10,7 @@ import dataAccess.storage.Repository;
 import dataAccess.storage.Connessione;
 import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
+import dataAccess.storage.bean.Studente;
 import dataAccess.storage.bean.Utente;
 
 public class AccountRepository implements Repository<Utente>{
@@ -80,9 +81,29 @@ public class AccountRepository implements Repository<Utente>{
 			}
 	    }
 	    	
-	    	public void update(Utente u) throws SQLException{
+	    public void update(Utente u) throws SQLException{
+	    	Connection connection = null;
+	    	PreparedStatement ps = null;
+	    	
+	    	String updateSQL = "update " + TABLE_NAME + " set email = ?, password = ?, nome = ?, "
+	    			+ "cognome = ? where email = " + u.getEmail();
+	    	
+	    	try{
+	    		connection = Connessione.getConnection();
+	    		ps = connection.prepareStatement(updateSQL);
 	    		
+	    		ps.setString(1, u.getEmail());
+	    		ps.setString(2, u.getPassword());
+	    		ps.setString(3, u.getName());
+	    		ps.setString(4, u.getSurname());
+	    		
+	    		ps.executeUpdate();
+	    	} finally {
+	    		if(ps != null)
+	    			ps.close();
+	    		Connessione.releaseConnection(connection);
 	    	}
+	    }
 	    	
 	    public Utente findItemByQuery(Specification specification) throws SQLException{
 	    	
@@ -90,7 +111,7 @@ public class AccountRepository implements Repository<Utente>{
 			PreparedStatement preparedStatement = null;
 	        SqlSpecification sqlSpecification = (SqlSpecification) specification;
 	        String selectSQL= sqlSpecification.toSqlQuery();
-	        Utente u = new Utente();
+	        Utente u = new Studente();
 	        try{
 	        	connection = Connessione.getConnection();
 	            preparedStatement = connection.prepareStatement(selectSQL);
@@ -129,7 +150,7 @@ public class AccountRepository implements Repository<Utente>{
 	            ResultSet rs = preparedStatement.executeQuery();
 
 				while (rs.next()) {
-					Utente u = new Utente();
+					Utente u = new Studente();
 	                u.setEmail(rs.getString("email"));
 					u.setPassword(rs.getString("password"));
 					u.setName(rs.getString("nome"));

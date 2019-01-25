@@ -79,9 +79,29 @@ public class ResponsabileRepository {
 		}
     }
     	
-    	public void update(Addetto a) throws SQLException{
+    public void update(Addetto a) throws SQLException{
+    	Connection connection = null;
+    	PreparedStatement ps = null;
+    	
+    	String updateSQL = "update " + TABLE_NAME + " set email = ?, password = ?, nome = ?, "
+    			+ "cognome = ? where email = " + a.getEmail();
+    	
+    	try{
+    		connection = Connessione.getConnection();
+    		ps = connection.prepareStatement(updateSQL);
     		
-    	}
+    		ps.setString(1, a.getEmail());
+    		ps.setString(2, a.getPassword());
+    		ps.setString(3, a.getName());
+    		ps.setString(4, a.getSurname());
+    		
+    		ps.executeUpdate();
+    	} finally {
+    		if(ps != null)
+    			ps.close();
+    		Connessione.releaseConnection(connection);
+    	}	
+    }
     	
     public Addetto findItemByQuery(Specification specification) throws SQLException{
     	

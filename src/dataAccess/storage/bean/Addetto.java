@@ -7,8 +7,8 @@ public class Addetto extends Utente {
 		tipo = false; //0 Responsabile, 1 Admin
 	}
 	
-	public Addetto() {
-		// TODO Auto-generated constructor stub
+	public Addetto(){
+		
 	}
 
 	public void setTipo(boolean tipo) {

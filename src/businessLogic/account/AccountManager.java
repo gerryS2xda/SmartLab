@@ -1,7 +1,10 @@
 package businessLogic.account;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
+import businessLogic.account.AccountRepository;
 import dataAccess.storage.bean.Sospensione;
 import dataAccess.storage.bean.Studente;
 import dataAccess.storage.bean.Utente;
@@ -9,7 +12,8 @@ import dataAccess.storage.bean.Utente;
 public class AccountManager {
 	
 	private static AccountManager instance;
-	private ArrayList<Utente> accountList = new ArrayList<Utente>();
+
+	private AccountRepository r;
 	
 	public static AccountManager getInstace(){
 		if (instance == null){
@@ -18,15 +22,29 @@ public class AccountManager {
 		return instance;
 	}
 	
-	public void effettuaRegistrazione (String email, String password, String name, String surname){
-		if (isEmailRight(email) && isPasswordRight(password)){ //questi metodi li implemento in questa classe?
-			Utente u = new Utente(email, password, name, surname); //come risolvo?
-			accountList.add(u);
+	public AccountManager(){
+		r = AccountRepository.getInstance();
+	}
+	
+	public void effettuaRegistrazione (Utente u) throws SQLException{
+		if (isEmailRight(u.getEmail()) && isPasswordRight(u.getPassword())){
+			r.add(u);
 		}
 	}
 	
-	public boolean effettuaAutenticazione (String email, String password){
-		for(Utente u: accountList){
+	private boolean isEmailRight(String email) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean isPasswordRight(String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean effettuaAutenticazione (String email, String password) throws SQLException{
+		List<Utente> list = getAccountList();
+		for(Utente u: list){
 			if ((u.getEmail().equals(email)) && (u.getPassword().equals(password))){
 				return true;
 			}
@@ -36,12 +54,14 @@ public class AccountManager {
 	
 	public Sospensione effettuaSospensione (Studente s){
 		Sospensione v = new Sospensione();
-		v.setStudente(v, s); //questi metodi li implemento in questa classe?
-		s.changeStatusStudente(s); //questi metodi li implemento in questa classe?
+		v.setStudente(s);
+		s.setStato(true);
 		return v;
 	}
 	
-	public ArrayList<Utente> getAccountList(){
+	public List<Utente> getAccountList() throws SQLException{
+		List<Utente> accountList = new ArrayList<Utente>();
+		accountList = r.query(new AccountList());
 		return accountList;
 	}
 	

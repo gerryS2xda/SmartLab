@@ -11,8 +11,9 @@ import dataAccess.storage.Connessione;
 import dataAccess.storage.Repository;
 import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
+import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Sospensione;
-import dataAccess.storage.bean.Utente;
+import dataAccess.storage.bean.Studente;
 
 public class SospensioneRepository implements Repository<Sospensione>{
 	
@@ -43,10 +44,10 @@ public class SospensioneRepository implements Repository<Sospensione>{
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, (s.getID()));
 			preparedStatement.setInt(2, (s.getDurata()));
-			preparedStatement.setDate(3, s.getData()); //????????
+			preparedStatement.setDate(3, s.getData());
 			preparedStatement.setString(4, s.getMotivazione());
-			preparedStatement.setString(5, s.getStudente());
-			preparedStatement.setString(6, s.getAddetto());
+			preparedStatement.setObject(5, s.getStudente());
+			preparedStatement.setObject(6, s.getAddetto());
 			
 			preparedStatement.executeUpdate();
 			connection.commit();
@@ -84,9 +85,31 @@ public class SospensioneRepository implements Repository<Sospensione>{
 		}
     }
     	
-    	public void update(Sospensione s) throws SQLException{
+    public void update(Sospensione s) throws SQLException{
+    	Connection connection = null;
+    	PreparedStatement ps = null;
+    	
+    	String updateSQL = "update " + TABLE_NAME + " set id = ?, durata = ?, data = ?, "
+    			+ "motivazione = ?, studente = ?, addetto = ? where id = " + s.getID();
+    	
+    	try{
+    		connection = Connessione.getConnection();
+    		ps = connection.prepareStatement(updateSQL);
     		
+    		ps.setInt(1, s.getID());
+    		ps.setInt(2, s.getDurata());
+    		ps.setDate(3, s.getData());
+    		ps.setString(4, s.getMotivazione());
+    		ps.setObject(5, s.getStudente());
+    		ps.setObject(6, s.getAddetto());
+    		
+    		ps.executeUpdate();
+    	} finally {
+    		if(ps != null)
+    			ps.close();
+    		Connessione.releaseConnection(connection);
     	}
+    }
     	
     public Sospensione findItemByQuery(Specification specification) throws SQLException{
     	
@@ -105,8 +128,8 @@ public class SospensioneRepository implements Repository<Sospensione>{
 				s.setDurata(rs.getInt("durata"));
 				s.setData(rs.getDate("data"));
 				s.setMotivazione(rs.getString("motivazione"));
-                s.setStudente(rs.getString("studente"));
-                s.setAddetto(rs.getString("addetto"));
+                s.setStudente((Studente) rs.getObject(5));
+                s.setAddetto((Addetto)rs.getObject(6));
 			}
 		} finally {
 			try {
@@ -140,8 +163,8 @@ public class SospensioneRepository implements Repository<Sospensione>{
 				s.setDurata(rs.getInt("durata"));
 				s.setData(rs.getDate("data"));
 				s.setMotivazione(rs.getString("motivazione"));
-                s.setStudente(rs.getString("studente"));
-                s.setAddetto(rs.getString("addetto"));
+                s.setStudente((Studente) rs.getObject(5));
+                s.setAddetto((Addetto)rs.getObject(6));
 				sospesi.add(s);
 			}
 

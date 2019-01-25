@@ -1,14 +1,15 @@
 package businessLogic.responsabile;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import dataAccess.storage.bean.Addetto;
-import dataAccess.storage.bean.Utente;
 
 public class ResponsabileManager {
 	
 	private static ResponsabileManager instance;
-	private ArrayList<Addetto> responsabileList = new ArrayList<Addetto>();
+	private ResponsabileRepository r = new ResponsabileRepository();
 	
 	public static ResponsabileManager getInstace(){
 		if (instance == null){
@@ -16,26 +17,36 @@ public class ResponsabileManager {
 		}
 		return instance;
 	}
+	
+	public ResponsabileManager(){
+		r = ResponsabileRepository.getInstance();
+	}
+	
 
-	public void aggiungiResp (String email, String password){
-		if(isEmailRight(email) && isPasswordRight(password))
-			responsabileList.add(new Addetto(email, password)); 
-		//aggiungo nome e cognome ai parametri del metodo oppure metto come parametro l'oggetto addetto
-	}
-	
-	public void rimuoviResp (Addetto resp){
-		for(int i=0; i<responsabileList.size(); i++){
-			if (responsabileList.get(i).equals(resp))
-				responsabileList.remove(i);
-			//basta fare questo oppure devo fare uno shift?
+	public void addResp (Addetto a) throws SQLException{
+		if(isEmailRight(a.getEmail()) && isPasswordRight(a.getPassword())){
+			r.add(a);
 		}
 	}
 	
-	public void visualizzaListaResp (){
-		for(int i=0; i<responsabileList.size(); i++){
-			System.out.println(""+responsabileList.get(i).getSurname()+" "+responsabileList.get(i).getName());
-			//è corretto oppure devo semplicemente restituire la lista?
-		}
+	private boolean isPasswordRight(String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean isEmailRight(String email) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void rimuoviResp (Addetto resp) throws SQLException{
+		r.delete(resp);
+	}
+	
+	public List<Addetto> getListaResp () throws SQLException{
+		List<Addetto> resp = new ArrayList<Addetto>();
+		resp = r.query(new ResponsabileList());
+		return resp;
 	}
 
 }

@@ -15,7 +15,7 @@ public abstract class Utente {
 		this.surname = surname;
 	}
 	
-	public Utente (){
+	public Utente(){
 		
 	}
 	
@@ -49,5 +49,23 @@ public abstract class Utente {
 	
 	public String getSurname(){
 		return surname;
+	}
+	
+	public String toString(){
+		String str = "{\"email\":" + email + ", \"password\": \"" + password + "\", \"nome\": \"" + name + "\", "
+				+ "\"cognome\": \"" + surname + " }";
+		return str;
+	}
+	
+	public boolean equals(Object o){
+		boolean val = false;
+		if(o instanceof Utente){
+			Utente u = (Utente) o;
+			if(getEmail().compareTo(u.getEmail()) == 0 && getPassword().compareTo(u.getPassword()) == 0 && 
+					getName().compareTo(u.getName()) == 0 && getSurname().compareTo(u.getSurname()) == 0){
+				val = true;
+			}
+		}
+		return val;
 	}
 }
