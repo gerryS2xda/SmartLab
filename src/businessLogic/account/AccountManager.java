@@ -14,6 +14,7 @@ public class AccountManager {
 	private static AccountManager instance;
 
 	private AccountRepository r;
+	private SospensioneRepository rs;
 	
 	public static AccountManager getInstace(){
 		if (instance == null){
@@ -52,10 +53,11 @@ public class AccountManager {
 		return false;
 	}
 	
-	public Sospensione effettuaSospensione (Studente s){
+	public Sospensione effettuaSospensione (Studente s) throws SQLException{
 		Sospensione v = new Sospensione();
 		v.setStudente(s);
 		s.setStato(true);
+		rs.add(v);
 		return v;
 	}
 	

@@ -1,3 +1,5 @@
+package accountTest;
+
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
@@ -33,7 +35,7 @@ public class AccountRepositoryTest {
 	
 	@Test
 	public void testDelete() throws SQLException{
-		System.out.println("add");
+		System.out.println("delete");
 		Utente u = new Utente();
 		u.setEmail("email1@studenti.unisa.it");
 		u.setPassword("password1");
@@ -50,7 +52,7 @@ public class AccountRepositoryTest {
 	
 	@Test
 	public void testFindItemByQuery() throws SQLException{
-		System.out.println("add");
+		System.out.println("findItemByQuery");
 		Utente u = new Utente();
 		u.setEmail("email1@studenti.unisa.it");
 		u.setPassword("password1");
@@ -67,13 +69,13 @@ public class AccountRepositoryTest {
 	
 	@Test
 	public void testQuery() throws SQLException{
-		System.out.println("add");
+		System.out.println("query");
 		Utente u = new Utente();
 		u.setEmail("email1@studenti.unisa.it");
 		u.setPassword("password1");
 		u.setName("Name1");
 		u.setSurname("Surname1");
-		ArrayList<Utente> utenti = new ArrayList<Utente>();
+		List<Utente> utenti = new ArrayList<Utente>();
 		
 		AccountRepository.getInstance().add(u);
 		utenti = AccountRepository.getInstance().query(new AccountList());

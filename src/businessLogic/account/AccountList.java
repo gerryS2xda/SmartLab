@@ -13,12 +13,12 @@ public class AccountList implements SqlSpecification {
 	        return instance;
 	    }
 
-	    public static final String TABLE_NAME = "account";
+	public static final String TABLE_NAME = "account";
 	    
-	    @Override
-	    public String toSqlQuery() {
-	        return String.format(
-	                "SELECT * FROM %1$s ;",
-	                TABLE_NAME);
-	    }
+	@Override
+	public String toSqlQuery() {
+		return String.format(
+				"SELECT * FROM %1$s ;",
+				TABLE_NAME);
+	}
 }
