@@ -12,7 +12,7 @@ public class ListaRespAss implements SqlSpecification {
     public static ListaRespAss getInstance() {
 
         if (instance == null) {
-            instance = new ListaRespAss("");
+            instance = new ListaRespAss("lab1");
         }
         return instance;
 

@@ -10,7 +10,7 @@ public class ListaLabAss implements SqlSpecification {
     public static ListaLabAss getInstance() {
 
         if (instance == null) {
-            instance = new ListaLabAss("");
+            instance = new ListaLabAss("resp1");
         }
         return instance;
 
