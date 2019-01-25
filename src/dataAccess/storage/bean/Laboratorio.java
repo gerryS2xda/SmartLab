@@ -2,6 +2,8 @@ package dataAccess.storage.bean;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Laboratorio implements Serializable {
 	
@@ -11,6 +13,7 @@ public class Laboratorio implements Serializable {
 	private boolean stato;
 	private Time apertura;
 	private Time chiusura;
+	private List<Addetto> responsabili;
 	
 	public Laboratorio(){
 		super();
@@ -20,9 +23,10 @@ public class Laboratorio implements Serializable {
 		this.stato = false;
 		this.apertura = null;
 		this.chiusura = null;
+		responsabili=new ArrayList<Addetto>();
 	}
 	
-	public Laboratorio(String iDlaboratorio, String nome, int posti, boolean stato, Time apertura, Time chiusura) {
+	public Laboratorio(String iDlaboratorio, String nome, int posti, boolean stato, Time apertura, Time chiusura, List<Addetto> responsabili) {
 		super();
 		IDlaboratorio = iDlaboratorio;
 		this.nome = nome;
@@ -30,6 +34,7 @@ public class Laboratorio implements Serializable {
 		this.stato = stato;
 		this.apertura = apertura;
 		this.chiusura = chiusura;
+		this.responsabili=responsabili;
 	}
 
 	public String getIDlaboratorio() {
@@ -80,6 +85,12 @@ public class Laboratorio implements Serializable {
 		this.chiusura = chiusura;
 	}
 	
+	public void add(Addetto responsabile){//l'oggetto addetto deve essere un responsabile
+		if(!this.responsabili.contains(responsabile)){
+			this.responsabili.add(responsabile);
+			//responsabile.add(this);
+		}
+	}
 	
 	
 }

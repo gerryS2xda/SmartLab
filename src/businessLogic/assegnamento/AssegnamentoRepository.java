@@ -7,14 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import businessLogic.laboratorio.LaboratorioRepository;
 import dataAccess.storage.Connessione;
 import dataAccess.storage.Specification;
 import dataAccess.storage.Repository;
 import dataAccess.storage.SqlSpecification;
 
-import dataAccess.storage.bean.Assegnamento;
-public class AssegnamentoRepository implements Repository<Assegnamento>{
+public class AssegnamentoRepository implements Repository<String[]>{
 	
 	private static AssegnamentoRepository instance;
 
@@ -34,7 +32,7 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 		
 	}
 
-    public void add(Assegnamento ass) throws SQLException{
+    public void add(String[] ass) throws SQLException{
 
         Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -45,8 +43,8 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
         try {
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, ass.getLaboratorio());
-			preparedStatement.setString(2, ass.getResponsabile());
+			preparedStatement.setString(1, ass[0]);
+			preparedStatement.setString(2, ass[1]);
 
 			preparedStatement.executeUpdate();
 
@@ -63,7 +61,7 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 
     }
 
-    public void delete(Assegnamento ass) throws SQLException {
+    public void delete(String[] ass) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -72,8 +70,8 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 		try {
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, ass.getLaboratorio());
-			preparedStatement.setString(2, ass.getResponsabile());
+			preparedStatement.setString(1, ass[0]);
+			preparedStatement.setString(2, ass[1]);
 
 			preparedStatement.executeUpdate();
 
@@ -89,12 +87,12 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 	}
 
 
-    public void update(Assegnamento ass)throws SQLException{
+    public void update(String[] ass)throws SQLException{
 
     }
 
-    public Assegnamento findItemByQuery(Specification specification)throws SQLException{
-    	
+    public String[] findItemByQuery(Specification specification)throws SQLException{
+    	/*
     	Connection connection = null;
 		PreparedStatement preparedStatement = null;
         SqlSpecification sqlSpecification = (SqlSpecification) specification;
@@ -122,12 +120,12 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 					Connessione.releaseConnection(connection);
 			}
 		}
-
-        return ass;
+		*/
+        return null;
     }
 
-    public List<Assegnamento> query(Specification specification)throws SQLException{
-    	
+    public List<String[]> query(Specification specification)throws SQLException{
+    	/*
     	Connection connection = null;
 		PreparedStatement preparedStatement = null;
         SqlSpecification sqlSpecification = (SqlSpecification) specification;
@@ -157,8 +155,8 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 					Connessione.releaseConnection(connection);
 			}
 		}
-
-        return assegnamenti;
+		*/
+        return null;
 
     }
 
