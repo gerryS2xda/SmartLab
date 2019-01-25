@@ -21,6 +21,7 @@ public class Postazione {
 		this.numero = numero;
 		this.laboratorio = laboratorio;
 		this.stato = stato;
+		
 	}
 
 	//metodi

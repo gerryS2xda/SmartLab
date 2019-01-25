@@ -17,6 +17,13 @@ import dataAccess.storage.bean.Avviso;
 public class AvvisoRepository implements Repository<Avviso> {
 	
 	private String table = "avviso";
+	private static AvvisoRepository instance;
+	
+	public static AvvisoRepository getInstance(){
+		if(instance == null)
+			instance = new AvvisoRepository();
+		return instance;
+	}
 	
 	@Override
 	public void add(Avviso avviso) throws SQLException {
