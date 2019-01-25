@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import businessLogic.laboratorio.LaboratorioManager;
+import dataAccess.storage.bean.Assegnamento;
 	/** contiene tutte le operazione necessarie per gestire la relazione tra laboratorio e responsabile
 	*@author giuseppe paolisi
 	*/
@@ -26,7 +27,7 @@ public class AssegnamentoManager {
     * @post il laboratorio ha 1 responsabile in più assegnato
     * @return flag indica se l'operazione è andata a buon fine
     */
-    public boolean setRespToLab(String[] ass){
+    public boolean setRespToLab(Assegnamento ass){
     	boolean flag;
     	if(ass!=null){
     		AssegnamentoRepository repository= new AssegnamentoRepository();
@@ -50,7 +51,7 @@ public class AssegnamentoManager {
     * @post il laboratorio ha un responsabile in meno assegnato
     * @return flag indica se l'operazione è andata a buon fine
     */
-    public boolean removeResponsabile(String[] ass){
+    public boolean removeResponsabile(Assegnamento ass){
     	boolean flag;
     	if(ass!=null){
     		AssegnamentoRepository repository= new AssegnamentoRepository();
@@ -71,7 +72,7 @@ public class AssegnamentoManager {
     /**permette di visualizzare la lista dei laboratori con i responsabili assegnati
     *@return lista dei responsabili assegnati ai corrispettivi laboratori
     */
-    public List<String[]> showResponsabileAndLaboratorio(){
+    public List<Assegnamento> showResponsabileAndLaboratorio(){
     	/*AssegnamentoRepository repository= new AssegnamentoRepository();
     	try {
 			return repository.query(new ListaLabAss());

@@ -11,8 +11,9 @@ import dataAccess.storage.Connessione;
 import dataAccess.storage.Specification;
 import dataAccess.storage.Repository;
 import dataAccess.storage.SqlSpecification;
+import dataAccess.storage.bean.Assegnamento;
 
-public class AssegnamentoRepository implements Repository<String[]>{
+public class AssegnamentoRepository implements Repository<Assegnamento>{
 	
 	private static AssegnamentoRepository instance;
 
@@ -32,7 +33,7 @@ public class AssegnamentoRepository implements Repository<String[]>{
 		
 	}
 
-    public void add(String[] ass) throws SQLException{
+    public void add(Assegnamento ass) throws SQLException{
 
         Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -43,8 +44,8 @@ public class AssegnamentoRepository implements Repository<String[]>{
         try {
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, ass[0]);
-			preparedStatement.setString(2, ass[1]);
+			preparedStatement.setString(1, ass.getLaboratorio());
+			preparedStatement.setString(2, ass.getResponsabile());
 
 			preparedStatement.executeUpdate();
 
@@ -61,7 +62,7 @@ public class AssegnamentoRepository implements Repository<String[]>{
 
     }
 
-    public void delete(String[] ass) throws SQLException {
+    public void delete(Assegnamento ass) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -70,8 +71,8 @@ public class AssegnamentoRepository implements Repository<String[]>{
 		try {
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, ass[0]);
-			preparedStatement.setString(2, ass[1]);
+			preparedStatement.setString(1, ass.getLaboratorio());
+			preparedStatement.setString(2, ass.getResponsabile());
 
 			preparedStatement.executeUpdate();
 
@@ -87,78 +88,24 @@ public class AssegnamentoRepository implements Repository<String[]>{
 	}
 
 
-    public void update(String[] ass)throws SQLException{
+    public void update(Assegnamento ass)throws SQLException{
 
     }
 
-    public String[] findItemByQuery(Specification specification)throws SQLException{
-    	/*
-    	Connection connection = null;
-		PreparedStatement preparedStatement = null;
-        SqlSpecification sqlSpecification = (SqlSpecification) specification;
-        String selectSQL= sqlSpecification.toSqlQuery();
-        Assegnamento ass=new Assegnamento();
-        
-        try{
-            connection = Connessione.getConnection();
-            preparedStatement = connection.prepareStatement(selectSQL);
-            ResultSet rs = preparedStatement.executeQuery();
+    public Assegnamento findItemByQuery(Specification specification){
+    	
+    	
 
-			while (rs.next()) {
-				
-                ass.setLaboratorio(rs.getString("laboratorio"));
-				ass.setResponsabile(rs.getString("responsabile"));
-
-			}
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
-			}
-		}
-		*/
         return null;
     }
 
-    public List<String[]> query(Specification specification)throws SQLException{
-    	/*
-    	Connection connection = null;
-		PreparedStatement preparedStatement = null;
-        SqlSpecification sqlSpecification = (SqlSpecification) specification;
-        List<Assegnamento> assegnamenti = new ArrayList<>();
-        String selectSQL= sqlSpecification.toSqlQuery();
-
-        try{
-            connection = Connessione.getConnection();
-            preparedStatement = connection.prepareStatement(selectSQL);
-            ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-				Assegnamento ass=new Assegnamento();
-
-                ass.setLaboratorio(rs.getString("laboratorio"));
-				ass.setResponsabile(rs.getString("responsabile"));
-
-				assegnamenti.add(ass);
-			}
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
-			}
-		}
-		*/
+    public List<Assegnamento> query(Specification specification){
+    	
+    
         return null;
 
     }
+
 
 
 }
