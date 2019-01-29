@@ -3,7 +3,9 @@ package businessLogic.laboratorio;
 import java.sql.SQLException;
 import java.util.List;
 
+import businessLogic.Postazione.PostazioneRepository;
 import dataAccess.storage.bean.Laboratorio;
+import dataAccess.storage.bean.Postazione;
 
 /** contiene tutte le operazione necessarie per gestire i laboratori
 *@author giuseppe paolisi
@@ -33,6 +35,16 @@ public class LaboratorioManager {
 	    		flag=true;
 	    		try {
 					repository.add(lab);
+					//crea le postazioni
+					PostazioneRepository rPostazione=new PostazioneRepository();
+					for(int i=0;i<lab.getPosti();i++){
+						Postazione p=new Postazione();
+						p.setLaboratorio(lab.getIDlaboratorio());
+						p.setNumero(i+1);
+						p.setStato(false);
+						rPostazione.add(p);
+					}
+					
 				} catch (SQLException e) {
 					flag=false;
 					System.err.println("non è possibile aggiungere il laboratorio al sistema");
