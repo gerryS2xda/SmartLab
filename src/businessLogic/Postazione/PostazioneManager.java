@@ -6,6 +6,7 @@ import dataAccess.storage.bean.*;
 import java.util.List;
 
 import businessLogic.laboratorio.LaboratorioManager;
+import businessLogic.prenotazione.PrenotazioneException;
 import businessLogic.prenotazione.PrenotazioneManager;
 
 public class PostazioneManager {
@@ -80,10 +81,11 @@ public class PostazioneManager {
  * Libera una postazione che era stata prenotata da uno studente ma non è fisicamente presente
  * @param p indica quale postazione va Liberata
  * @return boolean che indica se è andata a buon fine l’operazione (true)
+ *  
  * 
  */
 
-	public boolean liberaPostazione(Prenotazione pre)
+	public boolean liberaPostazione(Prenotazione pre) throws PrenotazioneException
 	{
 		if(pre.isPrenotazioneActive())
 		{
