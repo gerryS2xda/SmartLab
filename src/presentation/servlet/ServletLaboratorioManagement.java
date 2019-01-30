@@ -18,7 +18,7 @@ import dataAccess.storage.bean.Laboratorio;
  * Servlet implementation class ServletLaboratorio
  */
 @WebServlet("/ServletLaboratorio")
-public class ServletLaboratorio extends HttpServlet {
+public class ServletLaboratorioManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	LaboratorioManager manager=new LaboratorioManager();
