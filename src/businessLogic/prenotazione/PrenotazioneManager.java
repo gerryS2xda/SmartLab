@@ -71,22 +71,29 @@ public class PrenotazioneManager {
 	/**
 	 * Annulla una prenotazione effettuata, si assume che ci sia almeno una prenotazione da annullare
 	 * @param pr indica la prenotazione da annullare
-	 * @precondition isPrenotazioneActive(pr)
+	 * @precondition isPrenotazioneActive(pr) && ora attuale < pr.getOraInizio().getHour() - 2
 	 * @post  getNumPrenotazioniEffettuate(s) = @pre.getNumPrenotazioniEffettuate(s)-1
 	 * @post  getNumPrenotazioniEffettuateOggi(s) = @pre.getNumPrenotazioniEffettuateOggi(s)-1
 	 */
 	public void annullaPrenotazione(Prenotazione pr)throws PrenotazioneException{
 
 		//controlli precondizione
-		if(isPrenotazioneActive(pr)){
+		if(!isPrenotazioneActive(pr)){
 			throw new PrenotazioneException("Prenotazione gia' scaduta!!");
 		}
 		
-		try{
-			repository.delete(pr);
-		}catch(SQLException e){
-			System.out.println("Errore: problema nella rimozione della prenotazione dal DB");
+		int oraAttuale = LocalTime.now().getHour();
+		int oraInizio = pr.getOraInizio().getHour() - 2; //puoi annullare almeno 2 ore prima dell'inizio della prenotazione
+		if(oraAttuale < oraInizio){
+			try{
+				repository.delete(pr);
+			}catch(SQLException e){
+				System.out.println("Errore: problema nella rimozione della prenotazione dal DB");
+			}	
+		}else{
+			throw new PrenotazioneException("La prenotazione non puo' essere piu' annullata");
 		}
+		
 	}
 	
 	/**
