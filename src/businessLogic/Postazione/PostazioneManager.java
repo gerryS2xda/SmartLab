@@ -28,7 +28,7 @@ public class PostazioneManager {
  * postazione che gli verrà assegnato, "b" è lo stato della postazione.
  * @return p ritorna una postazione
  */
-	public boolean creaPostazione(int numero,String laboratorio,boolean b)
+	public boolean creaPostazione(int numero,Laboratorio laboratorio,boolean b)
 	{
 		boolean flag=true;
 		Postazione pos=null;
