@@ -61,6 +61,10 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 			String idlab=request.getParameter("idlaboratorio");
 			
 			List<Utente> responsabili=manager.showResponsabileAddLaboratorio(idlab);
+		}else if(action.equals("lista_resp_ass")){
+			String idlab=request.getParameter("idlaboratorio");
+			
+			List<Utente> responsabili=manager.showResponsabileAddLaboratorio(idlab);
 		}
 		
 		
