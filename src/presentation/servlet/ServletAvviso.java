@@ -52,9 +52,13 @@ public class ServletAvviso extends HttpServlet {
 			response.setContentType("application/json");
 			int count = 0;
 			List<Avviso> lista = cm.viewAvviso();
+			String result = "{";
 			while(count < lista.size()){
-				response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(count).getId() + "\", \"titolo\": \"" + lista.get(count).getTitolo() + "\", \"messaggio\": \"" + lista.get(count).getMessaggio() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"addetto\": \"" + lista.get(count).getAddetto() + "\"}"));
+				result += "\"av" + count + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"titolo\": \"" + lista.get(count).getTitolo() + "\", \"messaggio\": \"" + lista.get(count).getMessaggio() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"addetto\": \"" + lista.get(count).getAddetto() + "\"}, ";
+				count++;
 			}
+			result = result.substring(0, result.length() - 1) + "}";
+			response.getWriter().write(json.toJson(result));
 		}else if(avviso.equals("openAvviso")){
 			int flag = 0, i = 0;
 			response.setContentType("application/json");
