@@ -44,7 +44,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, pos.getNumero());
-			preparedStatement.setString(2, pos.getLaboratorio());
+			preparedStatement.setObject(2, pos.getLaboratorio());
 			preparedStatement.setBoolean(3, pos.isStato());
 
 			preparedStatement.executeUpdate();
@@ -75,7 +75,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 				connection = Connessione.getConnection();
 				preparedStatement = connection.prepareStatement(deleteSQL);
 				preparedStatement.setInt(1, pos.getNumero());
-				preparedStatement.setString(2, pos.getLaboratorio());
+				preparedStatement.setObject(2, pos.getLaboratorio());
 
 				preparedStatement.executeUpdate();
 
@@ -117,7 +117,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 			while (rs.next()) {
 
                 pos.setNumero(rs.getInt("numero"));
-				pos.setLaboratorio(rs.getString("laboratorio"));
+				pos.setLaboratorio((Laboratorio) rs.getObject("laboratorio"));
 				pos.setStato(rs.getBoolean("stato"));
               
 
@@ -154,7 +154,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 			while (rs.next()) {
 				Postazione pos=new Postazione();
                 pos.setNumero(rs.getInt("IDlaboratorio"));
-				pos.setLaboratorio(rs.getString("nome"));
+                pos.setLaboratorio((Laboratorio) rs.getObject("laboratorio"));
 				pos.setStato(rs.getBoolean("posti"));
               
 				postazioni.add(pos);

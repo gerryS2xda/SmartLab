@@ -39,7 +39,7 @@ public class LaboratorioManager {
 					PostazioneRepository rPostazione=new PostazioneRepository();
 					for(int i=0;i<lab.getPosti();i++){
 						Postazione p=new Postazione();
-						p.setLaboratorio(lab.getIDlaboratorio());
+						p.setLaboratorio(lab);
 						p.setNumero(i+1);
 						p.setStato(false);
 						rPostazione.add(p);
