@@ -38,13 +38,16 @@ public class PostazioneRepository implements Repository<Postazione>{
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL = "INSERT INTO " + TABLE_NAME
-				+ " (nome, posti, stato,fascia_oraria_apertura) VALUES (?, ?, ?, ?)";
+				+ " (nome, laboratorio, stato) VALUES (?, ?, ?)";
+		
+		Laboratorio lab=pos.getLaboratorio();
+		String id=lab.getIDlaboratorio();
 		
 		try {
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, pos.getNumero());
-			preparedStatement.setObject(2, pos.getLaboratorio());
+			preparedStatement.setString(2, id);
 			preparedStatement.setBoolean(3, pos.isStato());
 
 			preparedStatement.executeUpdate();
@@ -68,14 +71,17 @@ public class PostazioneRepository implements Repository<Postazione>{
 		
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
+			
+			Laboratorio lab=pos.getLaboratorio();
+			String id=lab.getIDlaboratorio();
 
-			String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE numero = ? && IDlaboratorio=?";
+			String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE numero = ? && laboratorio=?";
 
 			try {
 				connection = Connessione.getConnection();
 				preparedStatement = connection.prepareStatement(deleteSQL);
 				preparedStatement.setInt(1, pos.getNumero());
-				preparedStatement.setObject(2, pos.getLaboratorio());
+				preparedStatement.setString(2, id);
 
 				preparedStatement.executeUpdate();
 
@@ -153,9 +159,9 @@ public class PostazioneRepository implements Repository<Postazione>{
 
 			while (rs.next()) {
 				Postazione pos=new Postazione();
-                pos.setNumero(rs.getInt("IDlaboratorio"));
+                pos.setNumero(rs.getInt("numero"));
                 pos.setLaboratorio((Laboratorio) rs.getObject("laboratorio"));
-				pos.setStato(rs.getBoolean("posti"));
+				pos.setStato(rs.getBoolean("stato"));
               
 				postazioni.add(pos);
 			}
