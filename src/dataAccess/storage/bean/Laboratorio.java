@@ -92,5 +92,8 @@ public class Laboratorio implements Serializable {
 		}
 	}
 	
+	public void remuve(Addetto responsabile){
+		this.responsabili.remove(responsabile);
+	}
 	
 }

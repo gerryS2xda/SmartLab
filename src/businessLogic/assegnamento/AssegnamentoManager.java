@@ -3,8 +3,11 @@ package businessLogic.assegnamento;
 import java.sql.SQLException;
 import java.util.List;
 
+import businessLogic.account.AccountRepository;
 import businessLogic.laboratorio.LaboratorioManager;
+import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Assegnamento;
+import dataAccess.storage.bean.Utente;
 	/** contiene tutte le operazione necessarie per gestire la relazione tra laboratorio e responsabile
 	*@author giuseppe paolisi
 	*/
@@ -82,4 +85,17 @@ public class AssegnamentoManager {
 		}*/
 		return null;
 	}
+    
+    public List<Utente> showResponsabileAddLaboratorio(String idlaboratorio){
+    	AccountRepository repository=new AccountRepository();
+    	
+    	try {
+			return repository.query(new ListaRespDaAssegnare(idlaboratorio));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	return null;
+    }
 }

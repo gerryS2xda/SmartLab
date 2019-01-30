@@ -1,6 +1,8 @@
 package presentation.servlet;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import businessLogic.assegnamento.AssegnamentoManager;
 import dataAccess.storage.bean.Assegnamento;
+import dataAccess.storage.bean.Utente;
 
 /**
  * Servlet implementation class ServletAssegnamentoManagement
@@ -54,6 +57,10 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 			}else{
 				response.getWriter().write("{\"esito\":\"non è stato possibile rimuovere il responsabile dal laboratorio\"}");
 			}
+		}else if(action.equals("lista_resp")){//lista di responsabili che è possibile assegnare
+			String idlab=request.getParameter("idlaboratorio");
+			
+			List<Utente> responsabili=manager.showResponsabileAddLaboratorio(idlab);
 		}
 		
 		
