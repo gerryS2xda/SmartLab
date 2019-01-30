@@ -1,6 +1,6 @@
 package businessLogic.prenotazione;
 
-public class PrenotazioneException extends RuntimeException {
+public class PrenotazioneException extends Exception {
 
 	public PrenotazioneException(){
 		super("Problemi con le funzionalita' relative alla gestione delle prenotazioni");
