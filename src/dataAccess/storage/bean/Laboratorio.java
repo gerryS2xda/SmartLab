@@ -95,5 +95,12 @@ public class Laboratorio implements Serializable {
 	public void remuve(Addetto responsabile){
 		this.responsabili.remove(responsabile);
 	}
+
+	@Override
+	public String toString() {
+		return "Laboratorio [IDlaboratorio=" + IDlaboratorio + ", nome=" + nome + ", posti=" + posti + ", stato="
+				+ stato + ", apertura=" + apertura + ", chiusura=" + chiusura + ", responsabili=" + responsabili + "]";
+	}
+	
 	
 }

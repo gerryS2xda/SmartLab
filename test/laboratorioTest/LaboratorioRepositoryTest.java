@@ -28,15 +28,16 @@ public class LaboratorioRepositoryTest {
 		Laboratorio lab= new Laboratorio();
 		lab.setNome("Lab1");
 		lab.setPosti(100);
-		lab.setIDlaboratorio("12345678");
 		lab.setStato(true);
+		lab.setIDlaboratorio("1");
 		//-----------------
 		LaboratorioRepository instance= LaboratorioRepository.getInstance();
 		instance.add(lab);
 		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
 		Laboratorio result=instance.findItemByQuery(sql);
-		assertEquals(lab,result);
 		instance.delete(lab);
+		System.out.println("lab: "+lab.toString()+"\nresult: "+result.toString());
+		assertEquals(lab.getIDlaboratorio(),result.getIDlaboratorio());
 	}
 	
 	@Test
@@ -45,7 +46,7 @@ public class LaboratorioRepositoryTest {
 		Laboratorio lab= new Laboratorio();
 		lab.setNome("Lab1");
 		lab.setPosti(100);
-		lab.setIDlaboratorio("12345678");
+		lab.setIDlaboratorio("3");
 		lab.setStato(true);
 		//-----------------
 		LaboratorioRepository instance= LaboratorioRepository.getInstance();
@@ -53,7 +54,7 @@ public class LaboratorioRepositoryTest {
 		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
 		instance.delete(lab);
 		Laboratorio result=instance.findItemByQuery(sql);
-		assertEquals(null,result);
+		assertEquals("",result.getIDlaboratorio());
 	}
 	
 	@Test
@@ -62,15 +63,15 @@ public class LaboratorioRepositoryTest {
 		Laboratorio lab= new Laboratorio();
 		lab.setNome("Lab1");
 		lab.setPosti(100);
-		lab.setIDlaboratorio("12345678");
+		lab.setIDlaboratorio("1");
 		lab.setStato(true);
 		//-----------------
 		LaboratorioRepository instance= LaboratorioRepository.getInstance();
 		instance.add(lab);
 		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
 		Laboratorio result=instance.findItemByQuery(sql);
-		assertEquals(lab,result);
 		instance.delete(lab);
+		assertEquals(lab.getIDlaboratorio(),result.getIDlaboratorio());
 	}
 	
 	@Test
@@ -79,13 +80,14 @@ public class LaboratorioRepositoryTest {
 		Laboratorio lab= new Laboratorio();
 		lab.setNome("Lab1");
 		lab.setPosti(100);
-		lab.setIDlaboratorio("12345678");
+		lab.setIDlaboratorio("2");
 		lab.setStato(true);
 		List<Laboratorio> laboratori =new ArrayList<Laboratorio>();
 		//-----------------
 
 		LaboratorioRepository.getInstance().add(lab);
 		laboratori=LaboratorioRepository.getInstance().query(new ListaLab());
+		LaboratorioRepository.getInstance().delete(lab);
 		assertTrue(!laboratori.isEmpty());
 
 	}
