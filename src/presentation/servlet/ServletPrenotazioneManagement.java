@@ -13,6 +13,7 @@ import java.util.List;
 import com.google.gson.*;
 import com.project.utils.Utils;
 
+import businessLogic.prenotazione.PrenotazioneException;
 import businessLogic.prenotazione.PrenotazioneManager;
 import dataAccess.storage.bean.Prenotazione;
 
@@ -38,12 +39,16 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			String inizio = request.getParameter("inizio");
 			String fine =  request.getParameter("fine");
 			
-			manager.effettuaPrenotazione(stud, post, inizio, fine);
-			
 			//costruisci risposta JSON
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 			
+			try{
+				manager.effettuaPrenotazione(stud, post, inizio, fine);
+			}catch (PrenotazioneException e){
+				response.getWriter().write(json.toJson("{\"esito\": \"failure\"}"));
+			}
+
 			response.getWriter().write(json.toJson("{\"esito\": \"ok\"}"));
 		}else if(action.equals("check_post")){
 			
@@ -87,7 +92,13 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			response.setCharacterEncoding("utf-8");
 			
 			int id = Integer.parseInt(request.getParameter("id_pren"));
-			Prenotazione pr = manager.findPrenotazioneById(id);
+			Prenotazione pr = new Prenotazione();
+			
+			try{
+				manager.findPrenotazioneById(id);
+			}catch(PrenotazioneException e){
+				response.getWriter().write(json.toJson("{\"status\": \"notValid\"}")); //id non valido
+			}
 			
 			if(manager.isPrenotazioneActive(pr)){
 				response.getWriter().write(json.toJson("{\"status\": \"active\"}"));
@@ -100,10 +111,20 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			}
 		}else if(action.equals("del_pren")){
 			
-			int id = Integer.parseInt(request.getParameter("id_pren"));
-			Prenotazione pr = manager.findPrenotazioneById(id);
-			manager.annullaPrenotazione(pr);
+			//costruisci risposta JSON
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
 			
+			int id = Integer.parseInt(request.getParameter("id_pren"));
+			try{
+				Prenotazione pr = manager.findPrenotazioneById(id);
+				manager.annullaPrenotazione(pr);
+			}catch (PrenotazioneException e){
+				//id non valido oppure la prenotazione non si puo' annullare
+				response.getWriter().write(json.toJson("{\"esito\": \"failure\"}"));
+			}
+
+			response.getWriter().write(json.toJson("{\"esito\": \"ok\"}"));
 		}
 	}
 		
