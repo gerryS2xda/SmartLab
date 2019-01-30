@@ -57,7 +57,7 @@ public class AssegnamentoManagerTest {
 		//-----------------
 		AssegnamentoManager instance= AssegnamentoManager.getInstance();
 		instance.setRespToLab(ass);
-		assegnamenti=instance.showResponsabileAndLaboratorio();
+		//assegnamenti=instance.showResponsabileAndLaboratorio();
 		assertTrue(!assegnamenti.isEmpty());
 	}
 

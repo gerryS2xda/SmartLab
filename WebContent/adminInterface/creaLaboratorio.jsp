@@ -12,7 +12,7 @@
 <body>
 <div class="container">
 	<h4 class="text-center">Crea Laboratorio</h4>
-	<form>
+	<form method="get" action="../laboratorio">
 	  <div class="form-row">
 	    <div class="form-group col-md-6">
 	      <label for="nomeLaboratorio">Nome Laboratorio</label>

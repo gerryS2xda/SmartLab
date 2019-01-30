@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="ServletLaboratorioManagement?action=lista_lab">laboratori</a>
+<a href="../laboratorio?action=lista_lab">laboratori</a>
 </body>
 </html>

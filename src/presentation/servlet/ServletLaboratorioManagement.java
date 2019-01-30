@@ -17,7 +17,7 @@ import dataAccess.storage.bean.Laboratorio;
 /**
  * Servlet implementation class ServletLaboratorio
  */
-@WebServlet("/ServletLaboratorio")
+//@WebServlet("/ServletLaboratorio")
 public class ServletLaboratorioManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -51,6 +51,7 @@ public class ServletLaboratorioManagement extends HttpServlet {
 		}else if(action.equals("rimuovi_lab")){//rimuovi laboratorio
 			Laboratorio lab=new Laboratorio();
 			
+			lab.setIDlaboratorio(request.getParameter("idlaboratorio"));
 			lab.setNome(request.getParameter("nome"));
 			lab.setPosti(Integer.parseInt(request.getParameter("posti")));
 			lab.setStato(Boolean.parseBoolean(request.getParameter("stato")));
@@ -75,7 +76,7 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 

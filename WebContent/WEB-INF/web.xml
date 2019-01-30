@@ -11,4 +11,8 @@
     <servlet-name>ServletLaboratorioManagement</servlet-name>
     <servlet-class>presentation.servlet.ServletLaboratorioManagement</servlet-class>
   </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletLaboratorioManagement</servlet-name>
+    <url-pattern>/laboratorio</url-pattern>
+  </servlet-mapping>
 </web-app>
