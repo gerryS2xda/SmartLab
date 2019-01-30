@@ -85,7 +85,7 @@ public class PrenotazioneManagerTest {
 	}
 
 	@Test
-	public void testFindPrenotazioneById() {
+	public void testFindPrenotazioneById()throws Exception {
 		System.out.println("Testing: trova una prenotazione tramite id");
 		
 		//la prenotazione da trovare e' gia' nel DB tramite setUp()
@@ -96,7 +96,7 @@ public class PrenotazioneManagerTest {
 	}
 
 	@Test
-	public void testUpdatePrenotazione() {
+	public void testUpdatePrenotazione()throws Exception {
 		System.out.println("Testing: aggiorna i dati di una prenotazione");
 		
 		//crea oggetto simile ad oracle e verifica che i due riferimenti puntano alla stessa istanza
@@ -119,7 +119,7 @@ public class PrenotazioneManagerTest {
 	}
 
 	@Test
-	public void testGetListPrenotazioniByStudent() {
+	public void testGetListPrenotazioniByStudent()throws Exception {
 		System.out.println("Testing: ottieni lista di prenotazioni fatte da uno studente");
 		
 		//il testing verra' fatta soltanto sul primo risultato ottenuto
@@ -132,7 +132,7 @@ public class PrenotazioneManagerTest {
 	}
 
 	@Test
-	public void testIsPrenotazioneActive() {
+	public void testIsPrenotazioneActive()throws Exception {
 		System.out.println("Testing: verifica se la prenotazione e' attiva");
 		
 		//si assume che la prenotazione sia attiva (nell'oracolo e' attiva)
@@ -140,7 +140,7 @@ public class PrenotazioneManagerTest {
 	}
 
 	@Test
-	public void testGetNumPrenotazioniEffettuateOggi() {
+	public void testGetNumPrenotazioniEffettuateOggi()throws Exception {
 		System.out.println("Testing: ottieni numero di prenotazione fatte oggi da uno studente");
 
 		int oracleValue = 1;
@@ -150,7 +150,7 @@ public class PrenotazioneManagerTest {
 	}
 
 	@Test
-	public void testGetNumPrenotazioniEffettuate() {
+	public void testGetNumPrenotazioniEffettuate()throws Exception {
 		System.out.println("Testing: ottieni numero di prenotazione fatte in totale da uno studente");
 
 		int oracleValue = 1;
