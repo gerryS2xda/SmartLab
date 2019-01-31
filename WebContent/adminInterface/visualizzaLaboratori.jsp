@@ -64,19 +64,69 @@
       </div> -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
-        <a class="btn btn-primary" id="elimina">Conferma</a>
+        <button type="button" class="btn btn-primary" id="confermaElimina">Conferma</button>
       </div>
     </div>
   </div>
 </div>
+<!-- messaggio esito -->
+<div class="alert alert-success" id="success-alert" style="display:none">
+</div>
 
 <script>
 $(document).ready(function(){
+	
+	var id;
+	var div;
 	$("button#elimina").on("click",function(){
-		var id=$(this).find("input#id").val();
-		$("a#elimina").attr("href", "laboratorio?action=rimuovi_lab&idlaboratorio="+id)
+		id=$(this).find("input#id").val();
+		div=$(this).parent().parent().parent();//seleziono la scheda card
+	    //create a message 
+	    //create a message 
+	    /*var alert=$("div");
+	    alert.addClass("alert alert-success");
+	    alert.attr("id","success-alert");
+	    var button=$("button").addClass("close").attr("data-dismiss","alert");
+	    button.attr("value","x");
+	    button.attr("type","button");
+		console.log(div);
+		console.log(id);
+		var strong=$("strong");
+		strong.text("ciao");
+		alert.append(button);
+		alert.append(strong);
+		$("#mymes").append(alert);*/
+		//$("a#elimina").attr("href", "laboratorio?action=rimuovi_lab&idlaboratorio="+id)
+		
+	});
+	$("button#confermaElimina").on("click",function(){
+		console.log(id);
+		/*$(document).ajaxStart(function(){
+	        $("#wait").css("display", "block");
+	    });
+		
+		$(document).ajaxComplete(function(){
+	        $("#wait").css("display", "none");
+	    });*/
+		
+		$.getJSON("laboratorio",{
+			action: "rimuovi_lab",
+			idlaboratorio: id
+		},function(data,status){
+			//console.log(data.esito);
+			div.remove();//rimuovo la scheda dalla grafica
+			id="";
+			var mex=data.esito;
+			$("#success-alert").css("display","block");
+			$("#success-alert").append($("<strong>"+mex+"</strong>"));
+			setTimeout(function() {
+				$("#success-alert").css("display","none");
+		        //$("#success-alert").alert('close');
+		    }, 2000);
+		});
 	});
 });
 </script>
+
 </body>
 </html>

@@ -12,25 +12,26 @@
 <body>
 <div class="container">
 	<h4 class="text-center">Crea Laboratorio</h4>
-	<form method="get" action="../laboratorio">
+	<form id="form">
+		<input type="hidden" name="action" value="aggiungi_lab">
 	  <div class="form-row">
 	    <div class="form-group col-md-6">
 	      <label for="nomeLaboratorio">Nome Laboratorio</label>
-	      <input type="text" class="form-control" placeholder="lab1">
+	      <input name="nome" type="text" class="form-control" placeholder="lab1">
 	    </div>
 	    <div class="form-group col-md-6">
 	      <label for="posti">Posti</label>
-	      <input type="number" class="form-control" placeholder="20" min="0">
+	      <input name="posti" type="number" class="form-control" placeholder="20" min="0">
 	    </div>
 	  </div>
 	  <div class="form-row">
 		  <div class="form-group col-md-6">
 		    <label for="oraApertura">Ora apertura</label>
-		    <input type="time" class="form-control" placeholder="8:00">
+		    <input name="apertura" type="time" class="form-control" placeholder="8:00">
 		  </div>
 		  <div class="form-group col-md-6">
 		    <label for="oraChiusura">Ora chiusura</label>
-		    <input type="time" class="form-control" placeholder="18:00">
+		    <input name=chiusura type="time" class="form-control" placeholder="18:00">
 		  </div>
 	  </div>
 	  <div class="row">
@@ -39,5 +40,21 @@
 	  </div></div>
 	</form>
 </div>
+<script>
+$(document).ready(function(){
+	$("form#form").submit(function(e){
+		var form = $(this);
+		console.log(form);
+		$.getJSON("laboratorio",{
+			nome:form.attr('nome'),
+			posti:form.attr('posti'),
+			apertura:form.attr('apertura'),
+			chiusura:form.attr('chiusura')
+		},function(data,status){
+			console.log(data.esito);
+		});
+	});
+});
+</script>
 </body>
 </html>
