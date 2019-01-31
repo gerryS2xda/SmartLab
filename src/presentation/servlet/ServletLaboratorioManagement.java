@@ -1,7 +1,10 @@
 package presentation.servlet;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,12 +35,11 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			Laboratorio lab=new Laboratorio();
 			lab.setNome(request.getParameter("nome"));
 			lab.setPosti(Integer.parseInt(request.getParameter("posti")));
-			lab.setStato(Boolean.parseBoolean(request.getParameter("stato")));
+			lab.setStato(true);
 			
-			/*SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-			long ms = sdf.parse(request.getParameter("apertura")).getTime();*/
-			lab.setApertura(java.sql.Time.valueOf(request.getParameter("apertura")));
-			lab.setChiusura(java.sql.Time.valueOf(request.getParameter("chiusura")));
+			lab.setApertura(LocalTime.parse(request.getParameter("apertura")));
+			lab.setChiusura(LocalTime.parse(request.getParameter("chiusura")));
+			System.out.println("nome: "+lab.getNome()+"\nposti: "+lab.getPosti()+"\napertura: "+lab.getApertura());
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
@@ -52,18 +54,18 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			Laboratorio lab=new Laboratorio();
 			
 			lab.setIDlaboratorio(request.getParameter("idlaboratorio"));
-			lab.setNome(request.getParameter("nome"));
+			/*lab.setNome(request.getParameter("nome"));
 			lab.setPosti(Integer.parseInt(request.getParameter("posti")));
-			lab.setStato(Boolean.parseBoolean(request.getParameter("stato")));
+			lab.setStato(Boolean.parseBoolean(request.getParameter("stato")));*/
 			
 			/*SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 			long ms = sdf.parse(request.getParameter("apertura")).getTime();*/
-			lab.setApertura(java.sql.Time.valueOf(request.getParameter("apertura")));
-			lab.setChiusura(java.sql.Time.valueOf(request.getParameter("chiusura")));
+			/*lab.setApertura(java.sql.Time.valueOf(request.getParameter("apertura")));
+			lab.setChiusura(java.sql.Time.valueOf(request.getParameter("chiusura")));*/
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
-			
+			System.out.println(lab.getIDlaboratorio());
 			if(manager.removeLaboratory(lab)){
 				response.getWriter().write("{\"esito\":\"laboratorio eliminato\"}");
 			}else{
@@ -73,6 +75,11 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			//List<Laboratorio> laboratori= manager.getLaboratoryList();
 			request.setAttribute("laboratori", manager.getLaboratoryList());
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/adminInterface/visualizzaLaboratori.jsp");
+			dispatcher.forward(request, response);
+		}else if(action.equals("lista_lab_attivi")){//visualizzazione lista laboratori
+			//List<Laboratorio> laboratori= manager.getLaboratoryList();
+			request.setAttribute("laboratori", manager.getLaboratoryList());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/studentInterface/laboratoriAttivi.jsp");
 			dispatcher.forward(request, response);
 		}
 		
