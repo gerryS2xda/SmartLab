@@ -25,13 +25,10 @@
 			    <label class="card-text">Stato: <%=lab.isStato() %></label>
 			  </div>
 			  <div class="col-md-6">
-			    <label class="card-text">Stato: <%=lab.isStato() %></label>
+			    <label class="card-text">Apertura: <%=lab.getApertura().toString() %></label>
 			  </div>
 			  <div class="col-md-6">
-			    <label class="card-text">Apertura: <%=lab.getApertura() %></label>
-			  </div>
-			  <div class="col-md-6">
-			    <label class="card-text">Chiusura: <%=lab.getChiusura() %></label>
+			    <label class="card-text">Chiusura: <%=lab.getChiusura().toString() %></label>
 			  </div>
 		  </div>
 		  <div class="row">

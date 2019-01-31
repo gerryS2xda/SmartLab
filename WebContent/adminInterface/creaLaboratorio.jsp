@@ -65,7 +65,7 @@ $(document).ready(function(){
 		},function(data,status){
 			var mex=data.esito;
 			$("#success-alert").css("display","block");
-			$("#success-alert").append($("<strong>"+mex+"</strong>"));
+			$("#success-alert").html($("<strong>"+mex+"</strong>"));
 			setTimeout(function() {
 				$("#success-alert").css("display","none");
 		        //$("#success-alert").alert('close');

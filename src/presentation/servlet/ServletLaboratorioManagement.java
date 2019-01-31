@@ -1,8 +1,10 @@
 package presentation.servlet;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,17 +37,9 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			lab.setPosti(Integer.parseInt(request.getParameter("posti")));
 			lab.setStato(true);
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-			long ms=0;
-			try {
-				ms = sdf.parse(request.getParameter("apertura")).getTime();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//lab.setApertura(java.sql.Time.valueOf(request.getParameter("apertura")));
-			//lab.setChiusura(java.sql.Time.valueOf(request.getParameter("chiusura")));
-			System.out.println("nome: "+lab.getNome()+"\nposti: "+lab.getPosti()+"\napertura: "+ms);
+			lab.setApertura(LocalTime.parse(request.getParameter("apertura")));
+			lab.setChiusura(LocalTime.parse(request.getParameter("chiusura")));
+			System.out.println("nome: "+lab.getNome()+"\nposti: "+lab.getPosti()+"\napertura: "+lab.getApertura());
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");

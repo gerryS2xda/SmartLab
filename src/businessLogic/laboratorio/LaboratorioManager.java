@@ -35,23 +35,25 @@ public class LaboratorioManager {
 	    		flag=true;
 	    		try {
 					repository.add(lab);
+					//
+					//lab=repository.findItemByQuery(new IdLab(lab));
 					//crea le postazioni
-					PostazioneRepository rPostazione=new PostazioneRepository();
+					/*PostazioneRepository rPostazione=new PostazioneRepository();
 					for(int i=0;i<lab.getPosti();i++){
 						Postazione p=new Postazione();
 						p.setLaboratorio(lab);
 						p.setNumero(i+1);
 						p.setStato(false);
 						rPostazione.add(p);
-					}
+					}*/
 					
 				} catch (SQLException e) {
 					flag=false;
-					System.err.println("non è possibile aggiungere il laboratorio al sistema");
+					System.out.println("non è possibile aggiungere il laboratorio al sistema");
 					e.printStackTrace();
 				}
 	    	}else{
-	    		System.err.println("è stato passato un oggetto laboratorio nullo");
+	    		System.out.println("è stato passato un oggetto laboratorio nullo");
 	    		flag=false;
 	    	}
 	    	return flag;
