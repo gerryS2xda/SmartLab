@@ -3,6 +3,7 @@ package presentation.servlet;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,14 +62,18 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 			String idlab=request.getParameter("idlaboratorio");
 			
 			List<Utente> responsabili=manager.showResponsabileAddLaboratorio(idlab);
-		}else if(action.equals("lista_resp_ass")){
+			
+		}else if(action.equals("lista_resp_ass")){//lista responsabili assegnati a un laboratorio
 			String idlab=request.getParameter("idlaboratorio");
 			
 			List<Utente> responsabili=manager.showResponsabileAddLaboratorio(idlab);
+			request.setAttribute("responsabili", responsabili);
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/adminInterface/viewRespAssegnati.jsp");
+			dispatcher.forward(request, response);
 		}
 		
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 
