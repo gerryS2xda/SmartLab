@@ -36,8 +36,9 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			
 			/*SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 			long ms = sdf.parse(request.getParameter("apertura")).getTime();*/
-			lab.setApertura(java.sql.Time.valueOf(request.getParameter("apertura")));
-			lab.setChiusura(java.sql.Time.valueOf(request.getParameter("chiusura")));
+			//lab.setApertura(java.sql.Time.valueOf(request.getParameter("apertura")));
+			//lab.setChiusura(java.sql.Time.valueOf(request.getParameter("chiusura")));
+			System.out.println("nome: "+lab.getNome()+"\nposti: "+lab.getPosti()+"\napertura: "+request.getParameter("apertura"));
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");

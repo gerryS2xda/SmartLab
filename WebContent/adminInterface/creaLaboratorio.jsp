@@ -36,22 +36,40 @@
 	  </div>
 	  <div class="row">
      <div class="col text-center">
-	  <button type="submit" class="btn btn-primary" >Crea laboratorio</button>
+	  <button id="submitButton" type="button" class="btn btn-primary" >Crea laboratorio</button>
 	  </div></div>
 	</form>
 </div>
+<div class="alert alert-success" id="success-alert" style="display:none">
+</div>
 <script>
 $(document).ready(function(){
-	$("form#form").submit(function(e){
-		var form = $(this);
+	$("#submitButton").on("click",function(event){
+		var form = $("form#form");
 		console.log(form);
-		$.getJSON("laboratorio",{
-			nome:form.attr('nome'),
-			posti:form.attr('posti'),
-			apertura:form.attr('apertura'),
-			chiusura:form.attr('chiusura')
+		console.log(form.find("input[name=\"nome\"]").val());
+		console.log(form.find("input[name=\"posti\"]").val());
+		console.log(form.find("input[name=\"apertura\"]").val());
+		console.log(form.find("input[name=\"chiusura\"]").val());
+		var nome=form.find("input[name=\"nome\"]");
+		var posti=form.find("input[name=\"posti\"]");
+		var apertura=form.find("input[name=\"apertura\"]");
+		var chiusura=form.find("input[name=\"chiusura\"]")
+		console.log("ok");
+		$.getJSON("../laboratorio",{
+			action:"aggiungi_lab",
+			nome:nome.val(),
+			posti:posti.val(),
+			apertura:apertura.val(),
+			chiusura:chiusura.val()
 		},function(data,status){
-			console.log(data.esito);
+			var mex=data.esito;
+			$("#success-alert").css("display","block");
+			$("#success-alert").append($("<strong>"+mex+"</strong>"));
+			setTimeout(function() {
+				$("#success-alert").css("display","none");
+		        //$("#success-alert").alert('close');
+		    }, 2000);
 		});
 	});
 });
