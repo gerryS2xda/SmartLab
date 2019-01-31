@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +51,8 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 			preparedStatement.setString(1, lab.getNome());
 			preparedStatement.setInt(2, lab.getPosti());
 			preparedStatement.setBoolean(3, lab.isStato());
-			preparedStatement.setTime(4, lab.getApertura());
-			preparedStatement.setTime(5, lab.getChiusura());
+			preparedStatement.setTime(4, Time.valueOf(lab.getApertura()));
+			preparedStatement.setTime(5, Time.valueOf(lab.getChiusura()));
 
 			preparedStatement.executeUpdate();
 
@@ -71,7 +73,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE IDlaboratorio = ?";
+		String deleteSQL = "DELETE FROM smartlab." + TABLE_NAME + " WHERE "+TABLE_NAME+".idlaboratorio = ?";
 
 		try {
 			connection = Connessione.getConnection();
@@ -79,6 +81,9 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 			preparedStatement.setString(1, lab.getIDlaboratorio());
 
 			preparedStatement.executeUpdate();
+			
+			connection.commit();
+			System.out.println(preparedStatement);
 
 		} finally {
 			try {
@@ -110,12 +115,16 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 
 			while (rs.next()) {
 
-                lab.setIDlaboratorio(rs.getString("IDlaboratorio"));
+                lab.setIDlaboratorio(rs.getString("idlaboratorio"));
 				lab.setNome(rs.getString("nome"));
 				lab.setPosti(rs.getInt("posti"));
                 lab.setStato(rs.getBoolean("stato"));
-                lab.setApertura(rs.getTime("ora_apertura"));
-                lab.setChiusura(rs.getTime("ora_chiusura"));
+                if(rs.getTime("ora_apertura")!=null){
+                	lab.setApertura(rs.getTime("ora_apertura").toLocalTime());
+                }
+                if(rs.getTime("ora_chiusura")!=null){
+                	lab.setChiusura(rs.getTime("ora_chiusura").toLocalTime());
+                }
 
 			}
 
@@ -148,13 +157,17 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 			while (rs.next()) {
 				Laboratorio lab=new Laboratorio();
 
-                lab.setIDlaboratorio(rs.getString("IDlaboratorio"));
+                lab.setIDlaboratorio(rs.getString("idlaboratorio"));
 				lab.setNome(rs.getString("nome"));
 				lab.setPosti(rs.getInt("posti"));
-                lab.setStato(rs.getBoolean("stato"));
-                lab.setApertura(rs.getTime("ora_apertura"));
-                lab.setChiusura(rs.getTime("ora_chiusura"));
-
+                lab.setStato(rs.getBoolean("stato")); 
+                if(rs.getTime("ora_apertura")!=null){
+                	lab.setApertura(rs.getTime("ora_apertura").toLocalTime());
+                }
+                if(rs.getTime("ora_chiusura")!=null){
+                	lab.setChiusura(rs.getTime("ora_chiusura").toLocalTime());
+                }
+ 
 				laboratori.add(lab);
 			}
 

@@ -7,13 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import businessLogic.laboratorio.LaboratorioRepository;
 import dataAccess.storage.Connessione;
 import dataAccess.storage.Specification;
 import dataAccess.storage.Repository;
 import dataAccess.storage.SqlSpecification;
-
 import dataAccess.storage.bean.Assegnamento;
+
 public class AssegnamentoRepository implements Repository<Assegnamento>{
 	
 	private static AssegnamentoRepository instance;
@@ -76,6 +75,7 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 			preparedStatement.setString(2, ass.getResponsabile());
 
 			preparedStatement.executeUpdate();
+			connection.commit();
 
 		} finally {
 			try {
@@ -93,74 +93,20 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 
     }
 
-    public Assegnamento findItemByQuery(Specification specification)throws SQLException{
+    public Assegnamento findItemByQuery(Specification specification){
     	
-    	Connection connection = null;
-		PreparedStatement preparedStatement = null;
-        SqlSpecification sqlSpecification = (SqlSpecification) specification;
-        String selectSQL= sqlSpecification.toSqlQuery();
-        Assegnamento ass=new Assegnamento();
-        
-        try{
-            connection = Connessione.getConnection();
-            preparedStatement = connection.prepareStatement(selectSQL);
-            ResultSet rs = preparedStatement.executeQuery();
+    	
 
-			while (rs.next()) {
-				
-                ass.setLaboratorio(rs.getString("laboratorio"));
-				ass.setResponsabile(rs.getString("responsabile"));
-
-			}
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
-			}
-		}
-
-        return ass;
+        return null;
     }
 
-    public List<Assegnamento> query(Specification specification)throws SQLException{
+    public List<Assegnamento> query(Specification specification){
     	
-    	Connection connection = null;
-		PreparedStatement preparedStatement = null;
-        SqlSpecification sqlSpecification = (SqlSpecification) specification;
-        List<Assegnamento> assegnamenti = new ArrayList<>();
-        String selectSQL= sqlSpecification.toSqlQuery();
-
-        try{
-            connection = Connessione.getConnection();
-            preparedStatement = connection.prepareStatement(selectSQL);
-            ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-				Assegnamento ass=new Assegnamento();
-
-                ass.setLaboratorio(rs.getString("laboratorio"));
-				ass.setResponsabile(rs.getString("responsabile"));
-
-				assegnamenti.add(ass);
-			}
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
-			}
-		}
-
-        return assegnamenti;
+    
+        return null;
 
     }
+
 
 
 }

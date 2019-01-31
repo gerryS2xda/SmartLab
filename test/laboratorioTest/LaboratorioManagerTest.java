@@ -29,7 +29,7 @@ public class LaboratorioManagerTest {
 		Laboratorio lab= new Laboratorio();
 		lab.setNome("Lab1");
 		lab.setPosti(100);
-		lab.setIDlaboratorio("12345678");
+		lab.setIDlaboratorio("1");
 		lab.setStato(true);
 		//---------
 		LaboratorioManager instance=LaboratorioManager.getInstance();
@@ -43,7 +43,7 @@ public class LaboratorioManagerTest {
 		Laboratorio lab= new Laboratorio();
 		lab.setNome("Lab1");
 		lab.setPosti(100);
-		lab.setIDlaboratorio("12345678");
+		lab.setIDlaboratorio("2");
 		lab.setStato(true);
 		//---------
 		LaboratorioManager instance=LaboratorioManager.getInstance();
@@ -57,7 +57,7 @@ public class LaboratorioManagerTest {
 		Laboratorio lab= new Laboratorio();
 		lab.setNome("Lab1");
 		lab.setPosti(100);
-		lab.setIDlaboratorio("12345678");
+		lab.setIDlaboratorio("3");
 		lab.setStato(true);
 		List<Laboratorio> laboratori =new ArrayList<Laboratorio>();
 		//---------
