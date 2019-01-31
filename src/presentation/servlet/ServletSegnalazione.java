@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.*;
 
 import businessLogic.comunicazione.CommunicationManager;
+import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Segnalazione;
 
 public class ServletSegnalazione extends HttpServlet {
@@ -54,9 +55,26 @@ public class ServletSegnalazione extends HttpServlet {
 			response.setContentType("application/json");
 			int count = 0;
 			List<Segnalazione> lista = cm.viewSegnalazione();
+			String result = "{";
 			while(count < lista.size()){
-				response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(count).getId() + "\", \"oggetto\": \"" + lista.get(count).getOggetto() + "\", \"descrizione\": \"" + lista.get(count).getDescrizione() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"studente\": \"" + lista.get(count).getStudente() + "\", \"laboratorio\": \"" + lista.get(count).getLaboratorio() + "\", \"postazione\": \"" + lista.get(count).getPostazione() + "\"}"));
+				result += "\"sg" + count + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"oggetto\": \"" + lista.get(count).getOggetto() + "\", \"descrizione\": \"" + lista.get(count).getDescrizione() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"studente\": \"" + lista.get(count).getStudente() + "\", \"laboratorio\": \"" + lista.get(count).getLaboratorio() + "\", \"postazione\": \"" + lista.get(count).getPostazione() + "\"}";
+				count++;
 			}
+			result = result.substring(0, result.length() - 1) + "}";
+			response.getWriter().write(json.toJson(result));
+		}else if(segnalazione.equals("openSegnalazione")){
+			int flag = 0, i = 0;
+			response.setContentType("application/json");
+			response.sendRedirect("./segnalazione.jsp");
+			int id = Integer.parseInt(request.getParameter("id"));
+			List<Segnalazione> lista = cm.viewSegnalazione();
+			while(flag == 0){
+				if(lista.get(i).getId() == id)
+					flag++;
+				else
+					i++;
+			}
+			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"oggetto\": \"" + lista.get(i).getOggetto()) + "\", \"descrizione\": \"" + lista.get(i).getDescrizione() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"laboratorio\": " + lista.get(i).getLaboratorio() + "\", \"postazione\": " + lista.get(i).getPostazione() + "\", \"studente\": " + lista.get(i).getStudente() + "\"}");
 		}
 	}
 	

@@ -62,7 +62,7 @@ public class ServletAvviso extends HttpServlet {
 		}else if(avviso.equals("openAvviso")){
 			int flag = 0, i = 0;
 			response.setContentType("application/json");
-			response.sendRedirect("./Avviso.jsp");
+			response.sendRedirect("./avviso.jsp");
 			int id = Integer.parseInt(request.getParameter("id"));
 			List<Avviso> lista = cm.viewAvviso();
 			while(flag == 0){
@@ -71,7 +71,7 @@ public class ServletAvviso extends HttpServlet {
 				else
 					i++;
 			}
-			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"titolo\": \"" + lista.get(i).getTitolo() + "\", \"messaggio\": \"" + lista.get(i).getMessaggio() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"addetto\": \"" + lista.get(i).getAddetto() + "\""));
+			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"titolo\": \"" + lista.get(i).getTitolo() + "\", \"messaggio\": \"" + lista.get(i).getMessaggio() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"addetto\": \"" + lista.get(i).getAddetto() + "\"}"));
 		}
 	}
 	
