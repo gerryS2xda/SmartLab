@@ -69,10 +69,12 @@ public class LaboratorioManager {
 	    		flag=true;
 	    		try {
 					repository.delete(lab);
+					System.out.println("ok manager");
 				} catch (SQLException e) {
 					flag=false;
 					System.err.println("non è possibile eliminare il laboratorio dal sistema");
 					e.printStackTrace();
+					System.out.println("no manager");
 				}
 	    	}else{
 	    		System.err.println("è stato passato un oggetto laboratorio nullo");

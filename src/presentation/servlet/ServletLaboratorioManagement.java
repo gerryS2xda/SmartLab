@@ -1,6 +1,7 @@
 package presentation.servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
@@ -34,11 +35,17 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			lab.setPosti(Integer.parseInt(request.getParameter("posti")));
 			lab.setStato(true);
 			
-			/*SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-			long ms = sdf.parse(request.getParameter("apertura")).getTime();*/
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+			long ms=0;
+			try {
+				ms = sdf.parse(request.getParameter("apertura")).getTime();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			//lab.setApertura(java.sql.Time.valueOf(request.getParameter("apertura")));
 			//lab.setChiusura(java.sql.Time.valueOf(request.getParameter("chiusura")));
-			System.out.println("nome: "+lab.getNome()+"\nposti: "+lab.getPosti()+"\napertura: "+request.getParameter("apertura"));
+			System.out.println("nome: "+lab.getNome()+"\nposti: "+lab.getPosti()+"\napertura: "+ms);
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
@@ -64,7 +71,7 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
-			
+			System.out.println(lab.getIDlaboratorio());
 			if(manager.removeLaboratory(lab)){
 				response.getWriter().write("{\"esito\":\"laboratorio eliminato\"}");
 			}else{

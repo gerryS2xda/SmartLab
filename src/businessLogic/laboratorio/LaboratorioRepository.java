@@ -71,7 +71,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE IDlaboratorio = ?";
+		String deleteSQL = "DELETE FROM smartlab." + TABLE_NAME + " WHERE "+TABLE_NAME+".idlaboratorio = ?";
 
 		try {
 			connection = Connessione.getConnection();
@@ -79,6 +79,9 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 			preparedStatement.setString(1, lab.getIDlaboratorio());
 
 			preparedStatement.executeUpdate();
+			
+			connection.commit();
+			System.out.println(preparedStatement);
 
 		} finally {
 			try {

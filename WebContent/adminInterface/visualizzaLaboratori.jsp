@@ -64,7 +64,7 @@
       </div> -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
-        <button type="button" class="btn btn-primary" id="confermaElimina">Conferma</button>
+        <button type="button" class="btn btn-primary" id="confermaElimina" data-dismiss="modal">Conferma</button>
       </div>
     </div>
   </div>
