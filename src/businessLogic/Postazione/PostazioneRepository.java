@@ -84,6 +84,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 				preparedStatement.setString(2, id);
 
 				preparedStatement.executeUpdate();
+				connection.commit();
 
 				} finally 
 				{
