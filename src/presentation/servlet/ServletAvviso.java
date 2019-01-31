@@ -17,7 +17,7 @@ public class ServletAvviso extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		Gson json = new Gson();
-		String avviso = request.getParameter("creaAvviso");
+		String avviso = request.getParameter("action");
 		CommunicationManager cm = new CommunicationManager();
 		if(avviso == null){
 			response.setStatus(404);

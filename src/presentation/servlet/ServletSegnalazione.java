@@ -18,7 +18,7 @@ public class ServletSegnalazione extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		Gson json = new Gson();
-		String segnalazione = request.getParameter("invioSegnalazione");
+		String segnalazione = request.getParameter("action");
 		CommunicationManager cm = new CommunicationManager();
 		if(segnalazione == null){
 			response.setStatus(404);
