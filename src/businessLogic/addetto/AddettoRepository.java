@@ -1,4 +1,4 @@
-package businessLogic.account;
+package businessLogic.addetto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,46 +8,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dataAccess.storage.Connessione;
-import dataAccess.storage.Repository;
 import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.bean.Addetto;
-import dataAccess.storage.bean.Sospensione;
-import dataAccess.storage.bean.Studente;
 
-public class SospensioneRepository implements Repository<Sospensione>{
-	
-	private static SospensioneRepository instance;
+public class AddettoRepository {
+	private static AddettoRepository instance;
 
-    public static SospensioneRepository getInstance() {
+    public static AddettoRepository getInstance() {
         if (instance == null) {
-            instance = new SospensioneRepository();
+            instance = new AddettoRepository();
         }
         return instance;
     }
 
-    public static final String TABLE_NAME = "sospensione";
+    public static final String TABLE_NAME = "addetto";
     
-    public SospensioneRepository(){
+    public AddettoRepository(){
     	
     }
     
-    public void add(Sospensione s) throws SQLException{
+    public void add(Addetto a) throws SQLException{
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
     	
     	String insertSQL = "INSERT INTO " + TABLE_NAME
-    			+ " (id, durata, data, motivazione, studente, addetto) VALUES (?, ?, ?, ?, ?, ?)";
+    			+ " (email, tipo) VALUES (?, ?)";
     	
     	try {
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, (s.getID()));
-			preparedStatement.setInt(2, (s.getDurata()));
-			preparedStatement.setDate(3, s.getData());
-			preparedStatement.setString(4, s.getMotivazione());
-			preparedStatement.setObject(5, s.getStudente());
-			preparedStatement.setObject(6, s.getAddetto());
+			preparedStatement.setString(1, a.getEmail());
+			preparedStatement.setBoolean(2, a.getTipo());
 			
 			preparedStatement.executeUpdate();
 			connection.commit();
@@ -62,16 +54,16 @@ public class SospensioneRepository implements Repository<Sospensione>{
 		}  	
     }
     
-    public void delete(Sospensione s) throws SQLException {
+    public void delete(Addetto a) throws SQLException {
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
     	
-    	String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
+    	String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE email = ?";
     	
     	try{
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setInt(1, s.getID());
+			preparedStatement.setString(1, a.getEmail());
 
 			preparedStatement.executeUpdate();
 		} finally {
@@ -85,51 +77,42 @@ public class SospensioneRepository implements Repository<Sospensione>{
 		}
     }
     	
-    public void update(Sospensione s) throws SQLException{
+    public void update(Addetto a) throws SQLException{
     	Connection connection = null;
     	PreparedStatement ps = null;
     	
-    	String updateSQL = "update " + TABLE_NAME + " set id = ?, durata = ?, data = ?, "
-    			+ "motivazione = ?, studente = ?, addetto = ? where id = " + s.getID();
+    	String updateSQL = "update " + TABLE_NAME + " set email = ?, password = ?, nome = ?, "
+    			+ "cognome = ? where email = " + a.getEmail();
     	
     	try{
     		connection = Connessione.getConnection();
     		ps = connection.prepareStatement(updateSQL);
     		
-    		ps.setInt(1, s.getID());
-    		ps.setInt(2, s.getDurata());
-    		ps.setDate(3, s.getData());
-    		ps.setString(4, s.getMotivazione());
-    		ps.setObject(5, s.getStudente());
-    		ps.setObject(6, s.getAddetto());
+    		ps.setString(1, a.getEmail());
+    		ps.setBoolean(2, a.getTipo());
     		
     		ps.executeUpdate();
     	} finally {
     		if(ps != null)
     			ps.close();
     		Connessione.releaseConnection(connection);
-    	}
+    	}	
     }
     	
-    public Sospensione findItemByQuery(Specification specification) throws SQLException{
-    	
+    public Addetto findItemByQuery(Specification specification) throws SQLException{
     	Connection connection = null;
 		PreparedStatement preparedStatement = null;
         SqlSpecification sqlSpecification = (SqlSpecification) specification;
         String selectSQL= sqlSpecification.toSqlQuery();
-        Sospensione s = new Sospensione();
+        Addetto a = new Addetto();
         try{
         	connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
 			
             while (rs.next()) {
-                s.setID(rs.getInt("id"));
-				s.setDurata(rs.getInt("durata"));
-				s.setData(rs.getDate("data"));
-				s.setMotivazione(rs.getString("motivazione"));
-                s.setStudente((Studente) rs.getObject(5));
-                s.setAddetto((Addetto)rs.getObject(6));
+                a.setEmail(rs.getString("email"));
+				a.setTipo(rs.getBoolean("tipo"));
 			}
 		} finally {
 			try {
@@ -141,16 +124,15 @@ public class SospensioneRepository implements Repository<Sospensione>{
 			}
 		}
         
-        return s;
+        return a;
     }
     
-    public List<Sospensione> query(Specification specification) throws SQLException{
-    	
+    public List<Addetto> query(Specification specification) throws SQLException{    	
     	Connection connection = null;
 		PreparedStatement preparedStatement = null;
         SqlSpecification sqlSpecification = (SqlSpecification) specification;
-        List<Sospensione> sospesi = new ArrayList<>();
-        String selectSQL= sqlSpecification.toSqlQuery();
+        List<Addetto> addetti = new ArrayList<>();
+        String selectSQL = sqlSpecification.toSqlQuery();
 
         try{
             connection = Connessione.getConnection();
@@ -158,14 +140,11 @@ public class SospensioneRepository implements Repository<Sospensione>{
             ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				Sospensione s = new Sospensione();
-                s.setID(rs.getInt("id"));
-				s.setDurata(rs.getInt("durata"));
-				s.setData(rs.getDate("data"));
-				s.setMotivazione(rs.getString("motivazione"));
-                s.setStudente((Studente) rs.getObject(5));
-                s.setAddetto((Addetto)rs.getObject(6));
-				sospesi.add(s);
+				Addetto a = new Addetto();
+                a.setEmail(rs.getString("email"));
+				a.setTipo(rs.getBoolean("tipo"));
+				
+				addetti.add(a);
 			}
 
 		} finally {
@@ -178,7 +157,7 @@ public class SospensioneRepository implements Repository<Sospensione>{
 			}
 		}
 
-        return sospesi;
+        return addetti;
     }
     
 }

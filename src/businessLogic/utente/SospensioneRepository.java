@@ -1,4 +1,4 @@
-package businessLogic.responsabile;
+package businessLogic.utente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,40 +8,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dataAccess.storage.Connessione;
+import dataAccess.storage.Repository;
 import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.bean.Addetto;
+import dataAccess.storage.bean.Sospensione;
+import dataAccess.storage.bean.Studente;
 
-public class ResponsabileRepository {
-	private static ResponsabileRepository instance;
+public class SospensioneRepository implements Repository<Sospensione>{
+	
+	private static SospensioneRepository instance;
 
-    public static ResponsabileRepository getInstance() {
+    public static SospensioneRepository getInstance() {
         if (instance == null) {
-            instance = new ResponsabileRepository();
+            instance = new SospensioneRepository();
         }
         return instance;
     }
 
-    public static final String TABLE_NAME = "responsabile";
+    public static final String TABLE_NAME = "sospensione";
     
-    public ResponsabileRepository(){
+    public SospensioneRepository(){
     	
     }
     
-    public void add(Addetto a) throws SQLException{
+    public void add(Sospensione s) throws SQLException{
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
     	
     	String insertSQL = "INSERT INTO " + TABLE_NAME
-    			+ " (email, password, name, surname) VALUES (?, ?, ?, ?)";
+    			+ " (id, durata, data, motivazione, studente, addetto) VALUES (?, ?, ?, ?, ?, ?)";
     	
     	try {
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, a.getEmail());
-			preparedStatement.setString(2, a.getPassword());
-			preparedStatement.setString(3, a.getName());
-			preparedStatement.setString(4, a.getSurname());
+			preparedStatement.setInt(1, (s.getID()));
+			preparedStatement.setInt(2, (s.getDurata()));
+			preparedStatement.setDate(3, s.getData());
+			preparedStatement.setString(4, s.getMotivazione());
+			preparedStatement.setObject(5, s.getStudente());
+			preparedStatement.setObject(6, s.getAddetto());
 			
 			preparedStatement.executeUpdate();
 			connection.commit();
@@ -56,16 +62,16 @@ public class ResponsabileRepository {
 		}  	
     }
     
-    public void delete(Addetto a) throws SQLException {
+    public void delete(Sospensione s) throws SQLException {
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
     	
-    	String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE email = ?";
+    	String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
     	
     	try{
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, a.getEmail());
+			preparedStatement.setInt(1, s.getID());
 
 			preparedStatement.executeUpdate();
 		} finally {
@@ -79,47 +85,50 @@ public class ResponsabileRepository {
 		}
     }
     	
-    public void update(Addetto a) throws SQLException{
+    public void update(Sospensione s) throws SQLException{
     	Connection connection = null;
     	PreparedStatement ps = null;
     	
-    	String updateSQL = "update " + TABLE_NAME + " set email = ?, password = ?, nome = ?, "
-    			+ "cognome = ? where email = " + a.getEmail();
+    	String updateSQL = "update " + TABLE_NAME + " set id = ?, durata = ?, data = ?, "
+    			+ "motivazione = ?, studente = ?, addetto = ? where id = " + s.getID();
     	
     	try{
     		connection = Connessione.getConnection();
     		ps = connection.prepareStatement(updateSQL);
     		
-    		ps.setString(1, a.getEmail());
-    		ps.setString(2, a.getPassword());
-    		ps.setString(3, a.getName());
-    		ps.setString(4, a.getSurname());
+    		ps.setInt(1, s.getID());
+    		ps.setInt(2, s.getDurata());
+    		ps.setDate(3, s.getData());
+    		ps.setString(4, s.getMotivazione());
+    		ps.setObject(5, s.getStudente());
+    		ps.setObject(6, s.getAddetto());
     		
     		ps.executeUpdate();
     	} finally {
     		if(ps != null)
     			ps.close();
     		Connessione.releaseConnection(connection);
-    	}	
+    	}
     }
     	
-    public Addetto findItemByQuery(Specification specification) throws SQLException{
-    	
+    public Sospensione findItemByQuery(Specification specification) throws SQLException{
     	Connection connection = null;
 		PreparedStatement preparedStatement = null;
         SqlSpecification sqlSpecification = (SqlSpecification) specification;
         String selectSQL= sqlSpecification.toSqlQuery();
-        Addetto a = new Addetto();
+        Sospensione s = new Sospensione();
         try{
         	connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
 			
             while (rs.next()) {
-                a.setEmail(rs.getString("email"));
-				a.setPassword(rs.getString("password"));
-				a.setName(rs.getString("nome"));
-                a.setSurname(rs.getString("cognome"));
+                s.setID(rs.getInt("id"));
+				s.setDurata(rs.getInt("durata"));
+				s.setData(rs.getDate("data"));
+				s.setMotivazione(rs.getString("motivazione"));
+                s.setStudente((Studente) rs.getObject(5));
+                s.setAddetto((Addetto) rs.getObject(6));
 			}
 		} finally {
 			try {
@@ -131,15 +140,14 @@ public class ResponsabileRepository {
 			}
 		}
         
-        return a;
+        return s;
     }
     
-    public List<Addetto> query(Specification specification) throws SQLException{
-    	
+    public List<Sospensione> query(Specification specification) throws SQLException{
     	Connection connection = null;
 		PreparedStatement preparedStatement = null;
         SqlSpecification sqlSpecification = (SqlSpecification) specification;
-        List<Addetto> responsabili = new ArrayList<>();
+        List<Sospensione> sospesi = new ArrayList<>();
         String selectSQL= sqlSpecification.toSqlQuery();
 
         try{
@@ -148,13 +156,15 @@ public class ResponsabileRepository {
             ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				Addetto a = new Addetto();
-                a.setEmail(rs.getString("email"));
-				a.setPassword(rs.getString("password"));
-				a.setName(rs.getString("nome"));
-                a.setSurname(rs.getString("cognome"));
-
-				responsabili.add(a);
+				Sospensione s = new Sospensione();
+                s.setID(rs.getInt("id"));
+				s.setDurata(rs.getInt("durata"));
+				s.setData(rs.getDate("data"));
+				s.setMotivazione(rs.getString("motivazione"));
+                s.setStudente((Studente) rs.getObject(5));
+                s.setAddetto((Addetto)rs.getObject(6));
+                
+				sospesi.add(s);
 			}
 
 		} finally {
@@ -167,7 +177,7 @@ public class ResponsabileRepository {
 			}
 		}
 
-        return responsabili;
+        return sospesi;
     }
     
 }

@@ -1,4 +1,4 @@
-package businessLogic.responsabile;
+package businessLogic.addetto;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -6,20 +6,20 @@ import java.util.List;
 
 import dataAccess.storage.bean.Addetto;
 
-public class ResponsabileManager {
+public class AddettoManager {
 	
-	private static ResponsabileManager instance;
-	private ResponsabileRepository r = new ResponsabileRepository();
+	private static AddettoManager instance;
+	private AddettoRepository r = new AddettoRepository();
 	
-	public static ResponsabileManager getInstace(){
+	public static AddettoManager getInstace(){
 		if (instance == null){
-			instance = new ResponsabileManager();
+			instance = new AddettoManager();
 		}
 		return instance;
 	}
 	
-	public ResponsabileManager(){
-		r = ResponsabileRepository.getInstance();
+	public AddettoManager(){
+		r = AddettoRepository.getInstance();
 	}
 	
 
@@ -35,17 +35,26 @@ public class ResponsabileManager {
 	}
 
 	private boolean isEmailRight(String email) {
-		// TODO Auto-generated method stub
+		char c;
+		String str;
+		for(int i=0; i<email.length(); i++){
+			c = email.charAt(i);
+			if(c=='@'){
+			str = email.substring(i+1, email.length()-1);
+			if(str.compareTo("unisa.it") == 0)
+				return true;
+			}
+		}
 		return false;
 	}
-
+	
 	public void rimuoviResp (Addetto resp) throws SQLException{
 		r.delete(resp);
 	}
 	
 	public List<Addetto> getListaResp () throws SQLException{
 		List<Addetto> resp = new ArrayList<Addetto>();
-		resp = r.query(new ResponsabileList());
+		resp = r.query(new AddettoList());
 		return resp;
 	}
 
