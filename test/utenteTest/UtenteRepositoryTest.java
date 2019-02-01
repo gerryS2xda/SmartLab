@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-public class AccountRepositoryTest {
+public class UtenteRepositoryTest {
 	
 	@Test
 	public void testGetInstance(){
 		System.out.println("getInstance");
-		AccountRepository result = AccountRepository.getInstance();
+		UtenteRepository result = UtenteRepository.getInstance();
 		assertNotNull(result);
 	}
 	
@@ -25,7 +25,7 @@ public class AccountRepositoryTest {
 		u.setName("Name1");
 		u.setSurname("Surname1");
 		
-		AccountRepository instance = AccountRepository.getInstance();
+		UtenteRepository instance = UtenteRepository.getInstance();
 		instance.add(u);
 		AccountSQL sql = new AccountSQL(u.getEmail());
 		Utente result = instance.findItemByQuery(sql);
@@ -42,9 +42,9 @@ public class AccountRepositoryTest {
 		u.setName("Name1");
 		u.setSurname("Surname1");
 		
-		AccountRepository instance = AccountRepository.getInstance();
+		UtenteRepository instance = UtenteRepository.getInstance();
 		instance.add(u);
-		AccountSQL sql = new AccountSQL(u.getEmail());
+		UtenteSQL sql = new UtenteSQL(u.getEmail());
 		instance.delete(u);
 		Utente result = instance.findItemByQuery(sql);
 		assertEquals(null, result);
@@ -59,9 +59,9 @@ public class AccountRepositoryTest {
 		u.setName("Name1");
 		u.setSurname("Surname1");
 		
-		AccountRepository instance = AccountRepository.getInstance();
+		UtenteRepository instance = UtenteRepository.getInstance();
 		instance.add(u);
-		AccountSQL sql = new AccountSQL(u.getEmail());
+		UtenteSQL sql = new UtenteSQL(u.getEmail());
 		Utente result = instance.findItemByQuery(sql);
 		assertEquals(u, result);
 		instance.delete(u);
@@ -77,8 +77,8 @@ public class AccountRepositoryTest {
 		u.setSurname("Surname1");
 		List<Utente> utenti = new ArrayList<Utente>();
 		
-		AccountRepository.getInstance().add(u);
-		utenti = AccountRepository.getInstance().query(new AccountList());
+		UtenteRepository.getInstance().add(u);
+		utenti = UtenteRepository.getInstance().query(new AccountList());
 		assertTrue(!utenti.isEmpty());
 	}
 }

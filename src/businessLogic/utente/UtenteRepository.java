@@ -1,4 +1,4 @@
-package businessLogic.account;
+package businessLogic.utente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,23 +10,22 @@ import dataAccess.storage.Repository;
 import dataAccess.storage.Connessione;
 import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
-import dataAccess.storage.bean.Studente;
 import dataAccess.storage.bean.Utente;
 
-public class AccountRepository implements Repository<Utente>{
+public class UtenteRepository implements Repository<Utente>{
 		
-		private static AccountRepository instance;
+		private static UtenteRepository instance;
 
-	    public static AccountRepository getInstance() {
+	    public static UtenteRepository getInstance() {
 	        if (instance == null) {
-	            instance = new AccountRepository();
+	            instance = new UtenteRepository();
 	        }
 	        return instance;
 	    }
 
-	    public static final String TABLE_NAME = "account";
+	    public static final String TABLE_NAME = "utente";
 	    
-	    public AccountRepository(){
+	    public UtenteRepository(){
 	    	
 	    }
 	    
@@ -40,8 +39,8 @@ public class AccountRepository implements Repository<Utente>{
 	    	try {
 				connection = Connessione.getConnection();
 				preparedStatement = connection.prepareStatement(insertSQL);
-				preparedStatement.setString(1, (u.getEmail()));
-				preparedStatement.setString(2, (u.getPassword()));
+				preparedStatement.setString(1, u.getEmail());
+				preparedStatement.setString(2, u.getPassword());
 				preparedStatement.setString(3, u.getName());
 				preparedStatement.setString(4, u.getSurname());
 				
@@ -111,7 +110,7 @@ public class AccountRepository implements Repository<Utente>{
 			PreparedStatement preparedStatement = null;
 	        SqlSpecification sqlSpecification = (SqlSpecification) specification;
 	        String selectSQL= sqlSpecification.toSqlQuery();
-	        Utente u = new Studente();
+	        Utente u = new Utente();
 	        try{
 	        	connection = Connessione.getConnection();
 	            preparedStatement = connection.prepareStatement(selectSQL);
@@ -150,7 +149,7 @@ public class AccountRepository implements Repository<Utente>{
 	            ResultSet rs = preparedStatement.executeQuery();
 
 				while (rs.next()) {
-					Utente u = new Studente();
+					Utente u = new Utente();
 	                u.setEmail(rs.getString("email"));
 					u.setPassword(rs.getString("password"));
 					u.setName(rs.getString("nome"));

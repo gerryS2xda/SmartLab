@@ -7,25 +7,25 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-public class AccountManagerTest {
+public class UtenteManagerTest {
 	
 	@Test
 	public void testGetInstance(){
 		System.out.println("getInstance");
-		AccountRepository result = AccountRepository.getInstance();
+		UtenteRepository result = UtenteRepository.getInstance();
 		assertNotNull(result);
 	}
 	
 	@Test
 	public void testSignUp(){
-		System.out.println("effettuaRegistrazione");
+
 		Utente u = new Utente();
 		u.setEmail("email1@studenti.unisa.it");
 		u.setPassword("password1");
 		u.setName("Name1");
 		u.setSurname("Surname1");
 		
-		AccountManager instance = AccountManager.getInstace();
+		UtenteManager instance = UtenteManager.getInstace();
 		assertTrue(instance.effettuaRegistrazione
 				(u.getEmail(), u.getPassword(), u.getName(), u.getSurname()));
 	}
@@ -39,7 +39,7 @@ public class AccountManagerTest {
 		u.setName("Name1");
 		u.setSurname("Surname1");
 		
-		AccountManager instance = AccountManager.getInstace();
+		UtenteManager instance = UtenteManager.getInstace();
 		assertTrue(instance.effettuaAutenticazione(u.getEmail(), u.getPassword()));
 	}
 	
@@ -52,7 +52,7 @@ public class AccountManagerTest {
 		u.setName("Name1");
 		u.setSurname("Surname1");	
 		
-		AccountManager instance = AccountManager.getInstace();
+		UtenteManager instance = UtenteManager.getInstace();
 		assertTrue(instance.effettuaSospensione((Studente) u)); //è giusto fare il cast?
 	}
 	
@@ -64,9 +64,9 @@ public class AccountManagerTest {
 		u.setPassword("password1");
 		u.setName("Name1");
 		u.setSurname("Surname1");
-		ArrayList<Utente> utenti = new ArrayList<Utente>();
+		List<Utente> utenti = new ArrayList<Utente>();
 		
-		AccountManager instance = AccountManager.getInstace();
+		UtenteManager instance = UtenteManager.getInstace();
 		instance.effettuaRegistrazione(u.getEmail(), u.getPassword(), u.getName(), u.getSurname());
 		utenti = instance.getAccountList();
 		assertTrue(!utenti.isEmpty());
