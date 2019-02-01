@@ -6,6 +6,7 @@ import dataAccess.storage.bean.*;
 import java.util.List;
 
 import businessLogic.laboratorio.LaboratorioManager;
+import businessLogic.prenotazione.PrenByStudPost;
 import businessLogic.prenotazione.PrenotazioneException;
 import businessLogic.prenotazione.PrenotazioneManager;
 import businessLogic.prenotazione.PrenotazioneRepository;
@@ -157,20 +158,20 @@ public class PostazioneManager {
 	
 	
 	
-	public List<Prenotazione> listaPostazioni(String email, String idlab, String idpos)
+	public List<Prenotazione> listaPrenotazioni(String orainizio, String orafine,String idlab)
 	{
 		List <Prenotazione> pos=null;
 		
 			pos= new ArrayList<>();
 			
 			PrenotazioneRepository preR=new PrenotazioneRepository();
-			PrenByStudPost presql=new PrenByStudPost();
+			PrenByStudPost presql=new PrenByStudPost(orainizio, idlab, orafine);
 			
 			List<Prenotazione> lista=new ArrayList();
 		
 				try 
 				{
-					preR.query(presql(email,idlab,idpos));
+					lista=preR.query(presql);
 				}
 				catch (SQLException e) 
 				{
@@ -181,7 +182,8 @@ public class PostazioneManager {
 		{
 			System.err.println("la Stringa inserita e' vuota");
 		}
-		return pos;
+		return lista;
 	}
+	
 
 }

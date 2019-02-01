@@ -73,7 +73,7 @@ public class ServletUtenteManagement extends HttpServlet {
 			
 		} else if(action.equals("effettuaSospensione")){
 			Studente s = new Studente();
-			s.setEmail(request.getParameter("email"));
+			s.setEmail(request.getParameter("emailStud"));
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
@@ -92,7 +92,7 @@ public class ServletUtenteManagement extends HttpServlet {
 		} else if(action.equals("getAccountList")) {
 			try {
 				request.setAttribute("utenti", manager.getAccountList());
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/respInterface/visualizzaUtenti.jsp");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/respInterface/sospendiAccountjsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
