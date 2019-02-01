@@ -37,7 +37,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL = "INSERT INTO " + TABLE_NAME
-				+ " (nome, laboratorio, stato) VALUES (?, ?, ?)";
+				+ " (numero, laboratorio, stato) VALUES (?, ?, ?)";
 		
 		Laboratorio lab=pos.getLaboratorio();
 		String id=lab.getIDlaboratorio();
