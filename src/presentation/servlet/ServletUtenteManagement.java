@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import businessLogic.utente.UtenteManager;
-import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Sospensione;
 import dataAccess.storage.bean.Studente;
 
@@ -54,31 +53,6 @@ public class ServletUtenteManagement extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else if(action.equals("registraAddetto")){
-			Addetto a = new Addetto();
-			a.setEmail(request.getParameter("email"));
-			a.setPassword(request.getParameter("password"));
-			a.setName(request.getParameter("nome"));
-			a.setSurname(request.getParameter("cognome"));
-			a.setTipo(false);
-			
-			System.out.println("email: "+a.getEmail()+"\npassword: "+a.getPassword()+""
-					+ "\nnome: "+a.getName()+"\ncognome: "+a.getSurname()+"\nstato: "+a.getTipo());
-			
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-			
-			try {
-				if(manager.registraAddetto(a)){
-					response.getWriter().write("{\"esito\":\"addetto registrato\"}");
-				} else {
-					response.getWriter().write("{\"esito\":\"addetto non registrato\"}");
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 		} else if(action.equals("effettuaAutenticazione")){
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");

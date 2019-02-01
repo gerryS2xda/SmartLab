@@ -42,14 +42,6 @@ public class UtenteManager {
 		else return false;
 	}
 	
-	public boolean registraAddetto (Addetto a) throws SQLException{
-		if(isEmailRight(a.getEmail()) && isPasswordRight(a.getPassword())){
-			addetto.add(a);
-			return true;
-		}
-		else return false;
-	}
-	
 	private boolean isEmailRight(String email) {
 		char c;
 		String str;

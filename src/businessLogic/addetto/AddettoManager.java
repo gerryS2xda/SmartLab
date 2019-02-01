@@ -23,10 +23,11 @@ public class AddettoManager {
 	}
 	
 
-	public void addResp (Addetto a) throws SQLException{
+	public boolean addResp (Addetto a) throws SQLException{
 		if(isEmailRight(a.getEmail()) && isPasswordRight(a.getPassword())){
 			r.add(a);
-		}
+			return true;
+		} else return false;
 	}
 	
 	private boolean isPasswordRight(String password) {
