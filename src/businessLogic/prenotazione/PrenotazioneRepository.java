@@ -54,10 +54,10 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 			ps.setTime(2, Time.valueOf(item.getOraInizio()));
 			ps.setTime(3, Time.valueOf(item.getOraFine()));
 			ps.setBoolean(4, item.isPrenotazioneActive());
-			ps.setString(5, item.getStudente());
-			ps.setInt(6, item.getPostazione());
-			ps.setInt(7, item.getLaboratorio());
-			System.out.println(item.toString());
+			ps.setString(5, item.getStudente().getEmail());
+			ps.setInt(6, item.getPostazione().getNumero());
+			ps.setString(7, item.getLaboratorio().getIDlaboratorio());
+			
 			ps.executeUpdate();	
 		}finally{
 			if(ps != null) 
@@ -101,9 +101,9 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 			ps.setTime(2, Time.valueOf(item.getOraInizio()));
 			ps.setTime(3, Time.valueOf(item.getOraFine()));
 			ps.setBoolean(4, item.isPrenotazioneActive());
-			ps.setString(5, item.getStudente());
-			ps.setInt(6, item.getPostazione());
-			ps.setInt(7, item.getLaboratorio());
+			ps.setString(5, item.getStudente().getEmail());
+			ps.setInt(6, item.getPostazione().getNumero());
+			ps.setString(7, item.getLaboratorio().getIDlaboratorio());
 				
 			ps.executeUpdate();
 		}finally{
@@ -119,6 +119,9 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		SqlSpecification sqlSpec = (SqlSpecification) spec;
 		Statement stmt = null;
 		Prenotazione pr = null;
+		Postazione post = new Postazione();
+		Laboratorio lab = new Laboratorio();
+		Studente stud = new Studente();
 		
 		try{
 			conn = Connessione.getConnection();
@@ -133,9 +136,20 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				pr.setOraInizio(res.getTime(3).toLocalTime());
 				pr.setOraFine(res.getTime(4).toLocalTime());
 				pr.setStatus(res.getBoolean(5));
-				pr.setStudente(res.getString(6));
-				pr.setPostazione(res.getInt(7));
-				pr.setLaboratorio(res.getInt(8));
+				
+				//setta l'email studente presa dal DB -- servira' per ottenere i dati di studente in seguito
+				stud.setEmail(res.getString(6));
+				pr.setStudente(stud);
+				
+				//setta il numero di postazione preso dal DB -- servira' per ottenere i dati di postazione in seguito
+				post.setNumero(res.getInt(7));
+				
+				//setta ID laboratorio preso dal DB -- servira' per ottenere i dati del laboratorio in seguito
+				lab.setIDlaboratorio(res.getString(8));
+				post.setLaboratorio(lab);	//postazione viene identificata anche tramite l'ID del laboratorio
+				
+				pr.setPostazione(post);
+				pr.setLaboratorio(lab);
 				
 			}
 		}finally{
@@ -153,6 +167,9 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 		SqlSpecification sqlSpec = (SqlSpecification) spec;
 		Statement stmt = null;
+		Postazione post = new Postazione();
+		Laboratorio lab = new Laboratorio();
+		Studente stud = new Studente();
 		
 		try{
 			conn = Connessione.getConnection();
@@ -166,9 +183,20 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				pr.setOraInizio(res.getTime(3).toLocalTime());
 				pr.setOraFine(res.getTime(4).toLocalTime());
 				pr.setStatus(res.getBoolean(5));
-				pr.setStudente(res.getString(6));
-				pr.setPostazione(res.getInt(7));
-				pr.setLaboratorio(res.getInt(8));
+				
+				//setta l'email studente presa dal DB -- servira' per ottenere i dati di studente in seguito
+				stud.setEmail(res.getString(6));
+				pr.setStudente(stud);
+				
+				//setta il numero di postazione preso dal DB -- servira' per ottenere i dati di postazione in seguito
+				post.setNumero(res.getInt(7));
+				
+				//setta ID laboratorio preso dal DB -- servira' per ottenere i dati del laboratorio in seguito
+				lab.setIDlaboratorio(res.getString(8));
+				post.setLaboratorio(lab);	//postazione viene identificata anche tramite l'ID del laboratorio
+				
+				pr.setPostazione(post);
+				pr.setLaboratorio(lab);
 				prenotazioni.add(pr);
 			}
 		}finally{
