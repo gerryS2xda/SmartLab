@@ -20,6 +20,7 @@
     	<!-- link per la pagina di prenotazione -->
 	    <a href=""></a><div class="card">
 		  <div class="card-header">
+		  	<input type="hidden" value="<%= lab.getIDlaboratorio()%>">
 		    Laboratorio <%=lab.getNome() %>
 		  </div>
 		  <div class="row">

@@ -29,7 +29,7 @@ public class Connessione  {
 
 		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);
 
-		newConnection.setAutoCommit(false);
+		newConnection.setAutoCommit(true);
 		return newConnection;
 	}
 

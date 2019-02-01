@@ -56,7 +56,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
+			//connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -82,7 +82,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 
 			preparedStatement.executeUpdate();
 			
-			connection.commit();
+			//connection.commit();
 			System.out.println(preparedStatement);
 
 		} finally {
