@@ -1,4 +1,4 @@
-package businessLogic.account;
+package businessLogic.utente;
 
 import dataAccess.storage.SqlSpecification;
 

@@ -1,5 +1,7 @@
 package dataAccess.storage.bean;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Addetto extends Utente {
 	public Addetto(String email, String password, String name, String surname){
@@ -15,11 +17,18 @@ public class Addetto extends Utente {
 		this.tipo = tipo;
 	}
 	
-	public boolean isTipo() {
+	public boolean getTipo() {
 		return tipo;
 	}
-
-
-
+	
+	public List<Laboratorio> getLista(){
+		return laboratori;
+	}
+	
+	public void aggiungiLab(Laboratorio l){
+		laboratori.add(l);
+	}
+	
+	private List<Laboratorio> laboratori = new ArrayList<Laboratorio>();
 	private boolean tipo;
 }

@@ -1,19 +1,19 @@
-package businessLogic.responsabile;
+package businessLogic.addetto;
 
 import dataAccess.storage.SqlSpecification;
 
-public class ResponsabileList implements SqlSpecification {
+public class AddettoList implements SqlSpecification {
 		
-		private static ResponsabileList instance;
+		private static AddettoList instance;
 
-		public static ResponsabileList getInstance(){
+		public static AddettoList getInstance(){
 		        if (instance == null){
-		            instance = new ResponsabileList();
+		            instance = new AddettoList();
 		        }
 		        return instance;
 		    }
 
-		    public static final String TABLE_NAME = "sospensione";
+		    public static final String TABLE_NAME = "addetto";
 		    
 		    @Override
 		    public String toSqlQuery() {

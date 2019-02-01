@@ -1,0 +1,30 @@
+@CHARSET "ISO-8859-1";
+
+#left_banner{
+	display: block;
+	position: fixed;
+	float: left;
+	left: 0px;
+	top: auto;
+	bottom: auto;
+	height: 100%;
+	width: 15%;
+	background-color: #056000;
+}
+
+#right_banner{
+	display: block;
+	position: relative;
+	float: right;
+	top: 0px;
+	bottom: auto;
+	right: 0px;
+	height: 100%;
+	width: 15%;
+	background-color: #056000;
+}
+
+#errore{
+	color: red;
+	display: none;
+}
