@@ -63,6 +63,19 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 			
 			List<Utente> responsabili=manager.showResponsabileAddLaboratorio(idlab);
 			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			
+			String json="{ \"responsabili\" : [ ";
+			for(Utente resp:responsabili){
+				json=json+"{ \"email\" : \""+resp.getEmail()+"\", ";
+				json=json+"\"nome\" : \""+resp.getName()+"\", ";
+				json=json+"\"cognome\" : \""+resp.getSurname()+"\"}";
+			}
+			json=json+"]}";
+			
+			response.getWriter().write(json);
+			
 		}else if(action.equals("lista_resp_ass")){//lista responsabili assegnati a un laboratorio
 			String idlab=request.getParameter("idlaboratorio");
 			

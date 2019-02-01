@@ -38,7 +38,8 @@
 			  			elimina
 			  			<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
 			  		</button>
-			  		<button id="elimina" type="button" class="btn btn-primary" data-toggle="modal" data-target="#respDaAssegnare">
+			  		<button id="aggiungiResponsabile" type="button" class="btn btn-primary" data-toggle="modal" data-target="#respDaAssegnare">
+			  			<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
 			  			aggiungi responsabile
 			  		</button>
 		  		</div>
@@ -144,8 +145,18 @@ $(document).ready(function(){
 		query="assegnamento?action=lista_resp_ass&idlaboratorio="+query;
 		$(window.location).attr('href', query);
 	});
-});
-</script>
+	
+	//lista responsabili da aggiungere 
+	$("button#aggiungiResponsabile").on("click",function(){
+		var id=$(this).find("input#id").val();
+		$.getJSON("assegnamento",{
+			action:"lista_resp",
+			idlaboratorio:id
+		},function(data,status){
+			console.lod(data);
+		});
+	}
+	});
 
 </body>
 </html>
