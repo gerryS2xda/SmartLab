@@ -52,7 +52,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
+			
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -84,7 +84,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 				preparedStatement.setString(2, id);
 
 				preparedStatement.executeUpdate();
-				connection.commit();
+				
 
 				} finally 
 				{
