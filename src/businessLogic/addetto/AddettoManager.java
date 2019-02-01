@@ -12,9 +12,7 @@ public class AddettoManager {
 	private AddettoRepository r = new AddettoRepository();
 	
 	public static AddettoManager getInstace(){
-		if (instance == null){
-			instance = new AddettoManager();
-		}
+		instance = new AddettoManager();
 		return instance;
 	}
 	
