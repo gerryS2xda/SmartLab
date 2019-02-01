@@ -8,6 +8,7 @@ import java.util.List;
 import businessLogic.laboratorio.LaboratorioManager;
 import businessLogic.prenotazione.PrenotazioneException;
 import businessLogic.prenotazione.PrenotazioneManager;
+import businessLogic.prenotazione.PrenotazioneRepository;
 
 public class PostazioneManager {
 	
@@ -15,14 +16,15 @@ public class PostazioneManager {
 
     public static PostazioneManager getInstance() 
     {
-
-        if (instance == null) 
-      {
+        
             instance = new PostazioneManager();
-        }
+            
         return instance;
     }
 	
+    PrenotazioneRepository pr=new PrenotazioneRepository();
+    
+    
 /**
  * Crea una postazione con i vari parametri prescelti
  * @param "laboratorio" indica il laboratorio in cui verrà inserita la postazione, "numero" indica il numero di    
@@ -32,7 +34,7 @@ public class PostazioneManager {
 	public boolean creaPostazione(int numero,Laboratorio laboratorio,boolean b)
 	{
 		boolean flag=true;
-		Postazione pos=null;
+		Postazione pos=new Postazione();
 		pos.setNumero(numero);
 		pos.setLaboratorio(laboratorio);
 		pos.setStato(b);
@@ -81,16 +83,16 @@ public class PostazioneManager {
  * Libera una postazione che era stata prenotata da uno studente ma non è fisicamente presente
  * @param p indica quale postazione va Liberata
  * @return boolean che indica se è andata a buon fine l’operazione (true)
+ * @throws SQLException 
  *  
  * 
  */
 
-	public boolean liberaPostazione(Prenotazione pre) throws PrenotazioneException
+	public boolean liberaPostazione(Prenotazione pre) throws SQLException
 	{
 		if(pre.isPrenotazioneActive())
 		{
-			PrenotazioneManager preMen=new PrenotazioneManager();
-			preMen.annullaPrenotazione(pre);
+			pr.delete(pre);
 			return true;
 		}
 		return false;
@@ -150,6 +152,36 @@ public class PostazioneManager {
 			
 		}
 		return false;
+	}
+	
+	
+	
+	
+	public List<Prenotazione> listaPostazioni(String email, String idlab, String idpos)
+	{
+		List <Prenotazione> pos=null;
+		
+			pos= new ArrayList<>();
+			
+			PrenotazioneRepository preR=new PrenotazioneRepository();
+			PrenByStudPost presql=new PrenByStudPost();
+			
+			List<Prenotazione> lista=new ArrayList();
+		
+				try 
+				{
+					preR.query(presql(email,idlab,idpos));
+				}
+				catch (SQLException e) 
+				{
+					System.err.println("errore");
+					e.printStackTrace();
+				}
+		
+		{
+			System.err.println("la Stringa inserita e' vuota");
+		}
+		return pos;
 	}
 
 }

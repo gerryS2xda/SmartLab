@@ -29,7 +29,10 @@ public class Connessione  {
 
 		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);
 
+<<<<<<< HEAD
 		newConnection.setAutoCommit(true);
+=======
+>>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
 		return newConnection;
 	}
 

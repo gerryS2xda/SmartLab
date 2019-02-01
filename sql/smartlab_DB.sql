@@ -74,11 +74,12 @@ INSERT INTO prenotazione(data, ora_inizio, ora_fine, stato, studente, postazione
 -- Tabella postazione
 DROP TABLE IF EXISTS `postazione`;
 CREATE TABLE postazione(
-    numero TINYINT(4) PRIMARY KEY auto_increment,
+    numero TINYINT(4) auto_increment,
    	laboratorio INTEGER(10) REFERENCES laboratorio(IDlaboratorio)
 		ON DELETE SET NULL
 		ON UPDATE CASCADE,
-   	stato BOOLEAN NOT NULL
+   	stato BOOLEAN NOT NULL,
+	PRIMARY KEY (numero, laboratorio)
 );
 
 -- Autore: Antonio Cerasuolo

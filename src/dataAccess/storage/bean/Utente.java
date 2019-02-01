@@ -51,9 +51,11 @@ public abstract class Utente {
 		return surname;
 	}
 	
+	//other method
+	//adattato per stringa JSON
 	public String toString(){
-		String str = "{\"email\":" + email + ", \"password\": \"" + password + "\", \"nome\": \"" + name + "\", "
-				+ "\"cognome\": \"" + surname + " }";
+		String str = "{\"email\": \"" + email + "\", \"password\": \"" + password + "\", \"nome\": \"" + name + "\", "
+				+ "\"cognome\": \"" + surname + "\", ";
 		return str;
 	}
 	

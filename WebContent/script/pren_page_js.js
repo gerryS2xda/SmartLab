@@ -48,6 +48,7 @@ function verifyPostazioneAvailable(item){
 	var td = row.find("td"); //dammi tutti gli <td> che sono discendenti di <tr> selezionato prima
 	var post = td.eq(0).text();
 	var lab = $(".title_page").text();
+	var f = td.eq(1).children().val().split("-");
 	$.post("../prenotazione-serv", {"action": "check_post", "postazione": post, "inizio": f[0], "fine":f[1], "lab": lab}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp);
