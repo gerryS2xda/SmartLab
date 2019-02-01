@@ -34,22 +34,20 @@ public class UtenteManager {
 		addetto = AddettoRepository.getInstance();
 	}
 	
-	public void registraStudente (Studente s) throws SQLException{
+	public boolean registraStudente (Studente s) throws SQLException{
 		if(isEmailRight(s.getEmail()) && isPasswordRight(s.getPassword())){
 			studente.add(s);
+			return true;
 		}
+		else return false;
 	}
 	
-	public void registraAddetto (Addetto a) throws SQLException{
+	public boolean registraAddetto (Addetto a) throws SQLException{
 		if(isEmailRight(a.getEmail()) && isPasswordRight(a.getPassword())){
 			addetto.add(a);
+			return true;
 		}
-	}
-	
-	public void effettuaRegistrazione (Utente u) throws SQLException{
-		if (isEmailRight(u.getEmail()) && isPasswordRight(u.getPassword())){
-			utente.add(u);
-		}
+		else return false;
 	}
 	
 	private boolean isEmailRight(String email) {
