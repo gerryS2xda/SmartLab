@@ -16,7 +16,7 @@ public abstract class Utente {
 	}
 	
 	public Utente(){
-		
+		email = "";
 	}
 	
 	public void setEmail(String x){
