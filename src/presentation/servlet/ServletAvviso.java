@@ -48,6 +48,8 @@ public class ServletAvviso extends HttpServlet {
 			String addetto = request.getParameter("addetto");
 			Avviso a = new Avviso(id, titolo, messaggio, data, addetto);
 			cm.deleteAvviso(a);
+			response.setContentType("application/json");
+			response.getWriter().write("{\"esito\": \"successo\"}");
 		}else if(avviso.equals("viewAvvisi")){
 			response.setContentType("application/json");
 			int count = 0;
