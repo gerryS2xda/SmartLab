@@ -19,5 +19,18 @@ public class Studente extends Utente {
 		return stato;
 	}
 	
+	//other methods
+	public String toString(){
+		String str = super.toString();
+		return str += "\"statoStudente\": " + stato + " }";
+	}
+	
+	public boolean equals(Object otherObject){
+		return super.equals(otherObject);
+	}
+	
+	
 	private boolean stato;
+	
+	
 }

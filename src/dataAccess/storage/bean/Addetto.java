@@ -29,6 +29,17 @@ public class Addetto extends Utente {
 		laboratori.add(l);
 	}
 	
+	//other method
+	public String toString(){
+		String str = super.toString();
+		return str += "\"tipo\": " + tipo + " }";
+	}
+	
+	public boolean equals(Object otherObject){
+		return super.equals(otherObject);
+	}
+	
+	
 	private List<Laboratorio> laboratori = new ArrayList<Laboratorio>();
 	private boolean tipo;
 }

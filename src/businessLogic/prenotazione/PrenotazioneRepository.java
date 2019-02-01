@@ -57,7 +57,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 			ps.setString(5, item.getStudente());
 			ps.setInt(6, item.getPostazione());
 			ps.setInt(7, item.getLaboratorio());
-			
+			System.out.println(item.toString());
 			ps.executeUpdate();	
 		}finally{
 			if(ps != null) 

@@ -26,11 +26,11 @@ public class ListaRespDaAssegnare implements SqlSpecification {
 	@Override
 	public String toSqlQuery() {
 		return String.format(
-                "SELECT * FROM"
-                + "((SELECT IDaddetto FROM addetto WHERE tipo=false) except"
-                + "(SELECT IDaddetto FROM addetto Ad join assegnamento As on Ad.IDresponsabile = As.responsabile"
-                + ")) AS a join %1$s b on a.IDaddetto = b.email "
-                + "WHERE IDlaboratorio = %2$s ;",
+				"SELECT * FROM"
+		                + "((SELECT IDaddetto FROM addetto WHERE tipo=false) except"
+		                + "(SELECT IDaddetto FROM addetto Ad join assegnamento As on Ad.IDresponsabile = As.responsabile"
+		                + ")) AS a join %1$s b on a.IDaddetto = b.email "
+		                + "WHERE IDlaboratorio = %2$s ;",
                 TABLE_NAME,
                 this.laboratorio
         );

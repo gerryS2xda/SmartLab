@@ -15,4 +15,12 @@
     <servlet-name>ServletLaboratorioManagement</servlet-name>
     <url-pattern>/laboratorio</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletAssegnamentoManagement</servlet-name>
+    <servlet-class>presentation.servlet.ServletAssegnamentoManagement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletAssegnamentoManagement</servlet-name>
+    <url-pattern>/assegnamento</url-pattern>
+  </servlet-mapping>
 </web-app>

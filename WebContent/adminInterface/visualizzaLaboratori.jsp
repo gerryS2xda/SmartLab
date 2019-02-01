@@ -17,7 +17,8 @@
     	Laboratorio lab=(Laboratorio) it.next();%>
 
 	    <div class="card">
-		  <div class="card-header">
+		  <div class="card-header" id="mycard" style="cursor: pointer">
+		  	<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
 		    Laboratorio <%=lab.getNome() %>
 		  </div>
 		  <div class="row">
@@ -37,6 +38,10 @@
 			  			elimina
 			  			<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
 			  		</button>
+			  		<button id="aggiungiResponsabile" type="button" class="btn btn-primary" data-toggle="modal" data-target="#respDaAssegnare">
+			  			<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
+			  			aggiungi responsabile
+			  		</button>
 		  		</div>
 	  		</div>
 		</div>
@@ -45,7 +50,7 @@
     }
 	%>
 </div>
-<!-- modal -->
+<!-- modal  conferma eliminazione del laboratorio-->
 <div class="modal fade" id="confermaModal" tabindex="-1" role="dialog" aria-labelledby="confermaModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -66,36 +71,45 @@
     </div>
   </div>
 </div>
-<!-- messaggio esito -->
+
+<!-- messaggio esito eliminazione del laboratorio-->
 <div class="alert alert-success" id="success-alert" style="display:none">
 </div>
+
+<!-- Modal  con i responsabili da assegnare-->
+<div class="modal fade" id="respDaAssegnare" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Responsabili da assegnare</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- corpo -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
 $(document).ready(function(){
 	
 	var id;
 	var div;
+	//seleziono il laboratorio da eliminare
 	$("button#elimina").on("click",function(){
 		id=$(this).find("input#id").val();
 		div=$(this).parent().parent().parent();//seleziono la scheda card
-	    //create a message 
-	    //create a message 
-	    /*var alert=$("div");
-	    alert.addClass("alert alert-success");
-	    alert.attr("id","success-alert");
-	    var button=$("button").addClass("close").attr("data-dismiss","alert");
-	    button.attr("value","x");
-	    button.attr("type","button");
-		console.log(div);
-		console.log(id);
-		var strong=$("strong");
-		strong.text("ciao");
-		alert.append(button);
-		alert.append(strong);
-		$("#mymes").append(alert);*/
-		//$("a#elimina").attr("href", "laboratorio?action=rimuovi_lab&idlaboratorio="+id)
 		
 	});
+	//ajax eliminazione del laboratorio + messaggio di conferma
 	$("button#confermaElimina").on("click",function(){
 		console.log(id);
 		/*$(document).ajaxStart(function(){
@@ -113,6 +127,7 @@ $(document).ready(function(){
 			//console.log(data.esito);
 			div.remove();//rimuovo la scheda dalla grafica
 			id="";
+			//messaggio esito
 			var mex=data.esito;
 			$("#success-alert").css("display","block");
 			$("#success-alert").append($("<strong>"+mex+"</strong>"));
@@ -122,8 +137,26 @@ $(document).ready(function(){
 		    }, 2000);
 		});
 	});
-});
-</script>
+	
+	//lista responsabili assegnati al laboratorio cliccato
+	$("div#mycard").on("click",function(){
+		var query=$(this).find("input#id").val();
+		console.log(query);
+		query="assegnamento?action=lista_resp_ass&idlaboratorio="+query;
+		$(window.location).attr('href', query);
+	});
+	
+	//lista responsabili da aggiungere 
+	$("button#aggiungiResponsabile").on("click",function(){
+		var id=$(this).find("input#id").val();
+		$.getJSON("assegnamento",{
+			action:"lista_resp",
+			idlaboratorio:id
+		},function(data,status){
+			console.lod(data);
+		});
+	}
+	});
 
 </body>
 </html>
