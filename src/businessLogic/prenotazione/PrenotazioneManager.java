@@ -55,15 +55,14 @@ public class PrenotazioneManager {
 		//aggiungere il controllo della postazione
 		if(getNumPrenotazioniEffettuateOggi(stud) < 3){
 			pr.setStatus(true); //se i controlli sono rispettati
+			try{
+				repository.add(pr); 
+			}catch(SQLException e){
+				System.out.println("Errore: problema nell'aggiungere la prenotazione al DB!!");
+			}
 		}else{
 			throw new PrenotazioneException("Lo studente ha gia' effettuato 2 prenotazioni!! Riprova domani");
-		}
-			
-		try{
-			repository.add(pr); 
-		}catch(SQLException e){
-			System.out.println("Errore: problema nell'aggiungere la prenotazione al DB!!");
-		}
+		}	
 		
 		return pr;
 	}
