@@ -49,5 +49,16 @@ public class Postazione {
 		this.stato = stato;
 	}
 	
-	
+	//other method
+	public boolean equals(Object otherObject){
+		boolean val = false;
+		if(otherObject instanceof Postazione){
+			Postazione post = (Postazione) otherObject;
+			if(getNumero() == post.getNumero() && getLaboratorio().equals(post.getLaboratorio()) &&
+					isStato() == post.isStato()){
+				val = true;
+			}
+		}
+		return val;
+	}
 }

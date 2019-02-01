@@ -103,5 +103,15 @@ public class Laboratorio implements Serializable {
 				+ stato + ", apertura=" + apertura + ", chiusura=" + chiusura + ", responsabili=" + responsabili + "]";
 	}
 	
+	public boolean equals(Object otherObject){
+		boolean val = false;
+		if(otherObject instanceof Laboratorio){
+			Laboratorio lab = (Laboratorio) otherObject;
+			if(getIDlaboratorio().equals(lab.getIDlaboratorio()) && getNome().equals(lab.getNome())){
+				val = true;
+			}
+		}
+		return val;
+	}
 	
 }

@@ -11,9 +11,9 @@ public class Prenotazione {
 	private LocalTime oraInizio; //l'ora in cui inizia la prenotazione della postazione
 	private LocalTime oraFine; //l'ora in cui termina la prenotazione della postazione
 	private boolean stato; 
-	private String studente; //sostituire con oggetto studente
-	private int postazione;  //sostituire con oggetto postazione
-	private int laboratorio; //sostituire con oggetto Laboratorio
+	private Studente studente; //sostituire con oggetto studente
+	private Postazione postazione;  //sostituire con oggetto postazione
+	private Laboratorio laboratorio; //sostituire con oggetto Laboratorio
 	
 	//constructors
 	public Prenotazione(){
@@ -21,7 +21,7 @@ public class Prenotazione {
 	}
 	
 	//laboratorio si ottiene dall'oggetto Postazione che viene dato in input
-	public Prenotazione(String data, LocalTime oraInizio, LocalTime oraFine, String studente, int postazione){
+	public Prenotazione(String data, LocalTime oraInizio, LocalTime oraFine, Studente studente, Postazione postazione){
 		this.data= data;
 		this.oraInizio = oraInizio;
 		this.oraFine = oraFine;
@@ -47,21 +47,21 @@ public class Prenotazione {
 	/**
 	 * @return the studente
 	 */
-	public String getStudente() {
+	public Studente getStudente() {
 		return studente;
 	}
 
 	/**
 	 * @return the postazione
 	 */
-	public int getPostazione() {
+	public Postazione getPostazione() {
 		return postazione;
 	}
 
 	/**
 	 * @return the laboratorio
 	 */
-	public int getLaboratorio() {
+	public Laboratorio getLaboratorio() {
 		return laboratorio;
 	}
 
@@ -90,21 +90,21 @@ public class Prenotazione {
 	/**
 	 * @param studente the studente to set
 	 */
-	public void setStudente(String studente) {
+	public void setStudente(Studente studente) {
 		this.studente = studente;
 	}
 
 	/**
 	 * @param postazione the postazione to set
 	 */
-	public void setPostazione(int postazione) {
+	public void setPostazione(Postazione postazione) {
 		this.postazione = postazione;
 	}
 
 	/**
 	 * @param laboratorio the laboratorio to set
 	 */
-	public void setLaboratorio(int laboratorio) {
+	public void setLaboratorio(Laboratorio laboratorio) {
 		this.laboratorio = laboratorio;
 	}
 	
@@ -123,8 +123,8 @@ public class Prenotazione {
 	//other method
 	public String toString(){	//adattato per costruzione della stringa JSON
 		String str = "{\"id\":" + id + ", \"data\": \"" + data + "\", \"oraInizio\": \"" + oraInizio.toString() + "\", "
-				+ "\"oraFine\": \"" + oraFine.toString() + "\",  \"email\": \"" + studente + "\", \"postazione\": " + postazione + ", "  
-				+ "\"laboratorio\": " + laboratorio + " }";
+				+ "\"oraFine\": \"" + oraFine.toString() + "\",  \"email\": \"" + studente.getEmail() + "\", \"postazione\": " + postazione.getNumero() + ", "  
+				+ "\"laboratorio\": " + laboratorio.getNome() + " }";
 		return str;
 	}
 
@@ -134,7 +134,7 @@ public class Prenotazione {
 			Prenotazione pren = (Prenotazione) otherObject;
 			if(getData().equals(pren.getData()) && getOraInizio().compareTo(pren.getOraInizio()) == 0 && 
 					getOraFine().compareTo(pren.getOraFine()) == 0 && getStudente().equals(pren.getStudente()) && 
-					getPostazione() == pren.getPostazione() &&  getLaboratorio() == pren.getLaboratorio()){
+					getPostazione().equals(pren.getPostazione()) && getLaboratorio().equals(pren.getLaboratorio())){
 				val = true;
 			}
 		}
