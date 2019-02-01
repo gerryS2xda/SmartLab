@@ -1,13 +1,22 @@
 package businessLogic.prenotazione;
 
+import businessLogic.Postazione.PostazioneRepository;
+import businessLogic.Postazione.PostazioneSql;
+import businessLogic.laboratorio.LaboratorioRepository;
+import businessLogic.laboratorio.LaboratorioSql;
+import businessLogic.utente.StudenteRepository;
+import businessLogic.utente.StudenteSQL;
+import dataAccess.storage.bean.Laboratorio;
+import dataAccess.storage.bean.Postazione;
+import dataAccess.storage.bean.Prenotazione;
+import dataAccess.storage.bean.Studente;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import dataAccess.storage.bean.Prenotazione;
 
 /**
  * Un oggetto PrenotazioneManager contiene tutti i comportamenti che permettono di poter gestire le  
@@ -18,6 +27,9 @@ public class PrenotazioneManager {
 	
 	//instance field
 	private PrenotazioneRepository repository;
+	private PostazioneRepository postazioneRep;
+	private LaboratorioRepository laboratorioRep;
+	private StudenteRepository studenteRep;
 	
 	//static methods
 	//usato per il testing
@@ -29,6 +41,9 @@ public class PrenotazioneManager {
 	
 	public PrenotazioneManager(){
 		repository = PrenotazioneRepository.getInstance();
+		postazioneRep = PostazioneRepository.getInstance();
+		laboratorioRep = LaboratorioRepository.getInstance();
+		studenteRep = StudenteRepository.getInstance();
 	}
 
 	/**
@@ -43,27 +58,50 @@ public class PrenotazioneManager {
 	 * @post  getNumPrenotazioniEffettuate(s) = @pre.getNumPrenotazioniEffettuate(s)+1
 	 * @post  getNumPrenotazioniEffettuateOggi(s) = @pre.getNumPrenotazioniEffettuateOggi(s)+1
 	 */
-	public Prenotazione effettuaPrenotazione(String stud, int post, String oraInizio, String oraFine)throws PrenotazioneException{
+	public Prenotazione effettuaPrenotazione(String emailStud, int post, String oraInizio, String oraFine, String idLab)throws PrenotazioneException{
 		
 		Prenotazione pr = new Prenotazione();
+		
 		pr.setData(LocalDate.now().toString());
 		pr.setOraInizio(LocalTime.parse(oraInizio));
 		pr.setOraFine(LocalTime.parse(oraFine));
-		pr.setPostazione(post);
-		pr.setStudente(stud);
+		
+		//ottiene dati di postazione da repository
+		Postazione postazione = new Postazione();
+		try{
+			postazione = postazioneRep.findItemByQuery(new PostazioneSql(post, idLab));
+			pr.setPostazione(postazione);
+		}catch(SQLException e){
+			System.out.println("Errore: problema nel prendere i dati di postazioni dal DB!!");
+		}
+		
+		//ottieni dati del laboratorio da repository
+		try{
+			Laboratorio lab = laboratorioRep.findItemByQuery(new LaboratorioSql(postazione.getLaboratorio().getIDlaboratorio()));
+			pr.setLaboratorio(lab);
+		}catch(SQLException e){
+			System.out.println("Errore: problema nel prendere i dati di postazioni dal DB!!");
+		}
+		
+		//ottieni i dati di studente da repository
+		try{
+			Studente stud = studenteRep.findItemByQuery(new StudenteSQL(emailStud));
+			pr.setStudente(stud);
+		}catch(SQLException e){
+			System.out.println("Errore: problema nel prendere i dati dello studente dal DB!!");
+		}
 		
 		//aggiungere il controllo della postazione
-		if(getNumPrenotazioniEffettuateOggi(stud) < 3){
+		if(getNumPrenotazioniEffettuateOggi(emailStud) < 3){
 			pr.setStatus(true); //se i controlli sono rispettati
+			try{
+				repository.add(pr); 
+			}catch(SQLException e){
+				System.out.println("Errore: problema nell'aggiungere la prenotazione al DB!!");
+			}
 		}else{
 			throw new PrenotazioneException("Lo studente ha gia' effettuato 2 prenotazioni!! Riprova domani");
-		}
-			
-		try{
-			repository.add(pr); 
-		}catch(SQLException e){
-			System.out.println("Errore: problema nell'aggiungere la prenotazione al DB!!");
-		}
+		}	
 		
 		return pr;
 	}
