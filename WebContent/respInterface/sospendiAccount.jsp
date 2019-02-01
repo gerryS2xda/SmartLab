@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="dataAccess.storage.bean.Studente, java.util.Collection, java.util.Iterator"%>
+    pageEncoding="ISO-8859-1" import="dataAccess.storage.bean.*, java.util.Collection, java.util.Iterator"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,13 +11,14 @@
 </head>
 <body>
 <div class="container">
-	<%Collection<?> utenti = (Collection<?>) request.getAttribute("utenti");
-	Iterator<?> it = utenti.iterator();
+	<%Collection<Utente> utenti = (Collection<Utente>) request.getAttribute("utenti");
+	Iterator<Utente> it = utenti.iterator();
 	 while (it.hasNext()) {
 	    	Studente s = (Studente) it.next();%>
 
 		    <div class="card">
-			  <div class="card-header">
+		  		<div class="card-header" id="mycard" style="cursor: pointer">
+		  			<input type="hidden" id="email" value="<%= s.getEmail() %>">
 			    Email: <%= s.getEmail() %>
 			  </div>
 			  <div class="row">
@@ -80,7 +81,7 @@ $(document).ready(function(){
 	$("button#confermaSospendi").on("click",function(){
 		console.log(email);
 		
-		$.getJSON("sospensione",{
+		$.getJSON("utente",{
 			action: "effettuaSospensione",
 			emailStud: email
 		},function(data,status){
