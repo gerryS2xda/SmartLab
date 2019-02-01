@@ -1,6 +1,8 @@
 package businessLogic.prenotazione;
 
-public class PrenByStudPost {
+import dataAccess.storage.SqlSpecification;
+
+public class PrenByStudPost implements SqlSpecification{
 
 	//instance field
 	private String email;
