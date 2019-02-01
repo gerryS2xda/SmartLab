@@ -55,13 +55,13 @@ public class ServletPostazioneManagement extends HttpServlet {
 		if(action == null)
 		{
 			response.setStatus(404);
-			response.sendRedirect("../index.jsp");
+			response.sendRedirect("./WebContent/index.jsp");
 		}
 		else if(action.equals("libera_pos"))   //libera la postazione
 		{ 
 			
 		List<Prenotazione> lista=new ArrayList();
-		pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("numero"));
+		pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("lab"));
 			
 		try 
 		{
