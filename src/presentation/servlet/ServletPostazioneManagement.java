@@ -90,7 +90,8 @@ public class ServletPostazioneManagement extends HttpServlet {
 		}
 		else if(action.equals("lista_pos"))
 		{
-			String i =request.getParameter("postazione");
+			String id =request.getParameter("postazione");
+			
 			
 			response.sendRedirect("/SmartLab/lista_postazioni");
 
