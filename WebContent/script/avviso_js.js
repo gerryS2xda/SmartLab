@@ -1,4 +1,4 @@
-function creaAvviso(){
+function creaAvviso(){//prendere id da cookie per l'attributo addetto
 	var flag = 0;
 	var titolo = $("#titolo").text();
 	var descrizione = $("#descrizione").text();
@@ -48,14 +48,38 @@ function selectAvviso(){
 	$(document).click(function(event){
 		id = $(event.target).text();
 	})
+	var btn = document.createElement("BUTTON");
+	var t = document.createTextNode("Cancella avviso");
+	btn.appendChild(t);
+	btn.setAttribute("id", "delAvviso");
+	btn.setAttribute("tag", id);
+	document.body.appendChild(btn);
 	$.post("../ServletAvviso", {"action": "openAvviso", "id": id}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var avviso = JSON.parse(resp)
+			document.getElementById("delAvviso").setAttribute("tag", id);
 			$("#title").html(avviso.titolo)
 			$("#message").html(avviso.messaggio)
 			$("#date").html(avviso.data)
 			$("#creator").html(avviso.addetto)
 		}else
 			window.location.href = "./index.jsp";
+	});
+}
+
+function deleteAvviso(){
+	var id = document.getElementById("#delAvviso").getAttribute("tag");
+	var titolo = $("#title").text();
+	var messaggio = $("#message").text();
+	var addetto = $("#creator").text();
+	$.post("../ServletAvviso", {"action": "deleteAvviso", "id": id, "titolo": titolo, "messaggio": messaggio, "addetto": addetto}, function(resp, stat, xhr){
+		if(xhr.readyState == 4 &&stat =="success"){
+			var res = JSON.parse(resp);
+			if(res.esito == "successo")
+				alert("Eliminazione avvenuta con successo");
+			else
+				alert("Eliminazione non riuscita");
+		}else
+			window.location.href("./index.jsp");
 	});
 }

@@ -29,7 +29,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			ps.setString(2, segnalazione.getOggetto());
 			ps.setString(3, segnalazione.getDescrizione());
 			ps.setDate(4, segnalazione.getData());
-			ps.setInt(5, segnalazione.getStudente());
+			ps.setString(5, segnalazione.getStudente());
 			ps.setString(6, segnalazione.getLaboratorio());
 			ps.setInt(7, segnalazione.getPostazione());
 			ps.executeQuery();
@@ -62,8 +62,8 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 	}
 
 	public Segnalazione findItemByQuery(Specification spec) throws SQLException {
-		int id, stud, pos;
-		String og, des, lab;
+		int id, pos;
+		String og, des, lab, stud;
 		Date data;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -78,7 +78,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			og = res.getString("oggetto");
 			des = res.getString("descrizione");
 			data = res.getDate("data");
-			stud = res.getInt("studente");
+			stud = res.getString("studente");
 			lab = res.getString("laboratorio");
 			pos = res.getInt("postazione");
 			item = new Segnalazione(id, og, des, data, stud, lab, pos);
@@ -90,8 +90,8 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 	}
 
 	public List<Segnalazione> query(Specification spec) throws SQLException {
-		int id, stud, pos;
-		String og, des, lab;
+		int id, pos;
+		String og, des, lab, stud;
 		Date data;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -107,7 +107,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 				og = res.getString("oggetto");
 				des = res.getString("descrizione");
 				data = res.getDate("data");
-				stud = res.getInt("studente");
+				stud = res.getString("studente");
 				lab = res.getString("laboratorio");
 				pos = res.getInt("postazione");
 				Segnalazione temp = new Segnalazione(id, og, des, data, stud, lab, pos);

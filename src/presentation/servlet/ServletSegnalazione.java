@@ -35,7 +35,7 @@ public class ServletSegnalazione extends HttpServlet {
 			String descrizione = request.getParameter("descrizione");
 			String lab = request.getParameter("lab");
 			int pos = Integer.parseInt(request.getParameter("pos"));
-			int studente = Integer.parseInt(request.getParameter("studente"));
+			String studente = request.getParameter("studente");
 			java.util.Date d = new java.util.Date();
 			Date data = new Date(d.getTime());
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
@@ -46,7 +46,7 @@ public class ServletSegnalazione extends HttpServlet {
 			String descrizione = request.getParameter("descrizione");
 			String lab = request.getParameter("lab");
 			int pos = Integer.parseInt(request.getParameter("pos"));
-			int studente = Integer.parseInt(request.getParameter("studente"));
+			String studente = request.getParameter("studente");
 			java.util.Date d = new java.util.Date();
 			Date data = new Date(d.getTime());
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
@@ -75,6 +75,15 @@ public class ServletSegnalazione extends HttpServlet {
 					i++;
 			}
 			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"oggetto\": \"" + lista.get(i).getOggetto()) + "\", \"descrizione\": \"" + lista.get(i).getDescrizione() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"laboratorio\": " + lista.get(i).getLaboratorio() + "\", \"postazione\": " + lista.get(i).getPostazione() + "\", \"studente\": " + lista.get(i).getStudente() + "\"}");
+		}else if(segnalazione.equals("viewSegnalazioniStudente")){
+			String stud = request.getParameter("studente");
+			List<Segnalazione> lista = cm.viewSegnalazione();
+			int i;
+			String res = "{";
+			for(i = 0; i < lista.size(); i++){
+				if(lista.get(i).getStudente().equals(stud))
+					res += "\"sg" + i + "\": : {\"id\": \"" + lista.get(i).getId() + "\", \"oggetto\": \"" + lista.get(i).getOggetto() + "\", \"descrizione\": \"" + lista.get(i).getDescrizione() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"studente\": \"" + lista.get(i).getStudente() + "\", \"laboratorio\": \"" + lista.get(i).getLaboratorio() + "\", \"postazione\": \"" + lista.get(i).getPostazione() + "\"}";
+			}
 		}
 	}
 	
