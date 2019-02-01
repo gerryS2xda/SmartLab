@@ -170,7 +170,7 @@ public class PostazioneManager {
 		
 				try 
 				{
-					preR.query();
+					preR.query(presql(email,idlab,idpos));
 				}
 				catch (SQLException e) 
 				{
