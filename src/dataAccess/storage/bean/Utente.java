@@ -16,7 +16,10 @@ public abstract class Utente {
 	}
 	
 	public Utente(){
-		
+		this.email = "";
+		this.password = "";
+		this.name = "";
+		this.surname = "";
 	}
 	
 	public void setEmail(String x){

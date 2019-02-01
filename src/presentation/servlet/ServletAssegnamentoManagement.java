@@ -74,7 +74,8 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 				json=json+"\"cognome\" : \""+resp.getSurname()+"\"}";
 			}
 			json=json+"]}";
-		
+			
+			System.out.println(json);
 			
 			response.getWriter().write(json);
 			

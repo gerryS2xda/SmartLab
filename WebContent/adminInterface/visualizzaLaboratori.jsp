@@ -153,10 +153,10 @@ $(document).ready(function(){
 			action:"lista_resp",
 			idlaboratorio:id
 		},function(data,status){
-			console.lod(data);
+			console.log(data);
 		});
-	}
 	});
-
+});
+</script>
 </body>
 </html>
