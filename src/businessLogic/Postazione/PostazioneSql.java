@@ -5,38 +5,25 @@ import dataAccess.storage.bean.Laboratorio;
 
 public class PostazioneSql implements SqlSpecification {
 	
-	
-	
-	private static final String TABLE_NAME ="Postazione";
-	private int numero;
-	private Laboratorio lab;
-	private boolean stato;
-	
-	public PostazioneSql(int num,Laboratorio lab, boolean stato) 
-	{
-		this.numero=num;
-		this.lab=lab;
-		this.stato=stato;
-	}
-	
-	
 	private static PostazioneSql instance;
+	private static final String TABLE_NAME = "Postazione";
+	private int numero;
+	private String idLab;
+	
+	public PostazioneSql(int num, String idLab) 
+	{
+		this.numero = num;
+		this.idLab = idLab;
+	}
 
-    public static PostazioneSql getInstance(int num, Laboratorio lab, boolean stato) 
+    public static PostazioneSql getInstance(int num, String idLab) 
     {
-
-        if (instance == null) 
-        {
-            instance = new PostazioneSql(num,lab,stato);
-        }
-        return instance;
-
+        return new PostazioneSql(num, idLab);
     }
-
 
 	public String toSqlQuery() 
 	{
-		return String.format("SELECT * FROM %1$s WHERE numero = %2$d && IDlaboratorio = %3$s ",TABLE_NAME, this.numero, this.lab, this.stato);
+		return String.format("SELECT * FROM %1$s WHERE numero = %2$d && IDlaboratorio = %3$s ",TABLE_NAME, this.numero, this.idLab);
 		
 	}
 
