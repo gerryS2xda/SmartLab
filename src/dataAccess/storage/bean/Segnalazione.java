@@ -8,14 +8,14 @@ public class Segnalazione implements Serializable {
 	private int id;
 	private String oggetto, descrizione;
 	private Date data;
-	private int studente;
+	private String studente;
 	private String lab;
 	private int postazione;
 	
 	public Segnalazione(){
 	}
 	
-	public Segnalazione(int i, String og, String des, Date d, int s, String l, int pos){
+	public Segnalazione(int i, String og, String des, Date d, String s, String l, int pos){
 		id = i;
 		oggetto = og;
 		descrizione = des;
@@ -57,11 +57,11 @@ public class Segnalazione implements Serializable {
 		data = nData;
 	}
 	
-	public int getStudente(){
+	public String getStudente(){
 		return studente;
 	}
 	
-	public void setStudente(int nStud){
+	public void setStudente(String nStud){
 		studente = nStud;
 	}
 	
