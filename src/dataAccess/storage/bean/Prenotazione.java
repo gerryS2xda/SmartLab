@@ -27,6 +27,16 @@ public class Prenotazione {
 		this.oraFine = oraFine;
 		this.studente = studente;
 		this.postazione = postazione;
+		this.laboratorio = postazione.getLaboratorio();
+	}
+	
+	public Prenotazione(String data, LocalTime oraInizio, LocalTime oraFine, Studente studente, Postazione postazione, Laboratorio lab){
+		this.data= data;
+		this.oraInizio = oraInizio;
+		this.oraFine = oraFine;
+		this.studente = studente;
+		this.postazione = postazione;
+		this.laboratorio = lab;
 	}
 	
 	//getter and setter
