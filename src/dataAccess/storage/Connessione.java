@@ -25,14 +25,12 @@ public class Connessione  {
 		String port = "3306";
 		String db = "smartlab";
 		String username = "root";
-		String password = "asd456JKL";
+		String password = "0582";
 
 		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);
 
-<<<<<<< HEAD
 		newConnection.setAutoCommit(true);
-=======
->>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
+
 		return newConnection;
 	}
 
