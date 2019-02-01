@@ -2,6 +2,8 @@ package presentation.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,16 +55,24 @@ public class ServletPostazioneManagement extends HttpServlet {
 		if(action == null)
 		{
 			response.setStatus(404);
-			response.sendRedirect("./index.jsp");
+			response.sendRedirect("./WebContent/index.jsp");
 		}
-		else if(action.equals("libera_pos"))
+		else if(action.equals("libera_pos"))   //libera la postazione
 		{ 
 			
+		List<Prenotazione> lista=new ArrayList();
+		pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("lab"));
+			
+		try 
+		{
+			pm.liberaPostazione(pre);
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 		
-		
-		
-		
-		pm.liberaPostazione(pre);//setta lo stato di postazione a false
+		//mandare alla jsp
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
@@ -71,28 +81,31 @@ public class ServletPostazioneManagement extends HttpServlet {
 		
 		else if(action.equals("attiva_pos"))
 		{
-			LaboratorioSql labsql=new LaboratorioSql(request.getParameter("laboratorio"));//mi ricavo un laboratorio
-			pos.setNumero(Integer.parseInt(request.getParameter("numero")));
-			
-			try {
-				pos.setLaboratorio(labr.findItemByQuery(labsql));//setto un laboratorio
-			}
-			catch (SQLException e) 
-			{
-				e.printStackTrace();
-			}
-			
-			pos.setStato(Boolean.parseBoolean(request.getParameter("stato")));
-			pm.attivaPostazione(pos);//setta lo stato di postazione a true
+			pos.setStato(true);
+			pm.attivaPostazione(pos);                   //setta lo stato di postazione a true
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 		}
+		
+		else if(action.equals("disattiva_pos"))
+		{
+						
+			pos.setStato(false);
+			pm.attivaPostazione(pos);                    //setta lo stato di postazione a false
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+		}
+				
 		else if(action.equals("lista_pos"))
 		{
-			String id =request.getParameter("postazione");
 			
+			String id =request.getParameter("laboratorio");
+			pm.listaPostazioni(id);
 			
+			//mandare alla jsp
+					
 			response.sendRedirect("/SmartLab/lista_postazioni");
 
 		}
