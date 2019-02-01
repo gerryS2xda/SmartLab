@@ -16,6 +16,7 @@ import businessLogic.laboratorio.LaboratorioRepository;
 import businessLogic.laboratorio.LaboratorioSql;
 import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
+import dataAccess.storage.bean.Prenotazione;
 
 /**
  * Servlet implementation class ServletPostazione
@@ -42,11 +43,11 @@ public class ServletPostazioneManagement extends HttpServlet {
 		String action=request.getParameter("action");
 		
 		PostazioneManager pm=new PostazioneManager();
-		PostazioneRepository pr=new PostazioneRepository();
-		LaboratorioRepository labr=new LaboratorioRepository();
+		
 		//PostazioneSql psql=new PostazioneSql();
 		Postazione pos=new Postazione();
 		Laboratorio lab=new Laboratorio();
+		Prenotazione pre=new Prenotazione();
 		
 		
 		if(action == null)
@@ -57,21 +58,11 @@ public class ServletPostazioneManagement extends HttpServlet {
 		else if(action.equals("libera_pos"))
 		{ 
 			
-		LaboratorioSql labsql=new LaboratorioSql(request.getParameter("laboratorio"));//mi ricavo un laboratorio
-		pos.setNumero(Integer.parseInt(request.getParameter("numero")));
 		
-			try 
-			{
-				pos.setLaboratorio(labr.findItemByQuery(labsql));//setto un laboratorio
-			} 
-			catch (SQLException e) 
-				{
-					
-					e.printStackTrace();
-				}
 		
-		pos.setStato(Boolean.parseBoolean(request.getParameter("stato")));
-		pm.disattivaPostazione(pos);//setta lo stato di postazione a false
+		
+		
+		pm.liberaPostazione(pre);//setta lo stato di postazione a false
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
@@ -99,9 +90,11 @@ public class ServletPostazioneManagement extends HttpServlet {
 		}
 		else if(action.equals("lista_pos"))
 		{
-		
+			String id =request.getParameter("postazione");
+			
 			
 			response.sendRedirect("/SmartLab/lista_postazioni");
+
 		}
 		
 	}

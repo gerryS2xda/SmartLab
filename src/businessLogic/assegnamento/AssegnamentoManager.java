@@ -3,7 +3,7 @@ package businessLogic.assegnamento;
 import java.sql.SQLException;
 import java.util.List;
 
-import businessLogic.account.AccountRepository;
+import businessLogic.addetto.AddettoRepository;
 import businessLogic.laboratorio.LaboratorioManager;
 import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Assegnamento;
@@ -75,8 +75,8 @@ public class AssegnamentoManager {
     /**permette di visualizzare la lista dei responsabili assegnati a un laboratorio
     *@return lista dei responsabili assegnati ai corrispettivi laboratori
     */
-    public List<Utente> showResponsabileAndLaboratorio(String idlaboratorio){
-    	AccountRepository repository=new AccountRepository();
+    public List<Addetto> showResponsabileAndLaboratorio(String idlaboratorio){
+    	AddettoRepository repository=new AddettoRepository();
     	
     	try {
 			return repository.query(new ListaRespAss(idlaboratorio));
@@ -89,8 +89,8 @@ public class AssegnamentoManager {
 	}
     
     //ritorna tutti i responsabile che non sono assegnati al laboratorio
-    public List<Utente> showResponsabileAddLaboratorio(String idlaboratorio){
-    	AccountRepository repository=new AccountRepository();
+    public List<Addetto> showResponsabileAddLaboratorio(String idlaboratorio){
+    	AddettoRepository repository=new AddettoRepository();
     	
     	try {
 			return repository.query(new ListaRespDaAssegnare(idlaboratorio));

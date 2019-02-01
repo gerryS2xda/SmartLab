@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import businessLogic.assegnamento.AssegnamentoManager;
+import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Assegnamento;
 import dataAccess.storage.bean.Utente;
 
@@ -61,7 +62,7 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 		}else if(action.equals("lista_resp")){//lista di responsabili che è possibile assegnare
 			String idlab=request.getParameter("idlaboratorio");
 			
-			List<Utente> responsabili=manager.showResponsabileAddLaboratorio(idlab);
+			List<Addetto> responsabili=manager.showResponsabileAddLaboratorio(idlab);
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
@@ -80,7 +81,7 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 		}else if(action.equals("lista_resp_ass")){//lista responsabili assegnati a un laboratorio
 			String idlab=request.getParameter("idlaboratorio");
 			
-			List<Utente> responsabili=manager.showResponsabileAddLaboratorio(idlab);
+			List<Addetto> responsabili=manager.showResponsabileAddLaboratorio(idlab);
 			request.setAttribute("responsabili", responsabili);
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/adminInterface/viewRespAssegnati.jsp");
