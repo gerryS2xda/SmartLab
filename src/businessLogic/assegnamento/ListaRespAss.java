@@ -26,8 +26,8 @@ public class ListaRespAss implements SqlSpecification {
 	@Override
 	public String toSqlQuery() {
 		return String.format(
-                "select * from (select responsabile, laboratorio, tipo from addetto a join assegnamento ass on a.email = ass.responsabile) as temp join utente on temp.responsabile = utente.email"
-                + " WHERE laboratorio = %1$s ;",
+                "SELECT * FROM assegnamento join laboratorio on assegnamento.laboratorio = laboratorio.IDlaboratorio"
+                + " where responsabile= %1$s;",
                 this.laboratorio
         );
 	}

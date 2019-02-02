@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import businessLogic.Postazione.PostazioneRepository;
+import businessLogic.assegnamento.ListaRespAss;
 import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 
@@ -99,6 +100,17 @@ public class LaboratorioManager {
 			}
 			return null;
 		}
+	    
+	    public List<Laboratorio> getLaboratoryListForResp(String email){
+	    	LaboratorioRepository repository=new LaboratorioRepository();
+	    	try {
+				return repository.query(new ListaRespAss(email));
+			} catch (SQLException e) {
+				System.err.println("non è possibile ritornare la lista dei laboratori");
+				e.printStackTrace();
+			}
+			return null;
+	    }
 	  /** mostra una statistica di utilizzo di un laboratorio in termini di quante postazioni vengono         * occupate al giorno.
 	    *@param lab laboratori su desidera vedere la statistica di utilizzo
 	    *@return statistiche di utilizzo di un laboratorio 
