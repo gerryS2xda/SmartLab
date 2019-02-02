@@ -1,36 +1,27 @@
 package businessLogic.utente;
 
+import businessLogic.addetto.AddettoRepository;
+import dataAccess.storage.bean.Sospensione;
+import dataAccess.storage.bean.Studente;
+import dataAccess.storage.bean.Utente;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import businessLogic.addetto.AddettoRepository;
-import businessLogic.utente.UtenteRepository;
-import dataAccess.storage.bean.Sospensione;
-import dataAccess.storage.bean.Studente;
-import dataAccess.storage.bean.Utente;
-
 public class UtenteManager {
 	
 	private static UtenteManager instance;
-
-	private UtenteRepository utente = new UtenteRepository();
 	private StudenteRepository studente = new StudenteRepository();
 	private SospensioneRepository sospensione = new SospensioneRepository();
-	private AddettoRepository addetto = new AddettoRepository();
 	
 	public static UtenteManager getInstace(){
-		if (instance == null){
-			instance = new UtenteManager();
-		}
+		instance = new UtenteManager();
 		return instance;
 	}
 	
 	public UtenteManager(){
-		utente = UtenteRepository.getInstance();
 		studente = StudenteRepository.getInstance();
 		sospensione = SospensioneRepository.getInstance();
-		addetto = AddettoRepository.getInstance();
 	}
 	
 	public void registraStudente (Studente s) throws SQLException{
@@ -91,11 +82,8 @@ public class UtenteManager {
 		return val;
 	}
 	
-	//Metodo Sbagliato
-	public List<Utente> getAccountList() throws SQLException{
-		List<Utente> accountList = new ArrayList<Utente>();
-		accountList = utente.query(new UtenteList()); //deve essere un oggetto Specification
-		return accountList;
+	public List<Studente> getStudentList() throws SQLException{
+		return studente.query(new StudentList());
 	}
 	
 }
