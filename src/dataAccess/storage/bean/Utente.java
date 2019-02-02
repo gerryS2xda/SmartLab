@@ -16,10 +16,14 @@ public abstract class Utente {
 	}
 	
 	public Utente(){
+<<<<<<< HEAD
 		this.email = "";
 		this.password = "";
 		this.name = "";
 		this.surname = "";
+=======
+		email = "";
+>>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
 	}
 	
 	public void setEmail(String x){

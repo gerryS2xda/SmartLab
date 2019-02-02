@@ -10,7 +10,7 @@ public class Addetto extends Utente {
 	}
 	
 	public Addetto(){
-		
+		super();
 	}
 
 	public void setTipo(boolean tipo) {

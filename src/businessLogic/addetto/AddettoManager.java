@@ -4,7 +4,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import businessLogic.utente.StudenteSQL;
 import dataAccess.storage.bean.Addetto;
+import dataAccess.storage.bean.Studente;
+import dataAccess.storage.bean.Utente;
 
 public class AddettoManager {
 	
@@ -12,9 +15,7 @@ public class AddettoManager {
 	private AddettoRepository r = new AddettoRepository();
 	
 	public static AddettoManager getInstace(){
-		if (instance == null){
-			instance = new AddettoManager();
-		}
+		instance = new AddettoManager();
 		return instance;
 	}
 	
@@ -59,4 +60,13 @@ public class AddettoManager {
 		return resp;
 	}
 
+	public Addetto effettuaAutenticazione (String email, String password){
+		Addetto addetto = new Addetto();
+		try{
+			addetto = r.findItemByQuery(new AddettoLoginSQL(email, password));
+		}catch(SQLException e){
+			//error msg
+		}
+		return addetto;
+	}
 }

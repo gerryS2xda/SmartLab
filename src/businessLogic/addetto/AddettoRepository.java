@@ -16,9 +16,7 @@ public class AddettoRepository {
 	private static AddettoRepository instance;
 
     public static AddettoRepository getInstance() {
-        if (instance == null) {
-            instance = new AddettoRepository();
-        }
+        instance = new AddettoRepository();
         return instance;
     }
 
@@ -81,15 +79,13 @@ public class AddettoRepository {
     	Connection connection = null;
     	PreparedStatement ps = null;
     	
-    	String updateSQL = "update " + TABLE_NAME + " set email = ?, password = ?, nome = ?, "
-    			+ "cognome = ? where email = " + a.getEmail();
+    	String updateSQL = "update " + TABLE_NAME + " set tipo = ? where email = " + a.getEmail();
     	
     	try{
     		connection = Connessione.getConnection();
     		ps = connection.prepareStatement(updateSQL);
     		
-    		ps.setString(1, a.getEmail());
-    		ps.setBoolean(2, a.getTipo());
+    		ps.setBoolean(1, a.getTipo());
     		
     		ps.executeUpdate();
     	} finally {
@@ -111,8 +107,11 @@ public class AddettoRepository {
             ResultSet rs = preparedStatement.executeQuery();
 			
             while (rs.next()) {
-                a.setEmail(rs.getString("email"));
-				a.setTipo(rs.getBoolean("tipo"));
+            	a.setName(rs.getString(1));
+				a.setSurname(rs.getString(2));
+                a.setEmail(rs.getString(3));
+				a.setTipo(rs.getBoolean(4));
+				a.setPassword(rs.getString(5));
 			}
 		} finally {
 			try {
@@ -141,9 +140,17 @@ public class AddettoRepository {
 
 			while (rs.next()) {
 				Addetto a = new Addetto();
+<<<<<<< HEAD
                 a.setEmail(rs.getString("email"));
 				//a.setTipo(rs.getBoolean("tipo"));
 				
+=======
+				a.setName(rs.getString(1));
+				a.setSurname(rs.getString(2));
+                a.setEmail(rs.getString(3));
+				a.setTipo(rs.getBoolean(4));
+				a.setPassword(rs.getString(5));
+>>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
 				addetti.add(a);
 			}
 
