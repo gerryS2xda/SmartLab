@@ -33,12 +33,8 @@ public class UtenteManager {
 		addetto = AddettoRepository.getInstance();
 	}
 	
-	public boolean registraStudente (Studente s) throws SQLException{
-		if(isEmailRight(s.getEmail()) && isPasswordRight(s.getPassword())){
-			studente.add(s);
-			return true;
-		}
-		else return false;
+	public void registraStudente (Studente s) throws SQLException{
+		studente.add(s);
 	}
 	
 	private boolean isEmailRight(String email) {
@@ -78,6 +74,21 @@ public class UtenteManager {
 		s.setStato(true);
 		sospensione.add(v);
 		return v;
+	}
+	
+	public boolean isStudentPresent(String email){
+		boolean val = false;
+		Studente stud = new Studente();
+		try{
+			stud = studente.findItemByQuery(new StudenteSQL(email));
+		}catch(SQLException e){
+			System.out.println("Errore: problema nell'eseguire la findItemByQuery() di StudenteRepository");
+		}
+		
+		if(!stud.getEmail().equals("")){	//se email e' riempito --> studente e' presente
+			val = true;
+		}
+		return val;
 	}
 	
 	//Metodo Sbagliato
