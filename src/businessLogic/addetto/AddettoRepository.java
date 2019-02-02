@@ -21,6 +21,7 @@ public class AddettoRepository {
     }
 
     public static final String TABLE_NAME = "addetto";
+    public static final String TABLE_NAME_UTENTE = "utente";
     
     public AddettoRepository(){
     	
@@ -30,12 +31,26 @@ public class AddettoRepository {
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
     	
-    	String insertSQL = "INSERT INTO " + TABLE_NAME
+    	String insertSQLUtente = "INSERT INTO " + TABLE_NAME_UTENTE
+    			+ " (email, password, nome, cognome) VALUES (?, ?, ?, ?)";
+    	String insertSQLAddetto = "INSERT INTO " + TABLE_NAME
     			+ " (email, tipo) VALUES (?, ?)";
     	
     	try {
 			connection = Connessione.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
+			
+			//modifica prima la table di utente
+			preparedStatement = connection.prepareStatement(insertSQLUtente);
+			preparedStatement.setString(1, a.getEmail());
+			preparedStatement.setString(2, a.getPassword());
+			preparedStatement.setString(3, a.getName());
+			preparedStatement.setString(4, a.getSurname());
+			preparedStatement.executeUpdate();
+			connection.commit();
+			preparedStatement.close();	//chiudi questo statement
+			
+			//poi la table di studente
+			preparedStatement = connection.prepareStatement(insertSQLAddetto);
 			preparedStatement.setString(1, a.getEmail());
 			preparedStatement.setBoolean(2, a.getTipo());
 			
@@ -56,7 +71,8 @@ public class AddettoRepository {
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
     	
-    	String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE email = ?";
+    	//usiamo la delete su utente poiche' e' stata applicata la foreign key con on delete cascade
+    	String deleteSQL = "DELETE FROM " + TABLE_NAME_UTENTE + " WHERE email = ?";
     	
     	try{
 			connection = Connessione.getConnection();
@@ -79,12 +95,24 @@ public class AddettoRepository {
     	Connection connection = null;
     	PreparedStatement ps = null;
     	
-    	String updateSQL = "update " + TABLE_NAME + " set tipo = ? where email = " + a.getEmail();
+    	String updateSQLUtente = "update " + TABLE_NAME_UTENTE + " set email = ?, password = ?, nome = ?, "
+    			+ "cognome = ? where email = " + a.getEmail();
+    	String updateSQLAddetto = "update " + TABLE_NAME + " set tipo = ? where email = " + a.getEmail();
     	
     	try{
     		connection = Connessione.getConnection();
-    		ps = connection.prepareStatement(updateSQL);
+    		//aggiorna prima i valori di utente
+    		ps = connection.prepareStatement(updateSQLUtente);
+    		ps.setString(1, a.getEmail());
+    		ps.setString(2, a.getPassword());
+    		ps.setString(3, a.getName());
+    		ps.setString(4, a.getSurname());
     		
+    		ps.executeUpdate();
+    		ps.close();
+    		
+    		//poi quelli nella table di addetto
+    		ps = connection.prepareStatement(updateSQLAddetto);
     		ps.setBoolean(1, a.getTipo());
     		
     		ps.executeUpdate();
