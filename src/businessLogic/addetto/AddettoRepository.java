@@ -140,17 +140,12 @@ public class AddettoRepository {
 
 			while (rs.next()) {
 				Addetto a = new Addetto();
-<<<<<<< HEAD
-                a.setEmail(rs.getString("email"));
-				//a.setTipo(rs.getBoolean("tipo"));
 				
-=======
 				a.setName(rs.getString(1));
 				a.setSurname(rs.getString(2));
                 a.setEmail(rs.getString(3));
 				a.setTipo(rs.getBoolean(4));
 				a.setPassword(rs.getString(5));
->>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
 				addetti.add(a);
 			}
 
