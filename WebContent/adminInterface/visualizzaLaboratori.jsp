@@ -126,7 +126,11 @@ $(document).ready(function(){
 			//messaggio esito
 			var mex=data.esito;
 			$("#success-alert").css("display","block");
+			$("#success-alert").html("");
 			$("#success-alert").append($("<strong>"+mex+"</strong>"));
+			$("#success-alert").css("position","fixed");
+			$("#success-alert").css("top","0");
+			$("#success-alert").css("width","100%");
 			setTimeout(function() {
 				$("#success-alert").css("display","none");
 		        //$("#success-alert").alert('close');
@@ -170,10 +174,34 @@ $(document).ready(function(){
 				link.addClass("col-md-6");
 				link.addClass("btn btn-primary");
 				link.attr("id","assegna");
+				link.attr("data-dismiss","modal");
 				//"href","assegnamento?action=aggiungi_ass&idlaboratorio="+id+"&idresponsabile="+responsabili[i].email
 				
+						// assegnamento vero e proprio
 				link.on("click",function(){
+					var div=$(this).parent();
 					console.log("ok");
+					var labid=div.find("input#id").val();
+					var respid=div.find("div#email").text();
+					
+					$.getJSON("assegnamento",{
+						action: "aggiungi_ass",
+						idlaboratorio: labid,
+						idresponsabile: respid
+					},function(data,status){
+						//messaggio esito
+						var mex=data.esito;
+						$("#success-alert").css("display","block");
+						$("#success-alert").html("");
+						$("#success-alert").append($("<strong>"+mex+"</strong>"));
+						$("#success-alert").css("position","fixed");
+						$("#success-alert").css("top","0");
+						$("#success-alert").css("width","100%");
+						setTimeout(function() {
+							$("#success-alert").css("display","none");
+					        //$("#success-alert").alert('close');
+					    }, 2000);
+					});
 				});
 				
 				riga.append(email);
