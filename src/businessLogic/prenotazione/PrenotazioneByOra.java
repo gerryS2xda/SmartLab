@@ -19,7 +19,7 @@ public class PrenotazioneByOra implements SqlSpecification{
 			
 	public String toSqlQuery(){
 		String str = String.format("SELECT * FROM " + PrenotazioneRepository.TABLE_NAME 
-				+ " WHERE OraInizio = '%s' AND OraFine = '%s' AND Laboratorio = %s"  , oraInizio, oraFine, idLab);
+				+ " WHERE ora_inizio = '%s' AND ora_fine = '%s' AND Laboratorio = %s"  , oraInizio, oraFine, idLab);
 		return str;
 	}
 }

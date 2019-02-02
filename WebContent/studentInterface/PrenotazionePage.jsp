@@ -27,7 +27,14 @@
 			</div>
 		</section>
 		<section id="main_content">
-			<h1 class="title_page">Laboratorio 1</h1>
+			<% String lab = request.getParameter("lab_name");
+			   String idLab = request.getParameter("lab_selected");
+				if(lab == null || lab.equals("") || idLab == null || idLab.equals("")){
+					//vai alla pagina di errore
+				}
+			%>
+			<span id="idLab" class="hidden_item"><%=idLab %></span>
+			<h1 class="title_page"><%=lab %></h1>
 			<div class="text_content">
 				<p class="info_update_txt">
 					Situazione posti disponibili aggiornata alle <span><%=LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) %>
