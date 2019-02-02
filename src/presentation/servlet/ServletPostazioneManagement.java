@@ -41,8 +41,10 @@ public class ServletPostazioneManagement extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String action=request.getParameter("action");
+		//prova
+		//action="lista_pos";
 		
 		PostazioneManager pm=new PostazioneManager();
 		
@@ -55,7 +57,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 		if(action == null)
 		{
 			response.setStatus(404);
-			response.sendRedirect("./WebContent/index.jsp");
+			response.sendRedirect("./Index.jsp");
 		}
 		else if(action.equals("libera_pos"))   //libera la postazione
 		{ 
@@ -90,23 +92,26 @@ public class ServletPostazioneManagement extends HttpServlet {
 		
 		else if(action.equals("disattiva_pos"))
 		{
-						
-			pos.setStato(false);
+			
+			
 			pm.attivaPostazione(pos);                    //setta lo stato di postazione a false
 			
-			response.setContentType("application/json");
+			request.setAttribute("postazione",pos);
+			request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
+			//response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 		}
 				
 		else if(action.equals("lista_pos"))
 		{
 			
-			String id =request.getParameter("laboratorio");
-			pm.listaPostazioni(id);
+			String id =(String) request.getAttribute("idlaboratorio");
+			List<Postazione> lp=pm.listaPostazioni(id);
 			
 			//mandare alla jsp
-					
-			response.sendRedirect("/SmartLab/lista_postazioni");
+			request.setAttribute("lista", lp);
+			request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
+			//response.sendRedirect("/SmartLab/lista_postazioni");
 
 		}
 		

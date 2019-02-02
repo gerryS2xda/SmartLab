@@ -6,7 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Segnalazione</title>
 	</head>
-	<body>
+	<body onload = "selectSegnalazione()">
 		<span id = "data"></span>
 		<h1 id = "oggetto"></h1>
 		<div id = "descrizione"></div>

@@ -1,4 +1,4 @@
-function creaAvviso(){//prendere id da cookie per l'attributo addetto
+function creaAvviso(){
 	var flag = 0;
 	var titolo = $("#titolo").text();
 	var descrizione = $("#descrizione").text();
@@ -16,12 +16,12 @@ function creaAvviso(){//prendere id da cookie per l'attributo addetto
 		document.getElementById("#errore").style.display = "none";
 		$.post("../ServletAvviso", {"action": "newAvviso", "titolo": titolo, "descrizione": descrizione, "addetto": addetto}, function(resp, stat, xhr){
 			if(xhr.readyState == 4 && stat == "success"){
-				var ris = JSON.parse(resp)
-				var esito = ris.esito
+				var ris = JSON.parse(resp);
+				var esito = ris.esito;
 				if(esito == "avviso creato")
-					alert("Avviso creato con successo")
+					alert("Avviso creato con successo");
 				else
-					alert("Errore nella creazione dell'avviso")
+					alert("Errore nella creazione dell'avviso");
 			}
 		});
 	}
@@ -30,12 +30,12 @@ function creaAvviso(){//prendere id da cookie per l'attributo addetto
 function loadAvvisi(){
 	$.post("../ServletAvviso", {"action": "viewAvvisi"}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
-			var avvisi = JSON.parse(resp)
-			var size = sizeObject(avvisi)
-			var str = ""
+			var avvisi = JSON.parse(resp);
+			var size = sizeObject(avvisi);
+			var str = "";
 			for(var i = 0; i < size; i++){
 				var tmp = avvisi["av" + i];
-				str += "<tr><td>" + tmp.id + "</td><td>"+ tmp.titolo + "</td><td>" + tmp.messaggio + "</td><td>" + tmp.data + "</td><td>" + tmp.addetto + "</td></tr>";
+				str += "<tr><td><a href = \"avviso.jsp\"" + tmp.id + "</td><td>"+ tmp.titolo + "</td><td>" + tmp.messaggio + "</td><td>" + tmp.data + "</td><td>" + tmp.addetto + "</td></tr>";
 			}
 			$("#tb_avvisi tbody").html(str);
 		}else
@@ -47,21 +47,23 @@ function selectAvviso(){
 	var id;
 	$(document).click(function(event){
 		id = $(event.target).text();
-	})
-	var btn = document.createElement("BUTTON");
-	var t = document.createTextNode("Cancella avviso");
-	btn.appendChild(t);
-	btn.setAttribute("id", "delAvviso");
-	btn.setAttribute("tag", id);
-	document.body.appendChild(btn);
+	});
 	$.post("../ServletAvviso", {"action": "openAvviso", "id": id}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
-			var avviso = JSON.parse(resp)
-			document.getElementById("delAvviso").setAttribute("tag", id);
-			$("#title").html(avviso.titolo)
-			$("#message").html(avviso.messaggio)
-			$("#date").html(avviso.data)
-			$("#creator").html(avviso.addetto)
+			var avviso = JSON.parse(resp);
+			if(avviso.tipo == "addetto"){
+				var btn = document.createElement("BUTTON");
+				var t = document.createTextNode("Cancella avviso");
+				btn.appendChild(t);
+				btn.setAttribute("id", "delAvviso");
+				btn.setAttribute("tag", id);
+				document.body.appendChild(btn);
+			}
+			//document.getElementById("delAvviso").setAttribute("tag", id);
+			$("#title").html(avviso.titolo);
+			$("#message").html(avviso.messaggio);
+			$("#date").html(avviso.data);
+			$("#creator").html(avviso.addetto);
 		}else
 			window.location.href = "./index.jsp";
 	});

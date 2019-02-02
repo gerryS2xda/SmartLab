@@ -67,6 +67,7 @@ public class UtenteManager {
 		return v;
 	}
 	
+
 	public boolean isStudentPresent(String email){
 		boolean val = false;
 		Studente stud = new Studente();

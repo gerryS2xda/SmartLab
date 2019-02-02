@@ -107,16 +107,16 @@ public class PostazioneManager {
  */
 	public List<Postazione> listaPostazioni(String lab)
 	{
-		List <Postazione> pos=null;
+		List <Postazione> lpos=new ArrayList();
+		Postazione pos=new Postazione();
 		if(lab!=null && !lab.equals(""))
 		{
-			pos= new ArrayList<>();
 			PostazioneRepository repository=new PostazioneRepository();
-			ListaPos lista=new ListaPos(lab);
+			ListaPos lista=new ListaPos(lab);//query che prende il laboratrio
 		
 				try 
 				{
-					repository.query(lista);
+					lpos=repository.query(lista);
 				}
 				catch (SQLException e) 
 				{
@@ -127,7 +127,10 @@ public class PostazioneManager {
 		{
 			System.err.println("la Stringa inserita e' vuota");
 		}
-		return pos;
+		pos.setNumero(1);   //codice per test statico
+		pos.setStato(true);
+		lpos.add(pos);
+		return lpos;
 	}
 	
 /**

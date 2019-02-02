@@ -26,9 +26,9 @@ function inviaSegnalazione(){
 		document.getelementById("#errore").style.display = "none";
 		$.post("../ServletSegnalazione", {"action": "newSegnalazione", "laboratorio": laboratorio, "postazione": postazione, "oggetto": oggetto, "descrizione": descrizione}, function(resp, stat, xhr){
 			if(xhr.readyState == 4 && stat == "success"){
-				alert("Segnalazione inviata con successo")
+				alert("Segnalazione inviata con successo");
 			}else
-				alert("Non è stato possibile inviare la segnalazione")
+				alert("Non è stato possibile inviare la segnalazione");
 		});
 	}
 }
@@ -41,7 +41,9 @@ function loadSegnalazioni(){
 			var str = "";
 			for(var i = 0; i < size; i++){
 				var tmp = segnalazioni["sg" + i];
+				str += "<tr><td>" + tmp.id + "</td><td>"+ tmp.laboratorio + "</td><td>" + tmp.postazione + "</td><td>" + tmp.oggetto + "</td><td>" + tmp.descrizione + "</td><td>" + tmp.data + "</td></tr>";
 			}
+			$("#tb_segnalazioni tbody").html(str);
 		}else
 			window.location.href("./index.jsp");
 	});
@@ -66,7 +68,7 @@ function selectSegnalazione(){
 			$("#oggetto").html(segnalazione.oggetto);
 			$("descrizione").html(segnalazione.descrizione);
 			$("lab").html(segnalaizone.laboratorio);
-			$("pos").html(segnalazione.postazione)
+			$("pos").html(segnalazione.postazione);
 		}else
 			window.location.href("./index.jsp");
 	});
