@@ -8,7 +8,7 @@ public class Studente extends Utente {
 	}
 	
 	public Studente (){
-		
+		super();
 	}
 
 	public void setStato(boolean b){

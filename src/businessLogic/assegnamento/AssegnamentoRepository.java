@@ -49,7 +49,6 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -75,8 +74,6 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 			preparedStatement.setString(2, ass.getResponsabile());
 
 			preparedStatement.executeUpdate();
-			connection.commit();
-
 		} finally {
 			try {
 				if (preparedStatement != null)

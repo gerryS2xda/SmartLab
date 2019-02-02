@@ -62,14 +62,14 @@ public class UtenteManager {
 		/** DA COMPLETARE? **/
 	}
 
-	public boolean effettuaAutenticazione (String email, String password) throws SQLException{
-		List<Utente> list = getAccountList();
-		for(Utente u: list){
-			if ((u.getEmail().equals(email)) && (u.getPassword().equals(password))){
-				return true;
-			}
+	public Studente effettuaAutenticazione (String email, String password){
+		Studente s = new Studente();
+		try{
+			s = studente.findItemByQuery(new StudenteLoginSQL(email, password));
+		}catch(SQLException e){
+			//error msg
 		}
-		return false;
+		return s;
 	}
 	
 	public Sospensione effettuaSospensione (Studente s) throws SQLException{
@@ -80,9 +80,10 @@ public class UtenteManager {
 		return v;
 	}
 	
+	//Metodo Sbagliato
 	public List<Utente> getAccountList() throws SQLException{
 		List<Utente> accountList = new ArrayList<Utente>();
-		accountList = utente.query(new UtenteList());
+		accountList = utente.query(new UtenteList()); //deve essere un oggetto Specification
 		return accountList;
 	}
 	

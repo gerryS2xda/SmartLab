@@ -17,12 +17,9 @@ public static final String TABLE_NAME = "laboratorio";
 	@Override
 	public String toSqlQuery() {
 		return String.format(
-                "SELECT * FROM %1$s WHERE nome=%2$s, posti=%3$s, ora_apertura=%4$s, ora_chiusura=%5$s;",
+                "SELECT * FROM %1$s WHERE nome='%2$s';",
                 TABLE_NAME,
-                laboratorio.getNome(),
-                laboratorio.getPosti(),
-                Time.valueOf(laboratorio.getApertura()),
-                Time.valueOf(laboratorio.getChiusura())
+                laboratorio.getNome()
         );
 		
 	}

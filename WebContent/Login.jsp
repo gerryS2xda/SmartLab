@@ -1,12 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
 
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Benvenuto su SmartLab</title>
+	<link type="text/css" rel="stylesheet" href="./css/login_area_style.css">
+	<link rel="icon" href="./images/icon_web_window_32.jpg" type="image/jpg" />
+</head>
+
+<body>
+  <div id="log_area_click" class="login-page">
+		<div class="form">
+			<img id="logo_img" src="./images/logo_SmartLab.jpg" alt="Logo image not found">
+			<p id="wm">Benvenuto</p>
+			<form class="login-form" name="login_form" >
+				<span id="errUserArea">
+					<img class="punto_Esc_image" src="./images/puntoEsc.png" alt="(!)">
+					<span class="err_txt"> </span>
+				</span>
+				<input type="text" name="usrname" placeholder="email di ateneo" id="nomeLog" onblur="validateUsernameLogin($(this))"/>
+				<span id="errPwdArea">
+					<img class="punto_Esc_image" src="./images/puntoEsc.png" alt="(!)">
+					<span class="err_txt"> </span>
+				</span>
+				<input type="password" name="pwd" placeholder="password" id="passLog" onblur="validatePasswordLogin($(this))"/>
+				<button type="button" onclick="formValidationAndSubmit()">Login</button>
+				<p class="message">Not registered? <a class="reg_link" href="RegistrationForm.jsp?userType=user">Create an account</a></p>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="script/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="script/login_form_js.js"></script>
 </body>
+
 </html>

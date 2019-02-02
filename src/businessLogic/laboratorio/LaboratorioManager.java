@@ -35,17 +35,19 @@ public class LaboratorioManager {
 	    		flag=true;
 	    		try {
 					repository.add(lab);
-					//
-					//lab=repository.findItemByQuery(new IdLab(lab));
+					Laboratorio temp=new Laboratorio();
+					temp=repository.findItemByQuery(new IdLab(lab));
+					lab.setIDlaboratorio(temp.getIDlaboratorio());
+					System.out.println("id "+lab.getIDlaboratorio());
 					//crea le postazioni
-					/*PostazioneRepository rPostazione=new PostazioneRepository();
+					PostazioneRepository rPostazione=new PostazioneRepository();
 					for(int i=0;i<lab.getPosti();i++){
 						Postazione p=new Postazione();
 						p.setLaboratorio(lab);
 						p.setNumero(i+1);
-						p.setStato(false);
+						p.setStato(true);
 						rPostazione.add(p);
-					}*/
+					}
 					
 				} catch (SQLException e) {
 					flag=false;

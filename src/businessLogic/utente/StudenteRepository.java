@@ -18,9 +18,8 @@ public class StudenteRepository implements Repository<Studente>{
 	private static StudenteRepository instance;
 	
 	public static StudenteRepository getInstance(){
-		if (instance == null){
-			instance = new StudenteRepository();
-		}
+		
+		instance = new StudenteRepository();
 		return instance;
 	}
 	
@@ -111,8 +110,11 @@ public class StudenteRepository implements Repository<Studente>{
             ResultSet rs = preparedStatement.executeQuery();
 			
             while (rs.next()) {
-                s.setEmail(rs.getString("email"));
-				s.setStato(rs.getBoolean("stato"));
+            	s.setName(rs.getString(1));
+				s.setSurname(rs.getString(2));
+                s.setEmail(rs.getString(3));
+				s.setStato(rs.getBoolean(4));
+				s.setPassword(rs.getString(5));
 			}
 		} finally {
 			try {
@@ -141,9 +143,11 @@ public class StudenteRepository implements Repository<Studente>{
 
 			while (rs.next()) {
 				Studente s = new Studente();
-                s.setEmail(rs.getString("email"));
-				s.setStato(rs.getBoolean("stato"));
-
+				s.setName(rs.getString(1));
+				s.setSurname(rs.getString(2));
+                s.setEmail(rs.getString(3));
+				s.setStato(rs.getBoolean(4));
+				s.setPassword(rs.getString(5));
 				studenti.add(s);
 			}
 
