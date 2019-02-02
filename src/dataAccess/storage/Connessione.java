@@ -25,7 +25,6 @@ public class Connessione  {
 		String port = "3306";
 		String db = "smartlab";
 		String username = "root";
-
 		String password = "emmalle";
 		//String password = "asd456JKL";
 		
