@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class="container"> 
+	<h5 class="text-center">Laboratori</h5>
 	<%Collection<?> laboratori = (Collection<?>) request.getAttribute("laboratori");
 	Iterator<?> it = laboratori.iterator();
     while (it.hasNext()) {
@@ -18,19 +19,21 @@
     	if(lab.isStato()){%>
     	
     	<!-- link per la pagina di prenotazione -->
-	    <a href=""></a><div class="card">
-		  <div class="card-header">
-		  	<input type="hidden" value="<%= lab.getIDlaboratorio()%>">
-		    Laboratorio <%=lab.getNome() %>
-		  </div>
-		  <div class="row">
-			  <div class="col-md-6">
+	    <div class="card">
+		  <div class="row card-body">
+		  	<div class="col-md-3 text-center">
+		    	<label class="card-text">Laboratorio <span><%=lab.getNome() %><span></span></label>
+			  </div>
+			  <div class="col-md-3 text-center">
 			    <label class="card-text">Apertura: <%=lab.getApertura() %></label>
 			  </div>
-			  <div class="col-md-6">
-			    <label class="card-text">Chiusura: <%=lab.getChiusura() %></label>
+			  <div class="col-md-3 text-center">
+			    <label class="card-text">Chiusura: <%=lab.getChiusura() %></label> 
 			  </div>
-		  </div></a>
+			  <div class="col-md-3 text-center">
+			    <a href="postazioni?action=lista_pos&idlaboratorio=<%=lab.getIDlaboratorio()%>" class="btn btn-primary">Postazioni</a>
+			  </div>
+		  </div>
 		</div>
     	
     	<%

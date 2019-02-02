@@ -14,9 +14,7 @@
 <body>
     <h1 style="text-align: center"> LABORATORIO  </h1>
     <div>
-    	<% 
-    	
-    	Collection<?> postazioni = (Collection<?>) request.getAttribute("lista");
+    	<% Collection<?> postazioni = (Collection<?>) request.getAttribute("lista");
 	Iterator<?> it = postazioni.iterator();
     while (it.hasNext()) {
     	//Laboratorio lab=new Laboratorio();

@@ -23,7 +23,7 @@ import dataAccess.storage.bean.Prenotazione;
 /**
  * Servlet implementation class ServletPostazione
  */
-@WebServlet("/ServletPostazione")
+//@WebServlet("/ServletPostazione")
 public class ServletPostazioneManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -105,16 +105,20 @@ public class ServletPostazioneManagement extends HttpServlet {
 		else if(action.equals("lista_pos"))
 		{
 			
-			String id =(String) request.getAttribute("idlaboratorio");
+			//String id =(String) request.getParameter("idlaboratorio");
+			String id="lab1";
 			List<Postazione> lp=pm.listaPostazioni(id);
 			
 			//mandare alla jsp
 			request.setAttribute("lista", lp);
 			request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
-			//response.sendRedirect("/SmartLab/lista_postazioni");
+			response.sendRedirect("/SmartLab/lista_postazioni");
 
 		}
 		
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 

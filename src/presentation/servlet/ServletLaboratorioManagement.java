@@ -79,7 +79,7 @@ public class ServletLaboratorioManagement extends HttpServlet {
 		}else if(action.equals("lista_lab_attivi")){//visualizzazione lista laboratori
 			//List<Laboratorio> laboratori= manager.getLaboratoryList();
 			request.setAttribute("laboratori", manager.getLaboratoryList());
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/studentInterface/laboratoriAttivi.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/respInterface/laboratoriAttivi.jsp");
 			dispatcher.forward(request, response);
 		}
 		
