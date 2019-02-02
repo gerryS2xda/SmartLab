@@ -16,32 +16,35 @@ CREATE TABLE utente(
     cognome varchar(20) NOT NULL
 );
 
+INSERT INTO `utente` VALUES ('g.laucella@studenti.unisa.it','1234z82','Gerardo','Laucella'),('g.paolisi@unisa.it','123sd','Giuseppe','Paolisi'),('g.paolisi@unisaswe.it','123sd','Giuseppe','Paolisi');
+
 -- Autore: Lo Conte Rocco
 -- Ultima modifica: 23/01/2019
 -- Tabella studente
 DROP TABLE IF EXISTS `studente`;
 CREATE TABLE studente(
-    email VARCHAR(50) REFERENCES utente(email)
-		ON DELETE SET NULL
-		ON UPDATE CASCADE,
+    email VARCHAR(50) NOT NULL,
     stato BOOLEAN NOT NULL,
 	PRIMARY KEY(email),
-	UNIQUE(email)
+	UNIQUE(email),
+	FOREIGN KEY (email) REFERENCES utente(email) ON DELETE CASCADE
 );
+
+INSERT INTO `studente` VALUES ('g.laucella@studenti.unisa.it',1);
 
 -- Autore: Lo Conte Rocco
 -- Ultima modifica: 23/01/2019
 -- Tabella addetto
 DROP TABLE IF EXISTS `addetto`;
 CREATE TABLE addetto(
-    email VARCHAR(50) REFERENCES utente(email)
-		ON DELETE SET NULL
-		ON UPDATE CASCADE,
+    email VARCHAR(50) NOT NULL,
     tipo BOOLEAN NOT NULL,
 	PRIMARY KEY(email),
-	UNIQUE(email)
+	UNIQUE(email),
+	FOREIGN KEY (email) REFERENCES utente(email) ON DELETE CASCADE
 );
 
+INSERT INTO `addetto` VALUES ('g.paolisi@unisa.it',1),('g.paolisi@unisaswe.it',1);
 
 -- Autore: Gerardo Michele Laucella
 -- Ultima modifica: 28/12/2018
