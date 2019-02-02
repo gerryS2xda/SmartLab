@@ -28,7 +28,7 @@
 			    <label class="card-text">Apertura: <%=lab.getApertura() %></label>
 			  </div>
 			  <div class="col-md-3 text-center">
-			    <label class="card-text">Chiusura: <%=lab.getChiusura() %></label>
+			    <label class="card-text">Chiusura: <%=lab.getChiusura() %></label> 
 			  </div>
 			  <div class="col-md-3 text-center">
 			    <a href="postazioni?action=lista_pos&idlaboratorio=<%=lab.getIDlaboratorio()%>" class="btn btn-primary">Postazioni</a>
