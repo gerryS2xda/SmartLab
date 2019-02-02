@@ -4,12 +4,12 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Avviso</title>
+		<title>Segnalazione</title>
 	</head>
-	<body onload = "selectAvviso()">
-		<h1 id = "title"></h1><br>
-		<div id = "message"></div>
-		<span id = "date"></span>
-		<span id = "creator"></span>
+	<body>
+		<span id = "data"></span>
+		<h1 id = "oggetto"></h1>
+		<div id = "descrizione"></div>
+		<span id = "lab"></span><span id = "pos"></span>
 	</body>
 </html>
