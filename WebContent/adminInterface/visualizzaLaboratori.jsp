@@ -86,12 +86,8 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="listaResponsabili">
         <!-- corpo -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -149,13 +145,55 @@ $(document).ready(function(){
 	//lista responsabili da aggiungere 
 	$("button#aggiungiResponsabile").on("click",function(){
 		var id=$(this).find("input#id").val();
+		console.log(id);
+		//!
+		$("div#listaResponsabili").html("");
+		
 		$.getJSON("assegnamento",{
 			action:"lista_resp",
 			idlaboratorio:id
 		},function(data,status){
-			console.log(data);
+			var responsabili=data.responsabili;
+			//console.log(data);
+			var i;
+			for(i=0;i<responsabili.length;i++){
+				var riga=$("<div></div>");
+				riga.addClass("row");
+				var email=$("<div>"+responsabili[i].email+"</div>");
+				email.addClass("col-md-6");
+				email.attr("id","email");
+				var nome=$("<div>"+responsabili[i].nome+"</div>");
+				nome.addClass("col-md-6");
+				var cognome=$("<div>"+responsabili[i].cognome+"</div>")
+				cognome.addClass("col-md-6");
+				var link=$("<button>Aggiungi</button>");
+				link.addClass("col-md-6");
+				link.addClass("btn btn-primary");
+				link.attr("id","assegna");
+				//"href","assegnamento?action=aggiungi_ass&idlaboratorio="+id+"&idresponsabile="+responsabili[i].email
+				
+				link.on("click",function(){
+					console.log("ok");
+				});
+				
+				riga.append(email);
+				riga.append($("<input id=\"id\" type=\"hidden\" value=\""+id+"\">"));
+				riga.append(nome);
+				riga.append(cognome);
+				riga.append(link);
+				
+				$("div#listaResponsabili").append(riga);
+			}
 		});
 	});
+	
+	//assegnamento
+	/*$("button#assegna").on("click",function(){
+		//var div=$(this).parent();
+		console.log("ok");
+		console.log(div.find("input#id").val());
+		console.log(div.find("div#email").text());
+	});*/
 });
 </script>
 </body>

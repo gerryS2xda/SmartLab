@@ -142,7 +142,7 @@ public class AddettoRepository {
 			while (rs.next()) {
 				Addetto a = new Addetto();
                 a.setEmail(rs.getString("email"));
-				a.setTipo(rs.getBoolean("tipo"));
+				//a.setTipo(rs.getBoolean("tipo"));
 				
 				addetti.add(a);
 			}
