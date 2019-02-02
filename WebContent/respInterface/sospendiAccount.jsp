@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="dataAccess.storage.bean.*, java.util.Collection, java.util.Iterator"%>
+    pageEncoding="ISO-8859-1" import="dataAccess.storage.bean.Studente, java.util.Collection, java.util.Iterator"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,8 +11,8 @@
 </head>
 <body>
 <div class="container">
-	<%Collection<Utente> utenti = (Collection<Utente>) request.getAttribute("utenti");
-	Iterator<Utente> it = utenti.iterator();
+	<%Collection<?> utenti = (Collection<?>) request.getAttribute("utenti");
+	Iterator<?> it = utenti.iterator();
 	 while (it.hasNext()) {
 	    	Studente s = (Studente) it.next();%>
 

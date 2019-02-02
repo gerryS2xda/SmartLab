@@ -41,28 +41,42 @@ public class ServletUtenteManagement extends HttpServlet {
 		
     	if(action == null){
 			response.setStatus(404);
-			response.sendRedirect("./index.jsp");
+			response.sendRedirect("./errorPage.jsp");
 		} else if(action.equals("registraStudente")){
+			
+			//crea uno studente prendendo i dati dalla richiesta
 			Studente s = new Studente();
-			s.setEmail(request.getParameter("email"));
-			s.setPassword(request.getParameter("password"));
-			s.setName(request.getParameter("nome"));
-			s.setSurname(request.getParameter("cognome"));
-			s.setStato(false);
+			s.setEmail(request.getParameter("u_email"));
+			s.setPassword(request.getParameter("pwd"));
+			s.setName(request.getParameter("u_name"));
+			s.setSurname(request.getParameter("u_surname"));
+			s.setStato(true);	//true --> account e' attivo; con false --> account sospeso
 			
-			System.out.println("email: "+s.getEmail()+"\npassword: "+s.getPassword()+""
-					+ "\nnome: "+s.getName()+"\ncognome: "+s.getSurname()+"\nstato: "+s.getStato());
-			
-			
-			try {
-				if(manager.registraStudente(s)){
-					response.getWriter().write("{\"esito\":\"studente registrato\"}");
-				} else {
-					response.getWriter().write("{\"esito\":\"studente non registrato\"}");
+			//verifica che l'utente non sia gia' presente nel DB
+			if(manager.isStudentPresent(s.getEmail())){
+				session.setAttribute("userstate", "present"); //usato per verificare se utente e' gia presente
+				response.sendRedirect("./Login.jsp");
+			}else{
+	
+				//salva dati del nuovo utente nel DB
+				try {
+					manager.registraStudente(s);
+				} catch (SQLException e) {	//da definire cosa fare in caso di errore, es. redirect to errorPage
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				session.removeAttribute("userstate");
+				
+				/*dopo che i dati del nuovo studente sono stati salvati, posso rimuovere
+				l'attr. 'UTProtect' aggiunto per la sicurezza nei confronti della registrazione di un nuovo admin */
+				String secure = (String) session.getAttribute("UTProtect");	//protezione
+				if(secure != null){
+					session.removeAttribute("UTProtect");
+				}
+				
+				//invia l'utente nella login
+				response.sendRedirect("./Login.jsp");
 			}
 		} else if(action.equals("effettuaAutenticazione")){
 			
@@ -118,8 +132,8 @@ public class ServletUtenteManagement extends HttpServlet {
 			
 		} else if(action.equals("getAccountList")) {
 			try {
-				request.setAttribute("utenti", manager.getAccountList());
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/respInterface/sospendiAccountjsp");
+				request.setAttribute("utenti", manager.getStudentList());
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/respInterface/sospendiAccount.jsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

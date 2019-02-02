@@ -41,6 +41,7 @@ public class ServletSegnalazione extends HttpServlet {
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
 			cm.addSegnalazione(s);
 		}else if(segnalazione.equals("deleteSegnalazione")){
+			
 			int id = Integer.parseInt(request.getParameter("id"));
 			String oggetto = request.getParameter("oggetto");
 			String descrizione = request.getParameter("descrizione");
