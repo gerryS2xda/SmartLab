@@ -17,7 +17,6 @@ public class UtenteManager {
 	private UtenteRepository utente = new UtenteRepository();
 	private StudenteRepository studente = new StudenteRepository();
 	private SospensioneRepository sospensione = new SospensioneRepository();
-	private AddettoRepository addetto = new AddettoRepository();
 	
 	public static UtenteManager getInstace(){
 		if (instance == null){
@@ -82,9 +81,7 @@ public class UtenteManager {
 	
 	//Metodo Sbagliato
 	public List<Utente> getAccountList() throws SQLException{
-		List<Utente> accountList = new ArrayList<Utente>();
-		accountList = utente.query(new UtenteList()); //deve essere un oggetto Specification
-		return accountList;
+		return utente.query(new UtenteList()); //deve essere un oggetto Specification
 	}
 	
 }
