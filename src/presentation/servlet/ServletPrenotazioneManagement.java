@@ -44,7 +44,7 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			response.setCharacterEncoding("utf-8");
 			
 			try{
-				manager.effettuaPrenotazione(stud, post, inizio, fine);
+				manager.effettuaPrenotazione(stud, post, inizio, fine, lab);
 			}catch (PrenotazioneException e){
 				response.getWriter().write(json.toJson("{\"esito\": \"failure\"}"));
 			}
@@ -57,15 +57,13 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			response.setCharacterEncoding("utf-8");
 			
 			String lab = request.getParameter("lab"); //usare Postazione obj per ottenere il lab
-			int post = Integer.parseInt(request.getParameter("postazione")); //usare postazione repository per ottenere obj Postazione
+			String post = request.getParameter("postazione"); //usare postazione repository per ottenere obj Postazione
 			String inizio = request.getParameter("inizio");
 			String fine =  request.getParameter("fine");
 			
 			//collegarsi con la repository di postazione per ottenere un oggetto Postazione da cui vedere se e' disponibile
-			
-			response.getWriter().write(json.toJson("{\"esito\": \"ok\"}"));
-			boolean statusPost = true;
-			if(statusPost){
+			List<Prenotazione> prenotazioni = manager.getPrenotazioniByQuery(inizio, fine, post, lab);
+			if(prenotazioni.size() == 0){
 				response.getWriter().write(json.toJson("{\"status\": \"disponibile\"}"));
 			}else{
 				response.getWriter().write(json.toJson("{\"status\": \"occupata\"}"));
@@ -125,6 +123,17 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			}
 
 			response.getWriter().write(json.toJson("{\"esito\": \"ok\"}"));
+		}else if(action.equals("numero_post_occupate")){
+			
+			//costruisci risposta JSON
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			
+			String oraInizio = request.getParameter("ora_inizio");
+			
+			int num = manager.getNumeroPostazioniPrenotate(oraInizio);
+			
+			response.getWriter().write(json.toJson("{\"numeroPost\": " + num + " }"));
 		}
 	}
 		

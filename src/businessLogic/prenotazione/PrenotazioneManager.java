@@ -235,6 +235,34 @@ public class PrenotazioneManager {
 		return prenotazioni.size();
 	}
 
+	
+	/**
+	 * Restituisce il numero delle postazioni prenotate in base all'ora di inizio
+	 * @param oraInizio usata per la ricerca
+	 * @return numero postazioni prenotate
+	 */
+	public int getNumeroPostazioniPrenotate(String oraInizio){
+		
+		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
+		
+		try{
+			prenotazioni = repository.query(new PrenotazioneGetSQL(oraInizio));
+		}catch(SQLException e){
+			System.out.println("Errore: lo studente non ha effettuato prenotazioni");
+		}
+		return prenotazioni.size();
+	} 
+	
+	public List<Prenotazione> getPrenotazioniByQuery(String oraInizio, String oraFine, String post, String idlab){
+		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
+		
+		try{
+			prenotazioni = repository.query(new PrenotazioneGetSQL(oraInizio, oraFine, post, idlab));
+		}catch(SQLException e){
+			System.out.println("Errore: lo studente non ha effettuato prenotazioni");
+		}
+		return prenotazioni;
+	}
 }
 
 
