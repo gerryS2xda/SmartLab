@@ -17,9 +17,10 @@
     	Laboratorio lab=(Laboratorio) it.next();%>
 
 	    <div class="card">
-		  <div class="card-header" id="mycard" style="cursor: pointer">
+		  <div class="card-header">
+		  	<span>Laboratorio <%=lab.getNome() %></span>
 		  	<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
-		    Laboratorio <%=lab.getNome() %>
+		  	<button id="mycard" type="button" class="btn btn-primary">visualizza responsabili</button>
 		  </div>
 		  <div class="row">
 			  <div class="col-md-6">
@@ -139,10 +140,12 @@ $(document).ready(function(){
 	});
 	
 	//lista responsabili assegnati al laboratorio cliccato
-	$("div#mycard").on("click",function(){
-		var query=$(this).find("input#id").val();
+	$("button#mycard").on("click",function(){
+		var query=$(this).parent().find("input#id").val();
 		console.log(query);
-		query="assegnamento?action=lista_resp_ass&idlaboratorio="+query;
+		console.log($(this).parent().find("span").text());
+		var query2=$(this).parent().find("span").text();
+		query="assegnamento?action=lista_resp_ass&idlaboratorio="+query+"&nome="+query2;
 		$(window.location).attr('href', query);
 	});
 	
@@ -183,7 +186,8 @@ $(document).ready(function(){
 					console.log("ok");
 					var labid=div.find("input#id").val();
 					var respid=div.find("div#email").text();
-					
+					console.log(labid);
+					console.log(respid);
 					$.getJSON("assegnamento",{
 						action: "aggiungi_ass",
 						idlaboratorio: labid,

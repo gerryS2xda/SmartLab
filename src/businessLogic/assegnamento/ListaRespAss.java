@@ -22,13 +22,12 @@ public class ListaRespAss implements SqlSpecification {
     	this.laboratorio=laboratorio;
     }
 
-    private static final String TABLE_NAME = "((assegnamento A join addetto Ad on A.responsabile = Ad.IDaddetto) AR join utente U on AR.IDaddetto = U.email";//nome della tabella su cui saranno effettuate le operazioni
 	
 	@Override
 	public String toSqlQuery() {
 		return String.format(
-                "SELECT * FROM %1$s WHERE laboratorio = %2$s ;",
-                TABLE_NAME,
+                "select * from (select responsabile, laboratorio, tipo from addetto a join assegnamento ass on a.email = ass.responsabile) as temp join utente on temp.responsabile = utente.email"
+                + " WHERE laboratorio = %1$s ;",
                 this.laboratorio
         );
 	}

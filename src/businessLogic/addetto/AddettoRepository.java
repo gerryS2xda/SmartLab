@@ -141,10 +141,10 @@ public class AddettoRepository {
 			while (rs.next()) {
 				Addetto a = new Addetto();
 				
-				a.setName(rs.getString("email"));
+				a.setEmail(rs.getString("email"));
 				a.setPassword(rs.getString("password"));
-				a.setSurname(rs.getString("nome"));
-                a.setEmail(rs.getString("cognome"));
+				a.setSurname(rs.getString("cognome"));
+                a.setName(rs.getString("nome"));
 				a.setTipo(rs.getBoolean("tipo"));
 				addetti.add(a);
 			}

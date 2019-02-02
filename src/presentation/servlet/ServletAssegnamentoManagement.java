@@ -82,9 +82,15 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 			
 		}else if(action.equals("lista_resp_ass")){//lista responsabili assegnati a un laboratorio
 			String idlab=request.getParameter("idlaboratorio");
+			String nomelab=request.getParameter("nome");
 			
-			List<Addetto> responsabili=manager.showResponsabileAddLaboratorio(idlab);
+			request.setAttribute("id", idlab);
+			request.setAttribute("nome", nomelab);
+			
+			List<Addetto> responsabili=manager.showResponsabileAndLaboratorio(idlab);
 			request.setAttribute("responsabili", responsabili);
+			
+			System.out.println(responsabili);
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/adminInterface/viewRespAssegnati.jsp");
 			dispatcher.forward(request, response);
