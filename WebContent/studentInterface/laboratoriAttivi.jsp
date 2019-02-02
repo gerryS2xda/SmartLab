@@ -10,7 +10,7 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="container"> 
 	<%Collection<?> laboratori = (Collection<?>) request.getAttribute("laboratori");
 	Iterator<?> it = laboratori.iterator();
     while (it.hasNext()) {
