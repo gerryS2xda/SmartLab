@@ -46,7 +46,6 @@ public class AddettoRepository {
 			preparedStatement.setString(3, a.getName());
 			preparedStatement.setString(4, a.getSurname());
 			preparedStatement.executeUpdate();
-			connection.commit();
 			preparedStatement.close();	//chiudi questo statement
 			
 			//poi la table di studente
@@ -55,7 +54,6 @@ public class AddettoRepository {
 			preparedStatement.setBoolean(2, a.getTipo());
 			
 			preparedStatement.executeUpdate();
-			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)

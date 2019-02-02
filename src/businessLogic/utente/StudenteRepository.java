@@ -50,7 +50,6 @@ public class StudenteRepository implements Repository<Studente>{
 			preparedStatement.setString(3, s.getName());
 			preparedStatement.setString(4, s.getSurname());
 			preparedStatement.executeUpdate();
-			connection.commit();
 			preparedStatement.close();	//chiudi questo statement
 			
 			//poi la table di studente
@@ -59,7 +58,6 @@ public class StudenteRepository implements Repository<Studente>{
 			preparedStatement.setBoolean(2, s.getStato());
 			
 			preparedStatement.executeUpdate();
-			connection.commit();
 		} finally {
 			try{
 				if(preparedStatement != null)
