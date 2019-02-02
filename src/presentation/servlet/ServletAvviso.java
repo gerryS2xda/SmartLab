@@ -7,15 +7,18 @@ import java.util.List;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.*;
 
 import businessLogic.comunicazione.CommunicationManager;
 import dataAccess.storage.bean.Avviso;
+import dataAccess.storage.bean.Studente;
 
 public class ServletAvviso extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		HttpSession session = request.getSession();
 		Gson json = new Gson();
 		String avviso = request.getParameter("action");
 		CommunicationManager cm = new CommunicationManager();
@@ -62,6 +65,12 @@ public class ServletAvviso extends HttpServlet {
 			result = result.substring(0, result.length() - 1) + "}";
 			response.getWriter().write(json.toJson(result));
 		}else if(avviso.equals("openAvviso")){
+			Studente st = (Studente) session.getAttribute("user");
+			String tipo;
+			if(st instanceof Studente){
+				tipo = "studente";
+			}else
+				tipo = "addetto";
 			int flag = 0, i = 0;
 			response.setContentType("application/json");
 			response.sendRedirect("./avviso.jsp");
@@ -73,7 +82,7 @@ public class ServletAvviso extends HttpServlet {
 				else
 					i++;
 			}
-			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"titolo\": \"" + lista.get(i).getTitolo() + "\", \"messaggio\": \"" + lista.get(i).getMessaggio() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"addetto\": \"" + lista.get(i).getAddetto() + "\"}"));
+			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"titolo\": \"" + lista.get(i).getTitolo() + "\", \"messaggio\": \"" + lista.get(i).getMessaggio() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"addetto\": \"" + lista.get(i).getAddetto() + "\", \"tipo\": \"" + tipo + "\"}"));
 		}
 	}
 	

@@ -15,8 +15,7 @@ public class UtenteSQL implements SqlSpecification {
 	@Override
 	public String toSqlQuery(){
 		return String.format(
-				"SELECT * FROM %1$s WHERE email=%2$s;",
-                TABLE_NAME,
-                this.email);
+				"SELECT * FROM %s WHERE email='%s';",
+                TABLE_NAME, email);
 	}
 }

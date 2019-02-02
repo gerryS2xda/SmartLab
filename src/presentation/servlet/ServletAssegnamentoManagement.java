@@ -71,10 +71,12 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 			for(Utente resp:responsabili){
 				json=json+"{ \"email\" : \""+resp.getEmail()+"\", ";
 				json=json+"\"nome\" : \""+resp.getName()+"\", ";
-				json=json+"\"cognome\" : \""+resp.getSurname()+"\"}";
+				json=json+"\"cognome\" : \""+resp.getSurname()+"\"}, ";
 			}
+			json=json.substring(0, json.length()-2);
 			json=json+"]}";
-		
+			
+			System.out.println(json);
 			
 			response.getWriter().write(json);
 			
