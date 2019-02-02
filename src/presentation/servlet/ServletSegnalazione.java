@@ -7,16 +7,19 @@ import java.util.List;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.*;
 
 import businessLogic.comunicazione.CommunicationManager;
 import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Segnalazione;
+import dataAccess.storage.bean.Studente;
 
 public class ServletSegnalazione extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		HttpSession session = request.getSession();
 		Gson json = new Gson();
 		String segnalazione = request.getParameter("action");
 		CommunicationManager cm = new CommunicationManager();
@@ -41,7 +44,6 @@ public class ServletSegnalazione extends HttpServlet {
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
 			cm.addSegnalazione(s);
 		}else if(segnalazione.equals("deleteSegnalazione")){
-			
 			int id = Integer.parseInt(request.getParameter("id"));
 			String oggetto = request.getParameter("oggetto");
 			String descrizione = request.getParameter("descrizione");
@@ -53,11 +55,21 @@ public class ServletSegnalazione extends HttpServlet {
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
 			cm.deleteSegnalazione(s);
 		}else if(segnalazione.equals("viewSegnalazioni")){
+			Studente st = (Studente) session.getAttribute("user");
 			response.setContentType("application/json");
-			int count = 0;
+			int count = 0, i = 0;
 			List<Segnalazione> lista = cm.viewSegnalazione();
 			String result = "{";
-			while(count < lista.size()){
+			if(st instanceof Studente){
+				while(count < lista.size()){
+					if(lista.get(count).getStudente().equals(st.getEmail())){
+						result += "\"sg" + i + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"oggetto\": \"" + lista.get(count).getOggetto() + "\", \"descrizione\": \"" + lista.get(count).getDescrizione() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"studente\": \"" + lista.get(count).getStudente() + "\", \"laboratorio\": \"" + lista.get(count).getLaboratorio() + "\", \"postazione\": \"" + lista.get(count).getPostazione() + "\"}";
+						count++;
+						i++;
+					}else
+						count++;
+				}
+			}else{
 				result += "\"sg" + count + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"oggetto\": \"" + lista.get(count).getOggetto() + "\", \"descrizione\": \"" + lista.get(count).getDescrizione() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"studente\": \"" + lista.get(count).getStudente() + "\", \"laboratorio\": \"" + lista.get(count).getLaboratorio() + "\", \"postazione\": \"" + lista.get(count).getPostazione() + "\"}";
 				count++;
 			}
@@ -76,7 +88,7 @@ public class ServletSegnalazione extends HttpServlet {
 					i++;
 			}
 			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"oggetto\": \"" + lista.get(i).getOggetto()) + "\", \"descrizione\": \"" + lista.get(i).getDescrizione() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"laboratorio\": " + lista.get(i).getLaboratorio() + "\", \"postazione\": " + lista.get(i).getPostazione() + "\", \"studente\": " + lista.get(i).getStudente() + "\"}");
-		}else if(segnalazione.equals("viewSegnalazioniStudente")){
+		}/*else if(segnalazione.equals("viewSegnalazioniStudente")){
 			String stud = request.getParameter("studente");
 			List<Segnalazione> lista = cm.viewSegnalazione();
 			int i;
@@ -85,7 +97,7 @@ public class ServletSegnalazione extends HttpServlet {
 				if(lista.get(i).getStudente().equals(stud))
 					res += "\"sg" + i + "\": : {\"id\": \"" + lista.get(i).getId() + "\", \"oggetto\": \"" + lista.get(i).getOggetto() + "\", \"descrizione\": \"" + lista.get(i).getDescrizione() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"studente\": \"" + lista.get(i).getStudente() + "\", \"laboratorio\": \"" + lista.get(i).getLaboratorio() + "\", \"postazione\": \"" + lista.get(i).getPostazione() + "\"}";
 			}
-		}
+		}*/
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{

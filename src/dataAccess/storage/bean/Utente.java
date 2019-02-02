@@ -1,7 +1,7 @@
 package dataAccess.storage.bean;
 
 
-public abstract class Utente {
+public class Utente {
 	
 	private String email;
 	private String password;

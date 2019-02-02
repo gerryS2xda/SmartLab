@@ -76,7 +76,7 @@ public class ServletAvviso extends HttpServlet {
 			response.sendRedirect("./avviso.jsp");
 			int id = Integer.parseInt(request.getParameter("id"));
 			List<Avviso> lista = cm.viewAvviso();
-			while(flag == 0){
+			while(flag == 0 && i < lista.size()){
 				if(lista.get(i).getId() == id)
 					flag++;
 				else

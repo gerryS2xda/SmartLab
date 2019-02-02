@@ -10,11 +10,18 @@
 </head>
 
 <body>
+	<% String usrState = (String) session.getAttribute("userstate");	%>
   <div id="log_area_click" class="login-page">
 		<div class="form">
 			<img id="logo_img" src="./images/logo_SmartLab.jpg" alt="Logo image not found">
 			<p id="wm">Benvenuto</p>
 			<form class="login-form" name="login_form" >
+				<% if(usrState != null && usrState.equals("present")){%>
+					<span id="errUserRegistration">
+						<img class="punto_Esc_image" src="./images/puntoEsc.png" alt="(!)">
+						<span class="err_txt_reg"> Utente gia' registrato </span>
+					</span>
+				<%} %>
 				<span id="errUserArea">
 					<img class="punto_Esc_image" src="./images/puntoEsc.png" alt="(!)">
 					<span class="err_txt"> </span>
@@ -26,7 +33,7 @@
 				</span>
 				<input type="password" name="pwd" placeholder="password" id="passLog" onblur="validatePasswordLogin($(this))"/>
 				<button type="button" onclick="formValidationAndSubmit()">Login</button>
-				<p class="message">Not registered? <a class="reg_link" href="RegistrationForm.jsp?userType=user">Create an account</a></p>
+				<p class="message">Not registered? <a class="reg_link" href="studentInterface/RegistrationStudente.jsp?userType=studente">Create an account</a></p>
 			</form>
 		</div>
 	</div>
