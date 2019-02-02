@@ -36,7 +36,7 @@
   
   <servlet-mapping>
     <servlet-name>ServletPostazioneManagement</servlet-name>
-    <url-pattern>/listapostazioni</url-pattern>
+    <url-pattern>/postazioni</url-pattern>
   </servlet-mapping>
   
 </web-app>
