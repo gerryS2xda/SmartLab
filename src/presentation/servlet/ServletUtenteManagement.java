@@ -92,7 +92,7 @@ public class ServletUtenteManagement extends HttpServlet {
 		} else if(action.equals("getAccountList")) {
 			try {
 				request.setAttribute("utenti", manager.getAccountList());
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/respInterface/sospendiAccountjsp");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/respInterface/sospendiAccount.jsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

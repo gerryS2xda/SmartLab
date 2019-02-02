@@ -6,7 +6,6 @@ import java.util.List;
 
 import businessLogic.addetto.AddettoRepository;
 import businessLogic.utente.UtenteRepository;
-import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Sospensione;
 import dataAccess.storage.bean.Studente;
 import dataAccess.storage.bean.Utente;
