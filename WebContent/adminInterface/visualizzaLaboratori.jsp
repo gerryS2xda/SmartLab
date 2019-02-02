@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class="container">
+	<h5 class="text-center">Laboratori</h5>
 	<%Collection<?> laboratori = (Collection<?>) request.getAttribute("laboratori");
 	Iterator<?> it = laboratori.iterator();
     while (it.hasNext()) {
@@ -20,26 +21,26 @@
 		  <div class="card-header">
 		  	<span>Laboratorio <%=lab.getNome() %></span>
 		  	<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
-		  	<button id="mycard" type="button" class="btn btn-primary">visualizza responsabili</button>
+		  	<button id="mycard" type="button" class="btn btn-primary float-right">visualizza responsabili</button>
 		  </div>
-		  <div class="row">
-			  <div class="col-md-6">
+		  <div class="row card-body">
+			  <div class="col-md-4 text-center">
 			    <label class="card-text">Stato: <%=lab.isStato() %></label>
 			  </div>
-			  <div class="col-md-6">
+			  <div class="col-md-4 text-center">
 			    <label class="card-text">Apertura: <%=lab.getApertura().toString() %></label>
 			  </div>
-			  <div class="col-md-6">
+			  <div class="col-md-4 text-center">
 			    <label class="card-text">Chiusura: <%=lab.getChiusura().toString() %></label>
 			  </div>
 		  </div>
-		  <div class="row">
+		  <div class="row card-body">
      			<div class="col text-center">
-			  		<button id="elimina" type="button" class="btn btn-primary" data-toggle="modal" data-target="#confermaModal">
+			  		<button id="elimina" type="button" class="btn btn-danger" data-toggle="modal" data-target="#confermaModal">
 			  			elimina
 			  			<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
 			  		</button>
-			  		<button id="aggiungiResponsabile" type="button" class="btn btn-primary" data-toggle="modal" data-target="#respDaAssegnare">
+			  		<button id="aggiungiResponsabile" type="button" class="btn btn-success" data-toggle="modal" data-target="#respDaAssegnare">
 			  			<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
 			  			aggiungi responsabile
 			  		</button>
@@ -53,7 +54,7 @@
 </div>
 <!-- modal  conferma eliminazione del laboratorio-->
 <div class="modal fade" id="confermaModal" tabindex="-1" role="dialog" aria-labelledby="confermaModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="confermaModalLabel">Vuoi eliminare il laboratorio?</h5>
@@ -66,8 +67,8 @@
         ...
       </div> -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
-        <button type="button" class="btn btn-primary" id="confermaElimina" data-dismiss="modal">Conferma</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+        <button type="button" class="btn btn-danger" id="confermaElimina" data-dismiss="modal">Elimina</button>
       </div>
     </div>
   </div>
@@ -79,7 +80,7 @@
 
 <!-- Modal  con i responsabili da assegnare-->
 <div class="modal fade" id="respDaAssegnare" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Responsabili da assegnare</h5>
@@ -167,15 +168,15 @@ $(document).ready(function(){
 				var riga=$("<div></div>");
 				riga.addClass("row");
 				var email=$("<div>"+responsabili[i].email+"</div>");
-				email.addClass("col-md-6");
+				email.addClass("col");
 				email.attr("id","email");
 				var nome=$("<div>"+responsabili[i].nome+"</div>");
-				nome.addClass("col-md-6");
+				nome.addClass("col");
 				var cognome=$("<div>"+responsabili[i].cognome+"</div>")
-				cognome.addClass("col-md-6");
+				cognome.addClass("col");
 				var link=$("<button>Aggiungi</button>");
-				link.addClass("col-md-6");
-				link.addClass("btn btn-primary");
+				link.addClass("col");
+				link.addClass("btn btn-success");
 				link.attr("id","assegna");
 				link.attr("data-dismiss","modal");
 				//"href","assegnamento?action=aggiungi_ass&idlaboratorio="+id+"&idresponsabile="+responsabili[i].email
