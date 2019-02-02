@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="dataAccess.storage.bean.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,19 +8,27 @@
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <script src="script/jquery-3.3.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
+
+
 </head>
 <body>
-    <h1> LABORATORIO  </h1>
+    <h1 style="text-align: center"> LABORATORIO  </h1>
     <div>
-        <div class="card" style="width: 12rem;">
-            <div class="card-body">
-            <img src="images/pcicon.png" class="card-img-top" alt="...">
-            <h6 class="card-subtitle mb-2 text-muted">Postazione</h6>
-            <p class="card-text"></p>
-            <button class="btn btn-primary">Libera</button>
-            <button class="btn btn-primary">Attiva/Disattiva</button>
+    	
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">postazione n: </h5>
+                        <p class="card-text"></p>
+                        <a href="liberapos.jsp" class="btn btn-primary">Libera</a>
+                    </div>
+                    </div>
+                </div>
+
+                
             </div>
-        </div>
+                 
     </div>
 </body>
 </html>

@@ -65,7 +65,7 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE laboratorio = ? && addetto=?";
+		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE laboratorio = ? && responsabile=?";
 
 		try {
 			connection = Connessione.getConnection();

@@ -15,8 +15,8 @@ public class StudenteSQL implements SqlSpecification {
 	@Override
 	public String toSqlQuery(){
 		return String.format(
-				"SELECT * FROM %1$s WHERE email=%2$s;",
-                TABLE_NAME,
-                this.email);
+				"SELECT U.nome, U.cognome, S.*, U.password " +
+				"FROM utente U JOIN studente S ON U.email = S.email WHERE U.email='%s';",
+                email);
 	}
 }
