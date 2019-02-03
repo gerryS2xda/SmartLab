@@ -20,16 +20,6 @@ public class Prenotazione {
 		//vuoto
 	}
 	
-	//laboratorio si ottiene dall'oggetto Postazione che viene dato in input
-	public Prenotazione(String data, LocalTime oraInizio, LocalTime oraFine, Studente studente, Postazione postazione){
-		this.data= data;
-		this.oraInizio = oraInizio;
-		this.oraFine = oraFine;
-		this.studente = studente;
-		this.postazione = postazione;
-		this.laboratorio = postazione.getLaboratorio();
-	}
-	
 	public Prenotazione(String data, LocalTime oraInizio, LocalTime oraFine, Studente studente, Postazione postazione, Laboratorio lab){
 		this.data= data;
 		this.oraInizio = oraInizio;

@@ -77,7 +77,7 @@ public class PrenotazioneManager {
 		
 		//ottieni dati del laboratorio da repository
 		try{
-			Laboratorio lab = laboratorioRep.findItemByQuery(new LaboratorioSql(postazione.getLaboratorio().getIDlaboratorio()));
+			Laboratorio lab = laboratorioRep.findItemByQuery(new LaboratorioSql(idLab));
 			pr.setLaboratorio(lab);
 		}catch(SQLException e){
 			System.out.println("Errore: problema nel prendere i dati di postazioni dal DB!!");
