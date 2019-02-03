@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    import="java.time.*, java.time.format.*" pageEncoding="ISO-8859-1"%>
+    import="java.time.*, java.time.format.*, dataAccess.storage.bean.Utente" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -7,12 +7,19 @@
 		<title>Prenota postazione</title>
 		<link type="text/css" rel="stylesheet" href="../css/prenotazione_style.css">
 	</head>
+	<% 
+		Utente ut = (Utente) session.getAttribute("user");
+		String userType = (String) session.getAttribute("userType");
+		if(ut == null || userType == null) {
+			response.sendRedirect("./error.jsp"); //pagina errore 404
+		}else if(userType.equals("studente")){	
+	%>
 	<body onLoad="loadContent()">
 		<header id="header_part">
 			<!--  add nav bar jsp -->
 			<span id="txt_logo">User Area</span>
 			<span id="welcome_txt">Benvenuto, Studente</span>
-			<span id="logout"><img src="./images/icon-logout.png">Logout</span>
+			<span id="logout"><img src="../images/icon-logout.png">Logout</span>
 		</header>
 		<section id="left_sidebar">
 			<!-- add navigation bar left jsp -->
@@ -66,7 +73,12 @@
 		<footer>
 			<!-- add footer jsp -->
 		</footer>
+		<%
+			}else{
+				response.sendRedirect("./error.jsp"); //pagina errore 404
+			}%>
 		<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="../script/pren_page_js.js"></script>
+		<script type="text/javascript" src="../script/student_pages.js"></script>
 	</body>
 </html>

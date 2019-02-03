@@ -1,11 +1,8 @@
 package businessLogic.utente;
 
-import businessLogic.addetto.AddettoRepository;
 import dataAccess.storage.bean.Sospensione;
 import dataAccess.storage.bean.Studente;
-import dataAccess.storage.bean.Utente;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UtenteManager {
