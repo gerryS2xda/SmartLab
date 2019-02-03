@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import businessLogic.comunicazione.CommunicationManager;
 import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Studente;
 
+@WebServlet("/ServletAvviso")
 public class ServletAvviso extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -43,23 +45,23 @@ public class ServletAvviso extends HttpServlet {
 			response.setContentType("application/json");
 			response.getWriter().write("{\"esito\": \"avviso creato\"}");
 		}else if(avviso.equals("deleteAvviso")){
+			response.setContentType("application/json");
+			
 			int id = Integer.parseInt(request.getParameter("id"));
-			String titolo = request.getParameter("titolo");
-			String messaggio = request.getParameter("messaggio");
-			java.util.Date d = new java.util.Date();
-			Date data = new Date(d.getTime());
-			String addetto = request.getParameter("addetto");
-			Avviso a = new Avviso(id, titolo, messaggio, data, addetto);
+			Avviso a = new Avviso();
+			a.setId(id);
 			cm.deleteAvviso(a);
-			response.setContentType("application/json");
-			response.getWriter().write("{\"esito\": \"successo\"}");
+			
+			response.getWriter().write(json.toJson("{\"esito\": \"successo\"}"));
 		}else if(avviso.equals("viewAvvisi")){
+			
 			response.setContentType("application/json");
+			
 			int count = 0;
 			List<Avviso> lista = cm.viewAvviso();
 			String result = "{";
 			while(count < lista.size()){
-				result += "\"av" + count + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"titolo\": \"" + lista.get(count).getTitolo() + "\", \"messaggio\": \"" + lista.get(count).getMessaggio() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"addetto\": \"" + lista.get(count).getAddetto() + "\"}, ";
+				result += "\"av" + count + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"titolo\": \"" + lista.get(count).getTitolo() + "\", \"messaggio\": \"" + lista.get(count).getMessaggio() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"addetto\": \"" + lista.get(count).getAddetto() + "\"},";
 				count++;
 			}
 			result = result.substring(0, result.length() - 1) + "}";
@@ -73,7 +75,6 @@ public class ServletAvviso extends HttpServlet {
 				tipo = "addetto";
 			int flag = 0, i = 0;
 			response.setContentType("application/json");
-			response.sendRedirect("./avviso.jsp");
 			int id = Integer.parseInt(request.getParameter("id"));
 			List<Avviso> lista = cm.viewAvviso();
 			while(flag == 0 && i < lista.size()){

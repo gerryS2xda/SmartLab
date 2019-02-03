@@ -39,7 +39,27 @@ public class ServletUtenteManagement extends HttpServlet {
     	if(action == null){
 			response.setStatus(404);
 			response.sendRedirect("./errorPage.jsp");
-		} else if(action.equals("registraStudente")){
+		}else if(action.equals("edit_password")){ 
+			
+			String email = request.getParameter("email");
+			String pwd = request.getParameter("pwd");
+			if(email != null && pwd != null && !email.equals("") && !pwd.equals("")){
+				try {
+					manager.editPassword(email, pwd);
+				} catch (SQLException e) {
+					e.printStackTrace();
+					response.getWriter().write(json.toJson("{\"esito\": false}"));
+				}
+			}
+			response.getWriter().write(json.toJson("{\"esito\": true}"));
+			
+			//modifica i dati dell'oggetto presente in sessione
+			Studente s = (Studente) session.getAttribute("user");
+			s.setPassword(pwd);
+			session.removeAttribute("user");
+			session.setAttribute("user", s);
+			
+		}else if(action.equals("registraStudente")){
 			
 			//crea uno studente prendendo i dati dalla richiesta
 			Studente s = new Studente();
@@ -113,15 +133,16 @@ public class ServletUtenteManagement extends HttpServlet {
 			}
 			
 		} else if(action.equals("effettuaSospensione")){
+			
 			Studente s = new Studente();
 			s.setEmail(request.getParameter("emailStud"));
 			
 			try{
 				Sospensione v = manager.effettuaSospensione(s);
 				if(v.getStudente()!= null && s.getStato() == true){
-					response.getWriter().write("{\"esito\":\"sospensione effettuata\"}");
+					response.getWriter().write(json.toJson("{\"esito\":\"sospensione effettuata\"}"));
 				} else {
-					response.getWriter().write("{\"esito\":\"sospensione fallita\"}");
+					response.getWriter().write(json.toJson("{\"esito\":\"sospensione fallita\"}"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -137,9 +158,6 @@ public class ServletUtenteManagement extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else if(action.equals("logout")){
-			/* Imposta la response di tipo stringa JSON*/
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
 			
 			boolean done = false;
 			Utente ut = (Utente) session.getAttribute("user");

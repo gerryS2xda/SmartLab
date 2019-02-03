@@ -98,8 +98,8 @@ public class StudenteRepository implements Repository<Studente>{
     	PreparedStatement ps = null;
     	
     	String updateSQLUtente = "update " + TABLE_NAME_UTENTE + " set email = ?, password = ?, nome = ?, "
-    			+ "cognome = ? where email = " + s.getEmail();
-    	String updateSQLStudente = "update " + TABLE_NAME + " set stato = ? where email = " + s.getEmail();
+    			+ "cognome = ? where email = '" + s.getEmail() + "'";
+    	String updateSQLStudente = "update " + TABLE_NAME + " set stato = ? where email = '" + s.getEmail() + "'";
     	
     	try{
     		connection = Connessione.getConnection();
