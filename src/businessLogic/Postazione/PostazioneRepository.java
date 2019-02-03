@@ -39,14 +39,13 @@ public class PostazioneRepository implements Repository<Postazione>{
 		String insertSQL = "INSERT INTO " + TABLE_NAME
 				+ " (numero, laboratorio, stato) VALUES (?, ?, ?)";
 		
-		Laboratorio lab=pos.getLaboratorio();
-		String id=lab.getIDlaboratorio();
+		
 		
 		try {
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, pos.getNumero());
-			preparedStatement.setString(2, id);
+			preparedStatement.setString(2, pos.getLaboratorio());
 			preparedStatement.setBoolean(3, pos.isStato());
 
 			preparedStatement.executeUpdate();
@@ -71,16 +70,16 @@ public class PostazioneRepository implements Repository<Postazione>{
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
 			
-			Laboratorio lab=pos.getLaboratorio();
-			String id=lab.getIDlaboratorio();
+			
+			
 
-			String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE numero = ? && laboratorio=?";
+			String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE numero = ? && laboratorio=? ;";
 
 			try {
 				connection = Connessione.getConnection();
 				preparedStatement = connection.prepareStatement(deleteSQL);
 				preparedStatement.setInt(1, pos.getNumero());
-				preparedStatement.setString(2, id);
+				preparedStatement.setString(2, pos.getLaboratorio());
 
 				preparedStatement.executeUpdate();
 				
@@ -102,7 +101,31 @@ public class PostazioneRepository implements Repository<Postazione>{
 
 	@Override
 	public void update(Postazione item) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+
+		String deleteSQL = "UPDATE FROM " + TABLE_NAME + " WHERE numero = ? && laboratorio=? ;";
+
+		try {
+			connection = Connessione.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, item.getNumero());
+			preparedStatement.setString(2, item.getLaboratorio());
+			preparedStatement.setBoolean(3, item.isStato());
+
+			preparedStatement.executeUpdate();
+		
+
+			} finally {
+				try {
+					if (preparedStatement != null)
+						preparedStatement.close();
+				} finally {
+					if (connection != null)
+						Connessione.releaseConnection(connection);
+				}
+			}
 		
 	}
 
@@ -115,6 +138,7 @@ public class PostazioneRepository implements Repository<Postazione>{
         String selectSQL= sqlSpecification.toSqlQuery();
         Postazione pos= new Postazione();
         
+        
         try{
             connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
@@ -123,10 +147,8 @@ public class PostazioneRepository implements Repository<Postazione>{
 			while (rs.next()) {
 
                 pos.setNumero(rs.getInt("numero"));
-				pos.setLaboratorio((Laboratorio) rs.getObject("laboratorio"));
+                pos.setLaboratorio(rs.getString("laboratorio"));	                
 				pos.setStato(rs.getBoolean("stato"));
-              
-
 			}
 
 		} finally {
@@ -152,6 +174,7 @@ public class PostazioneRepository implements Repository<Postazione>{
         String selectSQL= sqlSpecification.toSqlQuery();
         List <Postazione> postazioni= new ArrayList<>();
         
+        
         try{
             connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
@@ -160,7 +183,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 			while (rs.next()) {
 				Postazione pos=new Postazione();
                 pos.setNumero(rs.getInt("numero"));
-                pos.setLaboratorio((Laboratorio) rs.getObject("laboratorio"));
+                pos.setLaboratorio(rs.getString("labortatorio"));
 				pos.setStato(rs.getBoolean("stato"));
               
 				postazioni.add(pos);

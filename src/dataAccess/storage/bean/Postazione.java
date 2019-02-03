@@ -4,7 +4,7 @@ package dataAccess.storage.bean;
 public class Postazione {
 
 	private int numero;
-	private Laboratorio lab; 
+	private String idlab; 
 	private boolean stato;
 	
 	//costructor
@@ -12,14 +12,14 @@ public class Postazione {
 	public Postazione() 
 	{
 		this.numero=0;
-		this.lab=new Laboratorio();
+		this.idlab="";
 		this.stato=false;
 	}
 
-	public Postazione(int numero, Laboratorio laboratorio, boolean stato) {
+	public Postazione(int numero, String laboratorio, boolean stato) {
 		super();
 		this.numero = numero;
-		this.lab = laboratorio;
+		this.idlab = laboratorio;
 		this.stato = stato;
 		
 	}
@@ -33,12 +33,12 @@ public class Postazione {
 		this.numero = numero;
 	}
 
-	public Laboratorio getLaboratorio() {
-		return lab;
+	public String getLaboratorio() {
+		return idlab;
 	}
 
-	public void setLaboratorio(Laboratorio laboratorio) {
-		this.lab = laboratorio;
+	public void setLaboratorio(String laboratorio) {
+		this.idlab = laboratorio;
 	}
 
 	public boolean isStato() {

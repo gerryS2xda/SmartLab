@@ -1,42 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="dataAccess.storage.bean.Laboratorio, java.util.Collection, java.util.Iterator"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    import="java.time.*, java.time.format.*, dataAccess.storage.bean.Utente" pageEncoding="ISO-8859-1"%>
+<!DOCTYPE HTML>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Laboratori</title>
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-<script src="script/jquery-3.3.1.min.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="container"> 
-	<%Collection<?> laboratori = (Collection<?>) request.getAttribute("laboratori");
-	Iterator<?> it = laboratori.iterator();
-    while (it.hasNext()) {
-    	Laboratorio lab=(Laboratorio) it.next();
-    	if(lab.isStato()){%>
-    	
-    	<!-- link per la pagina di prenotazione -->
-	    <a href=""></a><div class="card">
-		  <div class="card-header">
-		  	<input type="hidden" value="<%= lab.getIDlaboratorio()%>">
-		    Laboratorio <%=lab.getNome() %>
-		  </div>
-		  <div class="row">
-			  <div class="col-md-6">
-			    <label class="card-text">Apertura: <%=lab.getApertura() %></label>
-			  </div>
-			  <div class="col-md-6">
-			    <label class="card-text">Chiusura: <%=lab.getChiusura() %></label>
-			  </div>
-		  </div></a>
-		</div>
-    	
-    	<%
-    	}
-    }
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Prenota postazione</title>
+		<link type="text/css" rel="stylesheet" href="../css/prenotazione_style.css">
+	</head>
+	<% 
+		Utente ut = (Utente) session.getAttribute("user");
+		String userType = (String) session.getAttribute("userType");
+		if(ut == null || userType == null) {
+			response.sendRedirect("./error.jsp"); //pagina errore 404
+		}else if(userType.equals("studente")){	
 	%>
-</div>
-</body>
+	<body onLoad="loadContent()">
+		<header id="header_part">
+			<!--  add nav bar jsp -->
+			<span id="txt_logo">User Area</span>
+			<span id="welcome_txt">Benvenuto, Studente</span>
+			<span id="logout"><img src="../images/icon-logout.png">Logout</span>
+		</header>
+		<section id="left_sidebar">
+			<!-- add navigation bar left jsp -->
+			<div id="sidebar">
+				<ul>
+					<li class="active"><a href="javascript:void(0);">Prenota postazione</a></li>
+					<li> <a href="PrenotazioniEffettuate.jsp">Mie prenotazioni</a></li>
+					<li> <a href="javascript:void(0);">Segnala problema</a></li>
+					<li> <a href="javascript:void(0);">Link 4</a></li>
+					<li> <a href="index.jsp">Vai alla Homepage </a></li>
+				</ul>
+			</div>
+		</section>
+		<section id="main_content">
+			<h1 class="title_page">Laboratori disponibili</h1>
+			<div class="row_block_info">
+					<ul class="list_block"></ul>
+				</div>
+			<div class="text_content">
+				<p class="info_update_txt">
+					Situazione posti disponibili aggiornata alle <span><%=LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) %>
+					</span> del <span><%= LocalDate.now().toString() %></span>
+				</p>
+				<p class="text_suggest"> 
+					Scegli il laboratorio in cui prenotare una postazione e premi su "Prenota" per continuare.
+				</p>
+			</div>
+			<div id="div_tb_prenota_content">
+				<div class="table_scroll">
+					<table id="tb_prenota" class="table_data">
+						<thead>
+							<tr>
+								<th> Laboratori </th>
+								<th> 09:00-11:00 </th>
+								<th> 11:00-13:00 </th>
+								<th> 13:00-15:00 </th>
+								<th> 15:00-17:00 </th>
+								<th> </th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+		<section id="right_sidebar">
+			<!--  add bacheca avvisi.jsp -->
+			<h1>Bacheca avvisi</h1>
+		</section>
+		<footer>
+			<!-- add footer jsp -->
+		</footer>
+		<%
+			}else{
+				response.sendRedirect("./error.jsp"); //pagina errore 404
+			}%>
+		<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="../script/lab_attivi.js"></script>
+		<script type="text/javascript" src="../script/student_pages.js"></script>
+	</body>
 </html>

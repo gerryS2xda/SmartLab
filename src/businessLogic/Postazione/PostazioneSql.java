@@ -23,7 +23,7 @@ public class PostazioneSql implements SqlSpecification {
 
 	public String toSqlQuery() 
 	{
-		return String.format("SELECT * FROM %1$s WHERE numero = %2$d && IDlaboratorio = %3$s ",TABLE_NAME, this.numero, this.idLab);
+		return String.format("SELECT * FROM %1$s WHERE numero = %2$d AND laboratorio = %3$s ",TABLE_NAME, this.numero, this.idLab);
 	}
 
 }

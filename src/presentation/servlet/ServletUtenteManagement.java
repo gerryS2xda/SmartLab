@@ -1,8 +1,13 @@
 package presentation.servlet;
 
+import businessLogic.addetto.AddettoManager;
+import businessLogic.utente.UtenteManager;
+import com.google.gson.Gson;
+import dataAccess.storage.bean.Addetto;
+import dataAccess.storage.bean.Sospensione;
+import dataAccess.storage.bean.Studente;
+import dataAccess.storage.bean.Utente;
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,15 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.google.gson.Gson;
-
-import businessLogic.addetto.AddettoManager;
-import businessLogic.utente.UtenteManager;
-import dataAccess.storage.bean.Addetto;
-import dataAccess.storage.bean.Sospensione;
-import dataAccess.storage.bean.Studente;
-import dataAccess.storage.bean.Utente;
+import java.sql.SQLException;
 
 /**
  * Servlet implementation class ServletUtenteManagement
@@ -139,8 +136,28 @@ public class ServletUtenteManagement extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		}else if(action.equals("logout")){
+			/* Imposta la response di tipo stringa JSON*/
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			
+			boolean done = false;
+			Utente ut = (Utente) session.getAttribute("user");
+			if(ut != null){
+				//rimuovi gli utenti dalla sessione
+				session.removeAttribute("user");
+				session.removeAttribute("userType");
 				
+				//rimuovi l'attr. 'userstate' se in precedenza e' stato inserito
+				String usrState = (String) session.getAttribute("userstate");
+				if(usrState != null){
+					session.removeAttribute("userstate");
+				}
+				
+				done = true;
+			}
+			response.getWriter().write(json.toJson("{\"done\":" + done + "}"));
+		}		
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 

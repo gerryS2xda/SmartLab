@@ -18,13 +18,17 @@ public class PostazioneManager {
     public static PostazioneManager getInstance() 
     {
         
-            instance = new PostazioneManager();
+        instance = new PostazioneManager();
             
         return instance;
     }
 	
     PrenotazioneRepository pr=new PrenotazioneRepository();
-    
+    PostazioneRepository posr=new PostazioneRepository();
+
+    public PostazioneManager(){
+    	
+    }
     
 /**
  * Crea una postazione con i vari parametri prescelti
@@ -32,7 +36,7 @@ public class PostazioneManager {
  * postazione che gli verrà assegnato, "b" è lo stato della postazione.
  * @return p ritorna una postazione
  */
-	public boolean creaPostazione(int numero,Laboratorio laboratorio,boolean b)
+	public boolean creaPostazione(int numero,String laboratorio,boolean b)
 	{
 		boolean flag=true;
 		Postazione pos=new Postazione();
@@ -55,29 +59,50 @@ public class PostazioneManager {
 /**
  * Riattiva una postazione precedentemente disattivata
  * @param p indica quale postazione va attivata
+ *  
  */
-	public boolean attivaPostazione(Postazione pos)
+	public boolean attivaPostazione(String id, String idlab) 
 	{
-		if(pos==null)
-			{
-				return false;
-			}
+		boolean flag=true;
+		int id1=Integer.parseInt(id); //converto la stringa in intero 
+		PostazioneSql sql=new PostazioneSql(id1, idlab); //setto l'oggetto con gli di che mi servono
+		Postazione pos=new Postazione(); 
+		
+		pos.setNumero(id1);
+		pos.setLaboratorio(idlab);
 		pos.setStato(true);
-		return true;
+		try {
+			posr.update(pos);
+		} catch (SQLException e) {
+			flag=false;
+			e.printStackTrace();
+		}
+		return flag;
+		
 	}
 /**
  * Disattiva e rende quindi non prenotabile una postazione precedentemente disattivata
  * @param p indica quale postazione va disattivata
+ * 
  * @pre deve esistere quella postazione che si vuole disattivare
  */
-	public boolean disattivaPostazione(Postazione pos)
+	public boolean disattivaPostazione(String id, String idlab) 
 	{
-		if(pos==null)
-		{
-			return false;
+		boolean flag=true;
+		int id1=Integer.parseInt(id); //converto la stringa in intero 
+		PostazioneSql sql=new PostazioneSql(id1, idlab); //setto l'oggetto con gli di che mi servono
+		Postazione pos=new Postazione(); 
+		
+		pos.setNumero(id1);
+		pos.setLaboratorio(idlab);
+		pos.setStato(false);
+		try {
+			posr.update(pos);
+		} catch (SQLException e) {
+			flag=false;
+			e.printStackTrace();
 		}
-	pos.setStato(false);
-	return true;
+		return flag;
 	}
 	
 /**
@@ -127,9 +152,9 @@ public class PostazioneManager {
 		{
 			System.err.println("la Stringa inserita e' vuota");
 		}
-		pos.setNumero(1);   //codice per test statico
-		pos.setStato(true);
-		lpos.add(pos);
+//		pos.setNumero(1);   //codice per test statico
+//		pos.setStato(false);
+//		lpos.add(pos);
 		return lpos;
 	}
 	
