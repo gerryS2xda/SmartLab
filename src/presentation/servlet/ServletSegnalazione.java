@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Segnalazione;
 import dataAccess.storage.bean.Studente;
 
+@WebServlet("/ServletSegnalazione")
 public class ServletSegnalazione extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
