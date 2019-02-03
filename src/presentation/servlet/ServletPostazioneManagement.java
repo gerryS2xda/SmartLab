@@ -46,7 +46,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String action=request.getParameter("action");
 		//prova
-		action="lista_pos";
+		//action="lista_pos";
 		
 		PostazioneManager pm=new PostazioneManager();
 		

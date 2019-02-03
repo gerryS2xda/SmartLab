@@ -183,7 +183,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 			while (rs.next()) {
 				Postazione pos=new Postazione();
                 pos.setNumero(rs.getInt("numero"));
-                pos.setLaboratorio(rs.getString("labortatorio"));
+                pos.setLaboratorio(rs.getString("laboratorio"));
 				pos.setStato(rs.getBoolean("stato"));
               
 				postazioni.add(pos);
