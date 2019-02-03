@@ -25,25 +25,22 @@
 			<!-- add navigation bar left jsp -->
 			<div id="sidebar">
 				<ul>
-					<li class="active"><a href="javascript:void(0);">Prenota postazione</a></li>
+					<li><a href="StudentHomePage.jsp">Dashboard</a></li>
+					<li class="active"><a href="laboratoriAttivi.jsp">Prenota postazione</a></li>
 					<li> <a href="PrenotazioniEffettuate.jsp">Mie prenotazioni</a></li>
-					<li> <a href="javascript:void(0);">Segnala problema</a></li>
-					<li> <a href="javascript:void(0);">Link 4</a></li>
-					<li> <a href="index.jsp">Vai alla Homepage </a></li>
+					<li> <a href="creaSegnalazione.jsp">Segnala problema</a></li>
 				</ul>
 			</div>
 		</section>
 		<section id="main_content">
 			<h1 class="title_page">Laboratori disponibili</h1>
-			<div class="row_block_info">
-					<ul class="list_block"></ul>
-				</div>
 			<div class="text_content">
 				<p class="info_update_txt">
 					Situazione posti disponibili aggiornata alle <span><%=LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) %>
 					</span> del <span><%= LocalDate.now().toString() %></span>
 				</p>
 				<p class="text_suggest"> 
+					Le prenotazioni che si andranno a fare faranno riferimento al giorno <span id="info_data_prenotazione"></span>
 					Scegli il laboratorio in cui prenotare una postazione e premi su "Prenota" per continuare.
 				</p>
 			</div>
@@ -65,10 +62,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="right_sidebar">
-			<!--  add bacheca avvisi.jsp -->
-			<h1>Bacheca avvisi</h1>
-		</section>
+		<section id="right_sidebar"></section>
 		<footer>
 			<!-- add footer jsp -->
 		</footer>

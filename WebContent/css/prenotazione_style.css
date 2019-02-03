@@ -30,7 +30,7 @@ h1{
 	position: relative;
 	color: #FFFFFF;
 	font-size: 20px;
-	top: 4px;
+	top: 8px;
 	bottom: 9px;
 	left: 20px;
 }
@@ -39,14 +39,14 @@ h1{
 	position: relative;
 	font-size: 16px;
 	color: #FFFFFF;
-	top:4px;
+	top: 8px;
 	bottom:9px;
 	left: 40%;
 }
 
 #logout{
 	position: relative;
-	left: 75%;
+	left: 72%;
 	top: 5px;
 	color: white;
 	text-decoration: none;
@@ -85,21 +85,9 @@ h1{
 
 /* Barra laterale destra*/
 #right_sidebar{
-    display: block;
-	float: right;
-	position:fixed;
-	top: 40px;
-	width: 220px;
-	right: 0;
-	bottom: 0px;
-	height: 100%;
-	background: #2E363F;
+    display: none;
 }
 
-#right_sidebar h1{
-	color: white;
-	font-size: 24px;
-}
 
 /* Contenuto principale */
 #main_content{
@@ -127,7 +115,7 @@ h1{
 	font-weight: bold;
 }
 
-.info_update_txt span{
+.info_update_txt span, #info_data_prenotazione{
 	color: orange;
 }
 
@@ -254,56 +242,4 @@ h1{
 	background-color: #27a9e3; color:#fff;
 }
 
-
-/* Style per la lista di blocchi nella Dashboard page */
-.row_block_info {
-	width:130%;
-	position:relative;
-	float:left;
-}
-
-.list_block{
-	display: block;
-	list-style: none outside none;
-	margin: 15px 0;
-}
-
-.list_block li{
-	position:relative;
-	float: left;
-	line-height: 18px;
-	margin: 0 30px 30px 50px;
-	padding: 0 10px;
-	text-align: center;
-	border: 0 solid #e7e7e7;
-    box-shadow: 0 5px 20px 0 rgba(0,0,0,0.15);
-	width: 20%;
-	min-height:100px;
-	background: #FFFFFF;
-}
-
-.block_txt{
-	display: block;
-	position: relative;
-	color: black;
-	font-size: 26px;
-	top: 20px;
-}
-
-
-.info_dash_text{
-	display: block;
-	position: relative;
-	color: black;
-	font-size: 16px;
-	top: 35px;
-}
-
-.info_dash_text_red{
-	display: block;
-	position: relative;
-	color: red;
-	font-size: 16px;
-	top: 30px;
-}
 

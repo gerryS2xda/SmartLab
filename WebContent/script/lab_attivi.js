@@ -1,5 +1,4 @@
 function loadContent(){
-	loadWidget();
 	loadTableBody();
 }
 
@@ -53,6 +52,7 @@ function getNumPostazioniDisponibili(postOccupate, index, item){
 	});
 }
 
+/* usata per i blocchi che mostrano i laboratori aperti/chiusi
 function loadWidget(){
 	var x = $(".list_block"); //ottieni riferimento a <ul>
 	$.post("../laboratorio", {"action": "lab_attivi"}, function(resp, stat, xhr){
@@ -78,6 +78,7 @@ function loadWidget(){
 		}
 	});
 }
+*/
 
 function effettuaPrenotazione(button){	//pulsante "Prenota"
 	var row = button.parents("tr"); //dammi la riga <tr> su cui eseguire le azioni  
