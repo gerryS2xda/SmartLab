@@ -93,7 +93,7 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			Prenotazione pr = new Prenotazione();
 			
 			try{
-				manager.findPrenotazioneById(id);
+				pr = manager.findPrenotazioneById(id);
 			}catch(PrenotazioneException e){
 				response.getWriter().write(json.toJson("{\"status\": \"notValid\"}")); //id non valido
 			}
