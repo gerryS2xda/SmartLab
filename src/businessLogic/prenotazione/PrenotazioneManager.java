@@ -46,6 +46,40 @@ public class PrenotazioneManager {
 		studenteRep = StudenteRepository.getInstance();
 	}
 
+	//usato per ricreare l'informazione completa di una prenotazione
+	private void setAllInformationInPrenotazione(Prenotazione pr){
+		int post = pr.getPostazione().getNumero();
+		String idLab = pr.getLaboratorio().getIDlaboratorio();
+		String emailStud = pr.getStudente().getEmail();
+		
+		//ottiene dati di postazione da repository
+		Postazione postazione = new Postazione();
+		try{
+			postazione = postazioneRep.findItemByQuery(new PostazioneSql(post, idLab));
+			pr.setPostazione(postazione);
+		}catch(SQLException e){
+			System.out.println("Errore: problema nel prendere i dati di postazioni dal DB!!");
+		}
+				
+		//ottieni dati del laboratorio da repository
+		try{
+			Laboratorio lab = laboratorioRep.findItemByQuery(new LaboratorioSql(idLab));
+			pr.setLaboratorio(lab);
+		}catch(SQLException e){
+			System.out.println("Errore: problema nel prendere i dati di postazioni dal DB!!");
+		}
+		
+		if(emailStud.equals("")){	//significa che le informazioni sullo studente non sono richieste
+			//ottieni i dati di studente da repository
+			try{
+				Studente stud = studenteRep.findItemByQuery(new StudenteSQL(emailStud));
+				pr.setStudente(stud);
+			}catch(SQLException e){
+				System.out.println("Errore: problema nel prendere i dati dello studente dal DB!!");
+			}
+		}
+	}
+	
 	/**
 	 * Restituisce la prenotazione che e' stata effettuata in base ai dati passati in input.
 	 * Si assume che la postazione sia disponibile e che lo studente ha effettuato < 3 prenotazioni
@@ -152,6 +186,9 @@ public class PrenotazioneManager {
 		}catch(SQLException e){
 			System.out.println("Prenotazione non trovata!!");
 		}
+		
+		//ottieni e setta le informazioni presenti nel DB di studente, postazione e laboratori per i rispettivi oggetti
+		setAllInformationInPrenotazione(pr);
 		return pr;
 		
 	}
@@ -182,6 +219,11 @@ public class PrenotazioneManager {
 			prenotazioni = repository.query(new PrenotazioneByStudent(stud));
 		}catch(SQLException e){
 			System.out.println("Errore: lo studente non ha effettuato prenotazioni");
+		}
+		
+		//ottieni e setta le informazioni presenti nel DB di studente, postazione e laboratori per i rispettivi oggetti
+		for(int i = 0; i < prenotazioni.size(); i++){
+			setAllInformationInPrenotazione(prenotazioni.get(i));
 		}
 		return prenotazioni;
 	} 
@@ -261,8 +303,30 @@ public class PrenotazioneManager {
 		}catch(SQLException e){
 			System.out.println("Errore: lo studente non ha effettuato prenotazioni");
 		}
+		
+		//ottieni e setta le informazioni presenti nel DB di studente, postazione e laboratori per i rispettivi oggetti
+		for(int i = 0; i < prenotazioni.size(); i++){
+			setAllInformationInPrenotazione(prenotazioni.get(i));
+		}
 		return prenotazioni;
 	}
+	
+	public void deletePrenotazioniAfter24Hour(String email)throws SQLException{
+		
+		int today = LocalDate.now().getDayOfMonth();
+		
+		List<Prenotazione> prenotazioni = repository.query(new ListaPrenotazioniQuery());
+		for(int i = 0; i < prenotazioni.size(); i++){
+			Prenotazione pr = prenotazioni.get(i);
+			int datePren = LocalDate.parse(pr.getData()).getDayOfMonth();
+			if(datePren < today){
+				repository.delete(pr);
+			}
+		}
+	}
+	
+	
+	
 }
 
 

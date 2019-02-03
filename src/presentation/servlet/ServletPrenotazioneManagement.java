@@ -1,11 +1,15 @@
 package presentation.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +20,7 @@ import com.project.utils.Utils;
 import businessLogic.prenotazione.PrenotazioneException;
 import businessLogic.prenotazione.PrenotazioneManager;
 import dataAccess.storage.bean.Prenotazione;
+import dataAccess.storage.bean.Studente;
 
 @WebServlet("/prenotazione-serv")
 public class ServletPrenotazioneManagement extends HttpServlet {
@@ -23,6 +28,7 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		PrenotazioneManager manager = PrenotazioneManager.getInstance();
+		HttpSession session = request.getSession();
 		Gson json = new Gson();
 		
 		String action = request.getParameter("action");
@@ -30,8 +36,11 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			response.setStatus(404);
 			response.sendRedirect("./index.jsp"); //pagina errore 404
 		}else if(action.equals("effettua")){
+			boolean done = true;
+			
 			//ottieni oggetto studente da sessione
-			String stud = "g.laucella@studenti.unisa.it";	//da sostituire con oggetto
+			Studente s = (Studente) session.getAttribute("user");
+			
 			String lab = request.getParameter("lab"); //usare Postazione obj per ottenere il lab
 			
 			int post = Integer.parseInt(request.getParameter("postazione")); //usare postazione repository per ottenere obj Postazione
@@ -44,12 +53,17 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			response.setCharacterEncoding("utf-8");
 			
 			try{
-				manager.effettuaPrenotazione(stud, post, inizio, fine, lab);
+				manager.effettuaPrenotazione(s.getEmail(), post, inizio, fine, lab);
 			}catch (PrenotazioneException e){
-				response.getWriter().write(json.toJson("{\"esito\": \"failure\"}"));
+				done = false;
 			}
 
-			response.getWriter().write(json.toJson("{\"esito\": \"ok\"}"));
+			if(done){
+				response.getWriter().write(json.toJson("{\"esito\": \"ok\"}"));
+			}else{
+				response.getWriter().write(json.toJson("{\"esito\": \"failure\"}"));
+			}
+			
 		}else if(action.equals("check_post")){
 			
 			//costruisci risposta JSON
@@ -73,10 +87,10 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 			
-			String stud = "g.laucella@studenti.unisa.it"; //ottiene mail da obj Student presente in sessione
+			Studente s = (Studente) session.getAttribute("user");
 			
 			String str = "{";
-			List<Prenotazione> prenotazioni = manager.getListPrenotazioniByStudent(stud);
+			List<Prenotazione> prenotazioni = manager.getListPrenotazioniByStudent(s.getEmail());
 			int i = 0;
 			for(Prenotazione p : prenotazioni){
 				str+= "\"pren" + i + "\":" + p.toString() + ",";
@@ -108,21 +122,32 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 				response.getWriter().write(json.toJson("{\"status\": \"scaduta\"}"));
 			}
 		}else if(action.equals("del_pren")){
+			boolean done = true;
 			
 			//costruisci risposta JSON
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 			
 			int id = Integer.parseInt(request.getParameter("id_pren"));
+			Prenotazione pr = new Prenotazione();
 			try{
-				Prenotazione pr = manager.findPrenotazioneById(id);
-				manager.annullaPrenotazione(pr);
+				pr = manager.findPrenotazioneById(id);
 			}catch (PrenotazioneException e){
 				//id non valido oppure la prenotazione non si puo' annullare
-				response.getWriter().write(json.toJson("{\"esito\": \"failure\"}"));
+				done = false;
+			}
+			
+			try {
+				manager.annullaPrenotazione(pr);
+			} catch (PrenotazioneException e) {
+				done = false;
 			}
 
-			response.getWriter().write(json.toJson("{\"esito\": \"ok\"}"));
+			if(done){
+				response.getWriter().write(json.toJson("{\"esito\": \"true\"}"));
+			}else{
+				response.getWriter().write(json.toJson("{\"esito\": \"false\"}"));
+			}
 		}else if(action.equals("numero_post_occupate")){
 			
 			//costruisci risposta JSON
@@ -134,6 +159,26 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			int num = manager.getNumeroPostazioniPrenotate(oraInizio);
 			
 			response.getWriter().write(json.toJson("{\"numeroPost\": " + num + " }"));
+		}else if(action.equals("del_pren_after_24")){	//cancella le prenotazioni dopo 24 ore
+			boolean done = true;
+			
+			//costruisci risposta JSON
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			
+			Studente s = (Studente) session.getAttribute("user");
+			
+			try{
+				manager.deletePrenotazioniAfter24Hour(s.getEmail());
+			}catch(SQLException e){
+				done = false;
+			}
+			
+			if(done){
+				response.getWriter().write(json.toJson("{\"esito\": \"true\"}"));
+			}else{
+				response.getWriter().write(json.toJson("{\"esito\": \"false\"}"));
+			}
 		}
 	}
 		
