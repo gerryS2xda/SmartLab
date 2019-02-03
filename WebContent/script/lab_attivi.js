@@ -3,8 +3,6 @@ function loadContent(){
 	loadTableBody();
 }
 
-var numPostDisponibili = 0; //global variable use for Ajax
-
 //Funzioni per la gestione della tabella "Prenota"
 function loadTableBody(){
 	var x = $("#tb_prenota tbody"); //ottieni riferimento a <tbody>
@@ -53,7 +51,6 @@ function getNumPostazioniDisponibili(postOccupate, index, item){
 			window.location.href = "./index.jsp"; //pagina errore 404
 		}
 	});
-	return numPostDisponibili;
 }
 
 function loadWidget(){
