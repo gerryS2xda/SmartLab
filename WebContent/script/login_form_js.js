@@ -19,7 +19,7 @@ function formValidationAndSubmit(){
 						$("#errUserArea").hide();
 						document.login_form.reset();
 						if(y == "studente"){ 
-							window.location.href = "./studentInterface/PrenotazionePage.jsp"; 
+							window.location.href = "./studentInterface/laboratoriAttivi.jsp"; 
 						}else if(y == "responsabile"){ 
 							window.location.href = "./index.jsp"; 	//da sostituire con jsp reali
 						}else if(y == "admin"){ 
