@@ -16,3 +16,33 @@ $("#logout").click(function(){
 		}
 	});
 });
+
+/* NON SONO STATE UTILIZZATE
+// funzioni per la parte responsive 
+$("#left_sidebar").mouseenter(function(){
+	var x = parseInt($(this).css("width"));
+	if(x == 20){
+		openSideNavBar();
+	}		
+});
+
+$("#left_sidebar").mouseleave(function(){
+	var x = parseInt($(this).css("width"));
+	if(x == 220){
+		closeSideNavBar();
+	}		
+});
+
+function openSideNavBar(){
+	$("#left_sidebar").css("width", "220px");
+	$("#sidebar").show();
+	$("#main_content").css("margin-left", "300px");
+}
+
+function closeSideNavBar(){
+	$("#left_sidebar").css("width", "20px");
+	$("#sidebar").hide();
+	$("#main_content").css("margin-left", "80px");
+}
+
+*/
