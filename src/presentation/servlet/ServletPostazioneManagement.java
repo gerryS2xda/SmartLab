@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import businessLogic.Postazione.PostazioneManager;
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.Postazione.PostazioneSql;
@@ -40,7 +42,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		
+		Gson json = new Gson();
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String action=request.getParameter("action");
 		//prova
@@ -113,9 +115,30 @@ public class ServletPostazioneManagement extends HttpServlet {
 			request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
 			//response.sendRedirect("/SmartLab/lista_postazioni");
 
+		}else if(action.equals("lista_pos_json")){	//usato per la PrenotazionePage
+			
+			//costruisci risposta JSON
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			
+			String idlab = request.getParameter("id_lab");
+			List<Postazione> postazioni = pm.listaPostazioni(idlab);
+			
+			String str = "{";
+			for(int i = 0; i < postazioni.size()-1; i++){
+				Postazione p = postazioni.get(i);
+				str +=  "\"post" + i + "\": {\"numero\":" + p.getNumero() + ", \"labID\": " + p.getLaboratorio().getIDlaboratorio() + ", " + 
+				"\"stato\": " + p.isStato() + " },";
+			}
+			str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+			response.getWriter().write(json.toJson(str));
 		}
 		
 	}
+	
 
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+	
 }

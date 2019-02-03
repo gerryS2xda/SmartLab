@@ -18,13 +18,17 @@ public class PostazioneManager {
     public static PostazioneManager getInstance() 
     {
         
-            instance = new PostazioneManager();
+        instance = new PostazioneManager();
             
         return instance;
     }
 	
     PrenotazioneRepository pr=new PrenotazioneRepository();
     
+
+    public PostazioneManager(){
+    	
+    }
     
 /**
  * Crea una postazione con i vari parametri prescelti

@@ -114,6 +114,7 @@ public class PostazioneRepository implements Repository<Postazione>{
         SqlSpecification sqlSpecification = (SqlSpecification) specification;
         String selectSQL= sqlSpecification.toSqlQuery();
         Postazione pos= new Postazione();
+        Laboratorio lab = new Laboratorio(); //ho aggiunto questo
         
         try{
             connection = Connessione.getConnection();
@@ -123,10 +124,11 @@ public class PostazioneRepository implements Repository<Postazione>{
 			while (rs.next()) {
 
                 pos.setNumero(rs.getInt("numero"));
-				pos.setLaboratorio((Laboratorio) rs.getObject("laboratorio"));
+                
+                //setta i dati nell'oggetto Laboratorio preso dal DB
+                lab.setIDlaboratorio(rs.getString("laboratorio"));	//ho aggiunto questo
+                pos.setLaboratorio(lab);	//per sistemare questo
 				pos.setStato(rs.getBoolean("stato"));
-              
-
 			}
 
 		} finally {
@@ -151,6 +153,7 @@ public class PostazioneRepository implements Repository<Postazione>{
         SqlSpecification sqlSpecification = (SqlSpecification) specification;
         String selectSQL= sqlSpecification.toSqlQuery();
         List <Postazione> postazioni= new ArrayList<>();
+        Laboratorio lab = new Laboratorio();
         
         try{
             connection = Connessione.getConnection();
@@ -160,7 +163,10 @@ public class PostazioneRepository implements Repository<Postazione>{
 			while (rs.next()) {
 				Postazione pos=new Postazione();
                 pos.setNumero(rs.getInt("numero"));
-                pos.setLaboratorio((Laboratorio) rs.getObject("laboratorio"));
+                
+                //setta i dati nell'oggetto Laboratorio preso dal DB
+                lab.setIDlaboratorio(rs.getString("laboratorio"));
+                pos.setLaboratorio(lab);
 				pos.setStato(rs.getBoolean("stato"));
               
 				postazioni.add(pos);

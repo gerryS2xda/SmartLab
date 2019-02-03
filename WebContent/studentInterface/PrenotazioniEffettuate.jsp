@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    import ="java.time.LocalDate" pageEncoding="ISO-8859-1"%>
+    import ="java.time.LocalDate, dataAccess.storage.bean.Utente" pageEncoding="ISO-8859-1"%>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 			<title>Mie prenotazioni</title>
 			<link type="text/css" rel="stylesheet" href="../css/prenotazione_style.css">
 			<link type="text/css" rel="stylesheet" href="../css/pren_effettuate_style.css">
-		</head>
+	</head>
+	<% 
+		Utente ut = (Utente) session.getAttribute("user");
+		String userType = (String) session.getAttribute("userType");
+		if(ut == null || userType == null) {
+			response.sendRedirect("./error.jsp"); //pagina errore 404
+		}else if(userType.equals("studente")){	
+	%>
 	<body onLoad="loadContent()">
 		<header id="header_part">
 			<!--  add nav bar jsp -->
@@ -59,7 +66,12 @@
 		<footer>
 			<!-- add footer jsp -->
 		</footer>
+		<%
+			}else{
+				response.sendRedirect("./error.jsp"); //pagina errore 404
+			}%>
 		<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="../script/pren_eff_script.js"></script>
+		<script type="text/javascript" src="../script/student_pages.js"></script>
 	</body>
 </html>

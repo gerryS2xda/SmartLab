@@ -25,7 +25,7 @@ public class ListaPos implements SqlSpecification{
 	 @Override
 	    public String toSqlQuery() {
 	        return String.format(
-	                "SELECT * FROM %1$s WHERE %2$s;",TABLE_NAME,laboratorio);
+	                "SELECT * FROM %1$s WHERE laboratorio = %2$s;",TABLE_NAME,laboratorio);
 	    }
 
 }
