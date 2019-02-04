@@ -28,7 +28,7 @@ function formValidationAndSubmit(){
 					}else if(x == "logged"){
 						document.login_form.reset();
 						$("#errUserArea").show();
-						$(".err_txt").eq(0).html("Utente gia' loggato");
+						$(".err_txt").eq(0).html("Utente già loggato");
 					}
 				}else{
 					window.location.href = "./error.jsp"; //pagina errore 404

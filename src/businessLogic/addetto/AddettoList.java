@@ -18,7 +18,7 @@ public class AddettoList implements SqlSpecification {
 		    @Override
 		    public String toSqlQuery() {
 		        return String.format(
-		                "SELECT * FROM %1$s ;",
+		                "SELECT * FROM %1$s WHERE tipo = 'false';",
 		                TABLE_NAME);
 		    }
 }

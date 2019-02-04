@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import businessLogic.addetto.AddettoManager;
 import dataAccess.storage.bean.Addetto;
 
-/**
- * Servlet implementation class ServletAddettoManagement
- */
 @WebServlet("/ServletAddetto")
 public class ServletAddettoManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,10 +21,12 @@ public class ServletAddettoManagement extends HttpServlet {
     private AddettoManager manager = new AddettoManager();
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String action = request.getParameter("action");
 		if(action == null){
 			response.setStatus(404);
 			response.sendRedirect("./index.jsp");
+			
 		} else if(action.equals("addResp")){
 			Addetto a = new Addetto();
 			a.setEmail(request.getParameter("email"));
@@ -45,37 +44,26 @@ public class ServletAddettoManagement extends HttpServlet {
 			try {
 				if(manager.addResp(a)){
 					response.getWriter().write("{\"esito\":\"addetto registrato\"}");
-				} else {
-					response.getWriter().write("{\"esito\":\"addetto non registrato\"}");
 				}
 			} catch (SQLException e) {
+				response.getWriter().write("{\"esito\":\"addetto non registrato\"}");
 				e.printStackTrace();
 			}
 			
 		} else if(action.equals("rimuoviResp")){
 			String email = request.getParameter("email");
+			Addetto a = new Addetto();
+			a.setEmail(email);
+			a.setTipo(false);
 			
-			try {
-				List<Addetto> responsabili = manager.getListaResp();
-				int n = responsabili.size();
-				for(int i=0; i<responsabili.size(); i++){
-					if (responsabili.get(i).getEmail().equals(email)){
-						manager.rimuoviResp(responsabili.get(i));
-					}
-				}
-				
-				if(manager.getListaResp().size() != n){
-					response.getWriter().write("{\"esito\":\"addetto eliminato\"}");
-				} else {
-					response.getWriter().write("{\"esito\":\"addetto non eliminato\"}");
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+			if(manager.rimuoviResp(a)){
+				response.getWriter().write("{\"esito\":\"addetto eliminato\"}");
+			} else {
+				response.getWriter().write("{\"esito\":\"addetto non eliminato\"}");
 			}
-			
 		} else if(action.equals("getListResp")){
 			try {
-				request.setAttribute("addetti", manager.getListaResp());
+				request.setAttribute("responsabili", manager.getListaResp());
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/adminInterface/visualizzaResp.jsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {
@@ -83,12 +71,9 @@ public class ServletAddettoManagement extends HttpServlet {
 			}
 		}
 		
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
