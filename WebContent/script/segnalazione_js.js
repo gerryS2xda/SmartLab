@@ -87,7 +87,6 @@ function deleteSegnalazione(){
 	var id = document.getElementById("#delSegnalazione").getAttribute("tag");
 	var oggetto = $("#oggetto").text();
 	var descrizione = $("#descrizione").text();
-	var data = $("#data").text();
 	var laboratorio = $("#lab").text();
 	var postazione = $("pos").text();
 	$.post("../ServletSegnalazione", {"action": "deleteSegnalazione", "id": id, "oggetto": oggetto, "descrizione": descrizione, "lab": laboratorio, "pos": postazione}, function(resp, stat, xhr){
