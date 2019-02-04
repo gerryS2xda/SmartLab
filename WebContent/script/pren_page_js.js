@@ -38,6 +38,9 @@ function deletePostazioniOccupateFromSelect(){
 	$.post("../prenotazione-serv", {"action": "lista_pren"}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+			if(o.pren0 == "failure"){
+				window.location.href = "./index.jsp"; //pagina errore 404}
+			}
 			var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
 			var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto
 			for(var i=0; i < size; i++){
@@ -85,9 +88,11 @@ function effettuaPrenotazione(button){	//pulsante "Prenota"
 			if(esito == "ok"){
 				alert("Prenotazione effettuata con successo!!");
 				window.location.href = "./PrenotazioniEffettuate.jsp";
-			}else{
+			}else if(esito == "limitPrenException"){
 				alert("Hai effettuato gia' 2 prenotazioni!! Riprova dopo la chiusura del laboratorio");
 				location.reload(); //refresh della pagina
+			}else if(esito == "failure"){
+				window.location.href = "./index.jsp"; //pagina errore 404
 			}
 		}else{
 			window.location.href = "./index.jsp"; //pagina errore 404
@@ -106,7 +111,9 @@ function verifyPostazioneAvailable(item){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp);
 			var status = o.status;
-			if(status != "disponibile"){
+			if(status == "failure"){
+				window.location.href = "./index.jsp"; //pagina errore 404
+			}else if(status != "disponibile"){
 				alert("Postazione e' stata gia' occupata! La pagina verra' ricaricata");
 				location.reload(); //refresh della pagina
 			}
