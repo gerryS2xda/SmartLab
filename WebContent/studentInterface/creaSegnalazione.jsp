@@ -50,4 +50,6 @@
 			<!-- add footer jsp -->
 		</footer>
 	</body>
+		<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="../script/segnalazione_js.js"></script>
 </html>
