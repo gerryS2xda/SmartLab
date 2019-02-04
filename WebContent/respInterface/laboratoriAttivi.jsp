@@ -13,6 +13,7 @@
 <div class="container"> 
 	<h5 class="text-center">Laboratori</h5>
 	<%Collection<?> laboratori = (Collection<?>) request.getAttribute("laboratori");
+	if(laboratori!=null){
 	Iterator<?> it = laboratori.iterator();
     while (it.hasNext()) {
     	Laboratorio lab=(Laboratorio) it.next();
@@ -37,9 +38,12 @@
 		</div>
     	
     	<%
+    		}
     	}
-    }
+	}else{
 	%>
+	<h3 class="text-center">Non ci sono laboratori assegnati</h3>
+	<%} %>
 </div>
 </body>
 </html>
