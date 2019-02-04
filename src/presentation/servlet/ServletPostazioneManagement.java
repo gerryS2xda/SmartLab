@@ -63,27 +63,27 @@ public class ServletPostazioneManagement extends HttpServlet {
 		}
 		else if(action.equals("libera_pos"))   //libera la postazione
 		{ 
-			
+		String s="";
+		boolean flag=true;
 		List<Prenotazione> lista=new ArrayList();
-		pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("lab"));
+		lista=pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("lab"));
 			
-		try 
-		{
+		
 			pm.liberaPostazione(pre);
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		
 		//mandare alla jsp
-		
+			
+			for(int i = 0; i < lista.size()-1; i++){
+				Prenotazione p = lista.get(i);
+				s += " { "+ p.toString() + " }";
+			}
+			
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(s);
 		
 		}
 		
-		else if(action.equals("attiva_pos"))
+		else if(action.equals("attiva_pos"))   //attiva postazione
 		{
 			String s;
 			boolean flag;
@@ -107,7 +107,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 			response.getWriter().write(s);
 		}
 		
-		else if(action.equals("disattiva_pos"))
+		else if(action.equals("disattiva_pos"))   //disattiva postazione
 		{
 			
 			boolean flag;
@@ -118,10 +118,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 			//setta lo stato di postazione a false
 				flag=pm.disattivaPostazione(idpos, idlab);
 			
-//			request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-			
+			//request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 			
@@ -138,7 +135,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 				
 		else if(action.equals("lista_pos"))
 		{
-			
+			//mi da una lista di postazioni
 			String idlab =(String) request.getParameter("idlaboratorio");
 			
 			List<Postazione> lp=pm.listaPostazioni(idlab);

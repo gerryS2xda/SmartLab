@@ -23,7 +23,7 @@ public class PostazioneManager {
         return instance;
     }
 	
-    PrenotazioneRepository pr=new PrenotazioneRepository();
+    PrenotazioneRepository prere=new PrenotazioneRepository();
     PostazioneRepository posr=new PostazioneRepository();
 
     public PostazioneManager(){
@@ -58,14 +58,14 @@ public class PostazioneManager {
 	
 /**
  * Riattiva una postazione precedentemente disattivata
- * @param p indica quale postazione va attivata
+ * @param id indica quale postazione va attivata
+ * @param idlab serve per modificare la postazione dato che ha una chiave composta
  *  
  */
 	public boolean attivaPostazione(String id, String idlab) 
 	{
 		boolean flag=true;
 		int id1=Integer.parseInt(id); //converto la stringa in intero 
-		PostazioneSql sql=new PostazioneSql(id1, idlab); //setto l'oggetto con gli di che mi servono
 		Postazione pos=new Postazione(); 
 		
 		pos.setNumero(id1);
@@ -83,14 +83,13 @@ public class PostazioneManager {
 /**
  * Disattiva e rende quindi non prenotabile una postazione precedentemente disattivata
  * @param p indica quale postazione va disattivata
- * 
+ * @param idlab serve per modificare la postazione dato che ha una chiave composta
  * @pre deve esistere quella postazione che si vuole disattivare
  */
 	public boolean disattivaPostazione(String id, String idlab) 
 	{
 		boolean flag=true;
 		int id1=Integer.parseInt(id); //converto la stringa in intero 
-		PostazioneSql sql=new PostazioneSql(id1, idlab); //setto l'oggetto con gli di che mi servono
 		Postazione pos=new Postazione(); 
 		
 		pos.setNumero(id1);
@@ -114,14 +113,20 @@ public class PostazioneManager {
  * 
  */
 
-	public boolean liberaPostazione(Prenotazione pre) throws SQLException
+	public boolean liberaPostazione(Prenotazione pre)
 	{
 		if(pre.isPrenotazioneActive())
 		{
-			pr.delete(pre);
-			return true;
+			try {
+				prere.delete(pre);
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+				return false;
+			}
+			
 		}
-		return false;
+		return true;
 	}
 	
 /**
@@ -175,7 +180,7 @@ public class PostazioneManager {
 				repository.delete(pos);
 			} catch (SQLException e)
 			{
-				System.err.println("non e' andata a buon fiine");
+				System.err.println("non e' andata a buon fine");
 				e.printStackTrace();
 			}
 			
