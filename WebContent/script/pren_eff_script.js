@@ -6,7 +6,7 @@ function loadContent(){
 
 //Funzioni per la gestione della tabella "Prenotazioni Effettuate"
 function loadTableBody(){
-	$.post("../prenotazione-serv", {"action": "lista_pren"}, function(resp, stat, xhr){
+	$.post("../prenotazione-serv", {"action": "lista_pren_by_stud"}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
 			var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto

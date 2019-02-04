@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Prenota postazione</title>
+		<title>Dashboard Studente</title>
 		<link type="text/css" rel="stylesheet" href="../css/student_home_style.css">
 	</head>
 	<% 
