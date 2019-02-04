@@ -312,9 +312,6 @@ public class PrenotazioneManager {
 	}
 	
 	public void deletePrenotazioniAfter24Hour(String email)throws SQLException{
-		
-		int today = LocalDate.now().getDayOfMonth();
-		
 		List<Prenotazione> prenotazioni = repository.query(new ListaPrenotazioniQuery());
 		for(int i = 0; i < prenotazioni.size(); i++){
 			Prenotazione pr = prenotazioni.get(i);
@@ -322,6 +319,14 @@ public class PrenotazioneManager {
 		}
 	}
 	
+	public List<Prenotazione> getAllPrenotazioni() throws SQLException{
+		List<Prenotazione> prenotazioni = repository.query(new ListaPrenotazioniQuery());
+		for(int i = 0; i < prenotazioni.size(); i++){
+			setAllInformationInPrenotazione(prenotazioni.get(i));
+			
+		}
+		return prenotazioni;
+	}
 	
 	
 }
