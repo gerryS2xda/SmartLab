@@ -19,6 +19,16 @@
     <servlet-class>presentation.servlet.ServletPostazioneManagement</servlet-class>
   </servlet>
   
+  <servlet>
+  	<servlet-name>ServletAddettoManagement</servlet-name>
+  	<servlet-class>presentation.servlet.ServletAddettoManagement</servlet-class>
+  </servlet>
+  
+   <servlet>
+  	<servlet-name>ServletUtenteManagement</servlet-name>
+  	<servlet-class>presentation.servlet.ServletUtenteManagement</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>ServletLaboratorioManagement</servlet-name>
     <url-pattern>/laboratorio</url-pattern>
@@ -37,6 +47,16 @@
   <servlet-mapping>
     <servlet-name>ServletPostazioneManagement</servlet-name>
     <url-pattern>/postazioni</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>ServletAddettoManagement</servlet-name>
+    <url-pattern>/addetto</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>ServletUtenteManagement</servlet-name>
+    <url-pattern>/utente</url-pattern>
   </servlet-mapping>
   
 </web-app>
