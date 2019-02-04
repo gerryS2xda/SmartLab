@@ -28,7 +28,7 @@ function inviaSegnalazione(){
 			if(xhr.readyState == 4 && stat == "success"){
 				alert("Segnalazione inviata con successo");
 			}else
-				alert("Non è stato possibile inviare la segnalazione");
+				window.location.href("./index.jsp");
 		});
 	}
 }

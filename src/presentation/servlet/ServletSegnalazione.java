@@ -55,7 +55,11 @@ public class ServletSegnalazione extends HttpServlet {
 			java.util.Date d = new java.util.Date();
 			Date data = new Date(d.getTime());
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
-			cm.deleteSegnalazione(s);
+			response.setContentType("application/json");
+			if(cm.deleteSegnalazione(s))
+				response.getWriter().write("{\"esito\": \"successo\"}");
+			else
+				response.getWriter().write("{\"esito\": \"errore\"}");
 		}else if(segnalazione.equals("viewSegnalazioni")){
 			Studente st = (Studente) session.getAttribute("user");
 			response.setContentType("application/json");
@@ -72,8 +76,10 @@ public class ServletSegnalazione extends HttpServlet {
 						count++;
 				}
 			}else{
-				result += "\"sg" + count + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"oggetto\": \"" + lista.get(count).getOggetto() + "\", \"descrizione\": \"" + lista.get(count).getDescrizione() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"studente\": \"" + lista.get(count).getStudente() + "\", \"laboratorio\": \"" + lista.get(count).getLaboratorio() + "\", \"postazione\": \"" + lista.get(count).getPostazione() + "\"}";
-				count++;
+				while(count < lista.size()){
+					result += "\"sg" + count + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"oggetto\": \"" + lista.get(count).getOggetto() + "\", \"descrizione\": \"" + lista.get(count).getDescrizione() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"studente\": \"" + lista.get(count).getStudente() + "\", \"laboratorio\": \"" + lista.get(count).getLaboratorio() + "\", \"postazione\": \"" + lista.get(count).getPostazione() + "\"}";
+					count++;
+				}
 			}
 			result = result.substring(0, result.length() - 1) + "}";
 			response.getWriter().write(json.toJson(result));

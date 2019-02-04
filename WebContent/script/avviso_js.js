@@ -18,11 +18,14 @@ function creaAvviso(){
 			if(xhr.readyState == 4 && stat == "success"){
 				var ris = JSON.parse(resp);
 				var esito = ris.esito;
-				if(esito == "avviso creato")
+				if(esito == "errore")
+					alert("Non hai i permessi per creare un avviso");
+				else if(esito == "avviso creato")
 					alert("Avviso creato con successo");
 				else
 					alert("Errore nella creazione dell'avviso");
-			}
+			}else
+				window.location.href("./index.jsp");
 		});
 	}
 }
