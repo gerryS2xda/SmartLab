@@ -21,8 +21,10 @@
 </form>
 </div>            
 <script>
-	
-$("#libera_btn").click(function(){
+$(document).ready(function()
+{
+	$("button#libera_btn").on("click"(function()
+	{
 	var x = $("#fasc_ora_lib_pos").val().split("-");  //dammi il valore della <select> che e' stato impostato e dividi in due stringhe con split()
 	var lab = $("#lab_in").val();
 	//$.post("/postazioni", {"action": "libera_pos", "inizio": x[0], "fine": x[1], "lab": lab}, function(resp, stat, xhr){
@@ -34,11 +36,16 @@ $("#libera_btn").click(function(){
 				lab: lab,
 				inizio: x[0],
 				fine: x[1]
-			}, function(data,status){});
+			}, function(data,status)
+				{
+				console.log(data);
+				});
+	}));
+});	
 		//}else{
 			//window.location.href = "./index.jsp"; //pagina errore 404
 		//}
-	});
+	
 	
 </script>
 </body>
