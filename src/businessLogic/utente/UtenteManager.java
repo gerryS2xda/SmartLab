@@ -43,7 +43,7 @@ public class UtenteManager {
 		if(password.length()<8 || password.length()>16) return false;
 		else return true;
 		
-		/** DA COMPLETARE? **/
+		/** DA COMPLETARE **/
 	}
 
 	public Studente effettuaAutenticazione (String email, String password){
@@ -51,7 +51,7 @@ public class UtenteManager {
 		try{
 			s = studente.findItemByQuery(new StudenteLoginSQL(email, password));
 		}catch(SQLException e){
-			//error msg
+			e.printStackTrace();
 		}
 		return s;
 	}
@@ -66,18 +66,19 @@ public class UtenteManager {
 	
 
 	public boolean isStudentPresent(String email){
-		boolean val = false;
-		Studente stud = new Studente();
+		boolean b = false;
+		Studente s = new Studente();
 		try{
-			stud = studente.findItemByQuery(new StudenteSQL(email));
+			s = studente.findItemByQuery(new StudenteSQL(email));
 		}catch(SQLException e){
-			System.out.println("Errore: problema nell'eseguire la findItemByQuery() di StudenteRepository");
+			e.printStackTrace();
 		}
 		
-		if(!stud.getEmail().equals("")){	//se email e' riempito --> studente e' presente
-			val = true;
+		if(!s.getEmail().equals("")){
+			b = true;
 		}
-		return val;
+		
+		return b;
 	}
 	
 	public List<Studente> getStudentList() throws SQLException{

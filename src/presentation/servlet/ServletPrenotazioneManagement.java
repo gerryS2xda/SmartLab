@@ -31,6 +31,10 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 		HttpSession session = request.getSession();
 		Gson json = new Gson();
 		
+		//costruisci risposta JSON (valido per tutta la servlet)
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		
 		String action = request.getParameter("action");
 		if(action == null){
 			response.setStatus(404);
@@ -48,27 +52,22 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			String inizio = request.getParameter("inizio");
 			String fine =  request.getParameter("fine");
 			
-			//costruisci risposta JSON
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-			
 			try{
 				manager.effettuaPrenotazione(s.getEmail(), post, inizio, fine, lab);
 			}catch (PrenotazioneException e){
+				response.getWriter().write(json.toJson("{\"esito\": \"limitPrenException\"}"));
+				done = false;
+			}catch(SQLException e){
+				response.getWriter().write(json.toJson("{\"esito\": \"failure\"}"));
 				done = false;
 			}
 
 			if(done){
 				response.getWriter().write(json.toJson("{\"esito\": \"ok\"}"));
-			}else{
-				response.getWriter().write(json.toJson("{\"esito\": \"failure\"}"));
 			}
 			
-		}else if(action.equals("check_post")){
-			
-			//costruisci risposta JSON
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
+		}else if(action.equals("check_post")){	//verifica se la postazioni e' ancora disponibile
+			boolean done = true;
 			
 			String lab = request.getParameter("lab"); //usare Postazione obj per ottenere il lab
 			String post = request.getParameter("postazione"); //usare postazione repository per ottenere obj Postazione
@@ -76,32 +75,42 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			String fine =  request.getParameter("fine");
 			
 			//collegarsi con la repository di postazione per ottenere un oggetto Postazione da cui vedere se e' disponibile
-			List<Prenotazione> prenotazioni = manager.getPrenotazioniByQuery(inizio, fine, post, lab);
-			if(prenotazioni.size() == 0){
+			List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
+			try {
+				prenotazioni = manager.getPrenotazioniByQuery(inizio, fine, post, lab);
+			} catch (SQLException e) {
+				done = false;
+			}
+			if(!done){
+				response.getWriter().write(json.toJson("{\"status\": \"failure\"}"));
+			}else if(prenotazioni.size() == 0){
 				response.getWriter().write(json.toJson("{\"status\": \"disponibile\"}"));
 			}else{
 				response.getWriter().write(json.toJson("{\"status\": \"occupata\"}"));
 			}
-		}else if(action.equals("lista_pren")){
-			//costruisci risposta JSON
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-			
+		}else if(action.equals("lista_pren_by_stud")){
+			boolean done = true;
 			Studente s = (Studente) session.getAttribute("user");
 			
-			String str = "{";
-			List<Prenotazione> prenotazioni = manager.getListPrenotazioniByStudent(s.getEmail());
-			int i = 0;
-			for(Prenotazione p : prenotazioni){
-				str+= "\"pren" + i + "\":" + p.toString() + ",";
-				i++;
+			List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
+			try {
+				prenotazioni = manager.getListPrenotazioniByStudent(s.getEmail());
+			} catch (SQLException e) {
+				done = false;
 			}
-			str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
-			response.getWriter().write(json.toJson(str));
-		}else if(action.equals("pren_status")){
-			//costruisci risposta JSON
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
+			if(done){
+				String str = "{";
+				int i = 0;
+				for(Prenotazione p : prenotazioni){
+					str+= "\"pren" + i + "\":" + p.toString() + ",";
+					i++;
+				}
+				str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+				response.getWriter().write(json.toJson(str));
+			}else{
+				response.getWriter().write(json.toJson("{\"pren0\": \"failure\"}"));
+			}
+		}else if(action.equals("pren_status")){	//per ora non usato (forse da rimuovere)
 			
 			int id = Integer.parseInt(request.getParameter("id_pren"));
 			Prenotazione pr = new Prenotazione();
@@ -110,6 +119,8 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 				pr = manager.findPrenotazioneById(id);
 			}catch(PrenotazioneException e){
 				response.getWriter().write(json.toJson("{\"status\": \"notValid\"}")); //id non valido
+			}catch(SQLException e){
+				response.getWriter().write(json.toJson("{\"status\": \"failure\"}"));
 			}
 			
 			if(manager.isPrenotazioneActive(pr)){
@@ -117,16 +128,15 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			}else{
 				//procedi alla modifica dello stato di questa postazione
 				pr.setStatus(false);
-				manager.updatePrenotazione(pr);
-				
+				try {
+					manager.updatePrenotazione(pr);
+				} catch (SQLException e) {
+					response.getWriter().write(json.toJson("{\"status\": \"failure\"}"));
+				}
 				response.getWriter().write(json.toJson("{\"status\": \"scaduta\"}"));
 			}
 		}else if(action.equals("del_pren")){
 			boolean done = true;
-			
-			//costruisci risposta JSON
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
 			
 			int id = Integer.parseInt(request.getParameter("id_pren"));
 			Prenotazione pr = new Prenotazione();
@@ -135,11 +145,15 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			}catch (PrenotazioneException e){
 				//id non valido oppure la prenotazione non si puo' annullare
 				done = false;
+			}catch(SQLException e){
+				done = false;
 			}
 			
 			try {
 				manager.annullaPrenotazione(pr);
 			} catch (PrenotazioneException e) {
+				done = false;
+			}catch(SQLException e){
 				done = false;
 			}
 
@@ -150,22 +164,19 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			}
 		}else if(action.equals("numero_post_occupate")){
 			
-			//costruisci risposta JSON
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-			
 			String oraInizio = request.getParameter("ora_inizio");
 			String idLab = request.getParameter("idLab");
 			
-			int num = manager.getNumeroPostazioniPrenotate(oraInizio, idLab);
+			int num = 0;
+			try {
+				num = manager.getNumeroPostazioniPrenotate(oraInizio, idLab);
+			} catch (SQLException e) {
+				num = -1; //indica situazione di failure
+			}
 			
 			response.getWriter().write(json.toJson("{\"numeroPost\": " + num + " }"));
 		}else if(action.equals("del_pren_after_24")){	//cancella le prenotazioni dopo 24 ore
 			boolean done = true;
-			
-			//costruisci risposta JSON
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
 			
 			Studente s = (Studente) session.getAttribute("user");
 			
@@ -180,6 +191,38 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			}else{
 				response.getWriter().write(json.toJson("{\"esito\": \"false\"}"));
 			}
+		}else if(action.equals("lista_pren")){
+			boolean done = true;
+			
+			List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
+			try {
+				prenotazioni = manager.getAllPrenotazioni();
+			} catch (SQLException e) {
+				done = false;
+			}
+			if(done){
+				String str = "{";
+				int i = 0;
+				for(Prenotazione p : prenotazioni){
+					str+= "\"pren" + i + "\":" + p.toString() + ",";
+					i++;
+				}
+				str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+				response.getWriter().write(json.toJson(str));
+			}else{
+				response.getWriter().write(json.toJson("{\"pren0\": \"failure\"}"));
+			}
+		}else if(action.equals("num_pren_effettuate")){ //usata per controllare se lo studente ha superato il limite max di prenotazioni giornaliere 
+			
+			Studente s = (Studente) session.getAttribute("user");
+			int numP = 0;
+			try {
+				numP = manager.getNumPrenotazioniEffettuateOggi(s.getEmail());
+			} catch (SQLException e) {
+				numP = -1; //indica situazione di failure
+			}
+			
+			response.getWriter().write(json.toJson("{\"numeroPren\": " + numP+ "}"));
 		}
 	}
 		

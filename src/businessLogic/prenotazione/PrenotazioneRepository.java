@@ -167,9 +167,6 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 		SqlSpecification sqlSpec = (SqlSpecification) spec;
 		Statement stmt = null;
-		Postazione post = new Postazione();
-		Laboratorio lab = new Laboratorio();
-		Studente stud = new Studente();
 		
 		try{
 			conn = Connessione.getConnection();
@@ -178,6 +175,10 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				
 			while(res.next()){
 				Prenotazione pr = new Prenotazione();
+				//aggiunti qui per risolvere bug legato al numero delle postazioni 
+				Postazione post = new Postazione();
+				Laboratorio lab = new Laboratorio();
+				Studente stud = new Studente();
 				pr.setID(res.getInt(1));
 				pr.setData(res.getDate(2).toLocalDate().toString());
 				pr.setOraInizio(res.getTime(3).toLocalTime());

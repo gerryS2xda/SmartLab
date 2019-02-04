@@ -1,7 +1,7 @@
 package dataAccess.storage.bean;
 
 
-public class Utente {
+public abstract class Utente {
 	
 	private String email;
 	private String password;
@@ -54,8 +54,6 @@ public class Utente {
 		return surname;
 	}
 	
-	//other method
-	//adattato per stringa JSON
 	public String toString(){
 		String str = "{\"email\": \"" + email + "\", \"password\": \"" + password + "\", \"nome\": \"" + name + "\", "
 				+ "\"cognome\": \"" + surname + "\", ";

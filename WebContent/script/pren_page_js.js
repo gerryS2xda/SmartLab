@@ -17,20 +17,63 @@ function loadTableBody(){
 				if(k.stato){	//se il laboratorio e' aperto, mostra postazioni disponibili
 					str+= "<tr><td>" + k.numero + "<td><select name=\"fascia_oraria_action\" onChange=\"verifyPostazioneAvailable($(this));\">" +
 						"<option value=\"09:00-11:00\">Mattina (9 - 11)</option><option value=\"11:00-13:00\">Mattina (11 - 13)</option>"+
-						"<option value=\"13:00-15:00\">Pomeriggio (13 - 15)</option><option value=\"15:00-17:00\">Pomeriggio (15 - 17)</option>" +
-						"<option value=\"17:00-19:00\">Sera (17 - 19)</option></select></td>" +
+						"<option value=\"13:00-15:00\">Pomeriggio (13 - 15)</option><option value=\"15:00-17:00\">Pomeriggio (15 - 17)</option></select></td>" +
 						"<td><button type=\"button\" onclick=\"effettuaPrenotazione($(this))\">Prenota</button></td></tr>";
 				}
 			}
 			$("#div_tb_prenota_content").show();
 			x.html(str);
+			
+			deletePostazioniOccupateFromSelect();
 		}else{
 			window.location.href = "./index.jsp"; //pagina errore 404
 		}
 	});
 }
 
-
+//funzione per rimuovere le postazioni gia' occupate
+function deletePostazioniOccupateFromSelect(){
+	var tr = $("#tb_prenota tbody tr"); //dammi tutte righe (postazioni)
+	
+	$.post("../prenotazione-serv", {"action": "lista_pren"}, function(resp, stat, xhr){
+		if(xhr.readyState == 4 && stat == "success"){
+			var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
+			if(o.pren0 == "failure"){
+				window.location.href = "./index.jsp"; //pagina errore 404}
+			}
+			var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
+			var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto
+			for(var i=0; i < size; i++){
+				var k = o["pren"+i]; //prendi l'oggetto JS associato alla proprieta' 'pren' dell'oggetto JS appena convertito 
+				for(z = 0; z < tr.length; z++){
+					var tds = tr.eq(z).find("td");
+					var numPost = tds.eq(0).text();
+					if(numPost == k.postazione){
+						console.log("NumPost: " + numPost + "  PostPren: " + k.postazione);
+						var selects = tr.eq(z).find("select");	//prendi la select
+						var options = selects.find("option");	//prendi le option della select
+						if(options.length == 0){	//tutte le fasce orarie sono occupate -> rimuovi postazione
+							tr.remove();
+						}else{
+							var y = k.oraInizio;
+							y = y.split(":");
+							var oraInizioPren = parseInt(y[0]);
+							for(var j = 0; j < options.length; j++){	//per ogni option 
+								var oraInizioSel = parseInt(options.eq(j).val().split("-"));
+								if(oraInizioSel == oraInizioPren){ //se uguali significa che la postazione e' occupata in quella fascia oraria
+									options.eq(j).remove(); 
+								}	
+							}
+						}
+						break;
+					}
+				}
+			}
+		}else{
+			window.location.href = "./index.jsp"; //pagina errore 404
+		}
+	});
+}
 
 function effettuaPrenotazione(button){	//pulsante "Prenota"
 	var row = button.parents("tr"); //dammi la riga <tr> su cui eseguire le azioni  
@@ -45,9 +88,11 @@ function effettuaPrenotazione(button){	//pulsante "Prenota"
 			if(esito == "ok"){
 				alert("Prenotazione effettuata con successo!!");
 				window.location.href = "./PrenotazioniEffettuate.jsp";
-			}else{
+			}else if(esito == "limitPrenException"){
 				alert("Hai effettuato gia' 2 prenotazioni!! Riprova dopo la chiusura del laboratorio");
 				location.reload(); //refresh della pagina
+			}else if(esito == "failure"){
+				window.location.href = "./index.jsp"; //pagina errore 404
 			}
 		}else{
 			window.location.href = "./index.jsp"; //pagina errore 404
@@ -66,7 +111,9 @@ function verifyPostazioneAvailable(item){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp);
 			var status = o.status;
-			if(status != "disponibile"){
+			if(status == "failure"){
+				window.location.href = "./index.jsp"; //pagina errore 404
+			}else if(status != "disponibile"){
 				alert("Postazione e' stata gia' occupata! La pagina verra' ricaricata");
 				location.reload(); //refresh della pagina
 			}

@@ -49,7 +49,6 @@ public class ServletAddettoManagement extends HttpServlet {
 					response.getWriter().write("{\"esito\":\"addetto non registrato\"}");
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -71,7 +70,6 @@ public class ServletAddettoManagement extends HttpServlet {
 					response.getWriter().write("{\"esito\":\"addetto non eliminato\"}");
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -81,7 +79,6 @@ public class ServletAddettoManagement extends HttpServlet {
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/adminInterface/visualizzaResp.jsp");
 				dispatcher.forward(request, response);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
