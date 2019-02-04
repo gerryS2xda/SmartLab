@@ -82,7 +82,7 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			}else{
 				response.getWriter().write(json.toJson("{\"status\": \"occupata\"}"));
 			}
-		}else if(action.equals("lista_pren")){
+		}else if(action.equals("lista_pren_by_stud")){
 			//costruisci risposta JSON
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
@@ -180,6 +180,26 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			}else{
 				response.getWriter().write(json.toJson("{\"esito\": \"false\"}"));
 			}
+		}else if(action.equals("lista_pren")){
+			//costruisci risposta JSON
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			
+			String str = "{";
+			List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
+			try {
+				prenotazioni = manager.getAllPrenotazioni();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			int i = 0;
+			for(Prenotazione p : prenotazioni){
+				str+= "\"pren" + i + "\":" + p.toString() + ",";
+				i++;
+			}
+			str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+			response.getWriter().write(json.toJson(str));
 		}
 	}
 		
