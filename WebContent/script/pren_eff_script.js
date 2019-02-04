@@ -11,18 +11,17 @@ function loadTableBody(){
 			var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
 			if(o.pren0 == "failure"){
 				window.location.href = "./index.jsp"; //pagina errore 404}
-			}else{
-				var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
-				var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto
-				for(var i=0; i < size; i++){
-					var k = o["pren"+i]; //prendi l'oggetto JS associato alla proprieta' 'pren' dell'oggetto JS appena convertito 
-					str+= "<tr><td>" + k.id + "</td><td>"+ k.data + "</td><td>" + k.laboratorio + "</td>" +
-					"<td>" + k.postazione + "</td><td><span>" + k.oraInizio + "</span> - <span>" + k.oraFine + "</span></td>" + 
-					"<td><input type=\"checkbox\" onchange=\"deletePrenotazione($(this))\"> </td></tr>";
-				}
-				$("#div_tb_effettuate_content").show();
-				$("#tb_pren_effettuate tbody").html(str);	//aggiungi contenuto a <tbody>
 			}
+			var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
+			var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto
+			for(var i=0; i < size; i++){
+				var k = o["pren"+i]; //prendi l'oggetto JS associato alla proprieta' 'pren' dell'oggetto JS appena convertito 
+				str+= "<tr><td>" + k.id + "</td><td>"+ k.data + "</td><td>" + k.laboratorio + "</td>" +
+				"<td>" + k.postazione + "</td><td><span>" + k.oraInizio + "</span> - <span>" + k.oraFine + "</span></td>" + 
+				"<td><input type=\"checkbox\" onchange=\"deletePrenotazione($(this))\"> </td></tr>";
+			}
+			$("#div_tb_effettuate_content").show();
+			$("#tb_pren_effettuate tbody").html(str);	//aggiungi contenuto a <tbody>
 		}else{
 			window.location.href = "./index.jsp"; //pagina errore 404
 		}

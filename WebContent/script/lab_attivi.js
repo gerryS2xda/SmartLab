@@ -90,22 +90,23 @@ function loadWidget(){
 
 
 function effettuaPrenotazione(button){	//pulsante "Prenota"
-	$.post("../prenotazione-serv", {"action": "del_pren_after_24"}, function(resp, stat, xhr){
+	$.post("../prenotazione-serv", {"action": "num_pren_effettuate"}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp);
-			var esito = o.esito;
-			if(!esito){
-				window.location.href = "./index.jsp";
+			if(o.numeroPren == -1){window.location.href = "./index.jsp";} //page error
+			if(o.numeroPren < 3){
+				var row = button.parents("tr"); //dammi la riga <tr> su cui eseguire le azioni  
+				var td = row.find("td"); //dammi tutti gli <td> che sono discendenti di <tr> selezionato prima
+				var labName = td.eq(0).text();
+				var idlab = td.eq(6).text();
+				window.location.href = "./PrenotazionePage.jsp?lab_selected=" + idlab + "&lab_name=" + labName; //pagina errore 404
+			}else{
+				alert("Hai effettuato gia' 2 prenotazioni!! Riprova dopo la chiusura del laboratorio");
 			}
 		}else{
 			window.location.href = "./index.jsp"; //pagina errore 404
 		}
 	});
-		var row = button.parents("tr"); //dammi la riga <tr> su cui eseguire le azioni  
-		var td = row.find("td"); //dammi tutti gli <td> che sono discendenti di <tr> selezionato prima
-		var labName = td.eq(0).text();
-		var idlab = td.eq(6).text();
-		window.location.href = "./PrenotazionePage.jsp?lab_selected=" + idlab + "&lab_name=" + labName; //pagina errore 404
 }
 
 
