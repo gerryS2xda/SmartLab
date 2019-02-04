@@ -133,8 +133,8 @@ public class Prenotazione {
 		if(otherObject instanceof Prenotazione){
 			Prenotazione pren = (Prenotazione) otherObject;
 			if(getData().equals(pren.getData()) && getOraInizio().compareTo(pren.getOraInizio()) == 0 && 
-					getOraFine().compareTo(pren.getOraFine()) == 0 && getStudente().equals(pren.getStudente()) && 
-					getPostazione().equals(pren.getPostazione()) && getLaboratorio().equals(pren.getLaboratorio())){
+					getOraFine().compareTo(pren.getOraFine()) == 0 && getStudente().getEmail().equals(pren.getStudente().getEmail()) && 
+					getPostazione().equals(pren.getPostazione()) && getLaboratorio().getIDlaboratorio().equals(pren.getLaboratorio().getIDlaboratorio())){
 				val = true;
 			}
 		}
