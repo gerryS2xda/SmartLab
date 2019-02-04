@@ -24,8 +24,13 @@ public class Connessione  {
 		String ip = "localhost";
 		String port = "3306";
 		String db = "smartlab";
+<<<<<<< HEAD
 		String username = "root";
 		String password = "asd456JKL";
+=======
+		String username = "root";
+		String password = "basedidati";
+>>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
 
 
 		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);

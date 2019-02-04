@@ -55,6 +55,7 @@
 	%>
 </div>
 
+<!-- modal  conferma eliminazione del responsabile-->
 <div class="modal fade" id="confermaModal" tabindex="-1" role="dialog" aria-labelledby="confermaModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -64,7 +65,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      </div>
+      <!-- 
+      <div class="modal-body">
+        ...
+      </div> -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
         <button type="button" class="btn btn-danger" id="confermaElimina" data-dismiss="modal">Elimina</button>
@@ -76,6 +80,50 @@
 <div class="alert alert-success" id="success-alert" style="display:none">
 </div>
 
-
+<script>
+$(document).ready(function(){
+	
+	var email;
+	var div;
+	//seleziono il laboratorio da eliminare
+	$("button#elimina").on("click",function(){
+		email=$(this).find("input#email").val();
+		div=$(this).parent().parent().parent();//seleziono la scheda card
+		
+	});
+	//ajax eliminazione del laboratorio + messaggio di conferma
+	$("button#confermaElimina").on("click",function(){
+		console.log(email);
+		/*$(document).ajaxStart(function(){
+	        $("#wait").css("display", "block");
+	    });
+		
+		$(document).ajaxComplete(function(){
+	        $("#wait").css("display", "none");
+	    });*/
+		
+		$.getJSON("addetto",{
+			action: "getListResp",
+			email: email
+		},function(data,status){
+			//console.log(data.esito);
+			div.remove();//rimuovo la scheda dalla grafica
+			id="";
+			//messaggio esito
+			var mex=data.esito;
+			$("#success-alert").css("display","block");
+			$("#success-alert").html("");
+			$("#success-alert").append($("<strong>"+mex+"</strong>"));
+			$("#success-alert").css("position","fixed");
+			$("#success-alert").css("top","0");
+			$("#success-alert").css("width","100%");
+			setTimeout(function() {
+				$("#success-alert").css("display","none");
+		        //$("#success-alert").alert('close');
+		    }, 2000);
+		});
+	});
+	
+</script>
 </body>
 </html>
