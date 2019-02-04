@@ -41,7 +41,7 @@ function loadSegnalazioni(){
 			var str = "";
 			for(var i = 0; i < size; i++){
 				var tmp = segnalazioni["sg" + i];
-				str += "<tr><td>" + tmp.id + "</td><td>"+ tmp.laboratorio + "</td><td>" + tmp.postazione + "</td><td>" + tmp.oggetto + "</td><td>" + tmp.descrizione + "</td><td>" + tmp.data + "</td></tr>";
+				str += "<tr><td><a href = \"./segnalazione.jsp\"" + tmp.id + "></td><td>"+ tmp.laboratorio + "</td><td>" + tmp.postazione + "</td><td>" + tmp.oggetto + "</td><td>" + tmp.descrizione + "</td><td>" + tmp.data + "</td></tr>";
 			}
 			$("#tb_segnalazioni tbody").html(str);
 		}else
