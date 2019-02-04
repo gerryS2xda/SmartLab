@@ -39,16 +39,14 @@ public class AddettoRepository {
     	try {
 			connection = Connessione.getConnection();
 			
-			//modifica prima la table di utente
 			preparedStatement = connection.prepareStatement(insertSQLUtente);
 			preparedStatement.setString(1, a.getEmail());
 			preparedStatement.setString(2, a.getPassword());
 			preparedStatement.setString(3, a.getName());
 			preparedStatement.setString(4, a.getSurname());
 			preparedStatement.executeUpdate();
-			preparedStatement.close();	//chiudi questo statement
+			preparedStatement.close();
 			
-			//poi la table di studente
 			preparedStatement = connection.prepareStatement(insertSQLAddetto);
 			preparedStatement.setString(1, a.getEmail());
 			preparedStatement.setBoolean(2, a.getTipo());
@@ -69,7 +67,6 @@ public class AddettoRepository {
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
     	
-    	//usiamo la delete su utente poiche' e' stata applicata la foreign key con on delete cascade
     	String deleteSQL = "DELETE FROM " + TABLE_NAME_UTENTE + " WHERE email = ?";
     	
     	try{
@@ -99,7 +96,6 @@ public class AddettoRepository {
     	
     	try{
     		connection = Connessione.getConnection();
-    		//aggiorna prima i valori di utente
     		ps = connection.prepareStatement(updateSQLUtente);
     		ps.setString(1, a.getEmail());
     		ps.setString(2, a.getPassword());
@@ -109,7 +105,6 @@ public class AddettoRepository {
     		ps.executeUpdate();
     		ps.close();
     		
-    		//poi quelli nella table di addetto
     		ps = connection.prepareStatement(updateSQLAddetto);
     		ps.setBoolean(1, a.getTipo());
     		

@@ -4,10 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import businessLogic.utente.StudenteSQL;
 import dataAccess.storage.bean.Addetto;
-import dataAccess.storage.bean.Studente;
-import dataAccess.storage.bean.Utente;
 
 public class AddettoManager {
 	
@@ -32,8 +29,10 @@ public class AddettoManager {
 	}
 	
 	private boolean isPasswordRight(String password) {
-		// TODO Auto-generated method stub
-		return false;
+		if(password.length()<8 || password.length()>16) return false;
+		else return true;
+		
+		/** DA COMPLETARE **/
 	}
 
 	private boolean isEmailRight(String email) {
@@ -65,7 +64,7 @@ public class AddettoManager {
 		try{
 			addetto = r.findItemByQuery(new AddettoLoginSQL(email, password));
 		}catch(SQLException e){
-			//error msg
+			e.printStackTrace();
 		}
 		return addetto;
 	}
