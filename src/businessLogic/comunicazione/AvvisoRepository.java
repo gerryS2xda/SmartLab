@@ -29,7 +29,7 @@ public class AvvisoRepository implements Repository<Avviso> {
 	public void add(Avviso avviso) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String addAvviso = "INSERT INTO " + table + "VALUES(?,?,?,?,?)";
+		String addAvviso = "INSERT INTO " + table + " VALUES(?,?,?,?,?)";
 		try{
 			con = Connessione.getConnection();
 			ps = con.prepareStatement(addAvviso);
@@ -38,8 +38,8 @@ public class AvvisoRepository implements Repository<Avviso> {
 			ps.setString(3, avviso.getMessaggio());
 			ps.setDate(4, (Date) avviso.getData());
 			ps.setString(5, avviso.getAddetto());
-			ps.executeQuery();
-			con.commit();
+			ps.executeUpdate();
+			
 		}finally{
 			con.close();
 			ps.close();
@@ -50,13 +50,13 @@ public class AvvisoRepository implements Repository<Avviso> {
 	public void delete(Avviso avviso) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String delAvviso = "DELETE FROM " + table + "WHERE id = ?";
+		String delAvviso = "DELETE FROM " + table + " WHERE idAvviso = ?";
 		try{
 			con = Connessione.getConnection();
 			ps = con.prepareStatement(delAvviso);
 			ps.setInt(1, avviso.getId());
-			ps.executeQuery();
-			con.commit();
+			ps.executeUpdate();
+			
 		}finally{
 			ps.close();
 			con.close();
@@ -83,7 +83,7 @@ public class AvvisoRepository implements Repository<Avviso> {
 			con = Connessione.getConnection();
 			ps = con.prepareStatement(query);
 			ResultSet res = ps.executeQuery();
-			id = res.getInt("id");
+			id = res.getInt("idAvviso");
 			tit = res.getString("titolo");
 			msg = res.getString("messaggio");
 			data = res.getDate("data");
@@ -111,7 +111,7 @@ public class AvvisoRepository implements Repository<Avviso> {
 			ps = con.prepareStatement(query);
 			ResultSet res = ps.executeQuery();
 			while(res.next()){
-				id = res.getInt("id");
+				id = res.getInt("idAvviso");
 				tit = res.getString("titolo");
 				msg = res.getString("messaggio");
 				data = res.getDate("data");

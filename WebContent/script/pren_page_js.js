@@ -7,7 +7,7 @@ function loadContent(){
 function loadTableBody(){
 	var x = $("#tb_prenota tbody"); //ottieni riferimento a <tbody>
 	var lab = $("#idLab").text();
-	$.post("../ServletPostazione", {"action": "lista_pos_json", "id_lab":lab }, function(resp, stat, xhr){
+	$.post("../postazioni", {"action": "lista_pos_json", "id_lab":lab }, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
 			var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
@@ -44,9 +44,9 @@ function effettuaPrenotazione(button){	//pulsante "Prenota"
 			var esito = o.esito;
 			if(esito == "ok"){
 				alert("Prenotazione effettuata con successo!!");
-				//trasportare in altra pagina (quella delle prenotazioni effettuate o nel report)
+				window.location.href = "./PrenotazioniEffettuate.jsp";
 			}else{
-				alert("Prenotazione non effettuata!! Premi \"Ok\" per aggiornare la pagina");
+				alert("Hai effettuato gia' 2 prenotazioni!! Riprova dopo la chiusura del laboratorio");
 				location.reload(); //refresh della pagina
 			}
 		}else{
@@ -75,6 +75,12 @@ function verifyPostazioneAvailable(item){
 		}
 	});
 }
+
+//setta le prenotazioni per il giorno successivo dopo la chiusura del laboratorio
+function setPrenotazioniForNextDay(){
+	
+}
+
 
 /* funzioni di utilita' */
 /* calcola il numero di proprieta' presenti in un oggetto */

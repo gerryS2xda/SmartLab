@@ -25,11 +25,10 @@
 			<!-- add navigation bar left jsp -->
 			<div id="sidebar">
 				<ul>
-					<li class="active"><a href="javascript:void(0);">Prenota postazione</a></li>
+					<li class="active"><a href="javascript:void(0);">Dashboard</a></li>
+					<li><a href="laboratoriAttivi.jsp">Prenota postazione</a></li>
 					<li> <a href="PrenotazioniEffettuate.jsp">Mie prenotazioni</a></li>
-					<li> <a href="javascript:void(0);">Segnala problema</a></li>
-					<li> <a href="javascript:void(0);">Link 4</a></li>
-					<li> <a href="index.jsp">Vai alla Homepage </a></li>
+					<li> <a href="creaSegnalazione.jsp">Segnala problema</a></li>
 				</ul>
 			</div>
 		</section>
@@ -66,10 +65,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="right_sidebar">
-			<!--  add bacheca avvisi.jsp -->
-			<h1>Bacheca avvisi</h1>
-		</section>
+		<section id="right_sidebar"></section>
 		<footer>
 			<!-- add footer jsp -->
 		</footer>

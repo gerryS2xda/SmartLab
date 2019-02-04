@@ -1,9 +1,6 @@
 function loadContent(){
-	loadWidget();
 	loadTableBody();
 }
-
-var numPostDisponibili = 0; //global variable use for Ajax
 
 //Funzioni per la gestione della tabella "Prenota"
 function loadTableBody(){
@@ -53,9 +50,9 @@ function getNumPostazioniDisponibili(postOccupate, index, item){
 			window.location.href = "./index.jsp"; //pagina errore 404
 		}
 	});
-	return numPostDisponibili;
 }
 
+/* usata per i blocchi che mostrano i laboratori aperti/chiusi
 function loadWidget(){
 	var x = $(".list_block"); //ottieni riferimento a <ul>
 	$.post("../laboratorio", {"action": "lab_attivi"}, function(resp, stat, xhr){
@@ -81,6 +78,7 @@ function loadWidget(){
 		}
 	});
 }
+*/
 
 function effettuaPrenotazione(button){	//pulsante "Prenota"
 	var row = button.parents("tr"); //dammi la riga <tr> su cui eseguire le azioni  

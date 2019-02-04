@@ -143,10 +143,10 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				
 				//setta il numero di postazione preso dal DB -- servira' per ottenere i dati di postazione in seguito
 				post.setNumero(res.getInt(7));
+				post.setLaboratorio(res.getString(8)); //postazione viene identificata anche tramite l'ID del laboratorio
 				
 				//setta ID laboratorio preso dal DB -- servira' per ottenere i dati del laboratorio in seguito
 				lab.setIDlaboratorio(res.getString(8));
-				post.setLaboratorio(lab);	//postazione viene identificata anche tramite l'ID del laboratorio
 				
 				pr.setPostazione(post);
 				pr.setLaboratorio(lab);
@@ -190,10 +190,10 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				
 				//setta il numero di postazione preso dal DB -- servira' per ottenere i dati di postazione in seguito
 				post.setNumero(res.getInt(7));
+				post.setLaboratorio(res.getString(8)); //postazione viene identificata anche tramite l'ID del laboratorio
 				
 				//setta ID laboratorio preso dal DB -- servira' per ottenere i dati del laboratorio in seguito
 				lab.setIDlaboratorio(res.getString(8));
-				post.setLaboratorio(lab);	//postazione viene identificata anche tramite l'ID del laboratorio
 				
 				pr.setPostazione(post);
 				pr.setLaboratorio(lab);

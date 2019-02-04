@@ -48,7 +48,7 @@ function selectAvviso(){
 	$(document).click(function(event){
 		id = $(event.target).text();
 	});
-	$.post("../ServletAvviso", {"action": "openAvviso", "id": id}, function(resp, stat, xhr){
+	$.post("../ServletAvviso", {"action": "openAvviso", "id": 1}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var avviso = JSON.parse(resp);
 			if(avviso.tipo == "addetto"){
