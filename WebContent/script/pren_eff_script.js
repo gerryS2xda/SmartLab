@@ -1,6 +1,6 @@
 
 function loadContent(){
-	loadTableBody();
+	loadTableBody();	//mostra soltanto quelle di oggi
 }
 
 
@@ -36,7 +36,14 @@ function deletePrenotazione(item){	//usata da checkbox per cancellare le prenota
 			if(esito){
 				$.post("../prenotazione-serv", {"action": "del_pren", "id_pren" : id}, function(resp, stat, xhr){
 					if(xhr.readyState == 4 && stat == "success"){
-						row.remove();	//rimuovi la riga interessata
+						var res = JSON.parse(resp);
+						var b = res.esito;
+						if(b == true){
+							row.remove();	//rimuovi la riga interessata
+						}else{
+							alert("La prenotazione non e' piu' annullabile!!");
+							item.prop('checked', false);
+						}
 					}else{
 						window.location.href = "./error.jsp"; //pagina errore 404
 					} 
@@ -63,6 +70,7 @@ function isPrenotazioneActive(id){
 	});
 	return b;
 }
+
 
 
 /* funzioni di utilita' */
