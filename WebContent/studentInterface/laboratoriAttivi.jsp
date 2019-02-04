@@ -34,6 +34,9 @@
 		</section>
 		<section id="main_content">
 			<h1 class="title_page">Laboratori disponibili</h1>
+			<div class="row_block_info">
+					<ul class="list_block"></ul>
+			</div>
 			<div class="text_content">
 				<p class="info_update_txt">
 					Situazione posti disponibili aggiornata alle <span><%=LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) %>

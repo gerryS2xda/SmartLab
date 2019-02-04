@@ -155,8 +155,9 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			response.setCharacterEncoding("utf-8");
 			
 			String oraInizio = request.getParameter("ora_inizio");
+			String idLab = request.getParameter("idLab");
 			
-			int num = manager.getNumeroPostazioniPrenotate(oraInizio);
+			int num = manager.getNumeroPostazioniPrenotate(oraInizio, idLab);
 			
 			response.getWriter().write(json.toJson("{\"numeroPost\": " + num + " }"));
 		}else if(action.equals("del_pren_after_24")){	//cancella le prenotazioni dopo 24 ore

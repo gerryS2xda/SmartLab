@@ -200,9 +200,9 @@ h1{
 	padding: 0 10px;
 	text-align: center;
 	border: 0 solid #e7e7e7;
-    box-shadow: 0 5px 20px 0 rgba(0,0,0,0.15);
+	box-shadow: 0 5px 20px 0 rgba(0,0,0,0.15);
 	width: 25%;
-	min-height:100px;
+	min-height: 120px;
 	background: #FFFFFF;
 }
 
@@ -211,7 +211,7 @@ h1{
 	position: relative;
 	color: black;
 	font-size: 26px;
-	top: 20px;
+	top: 24px;
 }
 
 
@@ -220,7 +220,8 @@ h1{
 	position: relative;
 	color: black;
 	font-size: 16px;
-	top: 35px;
+	top: 40px;
+	margin-bottom: 10px;
 }
 
 .info_dash_text_red{
@@ -228,7 +229,7 @@ h1{
 	position: relative;
 	color: red;
 	font-size: 16px;
-	top: 30px;
+	top: 40px;
 }
 
 /* Contenuto relativo ai dati personali... Dashboard*/

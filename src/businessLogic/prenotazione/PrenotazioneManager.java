@@ -126,7 +126,7 @@ public class PrenotazioneManager {
 		}
 		
 		//aggiungere il controllo della postazione
-		if(getNumPrenotazioniEffettuateOggi(emailStud) < 3){
+		if(getNumPrenotazioniEffettuateOggi(emailStud) < 2){	//< 2 di perche' il controllo viene fatto dopo
 			pr.setStatus(true); //se i controlli sono rispettati
 			try{
 				repository.add(pr); 
@@ -283,12 +283,12 @@ public class PrenotazioneManager {
 	 * @param oraInizio usata per la ricerca
 	 * @return numero postazioni prenotate
 	 */
-	public int getNumeroPostazioniPrenotate(String oraInizio){
+	public int getNumeroPostazioniPrenotate(String oraInizio, String idLab){
 		
 		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 		
 		try{
-			prenotazioni = repository.query(new PrenotazioneGetSQL(oraInizio));
+			prenotazioni = repository.query(new PrenotazioneGetSQL(oraInizio, "", "", idLab));
 		}catch(SQLException e){
 			System.out.println("Errore: lo studente non ha effettuato prenotazioni");
 		}
@@ -318,10 +318,7 @@ public class PrenotazioneManager {
 		List<Prenotazione> prenotazioni = repository.query(new ListaPrenotazioniQuery());
 		for(int i = 0; i < prenotazioni.size(); i++){
 			Prenotazione pr = prenotazioni.get(i);
-			int datePren = LocalDate.parse(pr.getData()).getDayOfMonth();
-			if(datePren < today){
-				repository.delete(pr);
-			}
+			repository.delete(pr);
 		}
 	}
 	

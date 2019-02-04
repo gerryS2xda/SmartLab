@@ -242,4 +242,58 @@ h1{
 	background-color: #27a9e3; color:#fff;
 }
 
+/* Style per la lista di blocchi nella Dashboard page */
+.row_block_info {
+	width:100%;
+	position:relative;
+	float:left;
+	margin-top: 2%;
+	margin-bottom: 5%;
+}
+
+.list_block{
+	display: block;
+	list-style: none outside none;
+	margin: 15px 0;
+}
+
+.list_block li{
+	position:relative;
+	float: left;
+	line-height: 18px;
+	margin: 0 30px 30px 50px;
+	padding: 0 10px;
+	text-align: center;
+	border: 0 solid #e7e7e7;
+	box-shadow: 0 5px 20px 0 rgba(0,0,0,0.15);
+	width: 25%;
+	min-height: 120px;
+	background: #FFFFFF;
+}
+
+.block_txt{
+	display: block;
+	position: relative;
+	color: black;
+	font-size: 26px;
+	top: 24px;
+}
+
+
+.info_dash_text{
+	display: block;
+	position: relative;
+	color: black;
+	font-size: 16px;
+	top: 40px;
+	margin-bottom: 10px;
+}
+
+.info_dash_text_red{
+	display: block;
+	position: relative;
+	color: red;
+	font-size: 16px;
+	top: 40px;
+}
 
