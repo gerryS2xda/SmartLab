@@ -3,7 +3,11 @@ package prenotazionetest;
 import businessLogic.prenotazione.PrenotazioneById;
 import businessLogic.prenotazione.PrenotazioneByStudent;
 import businessLogic.prenotazione.PrenotazioneRepository;
+import dataAccess.storage.bean.Laboratorio;
+import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
+import dataAccess.storage.bean.Studente;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -24,18 +28,25 @@ public class PrenotazioneRepositoryTest {
 		//ottieni istanza di un oggetto repository
 		repository = PrenotazioneRepository.getInstance();
 		
+		//oggetti usati al posto dei tipi primitivi
+		Studente s = new Studente();
+		s.setEmail("teststud@studenti.unisa.it");
+		Postazione post = new Postazione(100, "0", true);
+		Laboratorio lab = new Laboratorio();
+		lab.setIDlaboratorio("0");
+		
 		oracle = new Prenotazione();
 		oracle.setData(LocalDate.now().toString());
 		oracle.setOraInizio(LocalTime.parse("09:00"));
 		oracle.setOraFine(LocalTime.parse("11:00"));
 		oracle.setStatus(true);
-		oracle.setStudente("teststud@studenti.unisa.it");
-		oracle.setPostazione(100);
-		oracle.setLaboratorio(1);	
+		oracle.setStudente(s);
+		oracle.setPostazione(post);
+		oracle.setLaboratorio(lab);	
 		repository.add(oracle);
 		
 		//ottieni l'ID dopo inserimento poiche' si usa auto_increment (serve per delete)
-		Prenotazione temp = repository.findItemByQuery(new PrenotazioneByStudent(oracle.getStudente()));
+		Prenotazione temp = repository.findItemByQuery(new PrenotazioneByStudent(oracle.getStudente().getEmail()));
 		oracle.setID(temp.getId());
 	}
 	
@@ -71,7 +82,7 @@ public class PrenotazioneRepositoryTest {
 		repository.delete(oracle); 
 		
 		//verifica se e' stato cancellato
-		Prenotazione actualObj = repository.findItemByQuery(new PrenotazioneByStudent(oracle.getStudente()));
+		Prenotazione actualObj = repository.findItemByQuery(new PrenotazioneByStudent(oracle.getStudente().getEmail()));
 		assertEquals("Oggetto prenotazione non e' stato rimosso", null, actualObj); //in questo caso, null rappresenta l'oracolo del test
 		
 	}
@@ -80,6 +91,8 @@ public class PrenotazioneRepositoryTest {
 	public void testUpdate()throws Exception  {
 		
 		System.out.println("Testing: Update");
+		Studente s = new Studente();
+		s.setEmail("teststud2@studenti.unisa.it");
 		
 		//crea oggetto simile ad oracle e verifica che i due riferimeni puntano alla stessa istanza
 		Prenotazione actualObj = oracle;
@@ -88,7 +101,7 @@ public class PrenotazioneRepositoryTest {
 		//modifica qualche attributo di actualObj
 		actualObj.setOraInizio(LocalTime.parse("11:00"));
 		actualObj.setOraFine(LocalTime.parse("13:00"));
-		actualObj.setStudente("teststud2@studenti.unisa.it");
+		actualObj.setStudente(s);
 		
 		//invocazione di update()
 		repository.update(actualObj);
@@ -117,7 +130,7 @@ public class PrenotazioneRepositoryTest {
 		System.out.println("Testing: Query per ottenere prenotazione fatta da uno studente");
 		
 		//ottieni lista dei risultati
-		List<Prenotazione> actualObjs = repository.query(new PrenotazioneByStudent(oracle.getStudente()));
+		List<Prenotazione> actualObjs = repository.query(new PrenotazioneByStudent(oracle.getStudente().getEmail()));
 		
 		//per comodita' si testa solo il primo risultato ottenuto (poiche' con ID = 0 e' sicuramente il primo)
 		assertEquals("query non ha prodotto il risultato atteso", oracle, actualObjs.get(0));

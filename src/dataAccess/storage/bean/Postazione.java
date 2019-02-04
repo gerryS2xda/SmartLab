@@ -54,8 +54,7 @@ public class Postazione {
 		boolean val = false;
 		if(otherObject instanceof Postazione){
 			Postazione post = (Postazione) otherObject;
-			if(getNumero() == post.getNumero() && getLaboratorio().equals(post.getLaboratorio()) &&
-					isStato() == post.isStato()){
+			if(getNumero() == post.getNumero() && getLaboratorio().equals(post.getLaboratorio())){
 				val = true;
 			}
 		}
