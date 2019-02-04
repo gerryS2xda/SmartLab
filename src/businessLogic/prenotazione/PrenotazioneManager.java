@@ -99,43 +99,39 @@ public class PrenotazioneManager {
 		
 		Prenotazione pr = new Prenotazione();
 		
-		pr.setData(LocalDate.now().toString());
 		pr.setOraInizio(LocalTime.parse(oraInizio));
 		pr.setOraFine(LocalTime.parse(oraFine));
 		
-		//ottiene dati di postazione da repository
 		Postazione postazione = new Postazione();
-		try{
-			postazione = postazioneRep.findItemByQuery(new PostazioneSql(post, idLab));
-			pr.setPostazione(postazione);
-		}catch(SQLException e){
-			System.out.println("Errore: problema nel prendere i dati di postazioni dal DB!!");
-		}
+		postazione.setNumero(post);
+		pr.setPostazione(postazione);
 		
 		//ottieni dati del laboratorio da repository
-		try{
-			Laboratorio lab = laboratorioRep.findItemByQuery(new LaboratorioSql(idLab));
-			pr.setLaboratorio(lab);
-		}catch(SQLException e){
-			System.out.println("Errore: problema nel prendere i dati di postazioni dal DB!!");
+		Laboratorio lab = new Laboratorio();
+		lab = laboratorioRep.findItemByQuery(new LaboratorioSql(idLab));
+		pr.setLaboratorio(lab);
+		
+		
+		if(lab.getChiusura() == null){ throw new SQLException("Errore: problema nel recuperare i dati del laboratorio dal DB!!"); }
+		//ottieni orario di chisura e se orario corrente > orario di chiusura --> setta le prenotazioni per il giorno seguente
+		int oraCorrente = LocalTime.now().getHour();
+		int oraChiusura = lab.getChiusura().getHour();
+		if(oraCorrente > oraChiusura){
+			pr.setData(LocalDate.now().plusDays(1).toString());	//prendi le prenotazioni per il giorno successivo	
+		}else{
+			pr.setData(LocalDate.now().toString());
 		}
 		
-		//ottieni i dati di studente da repository
-		try{
-			Studente stud = studenteRep.findItemByQuery(new StudenteSQL(emailStud));
-			pr.setStudente(stud);
-		}catch(SQLException e){
-			System.out.println("Errore: problema nel prendere i dati dello studente dal DB!!");
-		}
+		
+		
+		Studente stud = new Studente();
+		stud.setEmail(emailStud);
+		pr.setStudente(stud);
 		
 		//aggiungere il controllo della postazione
-		if(getNumPrenotazioniEffettuateOggi(emailStud) < 2){	//< 2 di perche' il controllo viene fatto dopo
+		if(getNumPrenotazioniEffettuateOggi(emailStud) < 2){	//< 2 perche': se prenEff= 0; -> add; se prenEff = 1 --> add; se prenEff = 2 --> Stop
 			pr.setStatus(true); //se i controlli sono rispettati
-			try{
-				repository.add(pr); 
-			}catch(SQLException e){
-				System.out.println("Errore: problema nell'aggiungere la prenotazione al DB!!");
-			}
+			repository.add(pr); 
 		}else{
 			throw new PrenotazioneException("Lo studente ha gia' effettuato 2 prenotazioni!! Riprova domani");
 		}	
