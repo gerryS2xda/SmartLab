@@ -29,9 +29,9 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			ps.setString(2, segnalazione.getOggetto());
 			ps.setString(3, segnalazione.getDescrizione());
 			ps.setDate(4, segnalazione.getData());
-			ps.setString(5, segnalazione.getStudente());
+			ps.setInt(5, segnalazione.getPostazione());
 			ps.setInt(6, segnalazione.getLaboratorio());
-			ps.setInt(7, segnalazione.getPostazione());
+			ps.setString(7, segnalazione.getStudente());
 			ps.executeUpdate();
 		}finally{
 			con.close();
