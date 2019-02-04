@@ -17,41 +17,47 @@
 <div class="container">
 	<h5 class="text-center">Laboratori</h5>
 	<%Collection<?> laboratori = (Collection<?>) request.getAttribute("laboratori");
-	Iterator<?> it = laboratori.iterator();
-    while (it.hasNext()) {
-    	Laboratorio lab=(Laboratorio) it.next();%>
-
-	    <div class="card">
-		  <div class="card-header">
-		  	<span>Laboratorio <%=lab.getNome() %></span>
-		  	<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
-		  	<button id="mycard" type="button" class="btn btn-primary float-right">visualizza responsabili</button>
-		  </div>
-		  <div class="row card-body">
-			  <div class="col-md-4 text-center">
-			    <label class="card-text">Stato: <%=lab.isStato() %></label>
+	if(laboratori!=null){
+		Iterator<?> it = laboratori.iterator();
+	    while (it.hasNext()) {
+	    	Laboratorio lab=(Laboratorio) it.next();%>
+	
+		    <div class="card">
+			  <div class="card-header">
+			  	<span>Laboratorio <%=lab.getNome() %></span>
+			  	<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
+			  	<button id="mycard" type="button" class="btn btn-primary float-right">visualizza responsabili</button>
 			  </div>
-			  <div class="col-md-4 text-center">
-			    <label class="card-text">Apertura: <%=lab.getApertura().toString() %></label>
+			  <div class="row card-body">
+				  <div class="col-md-4 text-center">
+				    <label class="card-text">Stato: <%=lab.isStato() %></label>
+				  </div>
+				  <div class="col-md-4 text-center">
+				    <label class="card-text">Apertura: <%=lab.getApertura().toString() %></label>
+				  </div>
+				  <div class="col-md-4 text-center">
+				    <label class="card-text">Chiusura: <%=lab.getChiusura().toString() %></label>
+				  </div>
 			  </div>
-			  <div class="col-md-4 text-center">
-			    <label class="card-text">Chiusura: <%=lab.getChiusura().toString() %></label>
-			  </div>
-		  </div>
-		  <div class="row card-body">
-     			<div class="col text-center">
-			  		<button id="elimina" type="button" class="btn btn-danger" data-toggle="modal" data-target="#confermaModal">
-			  			elimina
-			  			<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
-			  		</button>
-			  		<button id="aggiungiResponsabile" type="button" class="btn btn-success" data-toggle="modal" data-target="#respDaAssegnare">
-			  			<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
-			  			aggiungi responsabile
-			  		</button>
+			  <div class="row card-body">
+	     			<div class="col text-center">
+				  		<button id="elimina" type="button" class="btn btn-danger" data-toggle="modal" data-target="#confermaModal">
+				  			elimina
+				  			<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
+				  		</button>
+				  		<button id="aggiungiResponsabile" type="button" class="btn btn-success" data-toggle="modal" data-target="#respDaAssegnare">
+				  			<input type="hidden" id="id" value="<%= lab.getIDlaboratorio() %>">
+				  			aggiungi responsabile
+				  		</button>
+			  		</div>
 		  		</div>
-	  		</div>
-		</div>
-    	
+			</div>
+	    	
+    	<%
+	    }
+    }else{
+    	%>
+    	<h3 class="text-center">Non ci sono laboratori nel sistema</h3>
     	<%
     }
 	%>
