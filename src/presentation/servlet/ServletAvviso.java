@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.*;
 
 import businessLogic.comunicazione.CommunicationManager;
+import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Studente;
 
@@ -40,11 +41,12 @@ public class ServletAvviso extends HttpServlet {
 						id = lista.get(count).getId();
 					count++;
 				}
+				Addetto ad = (Addetto) session.getAttribute("user");
 				String titolo = request.getParameter("titolo");
 				String messaggio = request.getParameter("messaggio");
 				java.util.Date d = new java.util.Date();
 				Date data = new Date(d.getTime());
-				String addetto = request.getParameter("addetto");
+				String addetto = ad.getEmail();
 				Avviso a = new Avviso(id, titolo, messaggio, data, addetto);
 				response.setContentType("application/json");
 				if(cm.addAvviso(a))

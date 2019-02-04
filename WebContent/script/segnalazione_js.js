@@ -21,12 +21,21 @@ function inviaSegnalazione(){
 		flag++;
 	}
 	if(flag != 0)
-		document.getelementById("#errore").style.display = "block";
+		alert("I dati inseriti non sono completi");
+		//document.getelementById("#errore").style.display = "block";
 	else{
-		document.getelementById("#errore").style.display = "none";
+		document.getElementById("#errore").style.display = "none";
+		document.getElementById("#insDes").style.color = "black";
+		document.getElementById("#insOgg").style.color = "black";
+		document.getElementById("#sceltaPos").style.color = "black";
+		document.getElementById("#sceltaLab").style.color = "black";
 		$.post("../ServletSegnalazione", {"action": "newSegnalazione", "laboratorio": laboratorio, "postazione": postazione, "oggetto": oggetto, "descrizione": descrizione}, function(resp, stat, xhr){
 			if(xhr.readyState == 4 && stat == "success"){
-				alert("Segnalazione inviata con successo");
+				var risultato = JSON.parse(resp);
+				if(risultato.esito == "successo")
+					alert("Segnalazione inviata con successo");
+				else
+					alert("Segnalazione non inviata");
 			}else
 				window.location.href("./index.jsp");
 		});
@@ -81,7 +90,7 @@ function deleteSegnalazione(){
 	var data = $("#data").text();
 	var laboratorio = $("#lab").text();
 	var postazione = $("pos").text();
-	$.post("../ServletSegnalazione", {"action": "deleteSegnalazione", "id": id, "oggetto": oggetto, "descrizione": descrizione, "data": data, "lab": laboratorio, "pos": postazione}, function(resp, stat, xhr){
+	$.post("../ServletSegnalazione", {"action": "deleteSegnalazione", "id": id, "oggetto": oggetto, "descrizione": descrizione, "lab": laboratorio, "pos": postazione}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var res = JSON.parse(resp);
 			if(res.esito == "successo")
