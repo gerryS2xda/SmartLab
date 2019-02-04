@@ -20,13 +20,11 @@ public class ListaLabAss implements SqlSpecification {
     	this.responsabile=responsabile;
     }
 	
-	private static final String TABLE_NAME = "assegnamento A join laboratorio L on A.laboratorio = L.IDlaboratorio";//nome della tabella su cui saranno effettuate le operazioni
 	
 	@Override
 	public String toSqlQuery() {
 		return String.format(
-                "SELECT * FROM %1$s WHERE responsabile = %2$s ;",
-                TABLE_NAME,
+                "SELECT * FROM assegnamento ass join laboratorio lab on ass.laboratorio = lab.IDlaboratorio WHERE responsabile = '%1$s' ;",
                 this.responsabile
         );
 	}

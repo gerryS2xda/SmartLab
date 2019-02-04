@@ -1,8 +1,8 @@
 package businessLogic.assegnamento;
 
 import dataAccess.storage.SqlSpecification;
-
-//da usare come argomento per il repository riguardante il responsabile ritorna una lista di responsabili assegnati a un laboratorio
+//ritorna una lista di responsabili assegnati a un laboratorio
+//da usare come argomento per il repository riguardante il responsabile 
 
 public class ListaRespAss implements SqlSpecification {
 	
