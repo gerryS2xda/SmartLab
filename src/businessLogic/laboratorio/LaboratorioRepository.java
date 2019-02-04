@@ -153,7 +153,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
             connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
-
+            System.out.println(preparedStatement);
 			while (rs.next()) {
 				Laboratorio lab=new Laboratorio();
 

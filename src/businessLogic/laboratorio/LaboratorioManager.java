@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import businessLogic.Postazione.PostazioneRepository;
+import businessLogic.assegnamento.ListaLabAss;
 import businessLogic.assegnamento.ListaRespAss;
 import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
@@ -104,7 +105,7 @@ public class LaboratorioManager {
 	    public List<Laboratorio> getLaboratoryListForResp(String email){
 	    	LaboratorioRepository repository=new LaboratorioRepository();
 	    	try {
-				return repository.query(new ListaRespAss(email));
+				return repository.query(new ListaLabAss(email));
 			} catch (SQLException e) {
 				System.err.println("non è possibile ritornare la lista dei laboratori");
 				e.printStackTrace();
