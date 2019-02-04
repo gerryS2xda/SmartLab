@@ -27,7 +27,7 @@
                     <div class="card-body">
                         <h5 class="card-title">postazione n: <%= pos.getNumero() %> </h5>
                         <input type="hidden" id="id" value="<%= pos.getNumero() %>">
-                        <input type="hidden" id="idlab" value=" <%=pos.getLaboratorio() %> ">
+                        <input type="hidden" id="idlab" value="<%=pos.getLaboratorio() %>">
                         <% if(pos.isStato()==true){ %> 	
                         	<button style="display:block" class="btn btn-danger" id="disattiva">disattiva</button>
                         	<button style="display:none" class="btn btn-success" id="attiva">attiva</button>
@@ -82,12 +82,15 @@
     		$.getJSON("postazioni", { 
     			action: "attiva_pos",
     			id: id,
-    			idlab: idlab},function(data,status){
-    				button.css("display","none");
-    	    		div.find("button#disattiva").css("display","block");
+    			idlab: idlab
+    			},function(data,status){
+    				if(data.esito="stato modificato"){
+    					button.css("display","none");
+        	    		div.find("button#disattiva").css("display","block");
+    				}
+    	    		console.log(data.esito);
     			});
     		
-    		console.log("disattiva");
     		
     		});
     		$("button#disattiva").on("click",function(){
@@ -95,17 +98,23 @@
     			var button=$(this);
         		var div=$(this).parent();
         		var id=div.find("input#id").val();
+        		var idlab=div.find("input#idlab").val();
         		
-        		button.css("display","none");
-        		div.find("button#attiva").css("display","block");
+        		console.log(id);
+        		console.log(idlab);
         		
         		$.getJSON("postazioni", { 
         			action: "disattiva_pos",
-        			
-        		}
-        		,);
+        			id: id,
+        			idlab: idlab
+        		},function(data,status){
+        			if(data.esito="stato modificato"){
+        				button.css("display","none");
+                		div.find("button#attiva").css("display","block");
+        			}
+            		console.log(data.esito);
+        		});
         		
-        		console.log("attiva");
     		});
     	});
     

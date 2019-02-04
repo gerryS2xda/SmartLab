@@ -105,14 +105,14 @@ public class PostazioneRepository implements Repository<Postazione>{
 		PreparedStatement preparedStatement = null;
 		
 
-		String deleteSQL = "UPDATE FROM " + TABLE_NAME + " WHERE numero = ? && laboratorio=? ;";
+		String deleteSQL = "UPDATE " + TABLE_NAME + " SET stato = ? WHERE numero = ? && laboratorio = ? ;";
 
 		try {
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setInt(1, item.getNumero());
-			preparedStatement.setString(2, item.getLaboratorio());
-			preparedStatement.setBoolean(3, item.isStato());
+			preparedStatement.setBoolean(1, item.isStato());
+			preparedStatement.setInt(2, item.getNumero());
+			preparedStatement.setString(3, item.getLaboratorio());
 
 			preparedStatement.executeUpdate();
 		
@@ -183,7 +183,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 			while (rs.next()) {
 				Postazione pos=new Postazione();
                 pos.setNumero(rs.getInt("numero"));
-                pos.setLaboratorio(rs.getString("labortatorio"));
+                pos.setLaboratorio(rs.getString("laboratorio"));
 				pos.setStato(rs.getBoolean("stato"));
               
 				postazioni.add(pos);

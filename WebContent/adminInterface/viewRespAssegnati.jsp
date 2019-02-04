@@ -10,6 +10,8 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+<!-- navbar -->
+<%@include file="navbar.jsp" %>
 <div class="container">
 <h5  class="text-center"><%=request.getAttribute("nome") %></h5><!-- nome laboratorio -->
 <%Collection<?> responsabili = (Collection<?>) request.getAttribute("responsabili");
@@ -53,7 +55,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="confermaModalLabel">Vuoi eliminare il laboratorio?</h5>
+        <h5 class="modal-title" id="confermaModalLabel">Vuoi rimuovere il responsabile dal laboratorio?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

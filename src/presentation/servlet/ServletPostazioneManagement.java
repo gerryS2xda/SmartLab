@@ -45,8 +45,6 @@ public class ServletPostazioneManagement extends HttpServlet {
 		Gson json = new Gson();
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String action=request.getParameter("action");
-		//prova
-		action="lista_pos";
 		
 		PostazioneManager pm=new PostazioneManager();
 		
@@ -116,14 +114,12 @@ public class ServletPostazioneManagement extends HttpServlet {
 			String idpos=request.getParameter("id");
 			
 			//setta lo stato di postazione a false
-				flag=pm.disattivaPostazione(idpos, idlab);
+			flag=pm.disattivaPostazione(idpos, idlab);
 			
 //			request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 			
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
 			
 			if(flag)
 			{
@@ -138,14 +134,14 @@ public class ServletPostazioneManagement extends HttpServlet {
 				
 		else if(action.equals("lista_pos"))
 		{
-			
+			System.out.println("lista");
 			String idlab =(String) request.getParameter("idlaboratorio");
 			
 			List<Postazione> lp=pm.listaPostazioni(idlab);
 			
 			//mandare alla jsp
 			request.setAttribute("lista", lp);
-			request.getRequestDispatcher("/respInterface/lista_postazioni.jsp").forward(request,response);
+			getServletContext().getRequestDispatcher("/respInterface/lista_postazioni.jsp").forward(request,response);
 
 		}else if(action.equals("lista_pos_json")){	//usato per la PrenotazionePage
 			

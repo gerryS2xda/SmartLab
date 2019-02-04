@@ -90,8 +90,10 @@ public class PostazioneManager {
 	{
 		boolean flag=true;
 		int id1=Integer.parseInt(id); //converto la stringa in intero 
-		PostazioneSql sql=new PostazioneSql(id1, idlab); //setto l'oggetto con gli di che mi servono
 		Postazione pos=new Postazione(); 
+		
+		System.out.println(id1);
+		System.out.println(idlab);
 		
 		pos.setNumero(id1);
 		pos.setLaboratorio(idlab);
@@ -150,7 +152,7 @@ public class PostazioneManager {
 				}
 		} else
 		{
-			System.err.println("la Stringa inserita e' vuota");
+			System.out.println("la Stringa inserita e' vuota lista vuota");
 		}
 //		pos.setNumero(1);   //codice per test statico
 //		pos.setStato(false);

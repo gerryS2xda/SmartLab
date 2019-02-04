@@ -11,6 +11,9 @@
 </head>
 <body>
 
+<!-- navbar -->
+<%@include file="navbar.jsp" %>
+
 <div class="container">
 	<h5 class="text-center">Laboratori</h5>
 	<%Collection<?> laboratori = (Collection<?>) request.getAttribute("laboratori");

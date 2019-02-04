@@ -163,7 +163,8 @@ public class AddettoRepository {
             connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
-
+            
+            System.out.println(preparedStatement);
 			while (rs.next()) {
 				Addetto a = new Addetto();
 				

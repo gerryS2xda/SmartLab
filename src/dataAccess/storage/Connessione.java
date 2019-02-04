@@ -26,7 +26,7 @@ public class Connessione  {
 		String db = "smartlab";
 		
 		String username = "root";
-		String password = "emmalle";
+		String password = "asd456JKL";
 
 		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);
 
