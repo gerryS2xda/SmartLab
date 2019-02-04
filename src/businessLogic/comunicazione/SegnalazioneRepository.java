@@ -33,7 +33,6 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			ps.setString(6, segnalazione.getLaboratorio());
 			ps.setInt(7, segnalazione.getPostazione());
 			ps.executeUpdate();
-			
 		}finally{
 			con.close();
 			ps.close();
