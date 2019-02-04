@@ -38,7 +38,7 @@ public class ServletSegnalazione extends HttpServlet {
 			}
 			String oggetto = request.getParameter("oggetto");
 			String descrizione = request.getParameter("descrizione");
-			String lab = request.getParameter("lab");
+			int lab = Integer.parseInt(request.getParameter("lab"));
 			int pos = Integer.parseInt(request.getParameter("pos"));
 			String studente = request.getParameter("studente");
 			java.util.Date d = new java.util.Date();
@@ -49,7 +49,7 @@ public class ServletSegnalazione extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id"));
 			String oggetto = request.getParameter("oggetto");
 			String descrizione = request.getParameter("descrizione");
-			String lab = request.getParameter("lab");
+			int lab = Integer.parseInt(request.getParameter("lab"));
 			int pos = Integer.parseInt(request.getParameter("pos"));
 			String studente = request.getParameter("studente");
 			java.util.Date d = new java.util.Date();

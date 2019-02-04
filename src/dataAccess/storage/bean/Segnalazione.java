@@ -9,13 +9,12 @@ public class Segnalazione implements Serializable {
 	private String oggetto, descrizione;
 	private Date data;
 	private String studente;
-	private String lab;
-	private int postazione;
+	private int postazione, lab;
 	
 	public Segnalazione(){
 	}
 	
-	public Segnalazione(int i, String og, String des, Date d, String s, String l, int pos){
+	public Segnalazione(int i, String og, String des, Date d, String s, int l, int pos){
 		id = i;
 		oggetto = og;
 		descrizione = des;
@@ -65,11 +64,11 @@ public class Segnalazione implements Serializable {
 		studente = nStud;
 	}
 	
-	public String getLaboratorio(){
+	public int getLaboratorio(){
 		return lab;
 	}
 	
-	public void setLaboratorio(String nLab){
+	public void setLaboratorio(int nLab){
 		lab = nLab;
 	}
 	
