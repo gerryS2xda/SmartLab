@@ -8,9 +8,7 @@ import dataAccess.storage.bean.Sospensione;
 import dataAccess.storage.bean.Studente;
 import dataAccess.storage.bean.Utente;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 
-@WebServlet("/ServletUtente")
 public class ServletUtenteManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;    
 
@@ -76,9 +73,6 @@ public class ServletUtenteManagement extends HttpServlet {
 					/** COSA FACCIAMO IN CASO DI ERRORE? **/
 					e.printStackTrace();
 				}
-				
-				/**????????????????????????????????**/
-				session.removeAttribute("userstate");
 				
 				/**Dopo aver salvato i dati del nuovo studente, viene rimosso l'attributo 'UTProtect'
 				 * UTProtect: attributo per la sicurezza nei confronti della registrazione di un nuovo admin **/
@@ -155,7 +149,6 @@ public class ServletUtenteManagement extends HttpServlet {
 				session.removeAttribute("user");
 				session.removeAttribute("userType");
 				
-				/**???????????????????????????????????????????????????????**/
 				String userState = (String) session.getAttribute("userstate");
 				if(userState != null){
 					session.removeAttribute("userstate");

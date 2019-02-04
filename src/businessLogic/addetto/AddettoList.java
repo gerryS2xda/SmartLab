@@ -13,7 +13,7 @@ public class AddettoList implements SqlSpecification {
 		        return instance;
 		    }
 
-		    public static final String TABLE_NAME = "addetto";
+		    public static final String TABLE_NAME = "addetto a join utente u on a.email = u.email";
 		    
 		    @Override
 		    public String toSqlQuery() {
