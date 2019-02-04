@@ -143,10 +143,10 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				
 				//setta il numero di postazione preso dal DB -- servira' per ottenere i dati di postazione in seguito
 				post.setNumero(res.getInt(7));
+				post.setLaboratorio(res.getString(8)); //postazione viene identificata anche tramite l'ID del laboratorio
 				
 				//setta ID laboratorio preso dal DB -- servira' per ottenere i dati del laboratorio in seguito
 				lab.setIDlaboratorio(res.getString(8));
-				post.setLaboratorio(lab);	//postazione viene identificata anche tramite l'ID del laboratorio
 				
 				pr.setPostazione(post);
 				pr.setLaboratorio(lab);
@@ -167,9 +167,6 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 		SqlSpecification sqlSpec = (SqlSpecification) spec;
 		Statement stmt = null;
-		Postazione post = new Postazione();
-		Laboratorio lab = new Laboratorio();
-		Studente stud = new Studente();
 		
 		try{
 			conn = Connessione.getConnection();
@@ -178,6 +175,10 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				
 			while(res.next()){
 				Prenotazione pr = new Prenotazione();
+				//aggiunti qui per risolvere bug legato al numero delle postazioni 
+				Postazione post = new Postazione();
+				Laboratorio lab = new Laboratorio();
+				Studente stud = new Studente();
 				pr.setID(res.getInt(1));
 				pr.setData(res.getDate(2).toLocalDate().toString());
 				pr.setOraInizio(res.getTime(3).toLocalTime());
@@ -190,10 +191,10 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				
 				//setta il numero di postazione preso dal DB -- servira' per ottenere i dati di postazione in seguito
 				post.setNumero(res.getInt(7));
+				post.setLaboratorio(res.getString(8)); //postazione viene identificata anche tramite l'ID del laboratorio
 				
 				//setta ID laboratorio preso dal DB -- servira' per ottenere i dati del laboratorio in seguito
 				lab.setIDlaboratorio(res.getString(8));
-				post.setLaboratorio(lab);	//postazione viene identificata anche tramite l'ID del laboratorio
 				
 				pr.setPostazione(post);
 				pr.setLaboratorio(lab);

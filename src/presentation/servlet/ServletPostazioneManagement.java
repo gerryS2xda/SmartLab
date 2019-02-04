@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import businessLogic.Postazione.PostazioneManager;
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.Postazione.PostazioneSql;
@@ -23,7 +25,7 @@ import dataAccess.storage.bean.Prenotazione;
 /**
  * Servlet implementation class ServletPostazione
  */
-@WebServlet("/ServletPostazione")
+//@WebServlet("/ServletPostazione")
 public class ServletPostazioneManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -40,10 +42,10 @@ public class ServletPostazioneManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		Gson json = new Gson();
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String action=request.getParameter("action");
-		
+
 		PostazioneManager pm=new PostazioneManager();
 		
 		//PostazioneSql psql=new PostazioneSql();
@@ -55,62 +57,120 @@ public class ServletPostazioneManagement extends HttpServlet {
 		if(action == null)
 		{
 			response.setStatus(404);
-			response.sendRedirect("./WebContent/index.jsp");
+			response.sendRedirect("./Index.jsp");
 		}
 		else if(action.equals("libera_pos"))   //libera la postazione
 		{ 
-			
+		String s="";
+		boolean flag=true;
 		List<Prenotazione> lista=new ArrayList();
-		pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("lab"));
+		lista=pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("lab"));
 			
-		try 
-		{
+		
 			pm.liberaPostazione(pre);
-		}
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		
 		//mandare alla jsp
-		
+			
+			for(int i = 0; i < lista.size()-1; i++){
+				Prenotazione p = lista.get(i);
+				s += " { "+ p.toString() + " }";
+			}
+			
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(s);
 		
 		}
 		
-		else if(action.equals("attiva_pos"))
+		else if(action.equals("attiva_pos"))   //attiva postazione
 		{
-			pos.setStato(true);
-			pm.attivaPostazione(pos);                   //setta lo stato di postazione a true
-			
+			String s;
+			boolean flag;
+			//setta lo stato di postazione a true
+			String idlab=request.getParameter("idlab");
+			String idpos=request.getParameter("id");
+		
+				flag=pm.attivaPostazione(idpos, idlab);
+		
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
+			
+			if(flag)
+			{
+				s="{\"esito\":\"stato modificato\" }";
+			}else 
+			{
+				s="{\"esito\":\"stato non modificato\" }";
+			}
+			
+			response.getWriter().write(s);
 		}
 		
-		else if(action.equals("disattiva_pos"))
+		else if(action.equals("disattiva_pos"))   //disattiva postazione
 		{
-						
-			pos.setStato(false);
-			pm.attivaPostazione(pos);                    //setta lo stato di postazione a false
 			
+			boolean flag;
+			String s;
+			String idlab=request.getParameter("idlab");
+			String idpos=request.getParameter("id");
+			
+			//setta lo stato di postazione a false
+			flag=pm.disattivaPostazione(idpos, idlab);
+			
+
+//			request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
+			
+
+			//request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+
+			
+			if(flag)
+			{
+				s="{\"esito\":\"stato modificato\" }";
+			}else 
+			{
+				s="{\"esito\":\"stato non modificato\" }";
+			}
+			
+			response.getWriter().write(s);
 		}
 				
 		else if(action.equals("lista_pos"))
 		{
+
+			String idlab =(String) request.getParameter("idlaboratorio");
 			
-			String id =request.getParameter("laboratorio");
-			pm.listaPostazioni(id);
+			List<Postazione> lp=pm.listaPostazioni(idlab);
 			
 			//mandare alla jsp
-					
-			response.sendRedirect("/SmartLab/lista_postazioni");
+			request.setAttribute("lista", lp);
+			getServletContext().getRequestDispatcher("/respInterface/lista_postazioni.jsp").forward(request,response);
 
+		}else if(action.equals("lista_pos_json")){	//usato per la PrenotazionePage
+			
+			//costruisci risposta JSON
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			
+			String idlab = request.getParameter("id_lab");
+			List<Postazione> postazioni = pm.listaPostazioni(idlab);
+			
+			String str = "{";
+			for(int i = 0; i < postazioni.size()-1; i++){
+				Postazione p = postazioni.get(i);
+				str +=  "\"post" + i + "\": {\"numero\":" + p.getNumero() + ", \"labID\": " + p.getLaboratorio() + ", " + 
+				"\"stato\": " + p.isStato() + " },";
+			}
+			str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+			response.getWriter().write(json.toJson(str));
 		}
 		
 	}
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 
 }

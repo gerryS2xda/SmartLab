@@ -1,0 +1,153 @@
+
+
+/* Style uguale a quello di prenotazione_style.css  (preso solo in parte) */
+html, body{height: 100%; }
+body{
+	margin: 0;
+	overflow-x: hidden;
+	font-family: sans-serif; 
+	font-size:12px; 
+	background: none repeat scroll 0 0 #eeeeee;	
+}
+
+.title_page{
+    font-size: 28px;
+    text-align: center;
+}
+
+.hidden_item{
+	display: none;
+}
+
+/* Header bar */
+#header_part {
+	height: 40px;
+	position: fixed;
+	width: 100%;
+	background-color: #1f262d;
+	z-index: 3;
+	top: 0;
+}
+
+#txt_logo{
+	position: relative;
+	color: #FFFFFF;
+	font-size: 20px;
+	top: 8px;
+	bottom: 9px;
+	left: 20px;
+}
+
+#welcome_txt{
+	position: relative;
+	font-size: 16px;
+	color: #FFFFFF;
+	top: 8px;
+	bottom:9px;
+	left: 40%;
+}
+
+#logout{
+	position: relative;
+	left: 72%;
+	top: 5px;
+	color: white;
+	text-decoration: none;
+}
+
+#logout:hover{
+	padding: 12px;
+	background-color: #27a9e3;
+}
+
+#logout:focus{
+	padding: 12px;
+	background-color: #27a9e3;
+	color: black;
+}
+
+#logout img{
+	position: relative;
+	width: 16px;
+	height: 16px;
+	top: 4px;
+	padding-right: 4px;
+}
+
+/* Barra laterale sinistra*/
+#left_sidebar{
+    display: block;
+	float: left;
+	position:fixed;
+	top: 40px;
+	width: 220px;
+	bottom: 0px;
+	height: 100%;
+	background: #2E363F;
+}
+
+/* Barra laterale destra*/
+#right_sidebar{
+    display: none;
+}
+
+
+/* Contenuto principale */
+#main_content{
+	background: none repeat scroll 0 0 #eeeeee;
+	margin-top: 60px;
+	margin-left: 20%;
+	margin-right: 10%;
+	position: relative;
+	width: auto;
+}
+
+/* Sidebar Navigation (left side) */
+#sidebar {
+	top: 38px;
+	display: block;
+	float: left;
+	position: fixed;
+	width: 220px;
+	bottom: 0px;
+	background: #2E363F;
+}
+
+#sidebar > ul {
+	list-style: none;
+	margin: 0px 0 0;
+	padding: 0;
+	position: absolute;
+	width: 220px;
+	border-bottom: 1px solid #37414b;
+}
+
+#sidebar > ul > li {
+	display: block;
+	position: relative;
+    border-top: 1px solid #37414b;
+    border-bottom: 1px solid #1f262d;
+	line-height: 20px;
+}
+
+#sidebar > ul > li > a {
+	text-decoration: none;
+    padding: 10px 0 10px 15px;
+    display: block;
+    color: #939da8;
+}
+
+#sidebar > ul > li.active {
+    background-color: #27a9e3; border-bottom: 1px solid #27a9e3;  border-top: 1px solid #27a9e3;
+}
+
+#sidebar > ul > li.active a{ color:#fff; text-decoration:none;}
+
+#sidebar > ul > li.active > a {
+	background: url("../images/menu-active.png") no-repeat scroll right center transparent !important;
+	text-decoration:none;
+}
+
+#sidebar > ul > li > a:hover {
+	background-color: #27a9e3; color:#fff;
+}

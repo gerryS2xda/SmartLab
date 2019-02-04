@@ -21,7 +21,7 @@
 					<div align = "center" id = "oggAvviso"> Inserire l'oggetto dell'avviso: <textarea rows = "1" cols = "50" id = "titolo"></textarea></div>
 					<div align = "center" id = "desAvviso"> Inserire l'avviso: </div>
 					<div align = "center"><textarea rows = "10" cols = "100" id = "descrizione"></textarea></div>
-					<div align = "center"><button onclick = "creaAvviso.js">Crea</button></div>
+					<div align = "center"><button onclick = "creaAvviso()">Crea</button></div>
 				</div>
 			</form>
 			<div id = "errore" align = "center">Alcuni dati non sono stati inseriti oppure non sono corretti</div>

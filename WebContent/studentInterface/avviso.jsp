@@ -6,10 +6,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Avviso</title>
 	</head>
-	<body>
+	<body onload = "selectAvviso()">
 		<h1 id = "title"></h1><br>
 		<div id = "message"></div>
 		<span id = "date"></span>
 		<span id = "creator"></span>
 	</body>
+	<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="../script/avviso_js.js"></script>
 </html>

@@ -18,13 +18,17 @@ public class PostazioneManager {
     public static PostazioneManager getInstance() 
     {
         
-            instance = new PostazioneManager();
+        instance = new PostazioneManager();
             
         return instance;
     }
 	
-    PrenotazioneRepository pr=new PrenotazioneRepository();
-    
+    PrenotazioneRepository prere=new PrenotazioneRepository();
+    PostazioneRepository posr=new PostazioneRepository();
+
+    public PostazioneManager(){
+    	
+    }
     
 /**
  * Crea una postazione con i vari parametri prescelti
@@ -32,7 +36,7 @@ public class PostazioneManager {
  * postazione che gli verrà assegnato, "b" è lo stato della postazione.
  * @return p ritorna una postazione
  */
-	public boolean creaPostazione(int numero,Laboratorio laboratorio,boolean b)
+	public boolean creaPostazione(int numero,String laboratorio,boolean b)
 	{
 		boolean flag=true;
 		Postazione pos=new Postazione();
@@ -54,30 +58,53 @@ public class PostazioneManager {
 	
 /**
  * Riattiva una postazione precedentemente disattivata
- * @param p indica quale postazione va attivata
+ * @param id indica quale postazione va attivata
+ * @param idlab serve per modificare la postazione dato che ha una chiave composta
+ *  
  */
-	public boolean attivaPostazione(Postazione pos)
+	public boolean attivaPostazione(String id, String idlab) 
 	{
-		if(pos==null)
-			{
-				return false;
-			}
+		boolean flag=true;
+		int id1=Integer.parseInt(id); //converto la stringa in intero 
+		Postazione pos=new Postazione(); 
+		
+		pos.setNumero(id1);
+		pos.setLaboratorio(idlab);
 		pos.setStato(true);
-		return true;
+		try {
+			posr.update(pos);
+		} catch (SQLException e) {
+			flag=false;
+			e.printStackTrace();
+		}
+		return flag;
+		
 	}
 /**
  * Disattiva e rende quindi non prenotabile una postazione precedentemente disattivata
  * @param p indica quale postazione va disattivata
+ * @param idlab serve per modificare la postazione dato che ha una chiave composta
  * @pre deve esistere quella postazione che si vuole disattivare
  */
-	public boolean disattivaPostazione(Postazione pos)
+	public boolean disattivaPostazione(String id, String idlab) 
 	{
-		if(pos==null)
-		{
-			return false;
+		boolean flag=true;
+		int id1=Integer.parseInt(id); //converto la stringa in intero 
+		Postazione pos=new Postazione(); 
+		
+		System.out.println(id1);
+		System.out.println(idlab);
+		
+		pos.setNumero(id1);
+		pos.setLaboratorio(idlab);
+		pos.setStato(false);
+		try {
+			posr.update(pos);
+		} catch (SQLException e) {
+			flag=false;
+			e.printStackTrace();
 		}
-	pos.setStato(false);
-	return true;
+		return flag;
 	}
 	
 /**
@@ -89,14 +116,20 @@ public class PostazioneManager {
  * 
  */
 
-	public boolean liberaPostazione(Prenotazione pre) throws SQLException
+	public boolean liberaPostazione(Prenotazione pre)
 	{
 		if(pre.isPrenotazioneActive())
 		{
-			pr.delete(pre);
-			return true;
+			try {
+				prere.delete(pre);
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+				return false;
+			}
+			
 		}
-		return false;
+		return true;
 	}
 	
 /**
@@ -107,16 +140,16 @@ public class PostazioneManager {
  */
 	public List<Postazione> listaPostazioni(String lab)
 	{
-		List <Postazione> pos=null;
+		List <Postazione> lpos=new ArrayList();
+		Postazione pos=new Postazione();
 		if(lab!=null && !lab.equals(""))
 		{
-			pos= new ArrayList<>();
 			PostazioneRepository repository=new PostazioneRepository();
-			ListaPos lista=new ListaPos(lab);
+			ListaPos lista=new ListaPos(lab);//query che prende il laboratrio
 		
 				try 
 				{
-					repository.query(lista);
+					lpos=repository.query(lista);
 				}
 				catch (SQLException e) 
 				{
@@ -125,9 +158,12 @@ public class PostazioneManager {
 				}
 		} else
 		{
-			System.err.println("la Stringa inserita e' vuota");
+			System.out.println("la Stringa inserita e' vuota lista vuota");
 		}
-		return pos;
+//		pos.setNumero(1);   //codice per test statico
+//		pos.setStato(false);
+//		lpos.add(pos);
+		return lpos;
 	}
 	
 /**
@@ -147,7 +183,7 @@ public class PostazioneManager {
 				repository.delete(pos);
 			} catch (SQLException e)
 			{
-				System.err.println("non e' andata a buon fiine");
+				System.err.println("non e' andata a buon fine");
 				e.printStackTrace();
 			}
 			

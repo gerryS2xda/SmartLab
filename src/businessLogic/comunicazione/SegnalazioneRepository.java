@@ -21,7 +21,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 	public void add(Segnalazione segnalazione) throws SQLException{
 		Connection con = null;
 		PreparedStatement ps = null;
-		String addSegnalazione = "INSERT INTO " + table + "VALUES(?,?,?,?,?,?,?)";
+		String addSegnalazione = "INSERT INTO " + table + " VALUES(?,?,?,?,?,?,?)";
 		try{
 			con = Connessione.getConnection();
 			ps = con.prepareStatement(addSegnalazione);
@@ -32,8 +32,8 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			ps.setString(5, segnalazione.getStudente());
 			ps.setString(6, segnalazione.getLaboratorio());
 			ps.setInt(7, segnalazione.getPostazione());
-			ps.executeQuery();
-			con.commit();
+			ps.executeUpdate();
+			
 		}finally{
 			con.close();
 			ps.close();
@@ -43,13 +43,13 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 	public void delete(Segnalazione segnalazione) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String delSegnalazione = "DELETE FROM " + table + "WHERE id = ?";
+		String delSegnalazione = "DELETE FROM " + table + " WHERE idSegnalazione = ?";
 		try{
 			con = Connessione.getConnection();
 			ps = con.prepareStatement(delSegnalazione);
 			ps.setInt(1, segnalazione.getId());
-			ps.executeQuery();
-			con.commit();
+			ps.executeUpdate();
+			
 		}finally{
 			ps.close();
 			con.close();
@@ -74,7 +74,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			con = Connessione.getConnection();
 			ps = con.prepareStatement(query);
 			ResultSet res = ps.executeQuery();
-			id = res.getInt("id");
+			id = res.getInt("idSegnalazione");
 			og = res.getString("oggetto");
 			des = res.getString("descrizione");
 			data = res.getDate("data");
@@ -103,7 +103,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			ps = con.prepareStatement(query);
 			ResultSet res = ps.executeQuery();
 			while(res.next()){
-				id = res.getInt("id");
+				id = res.getInt("idSegnalazione");
 				og = res.getString("oggetto");
 				des = res.getString("descrizione");
 				data = res.getDate("data");

@@ -85,4 +85,12 @@ public class UtenteManager {
 		return studente.query(new StudentList());
 	}
 	
+	public void editPassword(String email, String newPassword)throws SQLException{
+		
+		Studente stud = new Studente();
+		
+		stud = studente.findItemByQuery(new StudenteSQL(email));	//prendi i dati completi dal DB
+		stud.setPassword(newPassword);	//setta la nuova password
+		studente.update(stud); //aggiorna i dati
+	}
 }

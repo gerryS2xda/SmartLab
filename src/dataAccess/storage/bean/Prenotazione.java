@@ -20,16 +20,6 @@ public class Prenotazione {
 		//vuoto
 	}
 	
-	//laboratorio si ottiene dall'oggetto Postazione che viene dato in input
-	public Prenotazione(String data, LocalTime oraInizio, LocalTime oraFine, Studente studente, Postazione postazione){
-		this.data= data;
-		this.oraInizio = oraInizio;
-		this.oraFine = oraFine;
-		this.studente = studente;
-		this.postazione = postazione;
-		this.laboratorio = postazione.getLaboratorio();
-	}
-	
 	public Prenotazione(String data, LocalTime oraInizio, LocalTime oraFine, Studente studente, Postazione postazione, Laboratorio lab){
 		this.data= data;
 		this.oraInizio = oraInizio;
@@ -132,9 +122,9 @@ public class Prenotazione {
 	
 	//other method
 	public String toString(){	//adattato per costruzione della stringa JSON
-		String str = "{\"id\":" + id + ", \"data\": \"" + data + "\", \"oraInizio\": \"" + oraInizio.toString() + "\", "
-				+ "\"oraFine\": \"" + oraFine.toString() + "\",  \"email\": \"" + studente.getEmail() + "\", \"postazione\": " + postazione.getNumero() + ", "  
-				+ "\"laboratorio\": " + laboratorio.getNome() + " }";
+		String str = "{\"id\":" + id + ", \"data\": \"" + data + "\", \"oraInizio\": \"" + getOraInizio().toString() + "\", "
+				+ "\"oraFine\": \"" + getOraFine().toString() + "\",  \"email\": \"" + getStudente().getEmail() + "\", \"postazione\": " + getPostazione().getNumero() + ", "  
+				+ "\"laboratorio\": \"" + getLaboratorio().getNome() + "\" }";
 		return str;
 	}
 

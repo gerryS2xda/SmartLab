@@ -4,17 +4,28 @@
 <html>
 <head>
 		<title> Segnalazione problema </title>
-		<link type="text/css" rel="stylesheet" href="Segnalazione_style.css">
+		<link type="text/css" rel="stylesheet" href="../css/segnalazione_style.css">
 	</head>
 	<body>
-		<header id = "page_header">
-			test
+		<header id="header_part">
+			<!--  add nav bar jsp -->
+			<span id="txt_logo">User Area</span>
+			<span id="welcome_txt">Benvenuto, Studente</span>
+			<span id="logout"><img src="../images/icon-logout.png">Logout</span>
 		</header>
-		<section id = "left_banner">
-			test
+		<section id="left_sidebar">
+			<!-- add navigation bar left jsp -->
+			<div id="sidebar">
+				<ul>
+					<li><a href="StudentHomePage.jsp">Dashboard</a></li>
+					<li><a href="laboratoriAttivi.jsp">Prenota postazione</a></li>
+					<li> <a href="PrenotazioniEffettuate.jsp">Mie prenotazioni</a></li>
+					<li class="active"> <a href="javascript:void(0);">Segnala problema</a></li>
+				</ul>
+			</div>
 		</section>
 		<section id = "main_content">
-			<h1 align = "center"> Segnalazione </h1>
+			<h1 class="title_page"> Segnala un problema </h1>
 			<h2 align = "center"> Immettere i dati qui sotto </h2>
 			<div id = "body">
 				<div id = "labInfo">
@@ -34,11 +45,9 @@
 				<div align = "center" id = "errore">Alcuni dati non sono stati immessi oppure sono scorretti</div>
 		    </div>
 		</section>
-		<section id = "right_banner">
-			test
-		</section>
-		<footer id = "page_footer">
-			test
+		<section id="right_sidebar"></section>
+		<footer>
+			<!-- add footer jsp -->
 		</footer>
 	</body>
 </html>

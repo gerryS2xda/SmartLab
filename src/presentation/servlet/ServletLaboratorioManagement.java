@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 
 import businessLogic.laboratorio.LaboratorioManager;
 import dataAccess.storage.bean.Laboratorio;
@@ -27,6 +29,7 @@ public class ServletLaboratorioManagement extends HttpServlet {
 	LaboratorioManager manager=new LaboratorioManager();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action=request.getParameter("action");
+		Gson json = new Gson();
 		
 		if(action == null){
 			response.setStatus(404);
@@ -76,15 +79,35 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			request.setAttribute("laboratori", manager.getLaboratoryList());
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/adminInterface/visualizzaLaboratori.jsp");
 			dispatcher.forward(request, response);
-		}else if(action.equals("lista_lab_attivi")){//visualizzazione lista laboratori
+		}else if(action.equals("lista_lab_attivi")){//visualizzazione lista laboratori responsaile
 			//List<Laboratorio> laboratori= manager.getLaboratoryList();
-			request.setAttribute("laboratori", manager.getLaboratoryList());
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/studentInterface/laboratoriAttivi.jsp");
+			String email="esempio1@unisa.it";
+			request.setAttribute("laboratori", manager.getLaboratoryListForResp(email));
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/respInterface/laboratoriAttivi.jsp");
 			dispatcher.forward(request, response);
+		}else if(action.equals("lab_attivi")){
+			
+			//costruisci risposta JSON
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			
+			List<Laboratorio> laboratori= manager.getLaboratoryList();
+			String str = "{";
+			for(int i = 0; i < laboratori.size(); i++){
+				Laboratorio lab = laboratori.get(i);
+				str +=  "\"lab" + i + "\": {\"IDlaboratorio\":" + lab.getIDlaboratorio() + ", \"nome\": \"" + lab.getNome() + "\", " + 
+				"\"posti\": " + lab.getPosti() + ", \"stato\": " + lab.isStato() + ",  \"apertura\": \"" + lab.getApertura().toString() + "\", " + 
+				"\"chiusura\": \"" + lab.getChiusura().toString() + "\" },";
+			}
+			str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
+			response.getWriter().write(json.toJson(str));
 		}
 		
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+	
 }

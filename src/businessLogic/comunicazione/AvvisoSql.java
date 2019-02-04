@@ -12,6 +12,6 @@ public class AvvisoSql implements SqlSpecification {
 
 	@Override
 	public String toSqlQuery() {
-		return "SELECT * FROM avviso WHERE id = " + idAvviso;
+		return "SELECT * FROM avviso WHERE idAvviso = " + idAvviso;
 	}
 }

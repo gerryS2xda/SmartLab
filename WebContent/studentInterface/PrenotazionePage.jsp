@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    import="java.time.*, java.time.format.*" pageEncoding="ISO-8859-1"%>
+    import="java.time.*, java.time.format.*, dataAccess.storage.bean.Utente" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -7,27 +7,40 @@
 		<title>Prenota postazione</title>
 		<link type="text/css" rel="stylesheet" href="../css/prenotazione_style.css">
 	</head>
+	<% 
+		Utente ut = (Utente) session.getAttribute("user");
+		String userType = (String) session.getAttribute("userType");
+		if(ut == null || userType == null) {
+			response.sendRedirect("./error.jsp"); //pagina errore 404
+		}else if(userType.equals("studente")){	
+	%>
 	<body onLoad="loadContent()">
 		<header id="header_part">
 			<!--  add nav bar jsp -->
 			<span id="txt_logo">User Area</span>
 			<span id="welcome_txt">Benvenuto, Studente</span>
-			<span id="logout"><img src="./images/icon-logout.png">Logout</span>
+			<span id="logout"><img src="../images/icon-logout.png">Logout</span>
 		</header>
 		<section id="left_sidebar">
 			<!-- add navigation bar left jsp -->
 			<div id="sidebar">
 				<ul>
-					<li class="active"><a href="javascript:void(0);">Prenota postazione</a></li>
+					<li class="active"><a href="javascript:void(0);">Dashboard</a></li>
+					<li><a href="laboratoriAttivi.jsp">Prenota postazione</a></li>
 					<li> <a href="PrenotazioniEffettuate.jsp">Mie prenotazioni</a></li>
-					<li> <a href="javascript:void(0);">Segnala problema</a></li>
-					<li> <a href="javascript:void(0);">Link 4</a></li>
-					<li> <a href="index.jsp">Vai alla Homepage </a></li>
+					<li> <a href="creaSegnalazione.jsp">Segnala problema</a></li>
 				</ul>
 			</div>
 		</section>
 		<section id="main_content">
-			<h1 class="title_page">Laboratorio 1</h1>
+			<% String lab = request.getParameter("lab_name");
+			   String idLab = request.getParameter("lab_selected");
+				if(lab == null || lab.equals("") || idLab == null || idLab.equals("")){
+					//vai alla pagina di errore
+				}
+			%>
+			<span id="idLab" class="hidden_item"><%=idLab %></span>
+			<h1 class="title_page"><%=lab %></h1>
 			<div class="text_content">
 				<p class="info_update_txt">
 					Situazione posti disponibili aggiornata alle <span><%=LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) %>
@@ -52,14 +65,16 @@
 				</div>
 			</div>
 		</section>
-		<section id="right_sidebar">
-			<!--  add bacheca avvisi.jsp -->
-			<h1>Bacheca avvisi</h1>
-		</section>
+		<section id="right_sidebar"></section>
 		<footer>
 			<!-- add footer jsp -->
 		</footer>
+		<%
+			}else{
+				response.sendRedirect("./error.jsp"); //pagina errore 404
+			}%>
 		<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="../script/pren_page_js.js"></script>
+		<script type="text/javascript" src="../script/student_pages.js"></script>
 	</body>
 </html>
