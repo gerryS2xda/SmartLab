@@ -87,6 +87,7 @@ public class ServletSegnalazione extends HttpServlet {
 				}
 			}
 			result = result.substring(0, result.length() - 1) + "}";
+			response.sendRedirect("./viewSegnalazioni.jsp");
 			response.getWriter().write(json.toJson(result));
 		}else if(segnalazione.equals("openSegnalazione")){
 			int flag = 0, i = 0;
