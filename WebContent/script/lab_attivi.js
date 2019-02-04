@@ -1,5 +1,6 @@
 function loadContent(){
 	loadWidget();
+	//altre funzioni sono state inserite all'interno di loadWidget
 }
 
 //Funzioni per la gestione della tabella "Prenota"
@@ -80,8 +81,11 @@ function loadWidget(){
 			}
 			$("#div_tb_prenota_content").show();
 			x.html(str);
+			
+			//inserite qui perche' le richieste di AJAX sono asincrone
+			setPrenotazioniForNextDayText(); //verifica se e' passato l'orario di chiusura dei laboratori; se passato -> mostra la data di domani
 			deletePrenotazioniAfter24Hour();
-			loadTableBody()
+			loadTableBody();
 		}else{
 			window.location.href = "./index.jsp"; //pagina errore 404
 		}
@@ -94,7 +98,7 @@ function effettuaPrenotazione(button){	//pulsante "Prenota"
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp);
 			if(o.numeroPren == -1){window.location.href = "./index.jsp";} //page error
-			if(o.numeroPren < 3){
+			if(o.numeroPren < 2){
 				var row = button.parents("tr"); //dammi la riga <tr> su cui eseguire le azioni  
 				var td = row.find("td"); //dammi tutti gli <td> che sono discendenti di <tr> selezionato prima
 				var labName = td.eq(0).text();
@@ -134,6 +138,28 @@ function deletePrenotazioniAfter24Hour(){
 					window.location.href = "./index.jsp"; //pagina errore 404
 				}
 			});
+		}
+	}
+}
+
+//setta la data per il giorno successivo dopo la chiusura del laboratorio
+function setPrenotazioniForNextDayText(){
+	//ottieni orario di chiusura dai blocchi contenti le info sui laboratori 
+	var x = $(".list_block li"); 
+	var nLab = x.length;
+	
+	for(var i = 0; i < nLab; i++){
+		var spans = x.eq(i).find("span");
+		var oraCorrente = new Date().getHours();
+		var y = spans.eq(4).text();
+		y = y.split(":");
+		var oraChiusura = parseInt(y[0]); //ottieni l'ora di chiusura
+		if(oraCorrente > oraChiusura){	//laboratorio chiuso --> resetta le prenotazioni
+			var tomorrow = new Date();
+			tomorrow.setDate(tomorrow.getDate() + 1);
+			$("#info_data_prenotazione").text(tomorrow.toLocaleDateString());
+		}else{
+			$("#info_data_prenotazione").text(new Date().toLocaleDateString());
 		}
 	}
 }

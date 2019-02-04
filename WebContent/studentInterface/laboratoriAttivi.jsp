@@ -18,7 +18,7 @@
 		<header id="header_part">
 			<!--  add nav bar jsp -->
 			<span id="txt_logo">User Area</span>
-			<span id="welcome_txt">Benvenuto, Studente</span>
+			<span id="welcome_txt">Benvenuto, <%=ut.getName() %></span>
 			<span id="logout"><img src="../images/icon-logout.png">Logout</span>
 		</header>
 		<section id="left_sidebar">
@@ -43,7 +43,7 @@
 					</span> del <span><%= LocalDate.now().toString() %></span>
 				</p>
 				<p class="text_suggest"> 
-					Le prenotazioni che si andranno a fare faranno riferimento al giorno <span id="info_data_prenotazione"></span>
+					Le prenotazioni che si andranno a fare faranno riferimento al giorno <span id="info_data_prenotazione"></span><br>
 					Scegli il laboratorio in cui prenotare una postazione e premi su "Prenota" per continuare.
 				</p>
 			</div>
