@@ -2,15 +2,12 @@ package businessLogic.assegnamento;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import dataAccess.storage.Connessione;
 import dataAccess.storage.Specification;
 import dataAccess.storage.Repository;
-import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.bean.Assegnamento;
 
 public class AssegnamentoRepository implements Repository<Assegnamento>{
@@ -87,7 +84,7 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 
 
     public void update(Assegnamento ass)throws SQLException{
-
+    	
     }
 
     public Assegnamento findItemByQuery(Specification specification){

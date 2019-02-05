@@ -23,6 +23,57 @@ function loadWidget(){
 			}
 			$("#div_tb_prenota_content").show();
 			x.html(str);
+			//inserite qui perche' viene eseguita prima questa pagina e poi laboratoriAttivi.jsp
+			if(!resetPostazioniDisponibiliAfterOrarioChiusura()){
+				deletePrenotazioniAfterDays(); //invoca solo se non e' stato effettuato il reset dopo orario di chiusura
+			}
+		}else{
+			window.location.href = "./index.jsp"; //pagina errore 404
+		}
+	});
+}
+
+/* Funzioni importanti per la fase di prenotazione (non si tiene traccia dello storico delle prenotazioni) */
+//reset postazioni disponibili dopo orario di chiusura (se non basta, si esegue il reset in base alla data riportata sulle prenotazioni)
+function resetPostazioniDisponibiliAfterOrarioChiusura(){
+	var consumata = false;	//se e' stata effettuata almeno una rimozione
+	//ottieni orario di chiusura dai blocchi contenti le info sui laboratori 
+	var x = $(".list_block li"); 
+	var nLab = x.length;
+	
+	for(var i = 0; i < nLab; i++){
+		var spans = x.eq(i).find("span");
+		var oraCorrente = new Date().getHours();
+		var y = spans.eq(4).text();
+		y = y.split(":");
+		var oraChiusura = parseInt(y[0]); //ottieni l'ora di chiusura
+		if(oraCorrente > oraChiusura){	//laboratorio chiuso --> resetta le prenotazioni
+			$.post("../prenotazione-serv", {"action": "del_pren_after_orario_chiusura"}, function(resp, stat, xhr){
+				if(xhr.readyState == 4 && stat == "success"){
+					var o = JSON.parse(resp);
+					var esito = o.esito;
+					if(!esito){
+						window.location.href = "./index.jsp";
+					}
+				}else{
+					window.location.href = "./index.jsp"; //pagina errore 404
+				}
+			});
+			consumata = true;
+		}
+	}
+	return consumata;
+}
+
+//cancella le prenotazioni dopo diversi giorni	(NO HISTORY)
+function deletePrenotazioniAfterDays(){
+	$.post("../prenotazione-serv", {"action": "del_pren_after_days"}, function(resp, stat, xhr){
+		if(xhr.readyState == 4 && stat == "success"){
+			var o = JSON.parse(resp);
+			var esito = o.esito;
+			if(!esito){
+				window.location.href = "./index.jsp";
+			}
 		}else{
 			window.location.href = "./index.jsp"; //pagina errore 404
 		}

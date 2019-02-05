@@ -102,6 +102,10 @@ body{
 	width: auto;
 }
 
+#errore{
+	display: none;
+}
+
 /* Sidebar Navigation (left side) */
 #sidebar {
 	top: 38px;

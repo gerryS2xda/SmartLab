@@ -56,16 +56,17 @@ public class UtenteManager {
 		return s;
 	}
 	
-	public Sospensione effettuaSospensione (Studente s) throws SQLException{
+	public Sospensione effettuaSospensione (Studente s, String motivazione) throws SQLException{
 		Sospensione v = new Sospensione();
 		v.setStudente(s);
+		v.setMotivazione(motivazione);
 		s.setStato(true);
 		sospensione.add(v);
 		return v;
 	}
 	
 
-	public boolean isStudentPresent(String email){
+	public boolean isStudentPresente(String email){
 		boolean b = false;
 		Studente s = new Studente();
 		try{
@@ -89,8 +90,8 @@ public class UtenteManager {
 		
 		Studente stud = new Studente();
 		
-		stud = studente.findItemByQuery(new StudenteSQL(email));	//prendi i dati completi dal DB
-		stud.setPassword(newPassword);	//setta la nuova password
-		studente.update(stud); //aggiorna i dati
+		stud = studente.findItemByQuery(new StudenteSQL(email));
+		stud.setPassword(newPassword);
+		studente.update(stud);
 	}
 }

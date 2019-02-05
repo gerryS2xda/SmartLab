@@ -18,7 +18,7 @@
 		<header id="header_part">
 			<!--  add nav bar jsp -->
 			<span id="txt_logo">User Area</span>
-			<span id="welcome_txt">Benvenuto, Studente</span>
+			<span id="welcome_txt">Benvenuto, <%=ut.getName() %></span>
 			<span id="logout"><img src="../images/icon-logout.png">Logout</span>
 		</header>
 		<section id="left_sidebar">
@@ -36,7 +36,7 @@
 			<h1 class="title_page">Mie prenotazioni</h1>
 			<div class="text_content">
 				<p class="text_suggest"> 
-					Ecco le tue prenotazioni che sono state effettuate fino ad oggi. Per annullare o eliminare una prenotazione, 
+					Ecco le tue prenotazioni che sono state effettuate. Per annullare una prenotazione, 
 					mettere la spunta sulla checkbox. Se una prenotazione è attiva, viene richiesto di confermare l'annullamento
 				</p>
 			</div>
@@ -50,7 +50,7 @@
 								<th> Laboratorio </th>
 								<th> Postazione </th>
 								<th> Fascia oraria </th>
-								<th> Elimina </th>
+								<th> </th>
 							</tr>
 						</thead>
 						<tbody></tbody>

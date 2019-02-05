@@ -3,7 +3,11 @@ package prenotazionetest;
 import businessLogic.prenotazione.PrenotazioneByStudent;
 import businessLogic.prenotazione.PrenotazioneManager;
 import businessLogic.prenotazione.PrenotazioneRepository;
+import dataAccess.storage.bean.Laboratorio;
+import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
+import dataAccess.storage.bean.Studente;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -26,17 +30,25 @@ public class PrenotazioneManagerTest {
 		manager = PrenotazioneManager.getInstance();
 		repository = PrenotazioneRepository.getInstance();
 		
+		//oggetti usati al posto dei tipi primitivi
+		Studente s = new Studente();
+		s.setEmail("teststud@studenti.unisa.it");
+		Postazione post = new Postazione(100, "0", true);
+		Laboratorio lab = new Laboratorio();
+		lab.setIDlaboratorio("0");
+		
 		oracle = new Prenotazione();
 		oracle.setData(LocalDate.now().toString());
 		oracle.setOraInizio(LocalTime.parse("09:00"));
 		oracle.setOraFine(LocalTime.parse("11:00"));
 		oracle.setStatus(true);
-		oracle.setStudente("teststud@studenti.unisa.it");
-		oracle.setPostazione(100);
+		oracle.setStudente(s);
+		oracle.setPostazione(post);
+		oracle.setLaboratorio(lab);
 		repository.add(oracle);
 		
 		//ottieni l'ID dopo inserimento poiche' si usa auto_increment (serve per delete)
-		Prenotazione temp = repository.findItemByQuery(new PrenotazioneByStudent(oracle.getStudente()));
+		Prenotazione temp = repository.findItemByQuery(new PrenotazioneByStudent(oracle.getStudente().getEmail()));
 		oracle.setID(temp.getId());
 	}
 
@@ -59,7 +71,7 @@ public class PrenotazioneManagerTest {
 		System.out.println("Testing: effettua prenotazione");
 		
 		//crea oggetto prenotazione e confronta con oracle
-		Prenotazione actualObj = manager.effettuaPrenotazione("teststud@studenti.unisa.it", 100, "09:00", "11:00");
+		Prenotazione actualObj = manager.effettuaPrenotazione("teststud@studenti.unisa.it", 100, "09:00", "11:00", "0");
 		
 		//rimuovi la prenotazione appena inserita con effettuaPrenotazione dal DB
 		actualObj.setID(1 + oracle.getId()); 
@@ -99,6 +111,9 @@ public class PrenotazioneManagerTest {
 	public void testUpdatePrenotazione()throws Exception {
 		System.out.println("Testing: aggiorna i dati di una prenotazione");
 		
+		Studente s = new Studente();
+		s.setEmail("teststud2@studenti.unisa.it");
+		
 		//crea oggetto simile ad oracle e verifica che i due riferimenti puntano alla stessa istanza
 		Prenotazione actualObj = oracle;
 		assertSame("Gli oggetti non fanno riferimento alla stessa istanza", actualObj, oracle);
@@ -106,7 +121,7 @@ public class PrenotazioneManagerTest {
 		//modifica qualche attributo di actualObj
 		actualObj.setOraInizio(LocalTime.parse("11:00"));
 		actualObj.setOraFine(LocalTime.parse("13:00"));
-		actualObj.setStudente("teststud2@studenti.unisa.it");
+		actualObj.setStudente(s);
 				
 		//invocazione di update()
 		manager.updatePrenotazione(actualObj);
@@ -123,7 +138,7 @@ public class PrenotazioneManagerTest {
 		System.out.println("Testing: ottieni lista di prenotazioni fatte da uno studente");
 		
 		//il testing verra' fatta soltanto sul primo risultato ottenuto
-		List<Prenotazione> actualObjs = manager.getListPrenotazioniByStudent(oracle.getStudente());
+		List<Prenotazione> actualObjs = manager.getListPrenotazioniByStudent(oracle.getStudente().getEmail());
 		
 		//confronta il primo risultato con quello dell'oracolo
 		assertEquals("Il risultato ottenuto e' diverso da quello atteso", oracle, actualObjs.get(0));
@@ -144,7 +159,7 @@ public class PrenotazioneManagerTest {
 		System.out.println("Testing: ottieni numero di prenotazione fatte oggi da uno studente");
 
 		int oracleValue = 1;
-		int actualValue = manager.getNumPrenotazioniEffettuateOggi(oracle.getStudente());
+		int actualValue = manager.getNumPrenotazioniEffettuateOggi(oracle.getStudente().getEmail());
 
 		assertEquals("Il numero di prenotazioni effettuate non e' 1", oracleValue, actualValue);
 	}
@@ -154,7 +169,7 @@ public class PrenotazioneManagerTest {
 		System.out.println("Testing: ottieni numero di prenotazione fatte in totale da uno studente");
 
 		int oracleValue = 1;
-		int actualValue = manager.getNumPrenotazioniEffettuate(oracle.getStudente());
+		int actualValue = manager.getNumPrenotazioniEffettuate(oracle.getStudente().getEmail());
 
 		assertEquals("Il numero di prenotazioni effettuate non e' 1", oracleValue, actualValue);
 	}

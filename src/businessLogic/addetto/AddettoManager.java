@@ -22,10 +22,17 @@ public class AddettoManager {
 	
 
 	public boolean addResp (Addetto a) throws SQLException{
-		if(isEmailRight(a.getEmail()) && isPasswordRight(a.getPassword())){
+		boolean b = false;
+		
+		try {
 			r.add(a);
-			return true;
-		} else return false;
+			b = true;
+		} catch (SQLException e) {
+			b = false;
+			e.printStackTrace();
+		}
+		
+		return b;	
 	}
 	
 	private boolean isPasswordRight(String password) {
@@ -49,8 +56,18 @@ public class AddettoManager {
 		return false;
 	}
 	
-	public void rimuoviResp (Addetto resp) throws SQLException{
-		r.delete(resp);
+	public boolean rimuoviResp (Addetto resp){
+		boolean b = false;
+		
+		try {
+			r.delete(resp);
+			b = true;
+		} catch (SQLException e) {
+			b = false;
+			e.printStackTrace();
+		}
+		
+		return b;
 	}
 	
 	public List<Addetto> getListaResp () throws SQLException{

@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Avviso implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private String titolo, messaggio;
 	private Date data;

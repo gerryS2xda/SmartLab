@@ -36,13 +36,12 @@
 							<option value = "Lab sistemi"> 
 						</datalist> 
 					</div>
-					<div align = "center" id = "sceltaPos"> Numero della postazione: <input type = "number" min = "1" max = "50" id = "NumPos"> </div>
+					<div align = "center" id = "sceltaPos"> Numero della postazione: <textarea rows = "1" cols = "5" id = "NumPos"></textarea> </div>
 				</div>
 				<div align = "center" id = "insOgg">Inserire l'oggetto: <textarea rows = "1" cols = "50" id = "oggetto"></textarea></div>
 			    <div align = "center" id = "insDes"> Inserire il motivo della segnalazione: </div>
 				<div align = "center"><textarea rows = "10" cols = "100" id = "descrizione"></textarea></div>
 				<div align = "center"><button id = "button">Invia</button></div>
-				<div align = "center" id = "errore">Alcuni dati non sono stati immessi oppure sono scorretti</div>
 		    </div>
 		</section>
 		<section id="right_sidebar"></section>
@@ -50,4 +49,6 @@
 			<!-- add footer jsp -->
 		</footer>
 	</body>
+		<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="../script/segnalazione_js.js"></script>
 </html>

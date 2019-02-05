@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <welcome-file-list>
-    <welcome-file>studentInterface/PrenotazionePage.jsp</welcome-file>
+    <welcome-file>Login.jsp</welcome-file>
   </welcome-file-list>
   
   <servlet>
@@ -17,6 +17,16 @@
    <servlet>
     <servlet-name>ServletPostazioneManagement</servlet-name>
     <servlet-class>presentation.servlet.ServletPostazioneManagement</servlet-class>
+  </servlet>
+  
+  <servlet>
+  	<servlet-name>ServletAddettoManagement</servlet-name>
+  	<servlet-class>presentation.servlet.ServletAddettoManagement</servlet-class>
+  </servlet>
+  
+   <servlet>
+  	<servlet-name>ServletUtenteManagement</servlet-name>
+  	<servlet-class>presentation.servlet.ServletUtenteManagement</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -39,4 +49,14 @@
     <url-pattern>/postazioni</url-pattern>
   </servlet-mapping>
   
+   <servlet-mapping>
+    <servlet-name>ServletAddettoManagement</servlet-name>
+    <url-pattern>/addetto</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>ServletUtenteManagement</servlet-name>
+    <url-pattern>/utente</url-pattern>
+  </servlet-mapping>
+   
 </web-app>

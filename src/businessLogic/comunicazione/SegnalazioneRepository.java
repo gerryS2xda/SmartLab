@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import businessLogic.laboratorio.IdLab;
+import businessLogic.laboratorio.LaboratorioRepository;
 import dataAccess.storage.Connessione;
 import dataAccess.storage.Repository;
 import dataAccess.storage.Specification;
@@ -17,8 +19,11 @@ import dataAccess.storage.bean.Segnalazione;
 public class SegnalazioneRepository implements Repository<Segnalazione> {
 	
 	private String table = "segnalazione";
+	private LaboratorioRepository lr = new LaboratorioRepository();
 	
 	public void add(Segnalazione segnalazione) throws SQLException{
+		IdLab lab = new IdLab(segnalazione.getLaboratorio());
+	    segnalazione.setLaboratorio((lr.findItemByQuery(lab).getIDlaboratorio()));
 		Connection con = null;
 		PreparedStatement ps = null;
 		String addSegnalazione = "INSERT INTO " + table + " VALUES(?,?,?,?,?,?,?)";
@@ -29,14 +34,15 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			ps.setString(2, segnalazione.getOggetto());
 			ps.setString(3, segnalazione.getDescrizione());
 			ps.setDate(4, segnalazione.getData());
-			ps.setString(5, segnalazione.getStudente());
+			ps.setInt(5, segnalazione.getPostazione());
 			ps.setString(6, segnalazione.getLaboratorio());
-			ps.setInt(7, segnalazione.getPostazione());
+			ps.setString(7, segnalazione.getStudente());
 			ps.executeUpdate();
-			
 		}finally{
-			con.close();
-			ps.close();
+			if(con != null)
+				con.close();
+			if(ps != null)
+				ps.close();
 		}
 	}
 
@@ -63,7 +69,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 
 	public Segnalazione findItemByQuery(Specification spec) throws SQLException {
 		int id, pos;
-		String og, des, lab, stud;
+		String og, des, stud, lab;
 		Date data;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -91,7 +97,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 
 	public List<Segnalazione> query(Specification spec) throws SQLException {
 		int id, pos;
-		String og, des, lab, stud;
+		String og, des, stud, lab;
 		Date data;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -114,7 +120,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 				list.add(temp);
 			}
 		}finally{
-			con.close();
+			//con.close();
 		}
 		return list;
 	}

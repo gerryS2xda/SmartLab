@@ -24,10 +24,11 @@ public class Connessione  {
 		String ip = "localhost";
 		String port = "3306";
 		String db = "smartlab";
+
 		String username = "root";
 		String password = "asd456JKL";
-
-
+		
+		//+"?verifyServerCertificate=false&useSSL=true"
 		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);
 
 		newConnection.setAutoCommit(true);

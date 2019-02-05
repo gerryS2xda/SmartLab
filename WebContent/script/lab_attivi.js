@@ -1,5 +1,6 @@
 function loadContent(){
 	loadWidget();
+	//altre funzioni sono state inserite all'interno di loadWidget
 }
 
 //Funzioni per la gestione della tabella "Prenota"
@@ -80,8 +81,10 @@ function loadWidget(){
 			}
 			$("#div_tb_prenota_content").show();
 			x.html(str);
-			deletePrenotazioniAfter24Hour();
-			loadTableBody()
+			
+			//inserite qui perche' le richieste di AJAX sono asincrone
+			setPrenotazioniForNextDayText(); //verifica se e' passato l'orario di chiusura dei laboratori; se passato -> mostra la data di domani
+			loadTableBody();
 		}else{
 			window.location.href = "./index.jsp"; //pagina errore 404
 		}
@@ -94,7 +97,7 @@ function effettuaPrenotazione(button){	//pulsante "Prenota"
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp);
 			if(o.numeroPren == -1){window.location.href = "./index.jsp";} //page error
-			if(o.numeroPren < 3){
+			if(o.numeroPren < 2){
 				var row = button.parents("tr"); //dammi la riga <tr> su cui eseguire le azioni  
 				var td = row.find("td"); //dammi tutti gli <td> che sono discendenti di <tr> selezionato prima
 				var labName = td.eq(0).text();
@@ -109,9 +112,8 @@ function effettuaPrenotazione(button){	//pulsante "Prenota"
 	});
 }
 
-
-//cancella le prenotazioni dopo 24 ore
-function deletePrenotazioniAfter24Hour(){
+//setta la data per il giorno successivo dopo la chiusura del laboratorio
+function setPrenotazioniForNextDayText(){
 	//ottieni orario di chiusura dai blocchi contenti le info sui laboratori 
 	var x = $(".list_block li"); 
 	var nLab = x.length;
@@ -123,17 +125,11 @@ function deletePrenotazioniAfter24Hour(){
 		y = y.split(":");
 		var oraChiusura = parseInt(y[0]); //ottieni l'ora di chiusura
 		if(oraCorrente > oraChiusura){	//laboratorio chiuso --> resetta le prenotazioni
-			$.post("../prenotazione-serv", {"action": "del_pren_after_24"}, function(resp, stat, xhr){
-				if(xhr.readyState == 4 && stat == "success"){
-					var o = JSON.parse(resp);
-					var esito = o.esito;
-					if(!esito){
-						window.location.href = "./index.jsp";
-					}
-				}else{
-					window.location.href = "./index.jsp"; //pagina errore 404
-				}
-			});
+			var tomorrow = new Date();
+			tomorrow.setDate(tomorrow.getDate() + 1);
+			$("#info_data_prenotazione").text(tomorrow.toLocaleDateString());
+		}else{
+			$("#info_data_prenotazione").text(new Date().toLocaleDateString());
 		}
 	}
 }

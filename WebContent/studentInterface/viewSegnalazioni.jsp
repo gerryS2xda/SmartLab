@@ -7,8 +7,8 @@
 	<title>Lista segnalazioni</title>
 	</head>
 	<body onload = "loadSegnalazioni()">
-		<div id = "div_segnalazioni_table">
-			<table id = "tb_segnalazioni">
+		<div id = "div_segnalazioni_table" align = "center">
+			<table id = "tb_segnalazioni" border = "1">
 				<thead>
 					<tr>
 						<th>Id</th>
@@ -23,4 +23,6 @@
 			</table>
 		</div>
 	</body>
+		<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="../script/segnalazione_js.js"></script>
 </html>

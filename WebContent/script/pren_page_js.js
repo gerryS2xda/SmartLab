@@ -24,7 +24,9 @@ function loadTableBody(){
 			$("#div_tb_prenota_content").show();
 			x.html(str);
 			
+			//inserite qui perche' AJAX effettua richieste asincrone
 			deletePostazioniOccupateFromSelect();
+			deleteFasceOrarieByOraCorrente();
 		}else{
 			window.location.href = "./index.jsp"; //pagina errore 404
 		}
@@ -52,8 +54,9 @@ function deletePostazioniOccupateFromSelect(){
 						console.log("NumPost: " + numPost + "  PostPren: " + k.postazione);
 						var selects = tr.eq(z).find("select");	//prendi la select
 						var options = selects.find("option");	//prendi le option della select
-						if(options.length == 0){	//tutte le fasce orarie sono occupate -> rimuovi postazione
-							tr.remove();
+						console.log("OptionLength: " + options.length);
+						if(options.length == 1){	//tutte le fasce orarie sono occupate -> rimuovi postazione
+							tr.eq(z).remove();
 						}else{
 							var y = k.oraInizio;
 							y = y.split(":");
@@ -123,8 +126,22 @@ function verifyPostazioneAvailable(item){
 	});
 }
 
-//setta le prenotazioni per il giorno successivo dopo la chiusura del laboratorio
-function setPrenotazioniForNextDay(){
+//rimuovi fasce orarie se ora corrente > oraInizio in riferimento alla giornata odierna
+function deleteFasceOrarieByOraCorrente(){
+	var tr = $("#tb_prenota tbody tr"); //dammi tutte righe (postazioni)
+	for(z = 0; z < tr.length; z++){
+		var tds = tr.eq(z).find("td");
+		var numPost = tds.eq(0).text();
+		var selects = tr.eq(z).find("select");	//prendi la select
+		var options = selects.find("option");	//prendi le option della select
+		var oraCorrente = new Date().getHours();
+		for(var j = 0; j < options.length; j++){	//per ogni option 
+			var oraInizioSel = parseInt(options.eq(j).val().split("-"));
+			if(oraCorrente > oraInizioSel){ 
+				options.eq(j).remove(); 
+			}	
+		}
+	}
 	
 }
 

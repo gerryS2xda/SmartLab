@@ -123,7 +123,7 @@ public class Prenotazione {
 	public String toString(){	//adattato per costruzione della stringa JSON
 		String str = "{\"id\":" + id + ", \"data\": \"" + data + "\", \"oraInizio\": \"" + getOraInizio().toString() + "\", "
 				+ "\"oraFine\": \"" + getOraFine().toString() + "\",  \"email\": \"" + getStudente().getEmail() + "\", \"postazione\": " + getPostazione().getNumero() + ", "  
-				+ "\"laboratorio\": \"" + getLaboratorio().getNome() + "\" }";
+				+ "\"laboratorio\": \"" + getLaboratorio().getNome() + "\", \"stato\": " + stato + " }";
 		return str;
 	}
 
@@ -132,8 +132,8 @@ public class Prenotazione {
 		if(otherObject instanceof Prenotazione){
 			Prenotazione pren = (Prenotazione) otherObject;
 			if(getData().equals(pren.getData()) && getOraInizio().compareTo(pren.getOraInizio()) == 0 && 
-					getOraFine().compareTo(pren.getOraFine()) == 0 && getStudente().equals(pren.getStudente()) && 
-					getPostazione().equals(pren.getPostazione()) && getLaboratorio().equals(pren.getLaboratorio())){
+					getOraFine().compareTo(pren.getOraFine()) == 0 && getStudente().getEmail().equals(pren.getStudente().getEmail()) && 
+					getPostazione().equals(pren.getPostazione()) && getLaboratorio().getIDlaboratorio().equals(pren.getLaboratorio().getIDlaboratorio())){
 				val = true;
 			}
 		}

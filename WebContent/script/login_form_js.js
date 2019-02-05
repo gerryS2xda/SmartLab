@@ -6,7 +6,7 @@ function formValidationAndSubmit(){
 		if(validatePasswordLogin($("#passLog"))){
 			var x = $("#nomeLog").val();
 			var y = $("#passLog").val();
-			$.post("ServletUtente", {"action": "effettuaAutenticazione", "email": x, "password": y}, function(resp, stat, xhr){
+			$.post("./utente", {"action": "effettuaAutenticazione", "email": x, "password": y}, function(resp, stat, xhr){
 				if(xhr.readyState == 4 && stat == "success"){
 					var o = JSON.parse(resp);
 					var x = o.userstate;
@@ -21,14 +21,14 @@ function formValidationAndSubmit(){
 						if(y == "studente"){ 
 							window.location.href = "./studentInterface/StudentHomePage.jsp"; 
 						}else if(y == "responsabile"){ 
-							window.location.href = "./index.jsp"; 	//da sostituire con jsp reali
+							window.location.href = "./laboratorio?action=lista_lab_resp"; 	//da sostituire con jsp reali
 						}else if(y == "admin"){ 
-							window.location.href = "./index.jsp";  //da sostituire con jsp reali
+							window.location.href = "./laboratorio?action=lista_lab";  //da sostituire con jsp reali
 						}
 					}else if(x == "logged"){
 						document.login_form.reset();
 						$("#errUserArea").show();
-						$(".err_txt").eq(0).html("Utente gia' loggato");
+						$(".err_txt").eq(0).html("Utente già loggato");
 					}
 				}else{
 					window.location.href = "./error.jsp"; //pagina errore 404
