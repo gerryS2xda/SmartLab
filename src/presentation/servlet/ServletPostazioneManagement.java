@@ -1,12 +1,10 @@
 package presentation.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,10 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import businessLogic.Postazione.PostazioneManager;
-import businessLogic.Postazione.PostazioneRepository;
-import businessLogic.Postazione.PostazioneSql;
-import businessLogic.laboratorio.LaboratorioRepository;
-import businessLogic.laboratorio.LaboratorioSql;
+import businessLogic.Postazione.*;
+import businessLogic.laboratorio.*;
 import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
@@ -45,12 +41,10 @@ public class ServletPostazioneManagement extends HttpServlet {
 		Gson json = new Gson();
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String action=request.getParameter("action");
-
+//		action="lista_pos";
 		PostazioneManager pm=new PostazioneManager();
 		
 		//PostazioneSql psql=new PostazioneSql();
-		Postazione pos=new Postazione();
-		Laboratorio lab=new Laboratorio();
 		Prenotazione pre=new Prenotazione();
 		
 		
@@ -62,8 +56,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 		else if(action.equals("libera_pos"))   //libera la postazione
 		{ 
 		String s="";
-		boolean flag=true;
-		List<Prenotazione> lista=new ArrayList();
+		List<Prenotazione> lista=new ArrayList<Prenotazione>();
 		lista=pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("lab"));
 			
 		
@@ -118,11 +111,6 @@ public class ServletPostazioneManagement extends HttpServlet {
 			
 
 //			request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
-			response.setContentType("application/json");
-			response.setCharacterEncoding("utf-8");
-			
-
-			//request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 

@@ -140,7 +140,7 @@ public class PostazioneManager {
  */
 	public List<Postazione> listaPostazioni(String lab)
 	{
-		List <Postazione> lpos=new ArrayList();
+		List <Postazione> lpos=new ArrayList<Postazione>();
 		Postazione pos=new Postazione();
 		if(lab!=null && !lab.equals(""))
 		{
@@ -161,7 +161,12 @@ public class PostazioneManager {
 			System.out.println("la Stringa inserita e' vuota lista vuota");
 		}
 //		pos.setNumero(1);   //codice per test statico
+//		pos.setLaboratorio("lab1");
 //		pos.setStato(false);
+//		lpos.add(pos);
+//		pos.setNumero(2);   //codice per test statico
+//		pos.setLaboratorio("lab2");
+//		pos.setStato(true);
 //		lpos.add(pos);
 		return lpos;
 	}
@@ -203,7 +208,7 @@ public class PostazioneManager {
 			PrenotazioneRepository preR=new PrenotazioneRepository();
 			PrenByStudPost presql=new PrenByStudPost(orainizio, idlab, orafine);
 			
-			List<Prenotazione> lista=new ArrayList();
+			List<Prenotazione> lista=new ArrayList<Prenotazione>();
 		
 				try 
 				{

@@ -21,7 +21,7 @@ public class Connessione  {
 	
 	private static synchronized Connection createDBConnection() throws SQLException {
 		Connection newConnection = null;
-		String ip = "localhost";
+		String ip = "192.168.1.125";
 		String port = "3306";
 		String db = "smartlab";
 
