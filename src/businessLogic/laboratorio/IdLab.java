@@ -1,17 +1,13 @@
 package businessLogic.laboratorio;
 
-import java.sql.Time;
-
 import dataAccess.storage.SqlSpecification;
-import dataAccess.storage.bean.Laboratorio;
-
 public class IdLab implements SqlSpecification {
 
 public static final String TABLE_NAME = "laboratorio";
 	
-	private Laboratorio laboratorio;
+	private String laboratorio;
 	
-	public IdLab(Laboratorio lab){
+	public IdLab(String lab){
 		this.laboratorio=lab;
 	}
 	@Override
@@ -19,7 +15,7 @@ public static final String TABLE_NAME = "laboratorio";
 		return String.format(
                 "SELECT * FROM %1$s WHERE nome='%2$s';",
                 TABLE_NAME,
-                laboratorio.getNome()
+                laboratorio
         );
 		
 	}

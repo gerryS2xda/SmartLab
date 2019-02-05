@@ -21,9 +21,9 @@ function formValidationAndSubmit(){
 						if(y == "studente"){ 
 							window.location.href = "./studentInterface/StudentHomePage.jsp"; 
 						}else if(y == "responsabile"){ 
-							window.location.href = "./index.jsp"; 	//da sostituire con jsp reali
+							window.location.href = "./laboratorio?action=lista_lab_resp"; 	//da sostituire con jsp reali
 						}else if(y == "admin"){ 
-							window.location.href = "./index.jsp";  //da sostituire con jsp reali
+							window.location.href = "./laboratorio?action=lista_lab";  //da sostituire con jsp reali
 						}
 					}else if(x == "logged"){
 						document.login_form.reset();
