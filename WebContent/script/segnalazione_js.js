@@ -8,26 +8,26 @@ $("#button").click(function inviaSegnalazione(){
 		$("#sceltaLab").prev().css("color", "red");
 		flag++;
 	}
-	if(postazione == null){
-		$("#sceltaPos").prev().css("color", "red");
+	if(!$("#NumPos").val()){
+		$("#sceltaPos").css("color", "red");
 		flag++;
 	}
-	if(oggetto == null){
-		$("#insOgg").prev().css("color", "red");
+	if(!$("#oggetto").val()){
+		$("#insOgg").css("color", "red");
 		flag++;
 	}
-	if(descrizione == null){
-		$("#insDes").prev().css("color", "red");
+	if(!$("#descrizione").val()){
+		$("#insDes").css("color", "red");
 		flag++;
 	}
 	if(flag != 0){
 		alert("I dati inseriti non sono completi");
 	}
 	else{
-		$("#insDes").prev().css("color", "black");
-		$("#insOgg").prev().css("color", "black");
-		$("#sceltaPos").prev().css("color", "black");
-		$("#sceltaLab").prev().css("color", "black");
+		$("#insDes").css("color", "black");
+		$("#insOgg").css("color", "black");
+		$("#sceltaPos").css("color", "black");
+		$("#sceltaLab").css("color", "black");
 		$.post("../ServletSegnalazione", {"action": "newSegnalazione", "laboratorio": laboratorio, "postazione": postazione, "oggetto": oggetto, "descrizione": descrizione}, function(resp, stat, xhr){
 			if(xhr.readyState == 4 && stat == "success"){
 				var risultato = JSON.parse(resp);
@@ -82,7 +82,7 @@ function selectSegnalazione(){
 	});
 }
 
-function deleteSegnalazione(){
+$("delSegnalazione").click(function deleteSegnalazione(){
 	var id = document.getElementById("#delSegnalazione").getAttribute("tag");
 	var oggetto = $("#oggetto").text();
 	var descrizione = $("#descrizione").text();
@@ -98,4 +98,4 @@ function deleteSegnalazione(){
 		}else
 			window.location.href("./index.jsp");
 	});
-}
+});

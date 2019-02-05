@@ -92,8 +92,11 @@ public class ServletAvviso extends HttpServlet {
 				else
 					i++;
 			}
-			response.sendRedirect("./avviso.jsp");
-			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"titolo\": \"" + lista.get(i).getTitolo() + "\", \"messaggio\": \"" + lista.get(i).getMessaggio() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"addetto\": \"" + lista.get(i).getAddetto() + "\", \"tipo\": \"" + tipo + "\"}"));
+			if(flag != 0){
+				response.sendRedirect("./avviso.jsp");
+				response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"titolo\": \"" + lista.get(i).getTitolo() + "\", \"messaggio\": \"" + lista.get(i).getMessaggio() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"addetto\": \"" + lista.get(i).getAddetto() + "\", \"tipo\": \"" + tipo + "\"}"));
+			}else
+				response.getWriter().write("{\"esito\": \"errore\"}");
 		}
 	}
 	

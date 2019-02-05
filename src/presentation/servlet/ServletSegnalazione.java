@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.*;
 
 import businessLogic.comunicazione.CommunicationManager;
-import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Segnalazione;
 import dataAccess.storage.bean.Studente;
 
@@ -39,8 +38,8 @@ public class ServletSegnalazione extends HttpServlet {
 			Studente st = (Studente) session.getAttribute("user");
 			String oggetto = request.getParameter("oggetto");
 			String descrizione = request.getParameter("descrizione");
-			int lab = Integer.parseInt(request.getParameter("lab"));
-			int pos = Integer.parseInt(request.getParameter("pos"));
+			String lab = request.getParameter("laboratorio");
+			int pos = Integer.parseInt(request.getParameter("postazione"));
 			String studente = st.getEmail();
 			java.util.Date d = new java.util.Date();
 			Date data = new Date(d.getTime());
@@ -54,8 +53,8 @@ public class ServletSegnalazione extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id"));
 			String oggetto = request.getParameter("oggetto");
 			String descrizione = request.getParameter("descrizione");
-			int lab = Integer.parseInt(request.getParameter("lab"));
-			int pos = Integer.parseInt(request.getParameter("pos"));
+			String lab = request.getParameter("laboratorio");
+			int pos = Integer.parseInt(request.getParameter("postazione"));
 			String studente = request.getParameter("studente");
 			java.util.Date d = new java.util.Date();
 			Date data = new Date(d.getTime());

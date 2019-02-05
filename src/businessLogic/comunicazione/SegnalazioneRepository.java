@@ -8,17 +8,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import businessLogic.laboratorio.IdLab;
+import businessLogic.laboratorio.LaboratorioRepository;
 import dataAccess.storage.Connessione;
 import dataAccess.storage.Repository;
 import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
+import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Segnalazione;
 
 public class SegnalazioneRepository implements Repository<Segnalazione> {
 	
 	private String table = "segnalazione";
+	private LaboratorioRepository lr = new LaboratorioRepository();
 	
 	public void add(Segnalazione segnalazione) throws SQLException{
+		Laboratorio tmp = new Laboratorio();
+		tmp.setNome(segnalazione.getLaboratorio());
+		IdLab lab = new IdLab(tmp);
+		tmp.setIDlaboratorio(lr.findItemByQuery(lab).getIDlaboratorio());
 		Connection con = null;
 		PreparedStatement ps = null;
 		String addSegnalazione = "INSERT INTO " + table + " VALUES(?,?,?,?,?,?,?)";
@@ -30,12 +38,14 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			ps.setString(3, segnalazione.getDescrizione());
 			ps.setDate(4, segnalazione.getData());
 			ps.setInt(5, segnalazione.getPostazione());
-			ps.setInt(6, segnalazione.getLaboratorio());
+			ps.setString(6, tmp.getIDlaboratorio());
 			ps.setString(7, segnalazione.getStudente());
 			ps.executeUpdate();
 		}finally{
-			con.close();
-			ps.close();
+			if(con != null)
+				con.close();
+			if(ps != null)
+				ps.close();
 		}
 	}
 
@@ -61,8 +71,8 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 	}
 
 	public Segnalazione findItemByQuery(Specification spec) throws SQLException {
-		int id, pos, lab;
-		String og, des, stud;
+		int id, pos;
+		String og, des, stud, lab;
 		Date data;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -78,7 +88,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			des = res.getString("descrizione");
 			data = res.getDate("data");
 			stud = res.getString("studente");
-			lab = res.getInt("laboratorio");
+			lab = res.getString("laboratorio");
 			pos = res.getInt("postazione");
 			item = new Segnalazione(id, og, des, data, stud, lab, pos);
 		}finally{
@@ -89,8 +99,8 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 	}
 
 	public List<Segnalazione> query(Specification spec) throws SQLException {
-		int id, pos, lab;
-		String og, des, stud;
+		int id, pos;
+		String og, des, stud, lab;
 		Date data;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -107,13 +117,13 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 				des = res.getString("descrizione");
 				data = res.getDate("data");
 				stud = res.getString("studente");
-				lab = res.getInt("laboratorio");
+				lab = res.getString("laboratorio");
 				pos = res.getInt("postazione");
 				Segnalazione temp = new Segnalazione(id, og, des, data, stud, lab, pos);
 				list.add(temp);
 			}
 		}finally{
-			con.close();
+			//con.close();
 		}
 		return list;
 	}
