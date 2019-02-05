@@ -159,7 +159,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 			List<Postazione> postazioni = pm.listaPostazioni(idlab);
 			
 			String str = "{";
-			for(int i = 0; i < postazioni.size()-1; i++){
+			for(int i = 0; i < postazioni.size(); i++){
 				Postazione p = postazioni.get(i);
 				str +=  "\"post" + i + "\": {\"numero\":" + p.getNumero() + ", \"labID\": " + p.getLaboratorio() + ", " + 
 				"\"stato\": " + p.isStato() + " },";

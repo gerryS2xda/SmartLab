@@ -6,10 +6,9 @@ import java.sql.Date;
 public class Segnalazione implements Serializable {
 	
 	private int id;
-	private String oggetto, descrizione;
+	private String oggetto, descrizione, lab;
 	private Date data;
 	private String studente;
-	private String lab;
 	private int postazione;
 	
 	public Segnalazione(){

@@ -6,7 +6,7 @@ function formValidationAndSubmit(){
 		if(validatePasswordLogin($("#passLog"))){
 			var x = $("#nomeLog").val();
 			var y = $("#passLog").val();
-			$.post("ServletUtente", {"action": "effettuaAutenticazione", "email": x, "password": y}, function(resp, stat, xhr){
+			$.post("./utente", {"action": "effettuaAutenticazione", "email": x, "password": y}, function(resp, stat, xhr){
 				if(xhr.readyState == 4 && stat == "success"){
 					var o = JSON.parse(resp);
 					var x = o.userstate;

@@ -38,7 +38,7 @@
 			  </div>
 			  <div class="row card-body">
 	     			<div class="col text-center">
-				  		<button id="rimuovi" type="button" class="btn btn-danger" data-toggle="modal" data-target="#confermaModal">
+				  		<button id="elimina" type="button" class="btn btn-danger" data-toggle="modal" data-target="#confermaModal">
 				  			Rimuovi
 				  			<input type="hidden" id="email" value="<%= a.getEmail() %>">
 				  		</button>
@@ -85,7 +85,7 @@ $(document).ready(function(){
 	
 	var email;
 	var div;
-	//seleziono il laboratorio da eliminare
+	//seleziono il responsabile da eliminare
 	$("button#elimina").on("click",function(){
 		email=$(this).find("input#email").val();
 		div=$(this).parent().parent().parent();//seleziono la scheda card
@@ -93,16 +93,22 @@ $(document).ready(function(){
 	});
 	//ajax eliminazione del laboratorio + messaggio di conferma
 	$("button#confermaElimina").on("click",function(){
+<<<<<<< HEAD
 		console.log(email);
 		
+=======
+		console.log(email);	
+>>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
 		$.getJSON("addetto",{
-			action: "getListResp",
+			action: "rimuoviResp",
 			email: email
 		},function(data,status){
-			//console.log(data.esito);
 			div.remove();//rimuovo la scheda dalla grafica
 			email="";
+<<<<<<< HEAD
 			//messaggio esito
+=======
+>>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
 			var mex=data.esito;
 			$("#success-alert").css("display","block");
 			$("#success-alert").html("");
@@ -112,11 +118,14 @@ $(document).ready(function(){
 			$("#success-alert").css("width","100%");
 			setTimeout(function() {
 				$("#success-alert").css("display","none");
-		        //$("#success-alert").alert('close');
 		    }, 2000);
 		});
 	});
 });
+<<<<<<< HEAD
+=======
+	
+>>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
 </script>
 </body>
 </html>

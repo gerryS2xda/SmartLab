@@ -4,7 +4,10 @@
 <html>
 	<head>
 		<title>Creazione avviso</title>
-		<link type="text/css" rel="stylesheet" href="../css/avviso_style.css">
+		<!--<link type="text/css" rel="stylesheet" href="../css/avviso_style.css">-->
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<script src="script/jquery-3.3.1.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<header>

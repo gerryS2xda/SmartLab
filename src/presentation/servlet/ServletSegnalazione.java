@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.*;
 
 import businessLogic.comunicazione.CommunicationManager;
-import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Segnalazione;
 import dataAccess.storage.bean.Studente;
 
@@ -36,21 +35,26 @@ public class ServletSegnalazione extends HttpServlet {
 					id = lista.get(count).getId() + 1;
 				count++;
 			}
+			Studente st = (Studente) session.getAttribute("user");
 			String oggetto = request.getParameter("oggetto");
 			String descrizione = request.getParameter("descrizione");
-			String lab = request.getParameter("lab");
-			int pos = Integer.parseInt(request.getParameter("pos"));
-			String studente = request.getParameter("studente");
+			String lab = request.getParameter("laboratorio");
+			int pos = Integer.parseInt(request.getParameter("postazione"));
+			String studente = st.getEmail();
 			java.util.Date d = new java.util.Date();
 			Date data = new Date(d.getTime());
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
-			cm.addSegnalazione(s);
+			response.setContentType("aplication/json");
+			if(cm.addSegnalazione(s))
+				response.getWriter().write("{\"esito\": \"successo\"}");
+			else
+				response.getWriter().write("{\"esito\": \"fallimento\"}");
 		}else if(segnalazione.equals("deleteSegnalazione")){
 			int id = Integer.parseInt(request.getParameter("id"));
 			String oggetto = request.getParameter("oggetto");
 			String descrizione = request.getParameter("descrizione");
-			String lab = request.getParameter("lab");
-			int pos = Integer.parseInt(request.getParameter("pos"));
+			String lab = request.getParameter("laboratorio");
+			int pos = Integer.parseInt(request.getParameter("postazione"));
 			String studente = request.getParameter("studente");
 			java.util.Date d = new java.util.Date();
 			Date data = new Date(d.getTime());
@@ -82,6 +86,7 @@ public class ServletSegnalazione extends HttpServlet {
 				}
 			}
 			result = result.substring(0, result.length() - 1) + "}";
+			response.sendRedirect("./viewSegnalazioni.jsp");
 			response.getWriter().write(json.toJson(result));
 		}else if(segnalazione.equals("openSegnalazione")){
 			int flag = 0, i = 0;

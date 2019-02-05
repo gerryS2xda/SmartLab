@@ -2,11 +2,21 @@ $("#crea").click(function(){
 	var flag = 0;
 	var titolo = $("#titolo").text();
 	var descrizione = $("#descrizione").text();
-	if(titolo == null || descrizione == null)
-		alert("Dati non validi");
+	if(titolo == null){
+		document.getElementById("#oggAvviso").style.color = "red";
+		flag++;
+	}
+	if(descrizione == null){
+		document.getElementById("#desAvviso").style.color = "red";
+		flag++;
+	}
+	if(flag != 0)
+		alert("I dati inseriti non sono completi");
 	else{
-		document.getElementById("#errore").style.display = "none";
-		$.post("../ServletAvviso", {"action": "newAvviso", "titolo": titolo, "descrizione": descrizione, "addetto": addetto}, function(resp, stat, xhr){
+		document.getElementById("#desAvviso").style.color = "black";
+		document.getElementById("#oggAvviso").style.color = "black";
+		//document.getElementById("#errore").style.display = "none";
+		$.post("../ServletAvviso", {"action": "newAvviso", "titolo": titolo, "descrizione": descrizione}, function(resp, stat, xhr){
 			if(xhr.readyState == 4 && stat == "success"){
 				var ris = JSON.parse(resp);
 				var esito = ris.esito;

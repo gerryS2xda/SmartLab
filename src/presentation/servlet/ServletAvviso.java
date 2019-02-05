@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.*;
 
 import businessLogic.comunicazione.CommunicationManager;
+import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Studente;
 
@@ -40,11 +41,12 @@ public class ServletAvviso extends HttpServlet {
 						id = lista.get(count).getId();
 					count++;
 				}
+				Addetto ad = (Addetto) session.getAttribute("user");
 				String titolo = request.getParameter("titolo");
 				String messaggio = request.getParameter("messaggio");
 				java.util.Date d = new java.util.Date();
 				Date data = new Date(d.getTime());
-				String addetto = request.getParameter("addetto");
+				String addetto = ad.getEmail();
 				Avviso a = new Avviso(id, titolo, messaggio, data, addetto);
 				response.setContentType("application/json");
 				if(cm.addAvviso(a))
@@ -71,6 +73,7 @@ public class ServletAvviso extends HttpServlet {
 				count++;
 			}
 			result = result.substring(0, result.length() - 1) + "}";
+			response.sendRedirect("./viewAvvisi.jsp");
 			response.getWriter().write(json.toJson(result));
 		}else if(avviso.equals("openAvviso")){
 			Studente st = (Studente) session.getAttribute("user");
@@ -89,7 +92,11 @@ public class ServletAvviso extends HttpServlet {
 				else
 					i++;
 			}
-			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"titolo\": \"" + lista.get(i).getTitolo() + "\", \"messaggio\": \"" + lista.get(i).getMessaggio() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"addetto\": \"" + lista.get(i).getAddetto() + "\", \"tipo\": \"" + tipo + "\"}"));
+			if(flag != 0){
+				response.sendRedirect("./avviso.jsp");
+				response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"titolo\": \"" + lista.get(i).getTitolo() + "\", \"messaggio\": \"" + lista.get(i).getMessaggio() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"addetto\": \"" + lista.get(i).getAddetto() + "\", \"tipo\": \"" + tipo + "\"}"));
+			}else
+				response.getWriter().write("{\"esito\": \"errore\"}");
 		}
 	}
 	

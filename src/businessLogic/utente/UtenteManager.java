@@ -56,9 +56,10 @@ public class UtenteManager {
 		return s;
 	}
 	
-	public Sospensione effettuaSospensione (Studente s) throws SQLException{
+	public Sospensione effettuaSospensione (Studente s, String motivazione) throws SQLException{
 		Sospensione v = new Sospensione();
 		v.setStudente(s);
+		v.setMotivazione(motivazione);
 		s.setStato(true);
 		sospensione.add(v);
 		return v;
