@@ -27,8 +27,9 @@ public class Connessione  {
 
 		String username = "root";
 		String password = "asd456JKL";
-
-		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password+"?verifyServerCertificate=false&useSSL=true");
+		
+		//+"?verifyServerCertificate=false&useSSL=true"
+		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);
 
 		newConnection.setAutoCommit(true);
 
