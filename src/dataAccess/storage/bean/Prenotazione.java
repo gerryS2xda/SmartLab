@@ -124,7 +124,7 @@ public class Prenotazione {
 	public String toString(){	//adattato per costruzione della stringa JSON
 		String str = "{\"id\":" + id + ", \"data\": \"" + data + "\", \"oraInizio\": \"" + getOraInizio().toString() + "\", "
 				+ "\"oraFine\": \"" + getOraFine().toString() + "\",  \"email\": \"" + getStudente().getEmail() + "\", \"postazione\": " + getPostazione().getNumero() + ", "  
-				+ "\"laboratorio\": \"" + getLaboratorio().getNome() + "\" }";
+				+ "\"laboratorio\": \"" + getLaboratorio().getNome() + "\", \"stato\": " + stato + " }";
 		return str;
 	}
 
