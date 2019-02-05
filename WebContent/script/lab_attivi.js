@@ -84,7 +84,6 @@ function loadWidget(){
 			
 			//inserite qui perche' le richieste di AJAX sono asincrone
 			setPrenotazioniForNextDayText(); //verifica se e' passato l'orario di chiusura dei laboratori; se passato -> mostra la data di domani
-			deletePrenotazioniAfter24Hour();
 			loadTableBody();
 		}else{
 			window.location.href = "./index.jsp"; //pagina errore 404
@@ -111,35 +110,6 @@ function effettuaPrenotazione(button){	//pulsante "Prenota"
 			window.location.href = "./index.jsp"; //pagina errore 404
 		}
 	});
-}
-
-
-//cancella le prenotazioni dopo 24 ore
-function deletePrenotazioniAfter24Hour(){
-	//ottieni orario di chiusura dai blocchi contenti le info sui laboratori 
-	var x = $(".list_block li"); 
-	var nLab = x.length;
-	
-	for(var i = 0; i < nLab; i++){
-		var spans = x.eq(i).find("span");
-		var oraCorrente = new Date().getHours();
-		var y = spans.eq(4).text();
-		y = y.split(":");
-		var oraChiusura = parseInt(y[0]); //ottieni l'ora di chiusura
-		if(oraCorrente > oraChiusura){	//laboratorio chiuso --> resetta le prenotazioni
-			$.post("../prenotazione-serv", {"action": "del_pren_after_24"}, function(resp, stat, xhr){
-				if(xhr.readyState == 4 && stat == "success"){
-					var o = JSON.parse(resp);
-					var esito = o.esito;
-					if(!esito){
-						window.location.href = "./index.jsp";
-					}
-				}else{
-					window.location.href = "./index.jsp"; //pagina errore 404
-				}
-			});
-		}
-	}
 }
 
 //setta la data per il giorno successivo dopo la chiusura del laboratorio
