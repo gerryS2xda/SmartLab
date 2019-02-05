@@ -123,18 +123,19 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 				response.getWriter().write(json.toJson("{\"status\": \"failure\"}"));
 			}
 			
-			if(manager.isPrenotazioneActive(pr)){
+			//cambia lo stato se e' scaduta
+			try {
+				manager.changePrenotazioneStatus(pr);
+			}catch (SQLException e) {
+				response.getWriter().write(json.toJson("{\"status\": \"failure\"}"));
+			}
+			
+			if(pr.isPrenotazioneActive()){
 				response.getWriter().write(json.toJson("{\"status\": \"active\"}"));
 			}else{
-				//procedi alla modifica dello stato di questa postazione
-				pr.setStatus(false);
-				try {
-					manager.updatePrenotazione(pr);
-				} catch (SQLException e) {
-					response.getWriter().write(json.toJson("{\"status\": \"failure\"}"));
-				}
 				response.getWriter().write(json.toJson("{\"status\": \"scaduta\"}"));
 			}
+
 		}else if(action.equals("del_pren")){
 			boolean done = true;
 			
@@ -143,7 +144,7 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			try{
 				pr = manager.findPrenotazioneById(id);
 			}catch (PrenotazioneException e){
-				//id non valido oppure la prenotazione non si puo' annullare
+				//id non valido
 				done = false;
 			}catch(SQLException e){
 				done = false;
@@ -152,15 +153,16 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			try {
 				manager.annullaPrenotazione(pr);
 			} catch (PrenotazioneException e) {
+				//la prenotazione non si puo' annullare
 				done = false;
 			}catch(SQLException e){
 				done = false;
 			}
 
 			if(done){
-				response.getWriter().write(json.toJson("{\"esito\": \"true\"}"));
+				response.getWriter().write(json.toJson("{\"esito\": \"ok\"}"));
 			}else{
-				response.getWriter().write(json.toJson("{\"esito\": \"false\"}"));
+				response.getWriter().write(json.toJson("{\"esito\": \"failure\"}"));
 			}
 		}else if(action.equals("numero_post_occupate")){
 			
@@ -175,13 +177,25 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			}
 			
 			response.getWriter().write(json.toJson("{\"numeroPost\": " + num + " }"));
-		}else if(action.equals("del_pren_after_24")){	//cancella le prenotazioni dopo 24 ore
+		}else if(action.equals("del_pren_after_orario_chiusura")){	//cancella le prenotazioni dopo l'orario di chiusura
 			boolean done = true;
 			
-			Studente s = (Studente) session.getAttribute("user");
+			try{
+				manager.deleteAllPrenotazioni();
+			}catch(SQLException e){
+				done = false;
+			}
+			
+			if(done){
+				response.getWriter().write(json.toJson("{\"esito\": \"true\"}"));
+			}else{
+				response.getWriter().write(json.toJson("{\"esito\": \"false\"}"));
+			}
+		}else if(action.equals("del_pren_after_days")){	//cancella le prenotazioni dopo vari giorni
+			boolean done = true;
 			
 			try{
-				manager.deletePrenotazioniAfter24Hour(s.getEmail());
+				manager.deleteAllPrenotazioniAfterDays();
 			}catch(SQLException e){
 				done = false;
 			}
