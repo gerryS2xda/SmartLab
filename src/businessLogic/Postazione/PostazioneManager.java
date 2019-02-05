@@ -142,32 +142,32 @@ public class PostazioneManager {
 	{
 		List <Postazione> lpos=new ArrayList<Postazione>();
 		Postazione pos=new Postazione();
-//		if(lab!=null && !lab.equals(""))
-//		{
+		if(lab!=null && !lab.equals(""))
+		{
 			PostazioneRepository repository=new PostazioneRepository();
 			ListaPos lista=new ListaPos(lab);//query che prende il laboratrio
-//		
-//				try 
-//				{
-//					lpos=repository.query(lista);
-//				}
-//				catch (SQLException e) 
-//				{
-//					System.err.println("errore");
-//					e.printStackTrace();
-//				}
-//		} else
-//		{
-//			System.out.println("la Stringa inserita e' vuota lista vuota");
-//		}
-		pos.setNumero(1);   //codice per test statico
-		pos.setLaboratorio("lab1");
-		pos.setStato(false);
-		lpos.add(pos);
-		pos.setNumero(2);   //codice per test statico
-		pos.setLaboratorio("lab2");
-		pos.setStato(true);
-		lpos.add(pos);
+		
+				try 
+				{
+					lpos=repository.query(lista);
+				}
+				catch (SQLException e) 
+				{
+					System.err.println("errore");
+					e.printStackTrace();
+				}
+		} else
+		{
+			System.out.println("la Stringa inserita e' vuota lista vuota");
+		}
+//		pos.setNumero(1);   //codice per test statico
+//		pos.setLaboratorio("lab1");
+//		pos.setStato(false);
+//		lpos.add(pos);
+//		pos.setNumero(2);   //codice per test statico
+//		pos.setLaboratorio("lab2");
+//		pos.setStato(true);
+//		lpos.add(pos);
 		return lpos;
 	}
 	
