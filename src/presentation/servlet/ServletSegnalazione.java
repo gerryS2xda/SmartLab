@@ -48,9 +48,9 @@ public class ServletSegnalazione extends HttpServlet {
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
 			response.setContentType("aplication/json");
 			if(cm.addSegnalazione(s))
-				response.getWriter().write("{\"esito\": \"successo\"}");
+				response.getWriter().write(json.toJson("{\"esito\": \"successo\"}"));
 			else
-				response.getWriter().write("{\"esito\": \"fallimento\"}");
+				response.getWriter().write(json.toJson("{\"esito\": \"fallimento\"}"));
 		}else if(segnalazione.equals("deleteSegnalazione")){
 			int id = Integer.parseInt(request.getParameter("id"));
 			String oggetto = request.getParameter("oggetto");
@@ -63,9 +63,9 @@ public class ServletSegnalazione extends HttpServlet {
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
 			response.setContentType("application/json");
 			if(cm.deleteSegnalazione(s))
-				response.getWriter().write("{\"esito\": \"successo\"}");
+				response.getWriter().write(json.toJson("{\"esito\": \"successo\"}"));
 			else
-				response.getWriter().write("{\"esito\": \"errore\"}");
+				response.getWriter().write(json.toJson("{\"esito\": \"errore\"}"));
 		}else if(segnalazione.equals("viewSegnalazioni")){
 			Studente st = (Studente) session.getAttribute("user");
 			response.setContentType("application/json");
