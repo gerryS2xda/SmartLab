@@ -14,7 +14,6 @@ import dataAccess.storage.Connessione;
 import dataAccess.storage.Repository;
 import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
-import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Segnalazione;
 
 public class SegnalazioneRepository implements Repository<Segnalazione> {
@@ -23,10 +22,8 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 	private LaboratorioRepository lr = new LaboratorioRepository();
 	
 	public void add(Segnalazione segnalazione) throws SQLException{
-		Laboratorio tmp = new Laboratorio();
-		tmp.setNome(segnalazione.getLaboratorio());
-		IdLab lab = new IdLab(tmp);
-		tmp.setIDlaboratorio(lr.findItemByQuery(lab).getIDlaboratorio());
+		IdLab lab = new IdLab(segnalazione.getLaboratorio());
+	    segnalazione.setLaboratorio((lr.findItemByQuery(lab).getIDlaboratorio()));
 		Connection con = null;
 		PreparedStatement ps = null;
 		String addSegnalazione = "INSERT INTO " + table + " VALUES(?,?,?,?,?,?,?)";
@@ -38,7 +35,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			ps.setString(3, segnalazione.getDescrizione());
 			ps.setDate(4, segnalazione.getData());
 			ps.setInt(5, segnalazione.getPostazione());
-			ps.setString(6, tmp.getIDlaboratorio());
+			ps.setString(6, segnalazione.getLaboratorio());
 			ps.setString(7, segnalazione.getStudente());
 			ps.executeUpdate();
 		}finally{
