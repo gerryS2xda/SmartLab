@@ -1,21 +1,20 @@
 $("#crea").click(function(){
 	var flag = 0;
-	var titolo = $("#titolo").text();
-	var descrizione = $("#descrizione").text();
-	if(titolo == null){
-		document.getElementById("#oggAvviso").style.color = "red";
+	var titolo = $("#titolo").val();
+	var descrizione = $("#descrizione").val();
+	if(!$("#titolo").val()){
+		$("#oggAvviso").css("color", "red");
 		flag++;
 	}
-	if(descrizione == null){
-		document.getElementById("#desAvviso").style.color = "red";
+	if(!$("#descrizione").val()){
+		$("#desAvviso").css("color", "red");
 		flag++;
 	}
 	if(flag != 0)
 		alert("I dati inseriti non sono completi");
 	else{
-		document.getElementById("#desAvviso").style.color = "black";
-		document.getElementById("#oggAvviso").style.color = "black";
-		//document.getElementById("#errore").style.display = "none";
+		$("#oggAvviso").css("color", "black");
+		$("#desAvviso").css("color", "black");
 		$.post("../ServletAvviso", {"action": "newAvviso", "titolo": titolo, "descrizione": descrizione}, function(resp, stat, xhr){
 			if(xhr.readyState == 4 && stat == "success"){
 				var ris = JSON.parse(resp);
@@ -53,22 +52,25 @@ function selectAvviso(){
 	$(document).click(function(event){
 		id = $(event.target).text();
 	});
-	$.post("../ServletAvviso", {"action": "openAvviso", "id": 1}, function(resp, stat, xhr){
+	$.post("../ServletAvviso", {"action": "openAvviso", "id": id}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var avviso = JSON.parse(resp);
-			if(avviso.tipo == "addetto"){
-				var btn = document.createElement("BUTTON");
-				var t = document.createTextNode("Cancella avviso");
-				btn.appendChild(t);
-				btn.setAttribute("id", "delAvviso");
-				btn.setAttribute("tag", id);
-				document.body.appendChild(btn);
-			}
-			//document.getElementById("delAvviso").setAttribute("tag", id);
-			$("#title").html(avviso.titolo);
-			$("#message").html(avviso.messaggio);
-			$("#date").html(avviso.data);
-			$("#creator").html(avviso.addetto);
+			if(avviso.esito == "successo"){
+				if(avviso.tipo == "addetto"){
+					var btn = document.createElement("BUTTON");
+					var t = document.createTextNode("Cancella avviso");
+					btn.appendChild(t);
+					btn.setAttribute("id", "delAvviso");
+					btn.setAttribute("tag", id);
+					document.body.appendChild(btn);
+				}
+				//document.getElementById("delAvviso").setAttribute("tag", id);
+				$("#title").html(avviso.titolo);
+				$("#message").html(avviso.messaggio);
+				$("#date").html(avviso.data);
+				$("#creator").html(avviso.addetto);
+			}else
+				alert("Avviso non trovato");
 		}else
 			window.location.href = "./index.jsp";
 	});

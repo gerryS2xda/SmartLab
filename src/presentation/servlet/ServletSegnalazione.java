@@ -18,7 +18,9 @@ import dataAccess.storage.bean.Studente;
 
 @WebServlet("/ServletSegnalazione")
 public class ServletSegnalazione extends HttpServlet {
-	
+
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		HttpSession session = request.getSession();
 		Gson json = new Gson();
