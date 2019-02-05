@@ -1,12 +1,13 @@
 package dataAccess.storage.bean;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Laboratorio implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String IDlaboratorio;
 	private String nome;

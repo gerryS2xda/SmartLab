@@ -5,7 +5,6 @@ import java.util.List;
 
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.assegnamento.ListaLabAss;
-import businessLogic.assegnamento.ListaRespAss;
 import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 
@@ -38,7 +37,7 @@ public class LaboratorioManager {
 	    		try {
 					repository.add(lab);
 					Laboratorio temp=new Laboratorio();
-					temp=repository.findItemByQuery(new IdLab(lab));
+					temp=repository.findItemByQuery(new IdLab(lab.getIDlaboratorio()));
 					lab.setIDlaboratorio(temp.getIDlaboratorio());
 					System.out.println("id "+lab.getIDlaboratorio());
 					//crea le postazioni
