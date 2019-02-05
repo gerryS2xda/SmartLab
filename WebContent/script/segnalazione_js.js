@@ -1,34 +1,33 @@
-function inviaSegnalazione(){
+$("#button").click(function inviaSegnalazione(){
 	var flag = 0;
 	var laboratorio = $("#Laboratori").text();
-	var postazione = $("#NumPos").text();
-	var oggetto = $("#oggetto").text();
-	var descrizione = $("#descrizione").text();
+	var postazione = $("#NumPos").val();
+	var oggetto = $("#oggetto").val();
+	var descrizione = $("#descrizione").val();
 	if(laboratorio == null){
-		document.getElementById("#sceltaLab").style.color = "red";
+		$("#sceltaLab").prev().css("color", "red");
 		flag++;
 	}
 	if(postazione == null){
-		document.getElementById("#sceltaPos").style.color = "red";
+		$("#sceltaPos").prev().css("color", "red");
 		flag++;
 	}
 	if(oggetto == null){
-		document.getElementById("#insOgg").style.color = "red";
+		$("#insOgg").prev().css("color", "red");
 		flag++;
 	}
 	if(descrizione == null){
-		document.getElementById("#insDes").style.color = "red";
+		$("#insDes").prev().css("color", "red");
 		flag++;
 	}
-	if(flag != 0)
+	if(flag != 0){
 		alert("I dati inseriti non sono completi");
-		//document.getelementById("#errore").style.display = "block";
+	}
 	else{
-		document.getElementById("#errore").style.display = "none";
-		document.getElementById("#insDes").style.color = "black";
-		document.getElementById("#insOgg").style.color = "black";
-		document.getElementById("#sceltaPos").style.color = "black";
-		document.getElementById("#sceltaLab").style.color = "black";
+		$("#insDes").prev().css("color", "black");
+		$("#insOgg").prev().css("color", "black");
+		$("#sceltaPos").prev().css("color", "black");
+		$("#sceltaLab").prev().css("color", "black");
 		$.post("../ServletSegnalazione", {"action": "newSegnalazione", "laboratorio": laboratorio, "postazione": postazione, "oggetto": oggetto, "descrizione": descrizione}, function(resp, stat, xhr){
 			if(xhr.readyState == 4 && stat == "success"){
 				var risultato = JSON.parse(resp);
@@ -40,7 +39,7 @@ function inviaSegnalazione(){
 				window.location.href("./index.jsp");
 		});
 	}
-}
+});
 
 function loadSegnalazioni(){
 	$.post("../ServletSegnalazione", {"action": "viewSegnalazioni"}, function(resp, stat, xhr){
@@ -89,7 +88,7 @@ function deleteSegnalazione(){
 	var descrizione = $("#descrizione").text();
 	var laboratorio = $("#lab").text();
 	var postazione = $("pos").text();
-	$.post("../ServletSegnalazione", {"action": "deleteSegnalazione", "id": id, "oggetto": oggetto, "descrizione": descrizione, "lab": laboratorio, "pos": postazione}, function(resp, stat, xhr){
+	$.post("../ServletSegnalazione", {"action": "deleteSegnalazione", "id": id, "oggetto": oggetto, "descrizione": descrizione, "laboratorio": laboratorio, "postazione": postazione}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var res = JSON.parse(resp);
 			if(res.esito == "successo")

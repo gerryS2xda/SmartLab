@@ -6,15 +6,15 @@ import java.sql.Date;
 public class Segnalazione implements Serializable {
 	
 	private int id;
-	private String oggetto, descrizione;
+	private String oggetto, descrizione, lab;
 	private Date data;
 	private String studente;
-	private int postazione, lab;
+	private int postazione;
 	
 	public Segnalazione(){
 	}
 	
-	public Segnalazione(int i, String og, String des, Date d, String s, int l, int pos){
+	public Segnalazione(int i, String og, String des, Date d, String s, String l, int pos){
 		id = i;
 		oggetto = og;
 		descrizione = des;
@@ -64,11 +64,11 @@ public class Segnalazione implements Serializable {
 		studente = nStud;
 	}
 	
-	public int getLaboratorio(){
+	public String getLaboratorio(){
 		return lab;
 	}
 	
-	public void setLaboratorio(int nLab){
+	public void setLaboratorio(String nLab){
 		lab = nLab;
 	}
 	
