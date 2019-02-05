@@ -88,7 +88,9 @@ public class AssegnamentoManager {
     	return null;
 	}
     
-    //ritorna tutti i responsabile che non sono assegnati al laboratorio
+    /*ritorna tutti i responsabile che non sono assegnati al laboratorio
+     * @param idlaboratorio id del laboratorio
+     * @return una lista con tutti i responsabili che non sono assegnati a un laboratorio*/
     public List<Addetto> showResponsabileAddLaboratorio(String idlaboratorio){
     	AddettoRepository repository=new AddettoRepository();
     	

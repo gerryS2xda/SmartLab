@@ -94,13 +94,6 @@ $(document).ready(function(){
 	//ajax eliminazione del laboratorio + messaggio di conferma
 	$("button#confermaElimina").on("click",function(){
 		console.log(email);
-		/*$(document).ajaxStart(function(){
-	        $("#wait").css("display", "block");
-	    });
-		
-		$(document).ajaxComplete(function(){
-	        $("#wait").css("display", "none");
-	    });*/
 		
 		$.getJSON("addetto",{
 			action: "getListResp",
@@ -108,7 +101,7 @@ $(document).ready(function(){
 		},function(data,status){
 			//console.log(data.esito);
 			div.remove();//rimuovo la scheda dalla grafica
-			id="";
+			email="";
 			//messaggio esito
 			var mex=data.esito;
 			$("#success-alert").css("display","block");
@@ -123,7 +116,7 @@ $(document).ready(function(){
 		    }, 2000);
 		});
 	});
-	
+});
 </script>
 </body>
 </html>

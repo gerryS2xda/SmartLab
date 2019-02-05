@@ -98,7 +98,35 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 
 
     public void update(Laboratorio lab)throws SQLException{
+    	Connection connection = null;
+		PreparedStatement preparedStatement = null;
 
+		String deleteSQL = "UPDATE "+TABLE_NAME+" SET nome = ?, posti = ?, stato = ?, ora_apertura = ?, ora_chiusura = ? WHERE IDlaboratorio = ?";
+
+		try {
+			connection = Connessione.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setString(1, lab.getNome());
+			preparedStatement.setInt(2, lab.getPosti());
+			preparedStatement.setBoolean(3, lab.isStato());
+			preparedStatement.setTime(4, Time.valueOf(lab.getApertura()));
+			preparedStatement.setTime(5, Time.valueOf(lab.getChiusura()));
+			preparedStatement.setString(6, lab.getIDlaboratorio());
+
+			preparedStatement.executeUpdate();
+			
+			//connection.commit();
+			System.out.println(preparedStatement);
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null)
+					Connessione.releaseConnection(connection);
+			}
+		}
     }
 
     public Laboratorio findItemByQuery(Specification specification)throws SQLException{

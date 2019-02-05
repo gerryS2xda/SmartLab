@@ -102,19 +102,19 @@ public class LaboratorioManager {
 			return null;
 		}
 	    
+	    /*Ritorna una lista di laboratori assegnati a un responsabile
+	     * @param email email del responsabile a cui saranno assegnati i laboratori
+	     * @return lista laboratori assegnati al responsabile
+	     * */
 	    public List<Laboratorio> getLaboratoryListForResp(String email){
 	    	LaboratorioRepository repository=new LaboratorioRepository();
 	    	try {
-				return repository.query(new ListaLabAss(email));
+				return repository.query(new ListaLabAss(email));//forse da spostare in laboratorio
 			} catch (SQLException e) {
 				System.err.println("non è possibile ritornare la lista dei laboratori");
 				e.printStackTrace();
 			}
 			return null;
 	    }
-	  /** mostra una statistica di utilizzo di un laboratorio in termini di quante postazioni vengono         * occupate al giorno.
-	    *@param lab laboratori su desidera vedere la statistica di utilizzo
-	    *@return statistiche di utilizzo di un laboratorio 
-	    public int viewStatistiche(Laboratorio lab){}*/
 
 }
