@@ -1,12 +1,12 @@
 package prenotazionetest;
 
-import businessLogic.prenotazione.PrenotazioneById;
+import businessLogic.prenotazione.PrenByStudPost;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PrenotazioneByIdTest {
+public class PrenByStudPostTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -18,13 +18,14 @@ public class PrenotazioneByIdTest {
 
 	@Test
 	public void testToSqlQuery() {
-		System.out.println("Testing: query per selezionare una prenotazione in base all'ID");
+		System.out.println("Testing: query per selezionare le prenotazioni in base all'email dello studente, numero postazione e idLaboratorio");
 		
 		//query che si vuole ottenere
-		String oracle = "SELECT * FROM Prenotazione WHERE IDprenotazione = 1";
-		
+		String oracle = "SELECT * FROM Prenotazione WHERE Studente = 'teststud@studenti.unisa.it' "
+				+ "AND Postazione = 100 AND Laboratorio = 0";
+
 		//query da testare
-		PrenotazioneById query = new PrenotazioneById(1);
+		PrenByStudPost query = new PrenByStudPost("teststud@studenti.unisa.it", "100", "0");
 		String actualObj = query.toSqlQuery();
 		
 		assertEquals("Le query sono diverse", oracle, actualObj);
