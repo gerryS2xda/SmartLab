@@ -1,15 +1,11 @@
 package presentation.servlet;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,12 +70,12 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			}else{
 				response.getWriter().write("{\"esito\":\"non è possibile eliminare il laboratorio\"}");
 			}
-		}else if(action.equals("lista_lab")){//visualizzazione lista laboratori
+		}else if(action.equals("lista_lab")){//visualizzazione lista laboratori admin
 			//List<Laboratorio> laboratori= manager.getLaboratoryList();
 			request.setAttribute("laboratori", manager.getLaboratoryList());
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/adminInterface/visualizzaLaboratori.jsp");
 			dispatcher.forward(request, response);
-		}else if(action.equals("lista_lab_attivi")){//visualizzazione lista laboratori responsaile
+		}else if(action.equals("lista_lab_resp")){//visualizzazione lista laboratori responsaile
 			//List<Laboratorio> laboratori= manager.getLaboratoryList();
 			String email="esempio1@unisa.it";
 			request.setAttribute("laboratori", manager.getLaboratoryListForResp(email));
