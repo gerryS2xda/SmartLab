@@ -121,9 +121,9 @@ public class ServletUtenteManagement extends HttpServlet {
 			
 			Studente s = new Studente();
 			s.setEmail(request.getParameter("emailStudente"));
-			
+			String motivazione = request.getParameter("motivazione");
 			try{
-				Sospensione v = manager.effettuaSospensione(s);
+				Sospensione v = manager.effettuaSospensione(s, motivazione);
 				if(v.getStudente()!= null && s.getStato() == true){
 					response.getWriter().write(json.toJson("{\"esito\":\"sospensione effettuata\"}"));
 				} else {
@@ -135,7 +135,7 @@ public class ServletUtenteManagement extends HttpServlet {
 			
 		} else if(action.equals("getStudentList")) {
 			try {
-				request.setAttribute("utenti", manager.getStudentList());
+				request.setAttribute("studenti", manager.getStudentList());
 			/**	response.getWriter().write(json.toJson()); **/
 			} catch (SQLException e) {
 			/**	response.getWriter().write(json.toJson()); **/
