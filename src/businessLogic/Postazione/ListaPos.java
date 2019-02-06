@@ -14,9 +14,8 @@ public class ListaPos implements SqlSpecification{
 	
     public static ListaPos getInstance() {
 
-        if (instance == null) {
             instance = new ListaPos("");
-        }
+        
         return instance;
 
     }

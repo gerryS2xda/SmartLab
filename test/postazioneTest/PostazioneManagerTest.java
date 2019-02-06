@@ -38,8 +38,8 @@ public class PostazioneManagerTest {
 	}
 
 	@Test
-	public void testCrea() throws SQLException
-	{
+	public void testCreaPostazione() throws SQLException
+
 		boolean flag=true;
 		System.out.println("testing: crea");
 		//-----------------
@@ -49,7 +49,7 @@ public class PostazioneManagerTest {
 	}
 
 	@Test
-	public void testAttiva() throws SQLException
+	public void testAttivaPostazione() throws SQLException
 	{
 		boolean flag=true;
 		System.out.println("testing: attiva");
@@ -63,7 +63,7 @@ public class PostazioneManagerTest {
 	}
 
 	@Test
-	public void testDisattiva() throws SQLException
+	public void testDisattivaPostazione() throws SQLException
 	{
 		boolean flag=true;
 		System.out.println("testing: disattiva");
@@ -78,7 +78,7 @@ public class PostazioneManagerTest {
 	}
 
 	@Test
-	public void testLibera() throws SQLException
+	public void testLiberaPostazione() throws SQLException
 	{
 		Prenotazione pre=new Prenotazione();
 		boolean flag=true;
@@ -91,7 +91,7 @@ public class PostazioneManagerTest {
 	}
 
 	@Test
-	public void testListaPos() throws SQLException
+	public void testListaPostazioni() throws SQLException
 	{
 		System.out.println("testing: listaPos");
 		List<Postazione> postazioni=new ArrayList<>();
@@ -101,6 +101,7 @@ public class PostazioneManagerTest {
 	}
 
 	public void testDeletePos() throws SQLException 
+
 	{
 		System.out.println("testing: delete");
 		PostazioneSql sql=new PostazioneSql(oracle.getNumero(),oracle.getLaboratorio());

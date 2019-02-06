@@ -42,7 +42,7 @@ public class ServletSegnalazione extends HttpServlet {
 			String descrizione = request.getParameter("descrizione");
 			String lab = request.getParameter("laboratorio");
 			int pos = Integer.parseInt(request.getParameter("postazione"));
-			String studente = st.getEmail();
+			String studente = "test";//st.getEmail();
 			java.util.Date d = new java.util.Date();
 			Date data = new Date(d.getTime());
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
@@ -75,7 +75,7 @@ public class ServletSegnalazione extends HttpServlet {
 			if(st instanceof Studente){
 				while(count < lista.size()){
 					if(lista.get(count).getStudente().equals(st.getEmail())){
-						result += "\"sg" + i + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"oggetto\": \"" + lista.get(count).getOggetto() + "\", \"descrizione\": \"" + lista.get(count).getDescrizione() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"studente\": \"" + lista.get(count).getStudente() + "\", \"laboratorio\": \"" + lista.get(count).getLaboratorio() + "\", \"postazione\": \"" + lista.get(count).getPostazione() + "\"}";
+						result += "\"sg" + i + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"oggetto\": \"" + lista.get(count).getOggetto() + "\", \"descrizione\": \"" + lista.get(count).getDescrizione() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"studente\": \"" + lista.get(count).getStudente() + "\", \"laboratorio\": \"" + lista.get(count).getLaboratorio() + "\", \"postazione\": \"" + lista.get(count).getPostazione() + "\"},";
 						count++;
 						i++;
 					}else
@@ -83,12 +83,12 @@ public class ServletSegnalazione extends HttpServlet {
 				}
 			}else{
 				while(count < lista.size()){
-					result += "\"sg" + count + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"oggetto\": \"" + lista.get(count).getOggetto() + "\", \"descrizione\": \"" + lista.get(count).getDescrizione() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"studente\": \"" + lista.get(count).getStudente() + "\", \"laboratorio\": \"" + lista.get(count).getLaboratorio() + "\", \"postazione\": \"" + lista.get(count).getPostazione() + "\"}";
+					result += "\"sg" + count + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"oggetto\": \"" + lista.get(count).getOggetto() + "\", \"descrizione\": \"" + lista.get(count).getDescrizione() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"studente\": \"" + lista.get(count).getStudente() + "\", \"laboratorio\": \"" + lista.get(count).getLaboratorio() + "\", \"postazione\": \"" + lista.get(count).getPostazione() + "\"},";
 					count++;
 				}
 			}
 			result = result.substring(0, result.length() - 1) + "}";
-			response.sendRedirect("./viewSegnalazioni.jsp");
+			//response.sendRedirect("./viewSegnalazioni.jsp");
 			response.getWriter().write(json.toJson(result));
 		}else if(segnalazione.equals("openSegnalazione")){
 			int flag = 0, i = 0;

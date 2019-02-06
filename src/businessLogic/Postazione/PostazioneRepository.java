@@ -7,12 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import businessLogic.laboratorio.LaboratorioRepository;
+
 import dataAccess.storage.Connessione;
 import dataAccess.storage.Repository;
 import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
-import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 
 public class PostazioneRepository implements Repository<Postazione>{

@@ -21,16 +21,19 @@ public class Connessione  {
 	
 	private static synchronized Connection createDBConnection() throws SQLException {
 		Connection newConnection = null;
+//		String ip = "192.168.1.125";
 		String ip = "localhost";
 		String port = "3306";
 		String db = "smartlab";
 
 		String username = "root";
-		String password = "asd456JKL";
+		String password = "basedidati";
 		
-		//+"?verifyServerCertificate=false&useSSL=true"
-		newConnection = DriverManager.getConnection("jdbc:mysql://"+ ip+":"+ port+"/"+db, username, password);
+		newConnection = DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+db, username, password);
 
+/** NON TI AZZARDARE A TOCCARE QUESTA RIGA ALTRIMENTI TI AMMAZZO - ROCCO :) 
+ *		newConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/smartlab?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", username, password);
+**/	
 		newConnection.setAutoCommit(true);
 
 		return newConnection;

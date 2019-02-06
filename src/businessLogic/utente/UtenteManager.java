@@ -10,6 +10,7 @@ public class UtenteManager {
 	private static UtenteManager instance;
 	private StudenteRepository studente = new StudenteRepository();
 	private SospensioneRepository sospensione = new SospensioneRepository();
+	private int countID=0;
 	
 	public static UtenteManager getInstace(){
 		instance = new UtenteManager();
@@ -57,12 +58,13 @@ public class UtenteManager {
 	}
 	
 	public Sospensione effettuaSospensione (Studente s, String motivazione) throws SQLException{
-		Sospensione v = new Sospensione();
-		v.setStudente(s);
-		v.setMotivazione(motivazione);
+		Sospensione sos = new Sospensione();
+		sos.setStudente(s.getEmail());
+		sos.setMotivazione(motivazione);
+		sos.setID(countID);
 		s.setStato(true);
-		sospensione.add(v);
-		return v;
+		sospensione.add(sos);
+		return sos;
 	}
 	
 
@@ -89,7 +91,6 @@ public class UtenteManager {
 	public void editPassword(String email, String newPassword)throws SQLException{
 		
 		Studente stud = new Studente();
-		
 		stud = studente.findItemByQuery(new StudenteSQL(email));
 		stud.setPassword(newPassword);
 		studente.update(stud);

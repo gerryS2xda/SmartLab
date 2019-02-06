@@ -8,6 +8,8 @@ import dataAccess.storage.bean.Sospensione;
 import dataAccess.storage.bean.Studente;
 import dataAccess.storage.bean.Utente;
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -121,13 +123,13 @@ public class ServletUtenteManagement extends HttpServlet {
 			
 			Studente s = new Studente();
 			s.setEmail(request.getParameter("emailStudente"));
-			String motivazione = request.getParameter("motivazione");
+			String motivazione = (String) request.getParameter("motivazione");
 			try{
 				Sospensione v = manager.effettuaSospensione(s, motivazione);
 				if(v.getStudente()!= null && s.getStato() == true){
-					response.getWriter().write(json.toJson("{\"esito\":\"sospensione effettuata\"}"));
+					response.getWriter().write("{\"esito\":\"sospensione effettuata\"}");
 				} else {
-					response.getWriter().write(json.toJson("{\"esito\":\"sospensione fallita\"}"));
+					response.getWriter().write("{\"esito\":\"sospensione non effettuata\"}");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -136,9 +138,9 @@ public class ServletUtenteManagement extends HttpServlet {
 		} else if(action.equals("getStudentList")) {
 			try {
 				request.setAttribute("studenti", manager.getStudentList());
-			/**	response.getWriter().write(json.toJson()); **/
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/respInterface/sospendiAccount.jsp");
+				dispatcher.forward(request, response);
 			} catch (SQLException e) {
-			/**	response.getWriter().write(json.toJson()); **/
 				e.printStackTrace();
 			}
 		}else if(action.equals("logout")){

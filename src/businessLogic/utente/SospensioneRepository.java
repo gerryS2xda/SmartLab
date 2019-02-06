@@ -11,9 +11,7 @@ import dataAccess.storage.Connessione;
 import dataAccess.storage.Repository;
 import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
-import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Sospensione;
-import dataAccess.storage.bean.Studente;
 
 public class SospensioneRepository implements Repository<Sospensione>{
 	
@@ -27,6 +25,7 @@ public class SospensioneRepository implements Repository<Sospensione>{
     }
 
     public static final String TABLE_NAME = "sospensione";
+    public static final String TABLE_NAME_STUDENTE = "studente";
     
     public SospensioneRepository(){
     	
@@ -36,21 +35,24 @@ public class SospensioneRepository implements Repository<Sospensione>{
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
     	
-    	String insertSQL = "INSERT INTO " + TABLE_NAME
-    			+ " (id, durata, data, motivazione, studente, addetto) VALUES (?, ?, ?, ?, ?, ?)";
+    	String insertSQLSospensione = "INSERT INTO " + TABLE_NAME
+    			+ " (IDsospensione, motivazione, studente) VALUES (?, ?, ?)";
+    	String insertSQLStudente = "update " + TABLE_NAME_STUDENTE + " set stato = ? where email = " + "'"+s.getStudente()+"'";
     	
     	try {
 			connection = Connessione.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, (s.getID()));
-			preparedStatement.setInt(2, (s.getDurata()));
-			preparedStatement.setDate(3, s.getData());
-			preparedStatement.setString(4, s.getMotivazione());
-			preparedStatement.setObject(5, s.getStudente());
-			preparedStatement.setObject(6, s.getAddetto());
-			
+			preparedStatement = connection.prepareStatement(insertSQLSospensione);
+			preparedStatement.setInt(1, s.getID());
+			preparedStatement.setString(2, s.getMotivazione());
+			preparedStatement.setString(3, s.getStudente());
 			preparedStatement.executeUpdate();
-			connection.commit();
+			preparedStatement.close();
+			
+			preparedStatement = connection.prepareStatement(insertSQLStudente);
+			preparedStatement.setBoolean(1, true);
+			preparedStatement.executeUpdate();
+			
+		//	connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -66,14 +68,21 @@ public class SospensioneRepository implements Repository<Sospensione>{
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
     	
-    	String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE id = ?";
+    	String deleteSQLSospensione = "DELETE FROM " + TABLE_NAME
+    			+ " WHERE id = ?";
+    	String deleteSQLStudente = "update " + TABLE_NAME_STUDENTE + " set stato = ? where email = " + "'"+s.getStudente()+"'";
     	
     	try{
 			connection = Connessione.getConnection();
-			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement = connection.prepareStatement(deleteSQLSospensione);
 			preparedStatement.setInt(1, s.getID());
-
 			preparedStatement.executeUpdate();
+			preparedStatement.close();
+			
+			preparedStatement = connection.prepareStatement(deleteSQLStudente);
+			preparedStatement.setBoolean(1, false);
+			preparedStatement.executeUpdate();
+			
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -89,21 +98,26 @@ public class SospensioneRepository implements Repository<Sospensione>{
     	Connection connection = null;
     	PreparedStatement ps = null;
     	
-    	String updateSQL = "update " + TABLE_NAME + " set id = ?, durata = ?, data = ?, "
-    			+ "motivazione = ?, studente = ?, addetto = ? where id = " + s.getID();
+    	String updateSQLSospensione = "update " + TABLE_NAME + " set IDsospensione = ?,"
+    			+ "motivazione = ?, studente = ? where IDsospensione = " + s.getID();
+    	
+    	String updateSQLStudente = "update " + TABLE_NAME_STUDENTE + " set stato = ? where email = " + "'"+s.getStudente()+"'";
     	
     	try{
     		connection = Connessione.getConnection();
-    		ps = connection.prepareStatement(updateSQL);
+    		ps = connection.prepareStatement(updateSQLSospensione);
     		
     		ps.setInt(1, s.getID());
-    		ps.setInt(2, s.getDurata());
-    		ps.setDate(3, s.getData());
-    		ps.setString(4, s.getMotivazione());
-    		ps.setObject(5, s.getStudente());
-    		ps.setObject(6, s.getAddetto());
-    		
+    		ps.setString(2, s.getMotivazione());
+    		ps.setString(3, s.getStudente());
     		ps.executeUpdate();
+       		ps.close();
+    
+       		ps = connection.prepareStatement(updateSQLStudente);
+       		//Come faccio l'upgrade dello stato?
+       		ps.setBoolean(1, true); 
+       		ps.executeUpdate();       		
+    	
     	} finally {
     		if(ps != null)
     			ps.close();
@@ -123,12 +137,9 @@ public class SospensioneRepository implements Repository<Sospensione>{
             ResultSet rs = preparedStatement.executeQuery();
 			
             while (rs.next()) {
-                s.setID(rs.getInt("id"));
-				s.setDurata(rs.getInt("durata"));
-				s.setData(rs.getDate("data"));
+                s.setID(rs.getInt("IDsospensione"));
 				s.setMotivazione(rs.getString("motivazione"));
-                s.setStudente((Studente) rs.getObject(5));
-                s.setAddetto((Addetto) rs.getObject(6));
+                s.setStudente(rs.getString("studente"));
 			}
 		} finally {
 			try {
@@ -157,12 +168,9 @@ public class SospensioneRepository implements Repository<Sospensione>{
 
 			while (rs.next()) {
 				Sospensione s = new Sospensione();
-                s.setID(rs.getInt("id"));
-				s.setDurata(rs.getInt("durata"));
-				s.setData(rs.getDate("data"));
+                s.setID(rs.getInt("IDsospensione"));
 				s.setMotivazione(rs.getString("motivazione"));
-                s.setStudente((Studente) rs.getObject(5));
-                s.setAddetto((Addetto)rs.getObject(6));
+                s.setStudente(rs.getString("studente"));
                 
 				sospesi.add(s);
 			}

@@ -1,12 +1,12 @@
 package accountTest;
 
-import businessLogic.utente.StudentList;
+import businessLogic.utente.StudentLoginSQL;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UtenteManagerTest{
+public class StudentLoginSQLTest{
 	
 	@Before
 	public void setUp() throws Exception{
@@ -20,12 +20,12 @@ public class UtenteManagerTest{
 	
 	@Test
 	public void testToSqlQuery() {
-		System.out.println("Testing: query per tutti gli studenti presenti nel DB");
+		System.out.println("Testing: query per selezionare gli studenti in base ad email e password");
 		
-		String oracle = "SELECT U.nome, U.cognome, S.*, U.password \" +\r\n"
-				+ "\"FROM utente U JOIN studente S ON U.email = S.email;";
+		String oracle = "SELECT U.nome, U.cognome, S.*, U.password "
+				+ "FROM utente U JOIN studente S ON U.email = S.email WHERE U.email='teststud@studenti.unisa.it' AND U.password='12345678'";
 		
-		StudentList query = new StudentList();
+		StudentLoginSQL query = new StudentLoginSQL();
 		String actualObj = query.toSqlQuery();
 		
 		assertEquals("Le query sono diverse", oracle, actualObj);

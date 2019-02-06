@@ -1,9 +1,11 @@
+//funzione per inviare e creare una segnalazione
 $("#button").click(function inviaSegnalazione(){
 	var flag = 0;
 	var laboratorio = $("#Laboratori").text();
 	var postazione = $("#NumPos").val();
 	var oggetto = $("#oggetto").val();
 	var descrizione = $("#descrizione").val();
+	//se qualche campo non è compilato, esso diventa rosso
 	if(laboratorio == null){
 		$("#sceltaLab").prev().css("color", "red");
 		flag++;
@@ -24,13 +26,14 @@ $("#button").click(function inviaSegnalazione(){
 		alert("I dati inseriti non sono completi");
 	}
 	else{
+		//se tutto è corretto, i campi ritornano neri
 		$("#insDes").css("color", "black");
 		$("#insOgg").css("color", "black");
 		$("#sceltaPos").css("color", "black");
 		$("#sceltaLab").css("color", "black");
 		$.post("../ServletSegnalazione", {"action": "newSegnalazione", "laboratorio": laboratorio, "postazione": postazione, "oggetto": oggetto, "descrizione": descrizione}, function(resp, stat, xhr){
 			if(xhr.readyState == 4 && stat == "success"){
-				var risultato = JSON.parse(resp);
+				var risultato = JSON.parse(resp);//esito dell'operazione
 				if(risultato.esito == "successo")
 					alert("Segnalazione inviata con successo");
 				else
@@ -41,14 +44,15 @@ $("#button").click(function inviaSegnalazione(){
 	}
 });
 
+//funzione per ottenere la lista di segnalazioni
 function loadSegnalazioni(){
 	$.post("../ServletSegnalazione", {"action": "viewSegnalazioni"}, function(resp, stat, xhr){
-		if(xhr.readyState == 4 && success == "success"){
+		if(xhr.readyState == 4 && stat == "success"){
 			var segnalazioni = JSON.parse(resp);
 			var size = sizeObject(segnalazioni);
 			var str = "";
 			for(var i = 0; i < size; i++){
-				var tmp = segnalazioni["sg" + i];
+				var tmp = segnalazioni["sg" + i];//vengono prese tutte le segnalazioni a ogni iterazione
 				str += "<tr><td><a href = \"./segnalazione.jsp\"" + tmp.id + "></td><td>"+ tmp.laboratorio + "</td><td>" + tmp.postazione + "</td><td>" + tmp.oggetto + "</td><td>" + tmp.descrizione + "</td><td>" + tmp.data + "</td></tr>";
 			}
 			$("#tb_segnalazioni tbody").html(str);
@@ -57,9 +61,10 @@ function loadSegnalazioni(){
 	});
 }
 
+//funzione per selezionare una singola segnalazione
 function selectSegnalazione(){
 	var id;
-	$(document).click(function(event){
+	$(document).click(function(event){//l'evento che indica il click su una segnalazione
 		id = $(event.target).text();
 	})
 	var btn = document.createElement("BUTTON");
@@ -71,26 +76,27 @@ function selectSegnalazione(){
 	$.post("../ServletSegnalazione", {"action": "openSegnalazione", "id": id}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var segnalazione = JSON.parse(resp);
-			document.getElementById("delSegnalazione").setAttribute("id", id);
+			document.getElementById("delSegnalazione").setAttribute("id", id);//il bottone per poter eliminare una segnalazione
 			$("#data").html(segnalazione.data);
 			$("#oggetto").html(segnalazione.oggetto);
 			$("descrizione").html(segnalazione.descrizione);
-			$("lab").html(segnalaizone.laboratorio);
+			$("lab").html(segnalazione.laboratorio);
 			$("pos").html(segnalazione.postazione);
 		}else
 			window.location.href("./index.jsp");
 	});
 }
 
+//funzione per poter eliminare una segnalazione
 $("delSegnalazione").click(function deleteSegnalazione(){
-	var id = document.getElementById("#delSegnalazione").getAttribute("tag");
+	var id = document.getElementById("#delSegnalazione").getAttribute("tag");//id della segnalazione da eliminare
 	var oggetto = $("#oggetto").text();
 	var descrizione = $("#descrizione").text();
 	var laboratorio = $("#lab").text();
 	var postazione = $("pos").text();
 	$.post("../ServletSegnalazione", {"action": "deleteSegnalazione", "id": id, "oggetto": oggetto, "descrizione": descrizione, "laboratorio": laboratorio, "postazione": postazione}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
-			var res = JSON.parse(resp);
+			var res = JSON.parse(resp);//esito dell'operazione
 			if(res.esito == "successo")
 				alert("Segnalazione eliminata con successo");
 			else
