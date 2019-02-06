@@ -29,7 +29,7 @@ public class ServletLaboratorioManagement extends HttpServlet {
 		
 		if(action == null){
 			response.setStatus(404);
-			response.sendRedirect("./index.jsp");
+			response.sendRedirect("./error.jsp");
 		}else if(action.equals("aggiungi_lab")){//aggiungi laboratorio
 			Laboratorio lab=new Laboratorio();
 			lab.setNome(request.getParameter("nome"));

@@ -9,8 +9,6 @@ import java.util.List;
 import org.junit.Test;
 
 import businessLogic.assegnamento.AssegnamentoManager;
-import businessLogic.assegnamento.AssegnamentoRepository;
-import businessLogic.assegnamento.AssegnamentoSql;
 import businessLogic.laboratorio.LaboratorioRepository;
 import dataAccess.storage.bean.Assegnamento;
 

@@ -29,7 +29,7 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 		
 		if(action == null){
 			response.setStatus(404);
-			response.sendRedirect("./index.jsp");
+			response.sendRedirect("./error.jsp");
 		}else if(action.equals("aggiungi_ass")){//assegna un laboratorio a un responsabile
 			Assegnamento as=new Assegnamento();
 			

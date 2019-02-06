@@ -15,10 +15,10 @@ function loadTableBody(){
 			for(var i=0; i < size; i++){
 				var k = o["post"+i]; //prendi l'oggetto JS associato alla proprieta' 'pren' dell'oggetto JS
 				if(k.stato){	//se il laboratorio e' aperto, mostra postazioni disponibili
-					str+= "<tr><td>" + k.numero + "<td><select name=\"fascia_oraria_action\" onChange=\"verifyPostazioneAvailable($(this));\">" +
+					str+= "<tr><td name=\"numeroPost\">" + k.numero + "<td><select name=\"fascia_oraria_action\" onChange=\"verifyPostazioneAvailable($(this));\">" +
 						"<option value=\"09:00-11:00\">Mattina (9 - 11)</option><option value=\"11:00-13:00\">Mattina (11 - 13)</option>"+
 						"<option value=\"13:00-15:00\">Pomeriggio (13 - 15)</option><option value=\"15:00-17:00\">Pomeriggio (15 - 17)</option></select></td>" +
-						"<td><button type=\"button\" onclick=\"effettuaPrenotazione($(this))\">Prenota</button></td></tr>";
+						"<td><button name=\"effettuaPren_button\" type=\"button\" onclick=\"effettuaPrenotazione($(this))\">Prenota</button></td></tr>";
 				}
 			}
 			$("#div_tb_prenota_content").show();

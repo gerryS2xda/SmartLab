@@ -56,6 +56,7 @@ public class PrenotazioneManagerTestCase1 {
 		lab = new Laboratorio("0", "lab0", 100, true, LocalTime.parse("09:00"), LocalTime.parse("17:00"), new ArrayList<Addetto>());
 		laboratorioRep.add(lab);
 		lab = laboratorioRep.findItemByQuery(new IdLab(lab.getNome()));
+		System.out.println("IDLab: " + lab.getIDlaboratorio() + " Nome: " + lab.getNome());
 		
 		s = new Studente("teststud@studenti.unisa.it", "1234asd", "TestNome", "TestCognome");
 		studenteRep.add(s);
