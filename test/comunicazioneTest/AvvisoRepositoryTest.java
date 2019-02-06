@@ -1,17 +1,24 @@
-package comunicazioneTest;
-
-import businessLogic.comunicazione.AvvisoRepository;
-import dataAccess.storage.bean.Avviso;
 import static org.junit.Assert.*;
+
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
+import businessLogic.comunicazione.AvvisoRepository;
+import businessLogic.comunicazione.AvvisoSql;
+import businessLogic.comunicazione.ListaAvvisi;
+import dataAccess.storage.bean.Avviso;
+
 public class AvvisoRepositoryTest {
-	
+
 	@Test
-	public void testAdd(){
-		Avviso av = new Avviso(20, "Titolo", "Messaggio", new Data(), 12);
+	public void testAdd() throws SQLException{
+		java.util.Date d = new java.util.Date();
+		Date data = new Date(d.getTime());
+		Avviso av = new Avviso(30, "Titolo", "Messaggio", data, "g.paolisi@unisa.it");
 		AvvisoRepository ar = new AvvisoRepository();
 		ar.add(av);
 		AvvisoSql avviso = new AvvisoSql(av.getId());
@@ -21,8 +28,10 @@ public class AvvisoRepositoryTest {
 	}
 	
 	@Test
-	public void testDelete(){
-		Avviso av = new Avviso(21, "Titolo", "Messaggio", new Data(), 13);
+	public void testDelete() throws SQLException{
+		java.util.Date d = new java.util.Date();
+		Date data = new Date(d.getTime());
+		Avviso av = new Avviso(40, "Titolo", "Messaggio", data, "g.paolisi@unisa.it");
 		AvvisoRepository ar = new AvvisoRepository();
 		ar.add(av);
 		AvvisoSql avviso = new AvvisoSql(av.getId());
@@ -32,8 +41,10 @@ public class AvvisoRepositoryTest {
 	}
 	
 	@Test
-	public void testFindItemByQuery(){
-		Avviso av = new Avviso(21, "Titolo", "Messaggio", new Data(), 13);
+	public void testFindItemByQuery() throws SQLException{
+		java.util.Date d = new java.util.Date();
+		Date data = new Date(d.getTime());
+		Avviso av = new Avviso(35, "Titolo", "Messaggio", data, "g.paolisi@unisa.it");
 		AvvisoRepository ar = new AvvisoRepository();
 		ar.add(av);
 		AvvisoSql avviso = new AvvisoSql(av.getId());
@@ -42,12 +53,15 @@ public class AvvisoRepositoryTest {
 	}
 	
 	@Test
-	public void testQuery(){
-		Avviso av = new Avviso(21, "Titolo", "Messaggio", new Data(), 13);
+	public void testQuery() throws SQLException{
+		java.util.Date d = new java.util.Date();
+		Date data = new Date(d.getTime());
+		Avviso av = new Avviso(21, "Titolo", "Messaggio", data, "g.paolisi@unisa.it");
 		AvvisoRepository ar = new AvvisoRepository();
 		ar.add(av);
 		List<Avviso> lista = new ArrayList<Avviso>();
 		lista = ar.query(new ListaAvvisi());
 		assertTrue(!lista.isEmpty());
 	}
+
 }

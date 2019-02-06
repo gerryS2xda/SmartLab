@@ -1,18 +1,23 @@
 package postazioneTest;
-
 import static org.junit.Assert.*;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.AfterClass;
 import org.junit.Test;
+
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.Postazione.PostazioneSql;
 import dataAccess.storage.Specification;
 import dataAccess.storage.bean.Postazione;
 
-public class PostazioneRepositoryTest 
-{
+public class PostazioneRepositoryTest {
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
 
 	@Test
     public void testGetInstance()
@@ -22,7 +27,7 @@ public class PostazioneRepositoryTest
         assertNotNull(result);
 
 	}
-	
+
 	@Test
 	public void testAdd() throws SQLException
 	{
@@ -38,7 +43,8 @@ public class PostazioneRepositoryTest
 		Postazione result=instance.findItemByQuery(sql);
 		assertEquals(pos,result);
 	}
-	
+
+
 	@Test
 	public void testUpdate() throws SQLException
 	{
@@ -55,7 +61,7 @@ public class PostazioneRepositoryTest
 		assertEquals(pos,result);
 	}
 	
-	public void delete(Postazione pos) throws SQLException
+	public void testDelete(Postazione pos) throws SQLException
 	{
 		System.out.println("delete");
 		pos.setNumero(1);
@@ -66,8 +72,9 @@ public class PostazioneRepositoryTest
 		Postazione test=instance.findItemByQuery(sql);
 		assertEquals(null,test);
 	}
-	
-	public void findItemByQuery(Specification specification) throws SQLException
+
+
+	public void testFindItemByQuery(Specification specification) throws SQLException
 	{
 		System.out.println("findItemByQuery");
 		Postazione pos=new Postazione();
@@ -82,15 +89,14 @@ public class PostazioneRepositoryTest
 		assertEquals(pos,test);
 		instance.delete(pos);
 	}
-	
-	public void query() throws SQLException 
+	public void testQuery() throws SQLException 
 	{
 		System.out.println("query");
 		Postazione pos=new Postazione();
 		
 		pos.setNumero(1);
 		pos.setLaboratorio("lab1");
-		List<Postazione> testlista=new ArrayList();
+		List<Postazione> testlista=new ArrayList<Postazione>();
 		testlista.add(pos);
 		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
 		
@@ -103,12 +109,4 @@ public class PostazioneRepositoryTest
 		instance.delete(pos);
 		
 	}
-	
-	
-	
-//	@Test
-//	public void test() {
-//		fail("Not yet implemented");
-//	}
-
-}  
+}

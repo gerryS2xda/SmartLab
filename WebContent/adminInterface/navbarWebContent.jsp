@@ -9,12 +9,12 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="../laboratorio?action=lista_lab">laboratori <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="laboratorio?action=lista_lab">laboratori <span class="sr-only">(current)</span></a>
       </li>
-       <li class="nav-item  active">
-        <a class="nav-link" href="creaLaboratorio.jsp">Crea laboratorio</a>
+       <li class="nav-item active">
+        <a class="nav-link" href="adminInterface/creaLaboratorio.jsp">Crea laboratorio</a>
       </li>
-      <li class="nav-item  active">
+      <li class="nav-item active">
         <a class="nav-link" href="#">Crea avviso</a>
       </li>
       <li class="nav-item active">

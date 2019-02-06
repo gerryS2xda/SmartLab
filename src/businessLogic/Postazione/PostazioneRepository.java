@@ -64,7 +64,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 	}
 
 	@Override
-	public void delete(Postazione pos) throws SQLException
+	public void delete(Postazione pos)
 	{
 		
 			Connection connection = null;
@@ -81,23 +81,20 @@ public class PostazioneRepository implements Repository<Postazione>{
 				preparedStatement.setInt(1, pos.getNumero());
 				preparedStatement.setString(2, pos.getLaboratorio());
 
-				preparedStatement.executeUpdate();
 				
-
-				} finally 
-				{
-				try
-				{
+					preparedStatement.executeUpdate();
+				
 					if (preparedStatement != null)
 						preparedStatement.close();
-				} finally 
-				{
+				
 					if (connection != null)
 						Connessione.releaseConnection(connection);
-				}
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
 	}
 	
-}
 
 	@Override
 	public void update(Postazione item) throws SQLException {
@@ -105,11 +102,11 @@ public class PostazioneRepository implements Repository<Postazione>{
 		PreparedStatement preparedStatement = null;
 		
 
-		String deleteSQL = "UPDATE " + TABLE_NAME + " SET stato = ? WHERE numero = ? && laboratorio = ? ;";
+		String updateSQL = "UPDATE " + TABLE_NAME + " SET stato = ? WHERE numero = ? && laboratorio = ? ;";
 
 		try {
 			connection = Connessione.getConnection();
-			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement = connection.prepareStatement(updateSQL);
 			preparedStatement.setBoolean(1, item.isStato());
 			preparedStatement.setInt(2, item.getNumero());
 			preparedStatement.setString(3, item.getLaboratorio());

@@ -1,76 +1,84 @@
+package postazioneTest;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import com.sun.org.apache.bcel.internal.Repository;
-
 import businessLogic.Postazione.PostazioneManager;
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.Postazione.PostazioneSql;
-import businessLogic.prenotazione.PrenotazioneManager;
 import dataAccess.storage.bean.Postazione;
+import dataAccess.storage.bean.Prenotazione;
 
 public class PostazioneManagerTest {
 
 	PostazioneManager instance=PostazioneManager.getInstance();
 	PostazioneRepository repository=PostazioneRepository.getInstance();
 	private Postazione oracle;
+	
 	@Before
 	public void setUp() throws Exception 
 	{
-		oracle =new Postazione("lab1", 1,true);
+		oracle =new Postazione(1, "lab1",true);
 	}
 	
 	@Test
 	public void testGetInstance() {
 		System.out.println("Testing: get Instance");
-		manager = PostazioneManager.getInstance();
 		
+		PostazioneManager manager=PostazioneManager.getInstance();
 		assertNotNull("Repository object e' nullo", manager);
 	}
-	
+
 	@Test
-	public void testCrea() throws SQLException
-	{
+	public void testPostazioneManager() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testCreaPostazione() throws SQLException
+
 		boolean flag=true;
 		System.out.println("testing: crea");
-		Postazione pos= new Postazione(oracle.getNumero(),oracle.getLaboratorio(),oracle.isStato());
 		//-----------------
 		flag=instance.creaPostazione(1, "lab1", true);
 		System.out.println(flag);
+		assertTrue(flag);
 	}
-	
+
 	@Test
-	public void testAttiva() throws SQLException
+	public void testAttivaPostazione() throws SQLException
 	{
 		boolean flag=true;
 		System.out.println("testing: attiva");
 		//-----------------
-		
-		flag=instance.attivaPostazione(oracle.getNumero(),oracle.getLaboratorio());
+		int num=oracle.getNumero();
+		String s=""+num;
+		flag=instance.attivaPostazione(s,oracle.getLaboratorio());
 		System.out.println(oracle.isStato());
 		System.out.println(flag);
+		assertTrue(flag);
 	}
-	
+
 	@Test
-	public void testDisattiva() throws SQLException
+	public void testDisattivaPostazione() throws SQLException
 	{
 		boolean flag=true;
 		System.out.println("testing: disattiva");
 		
 		//-----------------
-		
-		flag=instance.disattivaPostazione(oracle.getNumero(),oracle.getLaboratorio());
+		int num=oracle.getNumero();
+		String s=""+num;
+		flag=instance.disattivaPostazione(s,oracle.getLaboratorio());
 		System.out.println(oracle.isStato());
 		System.out.println(flag);
+		assertTrue(flag);
 	}
-	
+
 	@Test
-	public void testLibera() throws SQLException
+	public void testLiberaPostazione() throws SQLException
 	{
 		Prenotazione pre=new Prenotazione();
 		boolean flag=true;
@@ -79,10 +87,11 @@ public class PostazioneManagerTest {
 		
 		flag=instance.liberaPostazione(pre);
 		System.out.println(flag);
+		assertTrue(flag);
 	}
-	
+
 	@Test
-	public void testListaPos() throws SQLException
+	public void testListaPostazioni() throws SQLException
 	{
 		System.out.println("testing: listaPos");
 		List<Postazione> postazioni=new ArrayList<>();
@@ -90,19 +99,17 @@ public class PostazioneManagerTest {
 		postazioni=instance.listaPostazioni(oracle.getLaboratorio());
 		assertTrue(!postazioni.isEmpty());
 	}
-	
-	
-	public void testDeletePos() 
+
+	public void testDeletePos() throws SQLException 
+
 	{
 		System.out.println("testing: delete");
-		repository.delete(oracle);
+		PostazioneSql sql=new PostazioneSql(oracle.getNumero(),oracle.getLaboratorio());
+			repository.delete(oracle);
+			Postazione pos=repository.findItemByQuery(sql);
+			assertEquals(pos,oracle);
+		
 	}
-	
-	
-	
-//	@Test
-//	public void test() {
-//		fail("Not yet implemented");
-//	}
+
 
 }

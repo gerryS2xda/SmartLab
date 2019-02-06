@@ -26,7 +26,7 @@ public class InterventoRepository {
     
     public static final String TABLE_NAME = "intervento";
     
-    public void add(Intervento intervento) throws SQLException 
+    public void add(Intervento intervento)  
     {
 		
 		Connection connection = null;
@@ -35,29 +35,38 @@ public class InterventoRepository {
 		String insertSQL = "INSERT INTO " + TABLE_NAME
 				+ " (idintervento,descrizione,data,postazione,laboratorio,addetto) VALUES (?, ?, ?, ?,?,?)";
 		
+		
 		try {
-			connection = Connessione.getConnection();
+				connection = Connessione.getConnection();
+			
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, intervento.getIdIntervento());
 			preparedStatement.setString(2, intervento.getDescrizione());
 			preparedStatement.setDate(3, (Date) intervento.getData());
 			preparedStatement.setInt(4, intervento.getPostazione());
-			preparedStatement.setInt(5, intervento.getLaboratorio());
+			preparedStatement.setString(5, intervento.getLaboratorio());
 			preparedStatement.setString(6, intervento.getAddetto());
 
 			preparedStatement.executeUpdate();
 
 			connection.commit();
-		} finally {
-			try {
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} finally 
+			{
+			
 				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
-			}
+					try {
+						preparedStatement.close();
+						if (connection != null)
+							Connessione.releaseConnection(connection);
+					} catch (SQLException e) {
+						
+						e.printStackTrace();
+					}
+			
 		}
-
 	}
     
     public void delete(Intervento intervento) throws SQLException 
@@ -87,5 +96,6 @@ public class InterventoRepository {
 		}
 
 	}
+		
 
 }

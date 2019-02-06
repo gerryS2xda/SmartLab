@@ -103,16 +103,19 @@ public class LaboratorioManager {
 	    
 	    /*Ritorna una lista di laboratori assegnati a un responsabile
 	     * @param email email del responsabile a cui saranno assegnati i laboratori
+	     * @pre email !=null
 	     * @return lista laboratori assegnati al responsabile
 	     * */
 	    public List<Laboratorio> getLaboratoryListForResp(String email){
 	    	LaboratorioRepository repository=new LaboratorioRepository();
-	    	try {
-				return repository.query(new ListaLabAss(email));//forse da spostare in laboratorio
-			} catch (SQLException e) {
-				System.err.println("non è possibile ritornare la lista dei laboratori");
-				e.printStackTrace();
-			}
+			if(email!=null){
+	    		try {
+					return repository.query(new ListaLabAss(email));//forse da spostare in laboratorio
+				} catch (SQLException e) {
+					System.err.println("non è possibile ritornare la lista dei laboratori");
+					e.printStackTrace();
+				}
+	    	}
 			return null;
 	    }
 

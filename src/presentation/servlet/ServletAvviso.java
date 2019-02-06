@@ -39,10 +39,11 @@ public class ServletAvviso extends HttpServlet {
 				List<Avviso> lista = cm.viewAvviso();
 				int count = 0, id = -1;
 				while(count < lista.size()){
-					if(lista.get(count).getId() >= id)
+					if(lista.get(count).getId() > id)
 						id = lista.get(count).getId();
 					count++;
 				}
+				id++;
 				Addetto ad = (Addetto) session.getAttribute("user");
 				String titolo = request.getParameter("titolo");
 				String messaggio = request.getParameter("messaggio");
@@ -75,7 +76,6 @@ public class ServletAvviso extends HttpServlet {
 				count++;
 			}
 			result = result.substring(0, result.length() - 1) + "}";
-			response.sendRedirect("./viewAvvisi.jsp");
 			response.getWriter().write(json.toJson(result));
 		}else if(avviso.equals("openAvviso")){
 			Studente st = (Studente) session.getAttribute("user");
@@ -95,7 +95,6 @@ public class ServletAvviso extends HttpServlet {
 					i++;
 			}
 			if(flag != 0){
-				response.sendRedirect("./avviso.jsp");
 				response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"titolo\": \"" + lista.get(i).getTitolo() + "\", \"messaggio\": \"" + lista.get(i).getMessaggio() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"addetto\": \"" + lista.get(i).getAddetto() + "\", \"tipo\": \"" + tipo + "\"}"));
 			}else
 				response.getWriter().write(json.toJson("{\"esito\": \"errore\"}"));
