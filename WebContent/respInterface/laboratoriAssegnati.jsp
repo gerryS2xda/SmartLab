@@ -16,8 +16,7 @@
 	if(laboratori!=null){
 	Iterator<?> it = laboratori.iterator();
     while (it.hasNext()) {
-    	Laboratorio lab=(Laboratorio) it.next();
-    	if(lab.isStato()){%>
+    	Laboratorio lab=(Laboratorio) it.next();%>
     	
     	<!-- link per la pagina di prenotazione -->
 	    <div class="card">
@@ -38,7 +37,6 @@
 		</div>
     	
     	<%
-    		}
     	}
 	}else{
 	%>

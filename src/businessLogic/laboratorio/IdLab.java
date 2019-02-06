@@ -2,10 +2,15 @@ package businessLogic.laboratorio;
 
 import dataAccess.storage.SqlSpecification;
 public class IdLab implements SqlSpecification {
-
-public static final String TABLE_NAME = "laboratorio";
-	
+	private static final String TABLE_NAME = "laboratorio";
 	private String laboratorio;
+	private static IdLab instance;
+	
+	public static IdLab getInstance(){
+		if(instance==null)
+			instance=new IdLab("lab1");
+		return instance;
+	}
 	
 	public IdLab(String lab){
 		this.laboratorio=lab;

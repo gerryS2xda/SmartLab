@@ -4,9 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import businessLogic.assegnamento.ListaLabAss;
 import businessLogic.assegnamento.ListaRespAss;
-import businessLogic.laboratorio.ListaLab;
 
 
 public class ListaRespAssTest {
