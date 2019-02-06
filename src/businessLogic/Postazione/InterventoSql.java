@@ -19,13 +19,9 @@ public class InterventoSql implements SqlSpecification {
 	
 	private static InterventoSql instance;
 	
-	public static InterventoSql getInstance(int idIntervento, String descrizione, Date data, int postazione, int laboratorio,String addetto) 
+	public static InterventoSql getInstance(int idIntervento) 
     {
-
-        if (instance == null) 
-        {
             instance = new InterventoSql(idIntervento);
-        }
         return instance;
 
     }

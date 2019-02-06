@@ -16,10 +16,7 @@ public class InterventoRepository {
 
     public static InterventoRepository getInstance() 
     {
-
-        if (instance == null) {
             instance = new InterventoRepository();
-        }
         return instance;
 
     }
