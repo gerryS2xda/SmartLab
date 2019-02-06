@@ -10,6 +10,9 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+<!-- navbar -->
+<%@include file="navbar.jsp" %>
+
 <div class="container"> 
 	<h5 class="text-center">Laboratori</h5>
 	<%Collection<?> laboratori = (Collection<?>) request.getAttribute("laboratori");
@@ -22,7 +25,7 @@
 	    <div class="card">
 		  <div class="row card-body">
 		  	<div class="col-md-3 text-center">
-		    	<label class="card-text">Laboratorio <span><%=lab.getNome() %><span></span></label>
+		    	<label class="card-text">Laboratorio <span><%=lab.getNome() %></span></label>
 			  </div>
 			  <div class="col-md-3 text-center">
 			    <label class="card-text">Apertura: <%=lab.getApertura() %></label>

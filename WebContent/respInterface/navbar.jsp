@@ -9,17 +9,12 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="laboratorio?action=lista_lab">laboratori <span class="sr-only">(current)</span></a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="laboratorio?action=aggiungi_lab">Crea laboratorio</a>
+        <a class="nav-link" href="laboratorio?action=lista_lab_resp">laboratori <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Crea avviso</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Aggiungi responsabile</a>
-      </li>
+
       <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
       </li>
