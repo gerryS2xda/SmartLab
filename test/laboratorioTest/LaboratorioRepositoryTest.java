@@ -22,22 +22,28 @@ public class LaboratorioRepositoryTest {
 	
 	@Before
 	public void setUp() throws SQLException{
-		repository=LaboratorioRepository.getInstance();
+		repository=new LaboratorioRepository();
 		
+		oracle= new Laboratorio();
 		oracle.setNome("lab4");
-		oracle.setPosti(25);
+		oracle.setPosti(10);
 		oracle.setStato(true);
 		oracle.setApertura(LocalTime.parse("9:00"));
 		oracle.setChiusura(LocalTime.parse("17:00"));
-		
+		System.out.println(oracle);
 		repository.add(oracle);
 		
 		//ottengo l'oggetto completo perchè l'id è auto-increment
-		oracle=repository.findItemByQuery(new IdLab(oracle.getNome()));
+		Laboratorio temp=repository.findItemByQuery(new IdLab(oracle.getNome()));
+		System.out.println(temp.getIDlaboratorio());
+		oracle.setIDlaboratorio(temp.getIDlaboratorio());
+		System.out.println(oracle);
 	}
 	
 	@After
 	public void tearDown() throws SQLException{
+		System.out.println("tearDown");
+		oracle=repository.findItemByQuery(new IdLab(oracle.getNome()));
 		repository.delete(oracle);
 	}
 	
@@ -57,7 +63,6 @@ public class LaboratorioRepositoryTest {
 
 		assertEquals(oracle,result);
 	}
-	
 	@Test
 	public void testDelete() throws SQLException{
 		System.out.println("delete");

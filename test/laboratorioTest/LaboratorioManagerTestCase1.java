@@ -37,7 +37,7 @@ public class LaboratorioManagerTestCase1 {
 		oracle.setNome("lab10");
 		oracle.setPosti(posti);
 		oracle.setStato(true);
-		oracle.setApertura(LocalTime.parse("9:00"));
+		oracle.setApertura(LocalTime.parse("09:00"));
 		oracle.setChiusura(LocalTime.parse("17:00"));
 		
 		manager.createLaboratory(oracle);
@@ -54,6 +54,7 @@ public class LaboratorioManagerTestCase1 {
 			postazione.setNumero(i+1);//le postazioni sono numerate da 1 fino a posti
 			repositoryp.delete(postazione);
 		}
+		oracle=repository.findItemByQuery(new IdLab(oracle.getNome()));
 		repository.delete(oracle);
 	}
 

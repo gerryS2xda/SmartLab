@@ -1,3 +1,4 @@
+package postazioneTest;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
@@ -99,7 +100,7 @@ public class PostazioneManagerTest {
 		assertTrue(!postazioni.isEmpty());
 	}
 
-	public void testDeletePos() 
+	public void testDeletePos() throws SQLException 
 	{
 		System.out.println("testing: delete");
 		PostazioneSql sql=new PostazioneSql(oracle.getNumero(),oracle.getLaboratorio());
