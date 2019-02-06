@@ -34,3 +34,4 @@ context.xml
 # settings folder of Eclipse #
 .settings/
 /bin/
+/target/

@@ -77,7 +77,6 @@
         </button>
       </div>
       <div class="modal-body">
-        ...
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
@@ -94,14 +93,11 @@
     <script>
     $(document).ready(function()
 	{
+    	var button=$(this);
+		var div=$(this).parent();
+		var id=div.find("input#id").val();
+		var idlab=div.find("input#idlab").val();
     	$("button#confermaatt").on("click",function(){
-    		
-    		var button=$(this);
-    		var div=$(this).parent();
-    		var id=div.find("input#id").val();
-    		var idlab=div.find("input#idlab").val();
-    		
-    		
     		
     		$.getJSON("postazioni", { 
     			action: "attiva_pos",
@@ -119,10 +115,7 @@
     		});
     		$("button#confermadisattiva").on("click",function(){
     			
-    			var button=$(this);
-        		var div=$(this).parent();
-        		var id=div.find("input#id").val();
-        		var idlab=div.find("input#idlab").val();
+    			
         		
         		console.log(id);
         		console.log(idlab);
