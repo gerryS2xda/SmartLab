@@ -7,8 +7,8 @@
 	<title>Lista segnalazioni</title>
 	</head>
 	<body onload = "loadSegnalazioni()">
-		<div id = "div_segnalazioni_table">
-			<table id = "tb_segnalazioni">
+		<div id = "div_segnalazioni_table" align = "center">
+			<table id = "tb_segnalazioni" border = "1">
 				<thead>
 					<tr>
 						<th>Id</th>
