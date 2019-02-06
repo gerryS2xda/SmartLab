@@ -11,7 +11,7 @@
 			<table id = "tb_avvisi">
 				<thead>
 					<tr>
-						<th onclick = "selectAvviso()">Id</th>
+						<th>Id</th>
 						<th>Oggetto</th>
 						<th>Descrizione</th>
 						<th>Data</th>
@@ -22,4 +22,6 @@
 			</table>
 		</div>
 	</body>
+	<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../script/avviso_js.js"></script>
 </html>

@@ -70,7 +70,7 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 			boolean done = true;
 			
 			String lab = request.getParameter("lab"); //usare Postazione obj per ottenere il lab
-			String post = request.getParameter("postazione"); //usare postazione repository per ottenere obj Postazione
+			int post = Integer.parseInt(request.getParameter("postazione")); //usare postazione repository per ottenere obj Postazione
 			String inizio = request.getParameter("inizio");
 			String fine =  request.getParameter("fine");
 			

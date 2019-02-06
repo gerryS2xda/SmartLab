@@ -48,9 +48,9 @@ public class ServletSegnalazione extends HttpServlet {
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
 			response.setContentType("aplication/json");
 			if(cm.addSegnalazione(s))
-				response.getWriter().write("{\"esito\": \"successo\"}");
+				response.getWriter().write(json.toJson("{\"esito\": \"successo\"}"));
 			else
-				response.getWriter().write("{\"esito\": \"fallimento\"}");
+				response.getWriter().write(json.toJson("{\"esito\": \"fallimento\"}"));
 		}else if(segnalazione.equals("deleteSegnalazione")){
 			int id = Integer.parseInt(request.getParameter("id"));
 			String oggetto = request.getParameter("oggetto");
@@ -63,9 +63,9 @@ public class ServletSegnalazione extends HttpServlet {
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
 			response.setContentType("application/json");
 			if(cm.deleteSegnalazione(s))
-				response.getWriter().write("{\"esito\": \"successo\"}");
+				response.getWriter().write(json.toJson("{\"esito\": \"successo\"}"));
 			else
-				response.getWriter().write("{\"esito\": \"errore\"}");
+				response.getWriter().write(json.toJson("{\"esito\": \"errore\"}"));
 		}else if(segnalazione.equals("viewSegnalazioni")){
 			Studente st = (Studente) session.getAttribute("user");
 			response.setContentType("application/json");
@@ -103,16 +103,7 @@ public class ServletSegnalazione extends HttpServlet {
 					i++;
 			}
 			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"oggetto\": \"" + lista.get(i).getOggetto()) + "\", \"descrizione\": \"" + lista.get(i).getDescrizione() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"laboratorio\": " + lista.get(i).getLaboratorio() + "\", \"postazione\": " + lista.get(i).getPostazione() + "\", \"studente\": " + lista.get(i).getStudente() + "\"}");
-		}/*else if(segnalazione.equals("viewSegnalazioniStudente")){
-			String stud = request.getParameter("studente");
-			List<Segnalazione> lista = cm.viewSegnalazione();
-			int i;
-			String res = "{";
-			for(i = 0; i < lista.size(); i++){
-				if(lista.get(i).getStudente().equals(stud))
-					res += "\"sg" + i + "\": : {\"id\": \"" + lista.get(i).getId() + "\", \"oggetto\": \"" + lista.get(i).getOggetto() + "\", \"descrizione\": \"" + lista.get(i).getDescrizione() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"studente\": \"" + lista.get(i).getStudente() + "\", \"laboratorio\": \"" + lista.get(i).getLaboratorio() + "\", \"postazione\": \"" + lista.get(i).getPostazione() + "\"}";
-			}
-		}*/
+		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{

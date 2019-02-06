@@ -89,19 +89,16 @@ public class PrenotazioneRepositoryTest {
 
 	@Test
 	public void testUpdate()throws Exception  {
-		
 		System.out.println("Testing: Update");
-		Studente s = new Studente();
-		s.setEmail("teststud2@studenti.unisa.it");
 		
-		//crea oggetto simile ad oracle e verifica che i due riferimeni puntano alla stessa istanza
-		Prenotazione actualObj = oracle;
-		assertSame("Gli oggetti non fanno riferimento alla stessa istanza", actualObj, oracle);
+		//crea oggetto simile ad oracle 
+		Prenotazione actualObj = new Prenotazione(oracle.getData().toString(), oracle.getOraInizio(), oracle.getOraFine(), 
+				oracle.getStudente(), oracle.getPostazione(), oracle.getLaboratorio());
+		actualObj.setID(oracle.getId());
 		
 		//modifica qualche attributo di actualObj
 		actualObj.setOraInizio(LocalTime.parse("11:00"));
 		actualObj.setOraFine(LocalTime.parse("13:00"));
-		actualObj.setStudente(s);
 		
 		//invocazione di update()
 		repository.update(actualObj);
@@ -109,9 +106,8 @@ public class PrenotazioneRepositoryTest {
 		//prendi oggetto da DB appena modificato
 		actualObj = repository.findItemByQuery(new PrenotazioneById(oracle.getId()));
 		
-		//controlla se la modifica e' stata effettuata
-		assertEquals("La modifica non e' stata apportata", oracle, actualObj);
-		
+		//controlla se la modifica e' stata effettuata (controlla se cambiata ora di inizio)
+		assertNotEquals("La modifica non e' stata apportata", oracle.getOraInizio().toString(), actualObj.getOraInizio().toString());	//se non sono uguali --> modifica effettuata
 	}
 
 	@Test

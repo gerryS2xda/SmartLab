@@ -34,7 +34,7 @@ public class ServletAvviso extends HttpServlet {
 			Studente st = (Studente) session.getAttribute("user");
 			if(st instanceof Studente){
 				response.setContentType("application/json");
-				response.getWriter().write(("{\"esito\": \"errore\"}"));
+				response.getWriter().write(json.toJson("{\"esito\": \"errore\"}"));
 			}else{
 				List<Avviso> lista = cm.viewAvviso();
 				int count = 0, id = -1;
@@ -98,7 +98,7 @@ public class ServletAvviso extends HttpServlet {
 				response.sendRedirect("./avviso.jsp");
 				response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"titolo\": \"" + lista.get(i).getTitolo() + "\", \"messaggio\": \"" + lista.get(i).getMessaggio() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"addetto\": \"" + lista.get(i).getAddetto() + "\", \"tipo\": \"" + tipo + "\"}"));
 			}else
-				response.getWriter().write("{\"esito\": \"errore\"}");
+				response.getWriter().write(json.toJson("{\"esito\": \"errore\"}"));
 		}
 	}
 	
