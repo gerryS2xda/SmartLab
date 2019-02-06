@@ -9,6 +9,7 @@ public class InterventoSql implements SqlSpecification {
 	
 	private static final String TABLE_NAME ="Intervento";
 	private int idIntervento;
+	private static InterventoSql instance;
 	
 
 	public InterventoSql(int idIntervento) 
@@ -17,7 +18,7 @@ public class InterventoSql implements SqlSpecification {
 		
 	}
 	
-	private static InterventoSql instance;
+	
 	
 	public static InterventoSql getInstance(int idIntervento) 
     {
@@ -29,7 +30,7 @@ public class InterventoSql implements SqlSpecification {
 
 	public String toSqlQuery() 
 	{
-		return String.format("SELECT * FROM %1$s WHERE idIntervento = %2$s ",TABLE_NAME, this.idIntervento);
+		return String.format("SELECT * FROM %1$s WHERE idIntervento = %2$d ",TABLE_NAME, this.idIntervento);
 		
 	}
 }
