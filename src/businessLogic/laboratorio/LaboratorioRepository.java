@@ -72,7 +72,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String deleteSQL = "DELETE FROM smartlab." + TABLE_NAME + " WHERE "+TABLE_NAME+".idlaboratorio = ?";
+		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE "+TABLE_NAME+".IDlaboratorio = ?";
 
 		try {
 			connection = Connessione.getConnection();
@@ -142,7 +142,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 
 			while (rs.next()) {
 
-                lab.setIDlaboratorio(rs.getString("idlaboratorio"));
+                lab.setIDlaboratorio(rs.getString("IDlaboratorio"));
 				lab.setNome(rs.getString("nome"));
 				lab.setPosti(rs.getInt("posti"));
                 lab.setStato(rs.getBoolean("stato"));
@@ -184,7 +184,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 			while (rs.next()) {
 				Laboratorio lab=new Laboratorio();
 
-                lab.setIDlaboratorio(rs.getString("idlaboratorio"));
+                lab.setIDlaboratorio(rs.getString("IDlaboratorio"));
 				lab.setNome(rs.getString("nome"));
 				lab.setPosti(rs.getInt("posti"));
                 lab.setStato(rs.getBoolean("stato")); 

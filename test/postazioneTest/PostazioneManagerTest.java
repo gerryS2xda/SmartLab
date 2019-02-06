@@ -100,7 +100,8 @@ public class PostazioneManagerTest {
 		assertTrue(!postazioni.isEmpty());
 	}
 
-	public void testDeletePostazione() 
+	public void testDeletePos() throws SQLException 
+
 	{
 		System.out.println("testing: delete");
 		PostazioneSql sql=new PostazioneSql(oracle.getNumero(),oracle.getLaboratorio());
