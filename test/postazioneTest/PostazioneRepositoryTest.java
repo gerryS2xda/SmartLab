@@ -1,3 +1,4 @@
+package postazioneTest;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
@@ -60,7 +61,7 @@ public class PostazioneRepositoryTest {
 		assertEquals(pos,result);
 	}
 	
-	public void delete(Postazione pos) throws SQLException
+	public void testDelete(Postazione pos) throws SQLException
 	{
 		System.out.println("delete");
 		pos.setNumero(1);
@@ -73,7 +74,7 @@ public class PostazioneRepositoryTest {
 	}
 
 
-	public void findItemByQuery(Specification specification) throws SQLException
+	public void testFindItemByQuery(Specification specification) throws SQLException
 	{
 		System.out.println("findItemByQuery");
 		Postazione pos=new Postazione();
@@ -88,7 +89,7 @@ public class PostazioneRepositoryTest {
 		assertEquals(pos,test);
 		instance.delete(pos);
 	}
-	public void query() throws SQLException 
+	public void testQuery() throws SQLException 
 	{
 		System.out.println("query");
 		Postazione pos=new Postazione();
