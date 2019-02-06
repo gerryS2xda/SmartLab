@@ -8,6 +8,6 @@
 </head>
 <body>
 	asdgasdvasdvvgs
- 	<a href="lista_postazioni.jsp"><button action="lista_pos">lista postazioni</button></a>
+ 	<a href="respinterface/lista_postazioni.jsp"><button action="lista_pos">lista postazioni</button></a>
 </body>
 </html>

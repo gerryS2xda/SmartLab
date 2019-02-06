@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import businessLogic.laboratorio.LaboratorioManager;
 import businessLogic.laboratorio.LaboratorioRepository;
-import businessLogic.laboratorio.LaboratorioSql;
 import dataAccess.storage.bean.Laboratorio;
 
 public class LaboratorioManagerTest {

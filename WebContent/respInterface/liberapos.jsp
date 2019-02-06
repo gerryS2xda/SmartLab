@@ -14,7 +14,7 @@
 <div id="cerca">
 	<form id="lib_post_occ">
 	Inserisci l'ID del laboratorio: <input type="text" name="lab_in" id="lab_in" value="">
-	<select name="fascia_oraria_action" id="fasc_ora_lib_pos" onChange="verifyPostazioneAvailable($(this));">
+	<select name="fascia_oraria_action" id="fasc_ora_lib_pos" >
 		<option value="09:00-11:00">Mattina (9 - 11)</option>
 		<option value="11:00-13:00">Mattina (11 - 13)</option>
 		<option value="13:00-15:00">Pomeriggio (13 - 15)</option>
@@ -31,7 +31,7 @@ $(document).ready(function()
 	$("button#libera_btn").on("click",function()
 	{
 	console.log("asd");
-	var mot=$("#message-text").val();
+	
 	var x = $("#fasc_ora_lib_pos").val().split("-");  //dammi il valore della <select> che e' stato impostato e dividi in due stringhe con split()
 	var lab = $("#lab_in").val();
 	//$.post("/postazioni", {"action": "libera_pos", "inizio": x[0], "fine": x[1], "lab": lab}, function(resp, stat, xhr){
@@ -47,6 +47,7 @@ $(document).ready(function()
 			}, function(data,status)
 				{
 				//lista di prenotazioni
+				
 					var o = JSON.parse(data);
 					var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
 					var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto
@@ -60,8 +61,17 @@ $(document).ready(function()
 					}
 					$("div#cerca").html(str);
 				console.log(data);
-				});
+				},"json");
 	});
+	var mot=$("#message-text").val();
+	$.getJSON("postazioni",
+		{
+		action:"intervento"
+		inter: mot
+		},function(data,status)
+		{
+			
+		});
 });	
 		//}else{
 			//window.location.href = "./index.jsp"; //pagina errore 404
