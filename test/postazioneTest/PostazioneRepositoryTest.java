@@ -37,7 +37,22 @@ public class PostazioneRepositoryTest
 		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
 		Postazione result=instance.findItemByQuery(sql);
 		assertEquals(pos,result);
-		instance.delete(pos);
+	}
+	
+	@Test
+	public void testUpdate() throws SQLException
+	{
+		System.out.println("testing: update");
+		Postazione pos= new Postazione();
+		pos.setNumero(2);
+		pos.setLaboratorio("lab2");
+		pos.setStato(false);
+		//-----------------
+		PostazioneRepository instance= PostazioneRepository.getInstance();
+		instance.update(pos);
+		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
+		Postazione result=instance.findItemByQuery(sql);
+		assertEquals(pos,result);
 	}
 	
 	public void delete(Postazione pos) throws SQLException
@@ -47,7 +62,6 @@ public class PostazioneRepositoryTest
 		pos.setLaboratorio("lab1");
 		PostazioneRepository instance = PostazioneRepository.getInstance();
 		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
-		instance.add(pos);
 		instance.delete(pos);
 		Postazione test=instance.findItemByQuery(sql);
 		assertEquals(null,test);
@@ -76,14 +90,16 @@ public class PostazioneRepositoryTest
 		
 		pos.setNumero(1);
 		pos.setLaboratorio("lab1");
-		
+		List<Postazione> testlista=new ArrayList();
+		testlista.add(pos);
 		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
 		
-		
+		List<Postazione> test;
 		PostazioneRepository instance = PostazioneRepository.getInstance();
 		instance.add(pos);
-		Postazione test=instance.findItemByQuery(sql);
-		assertEquals(pos,test);
+		
+		test=instance.query(sql);
+		assertEquals(testlista,test);
 		instance.delete(pos);
 		
 	}

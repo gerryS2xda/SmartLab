@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.sun.org.apache.bcel.internal.Repository;
@@ -10,19 +11,36 @@ import com.sun.org.apache.bcel.internal.Repository;
 import businessLogic.Postazione.PostazioneManager;
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.Postazione.PostazioneSql;
+import businessLogic.prenotazione.PrenotazioneManager;
 import dataAccess.storage.bean.Postazione;
 
 public class PostazioneManagerTest {
 
+	PostazioneManager instance=PostazioneManager.getInstance();
+	PostazioneRepository repository=PostazioneRepository.getInstance();
+	private Postazione oracle;
+	@Before
+	public void setUp() throws Exception 
+	{
+		oracle =new Postazione("lab1", 1,true);
+	}
+	
+	@Test
+	public void testGetInstance() {
+		System.out.println("Testing: get Instance");
+		manager = PostazioneManager.getInstance();
+		
+		assertNotNull("Repository object e' nullo", manager);
+	}
+	
 	@Test
 	public void testCrea() throws SQLException
 	{
 		boolean flag=true;
-		System.out.println("crea");
-		Postazione pos= new Postazione();
+		System.out.println("testing: crea");
+		Postazione pos= new Postazione(oracle.getNumero(),oracle.getLaboratorio(),oracle.isStato());
 		//-----------------
-		PostazioneManager pm=PostazioneManager.getInstance();
-		flag=pm.creaPostazione(1, "lab1", true);
+		flag=instance.creaPostazione(1, "lab1", true);
 		System.out.println(flag);
 	}
 	
@@ -30,12 +48,11 @@ public class PostazioneManagerTest {
 	public void testAttiva() throws SQLException
 	{
 		boolean flag=true;
-		System.out.println("attiva");
-		Postazione pos= new Postazione();
+		System.out.println("testing: attiva");
 		//-----------------
-		PostazioneManager pm=PostazioneManager.getInstance();
-		flag=pm.attivaPostazione(pos);
-		System.out.println(pos.isStato());
+		
+		flag=instance.attivaPostazione(oracle.getNumero(),oracle.getLaboratorio());
+		System.out.println(oracle.isStato());
 		System.out.println(flag);
 	}
 	
@@ -43,46 +60,45 @@ public class PostazioneManagerTest {
 	public void testDisattiva() throws SQLException
 	{
 		boolean flag=true;
-		System.out.println("disattiva");
-		Postazione pos= new Postazione();
+		System.out.println("testing: disattiva");
+		
 		//-----------------
-		PostazioneManager pm=PostazioneManager.getInstance();
-		flag=pm.disattivaPostazione(pos);
-		System.out.println(pos.isStato());
+		
+		flag=instance.disattivaPostazione(oracle.getNumero(),oracle.getLaboratorio());
+		System.out.println(oracle.isStato());
 		System.out.println(flag);
 	}
 	
 	@Test
 	public void testLibera() throws SQLException
 	{
+		Prenotazione pre=new Prenotazione();
 		boolean flag=true;
-		System.out.println("libera");
-		Postazione pos= new Postazione();
+		System.out.println("testing: libera");
 		//-----------------
-		PostazioneManager pm=PostazioneManager.getInstance();
-		flag=pm.liberaPostazione(pos);
+		
+		flag=instance.liberaPostazione(pre);
 		System.out.println(flag);
 	}
 	
 	@Test
-	public void testLista() throws SQLException
+	public void testListaPos() throws SQLException
 	{
-		System.out.println("libera");
-		Postazione pos=new Postazione();
+		System.out.println("testing: listaPos");
 		List<Postazione> postazioni=new ArrayList<>();
 		
-		pos.setLaboratorio("lab1");
-		pos.setNumero(1);
-		pos.setStato(true);
-		
-		PostazioneManager instance=PostazioneManager.getInstance();
-		PostazioneRepository repository=PostazioneRepository.getInstance();
-		
-		postazioni.add(pos);
-		repository.add(postazioni);
+		postazioni=instance.listaPostazioni(oracle.getLaboratorio());
 		assertTrue(!postazioni.isEmpty());
-		repository.delete(postazioni);
 	}
+	
+	
+	public void testDeletePos() 
+	{
+		System.out.println("testing: delete");
+		repository.delete(oracle);
+	}
+	
+	
 	
 //	@Test
 //	public void test() {
