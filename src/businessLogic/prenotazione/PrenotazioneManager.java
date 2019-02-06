@@ -38,6 +38,9 @@ public class PrenotazioneManager {
 	}
 	
 	//constructor
+	/**
+	 * Costruisce e inizializza un oggetto PrenotazioneManager e inizializza le repository
+	 */
 	public PrenotazioneManager(){
 		repository = PrenotazioneRepository.getInstance();
 		postazioneRep = PostazioneRepository.getInstance();
@@ -85,13 +88,17 @@ public class PrenotazioneManager {
 	/**
 	 * Restituisce la prenotazione che e' stata effettuata in base ai dati passati in input.
 	 * Si assume che la postazione sia disponibile e che lo studente ha effettuato < 3 prenotazioni
-	 * @param s studente che sta effettuando la prenotazione
-	 * @param p postazione che si vuole prenotare
-	 * @param fasciaOraria indica la fascia oraria della prenotazione
+	 * @param emailStud l'email dello studente usata per tenere traccia di chi sta prenotando
+	 * @param post e' il numero della postazione che si vuole prenotare
+	 * @param oraInizio indica l'ora di inizio della occupazione di post
+	 * @param oraFine indica l'ora di fine della occupazione di post
+	 * @param idLab e' l'identificativo del laboratorio in cui si trova post
 	 * @return prenotazione che e' stata effettuata
-	 * @pre isPostazioneDisponibile(p)
-	 * @pre getNumPrenotazioniEffettuateOggi(s) < 3
-	 * @post  getNumPrenotazioniEffettuateOggi(s) = @pre.getNumPrenotazioniEffettuateOggi(s)+1
+	 * @precondition isPostazioneDisponibile(post)
+	 * @precondition getNumPrenotazioniEffettuateOggi(emailStud) < 3
+	 * @post  getNumPrenotazioniEffettuateOggi(emailStud) = @pre.getNumPrenotazioniEffettuateOggi(s)+1
+	 * @throws PrenotazioneException: se getNumPrenotazioniEffettuateOggi(emailStud) > 2 
+	 * @throws SQLException: se si ha un problema con l'aggiungere i dati della prenotazione nel DB
 	 */
 	public Prenotazione effettuaPrenotazione(String emailStud, int post, String oraInizio, String oraFine, String idLab)throws PrenotazioneException, SQLException{
 		
@@ -123,7 +130,6 @@ public class PrenotazioneManager {
 		stud.setEmail(emailStud);
 		pr.setStudente(stud);
 		
-		//aggiungere il controllo della postazione
 		if(getNumPrenotazioniEffettuateOggi(emailStud) < 2){	//< 2 perche': se prenEff= 0; -> add; se prenEff = 1 --> add; se prenEff = 2 --> Stop
 			pr.setStatus(true); //se i controlli sono rispettati
 			repository.add(pr); 
@@ -137,8 +143,10 @@ public class PrenotazioneManager {
 	/**
 	 * Annulla una prenotazione effettuata, si assume che ci sia almeno una prenotazione da annullare
 	 * @param pr indica la prenotazione da annullare
-	 * @precondition isPrenotazioneActive(pr) && ora attuale < pr.getOraInizio().getHour() - 2
+	 * @precondition isPrenotazioneActive(pr) && oraAttuale < pr.getOraInizio().getHour() - 2
 	 * @post  getNumPrenotazioniEffettuateOggi(s) = @pre.getNumPrenotazioniEffettuateOggi(s)-1
+	 * @throws PrenotazioneException: se la prenotazione non e' piu' annullabile
+	 * @throws SQLException: se ci sono problemi con la rimozione di pr dalla table 'Prenotazione'
 	 */
 	public void annullaPrenotazione(Prenotazione pr)throws PrenotazioneException, SQLException{
 		
@@ -157,7 +165,9 @@ public class PrenotazioneManager {
 	 * Restituisce una prenotazione a cui e' associata l'id dato in input
 	 * @param id indica il valore per ricercare la postazione
 	 * @return prenotazione che ha l'id associato a quello dato in input
-	 * @pre id > 0
+	 * @throws PrenotazioneException: se ID < 0
+	 * @throws SQLException: se ci sono problemi con la ricerca della prenotazione nel DB
+	 * @precondition id > 0
 	 */
 	public Prenotazione findPrenotazioneById(int id)throws PrenotazioneException, SQLException{
 		
@@ -176,9 +186,12 @@ public class PrenotazioneManager {
 	
 	
 	/**
-	 * Restituisce una lista di prenotazioni effettuate da uno studente
-	 * @param s studente per ricercare le prenotazioni
+	 * Restituisce una lista di prenotazioni effettuate da uno studente in base all'email
+	 * @param stud indica l'email dello studente
 	 * @return lista prenotazioni
+	 * @throws SQLException: se ci sono problemi nell'esecuzione della query
+	 * @precondition emailStud != "" && emailStud != null
+	 * @post prenotazione[], dove per ogni i > 0, prenotazione.get(i).getEmail().equals(stud)
 	 */
 	public List<Prenotazione> getListPrenotazioniByStudent(String stud)throws SQLException{
 		
@@ -195,8 +208,11 @@ public class PrenotazioneManager {
 	
 	/**
 	 * Verifica se una prenotazione e' attiva in base all'ora di fine della prenotazione rispetto all'ora corrente
+	 * Se oraAttuale < pr.getOraFine(), allora la prenotazione e' attiva
 	 * @param pr indica la prenotazione da controllare
-	 * @return esito della verifica
+	 * @return lo stato di prenotazione: attiva (true), disattiva (false)
+	 * @precondition pr.getOraFine() != null
+	 * @post se oraAttuale >= OraFine --> false; se oraAttuale < oraFine --> true
 	 */
 	public boolean isPrenotazioneActive(Prenotazione pr){
 		boolean val = true;
@@ -210,6 +226,13 @@ public class PrenotazioneManager {
 		return val;
 	}
 	
+	/**
+	 * Cambia lo stato di una prenotazione sulla base del metodo isPrenotazioneActive(pr)
+	 * @param pr indica la prenotazione a cui modificare lo stato
+	 * @throws SQLException: se ci sono stati problemi con la modifica dello stato di prenotazione
+	 * @precondition pr.getOraFine() != null
+	 * @post se oraAttuale >= OraFine --> false; se oraAttuale < oraFine --> true
+	 */
 	public void changePrenotazioneStatus(Prenotazione pr)throws SQLException{
 		if(isPrenotazioneActive(pr)){
 			pr.setStatus(true);
@@ -220,10 +243,12 @@ public class PrenotazioneManager {
 	}
 	
 	/**
-	 * Restituisce il numero di prenotazioni che sono state effettuate da uno 
-	 * studente nella data odierna
-	 * @param s studente per ricercare le prenotazioni
+	 * Restituisce il numero di prenotazioni che sono state effettuate da uno studente nella data odierna
+	 * @param stud rappresenta l'eamil dello studente per ricercare le prenotazioni
 	 * @return numero prenotazioni effettuate
+	 * @throws SQLException: se ci sono stati problemi nell'ottenere la lista di prenotazioni dal DB
+	 * @precondition emailStud != null 
+	 * @post prenotazioni[], dove per ogni i > 0, today == dataPrenotazione --> conta la prenotazione
 	 */
 	public int getNumPrenotazioniEffettuateOggi(String stud)throws SQLException{
 
@@ -239,27 +264,36 @@ public class PrenotazioneManager {
 	}
 	
 	/**
-	 * Restituisce il numero delle postazioni prenotate in base all'ora di inizio
+	 * Restituisce il numero delle postazioni prenotate in base all'ora di inizio e all'ID del laboratorio
 	 * @param oraInizio usata per la ricerca
+	 * @param idLab rappresenta l'ID del laboratorio
 	 * @return numero postazioni prenotate
+	 * @throws SQLException: problema nell'eseguire la query
+	 * @precondition oraInizio != "" && idLab == ""
+	 * @post |prenotazioni[]| = numero di postazioni prenotate 
 	 */
 	public int getNumeroPostazioniPrenotate(String oraInizio, String idLab)throws SQLException{
 		
 		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
+		prenotazioni = repository.query(new PrenotazioneGetSQL(oraInizio, "", 0, idLab));
 		
-		try{
-			prenotazioni = repository.query(new PrenotazioneGetSQL(oraInizio, "", 0, idLab));
-		}catch(SQLException e){
-			System.out.println("Errore: lo studente non ha effettuato prenotazioni");
-		}
 		return prenotazioni.size();
 	} 
 	
+	/**
+	 * Restituisce una lista delle prenotazioni in base ai parametri formati in input
+	 * @param oraInizio rappresenta l'ora in cui inizia l'occupazione di post
+	 * @param oraFine rappresenta l'ora in cui termina l'occupazione di post
+	 * @param post rappresenta il numero della postazione
+	 * @param idLab rappresenta l'ID del laboratorio
+	 * @return numero postazioni prenotate
+	 * @throws SQLException: problema nell'eseguire la query
+	 * @post |prenotazioni[]| >= 0 
+	 */
 	public List<Prenotazione> getPrenotazioniByQuery(String oraInizio, String oraFine, int post, String idlab)throws SQLException{
 		List<Prenotazione> prenotazioni = new ArrayList<Prenotazione>();
 		
 		prenotazioni = repository.query(new PrenotazioneGetSQL(oraInizio, oraFine, post, idlab));
-
 		
 		//ottieni e setta le informazioni presenti nel DB di studente, postazione e laboratori per i rispettivi oggetti
 		for(int i = 0; i < prenotazioni.size(); i++){
@@ -268,6 +302,11 @@ public class PrenotazioneManager {
 		return prenotazioni;
 	}
 	
+	/**
+	 * Cancella tutte le prenotazioni che sono presenti nella table 'Prenotazione'
+	 * @throws SQLException: problema nell'eseguire la query relativa alla 'Delete'
+	 * @post|prenotazioni[]| == 0
+	 */
 	public void deleteAllPrenotazioni()throws SQLException{
 		List<Prenotazione> prenotazioni = repository.query(new ListaPrenotazioniQuery());
 		for(int i = 0; i < prenotazioni.size(); i++){
@@ -276,6 +315,12 @@ public class PrenotazioneManager {
 		}
 	}
 	
+	/**
+	 * Cancella tutte le prenotazioni che sono presenti da diversi giorni
+	 * @throws SQLException: problema nell'eseguire la query definita in query()
+	 * @post se dataCorrente == dataPren --> Rimuovi
+	 * @post se dataPren == dataDomani --> Non cancellare
+	 */
 	public void deleteAllPrenotazioniAfterDays()throws SQLException{
 		List<Prenotazione> prenotazioni = repository.query(new ListaPrenotazioniQuery());
 		String dataCorrente = LocalDate.now().toString();
@@ -288,6 +333,12 @@ public class PrenotazioneManager {
 		}
 	}
 	
+	/**
+	 * Ottieni tutte le prenotazioni presenti nel DB
+	 * @throws SQLException: problema nell'eseguire la query
+	 * @post |prenotazioni[]| >= 0
+	 * @post se dataPren == dataDomani --> Non cancellare
+	 */
 	public List<Prenotazione> getAllPrenotazioni() throws SQLException{
 		List<Prenotazione> prenotazioni = repository.query(new ListaPrenotazioniQuery());
 		for(int i = 0; i < prenotazioni.size(); i++){
@@ -295,8 +346,6 @@ public class PrenotazioneManager {
 		}
 		return prenotazioni;
 	}
-	
-	
 }
 
 
