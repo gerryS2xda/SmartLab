@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import businessLogic.laboratorio.LaboratorioSql;
-import businessLogic.laboratorio.ListaLab;
 
 public class LaboratorioSqlTest {
 	
