@@ -25,8 +25,8 @@
 			<!-- add navigation bar left jsp -->
 			<div id="sidebar">
 				<ul>
-					<li class="active"><a href="javascript:void(0);">Dashboard</a></li>
-					<li><a href="laboratoriAttivi.jsp">Prenota postazione</a></li>
+					<li><a href="javascript:void(0);">Dashboard</a></li>
+					<li class="active"><a href="laboratoriAttivi.jsp">Prenota postazione</a></li>
 					<li> <a href="PrenotazioniEffettuate.jsp">Mie prenotazioni</a></li>
 					<li> <a href="creaSegnalazione.jsp">Segnala problema</a></li>
 				</ul>
