@@ -39,10 +39,11 @@ public class ServletAvviso extends HttpServlet {
 				List<Avviso> lista = cm.viewAvviso();
 				int count = 0, id = -1;
 				while(count < lista.size()){
-					if(lista.get(count).getId() >= id)
+					if(lista.get(count).getId() > id)
 						id = lista.get(count).getId();
 					count++;
 				}
+				id++;
 				Addetto ad = (Addetto) session.getAttribute("user");
 				String titolo = request.getParameter("titolo");
 				String messaggio = request.getParameter("messaggio");

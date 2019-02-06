@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import dataAccess.storage.bean.*;
 import java.util.List;
 
-import businessLogic.laboratorio.LaboratorioManager;
 import businessLogic.prenotazione.PrenByStudPost;
-import businessLogic.prenotazione.PrenotazioneException;
-import businessLogic.prenotazione.PrenotazioneManager;
 import businessLogic.prenotazione.PrenotazioneRepository;
 
 public class PostazioneManager {
@@ -141,7 +138,7 @@ public class PostazioneManager {
 	public List<Postazione> listaPostazioni(String lab)
 	{
 		List <Postazione> lpos=new ArrayList<Postazione>();
-		Postazione pos=new Postazione();
+		//Postazione pos=new Postazione();
 		if(lab!=null && !lab.equals(""))
 		{
 			PostazioneRepository repository=new PostazioneRepository();
@@ -183,14 +180,10 @@ public class PostazioneManager {
 		if(pos!=null)
 		{
 			PostazioneRepository repository=new PostazioneRepository();
-			try 
-			{
+			
 				repository.delete(pos);
-			} catch (SQLException e)
-			{
+			
 				System.err.println("non e' andata a buon fine");
-				e.printStackTrace();
-			}
 			
 		}
 		return false;
@@ -201,9 +194,7 @@ public class PostazioneManager {
 	
 	public List<Prenotazione> listaPrenotazioni(String orainizio, String orafine,String idlab)
 	{
-		List <Prenotazione> pos=null;
-		
-			pos= new ArrayList<>();
+		//List <Prenotazione> pos= new ArrayList<>();
 			
 			PrenotazioneRepository preR=new PrenotazioneRepository();
 			PrenByStudPost presql=new PrenByStudPost(orainizio, idlab, orafine);

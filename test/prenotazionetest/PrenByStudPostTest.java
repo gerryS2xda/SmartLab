@@ -1,4 +1,4 @@
-package prenotazionetest;
+ackage prenotazionetest;
 
 import businessLogic.prenotazione.PrenByStudPost;
 import static org.junit.Assert.*;

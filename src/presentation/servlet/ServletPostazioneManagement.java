@@ -1,6 +1,7 @@
 package presentation.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import businessLogic.Postazione.PostazioneManager;
 import businessLogic.Postazione.*;
 import businessLogic.laboratorio.*;
+import dataAccess.storage.bean.Addetto;
+import dataAccess.storage.bean.Intervento;
 import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
@@ -38,6 +40,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		
 		Gson json = new Gson();
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String action=request.getParameter("action");
@@ -158,6 +161,21 @@ public class ServletPostazioneManagement extends HttpServlet {
 		else if(action.equals("intervento"))
 		{
 			String motivo=request.getParameter("inter");
+			int id=0;
+			String pos=request.getParameter("pos");
+			String lab=request.getParameter("lab");
+			Addetto addetto=(Addetto) request.getSession().getAttribute("user");
+			
+			int pos1=Integer.parseInt(pos);
+			InterventoRepository interventoR=new InterventoRepository();
+			Intervento in=new Intervento();
+			in.setAddetto(addetto.getEmail());
+			in.setDescrizione(motivo);
+			in.setPostazione(pos1);
+			in.setLaboratorio(lab);
+			
+			interventoR.add(in);
+			
 			
 		}
 		

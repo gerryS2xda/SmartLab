@@ -1,12 +1,9 @@
-package postazioneTest;
-
-
 import static org.junit.Assert.*;
 
+import org.junit.AfterClass;
 import org.junit.Test;
 
 import businessLogic.Postazione.PostazioneSql;
-import businessLogic.laboratorio.LaboratorioSql;
 
 public class PostazioneSqlTest {
 
@@ -29,11 +26,4 @@ public class PostazioneSqlTest {
 		assertEquals(pos.toSqlQuery(),result.toSqlQuery());
 		
 	}
-
-	
-//	@Test
-//	public void test() {
-//		fail("Not yet implemented");
-//	}
-
 }
