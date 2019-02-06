@@ -93,22 +93,14 @@ $(document).ready(function(){
 	});
 	//ajax eliminazione del laboratorio + messaggio di conferma
 	$("button#confermaElimina").on("click",function(){
-<<<<<<< HEAD
-		console.log(email);
-		
-=======
-		console.log(email);	
->>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
+
 		$.getJSON("addetto",{
 			action: "rimuoviResp",
 			email: email
 		},function(data,status){
 			div.remove();//rimuovo la scheda dalla grafica
 			email="";
-<<<<<<< HEAD
-			//messaggio esito
-=======
->>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
+
 			var mex=data.esito;
 			$("#success-alert").css("display","block");
 			$("#success-alert").html("");
@@ -122,10 +114,7 @@ $(document).ready(function(){
 		});
 	});
 });
-<<<<<<< HEAD
-=======
-	
->>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab.git
+
 </script>
 </body>
 </html>

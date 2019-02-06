@@ -10,7 +10,6 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<%@include file="navbar.jsp" %>
 
 <div class="container">
 	<h5 class="text-center">Studenti</h5>
@@ -23,7 +22,7 @@
 			<div class="card">
 			  <div class="card-header">
 			  	<span></span>
-			  	<input type="hidden" id="email" value="<%= s.getEmail() %>">
+			  	<input type="hidden" value="<%= s.getEmail() %>">
 			   </div>
 			  <div class="row card-body">
 				  <div class="col-md-4 text-center">
@@ -55,12 +54,11 @@
 	%>
 </div>
 
-<!-- modal  inserimento motivazione e conferma sospensione-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="confermaModal" tabindex="-1" role="dialog" aria-labelledby="confermaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Vuoi sospendere lo studente?</h5>
+        <h5 class="modal-title" id="confermaModalLabel">Vuoi sospendere lo studente?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -90,17 +88,16 @@ $(document).ready(function(){
 	var email;
 	var div;
 	var motivazione;
-	//seleziono il responsabile da eliminare
+
 	$("button#sospendi").on("click",function(){
 		email=$(this).find("input#email").val();
 		div=$(this).parent().parent().parent();//seleziono la scheda card
-		
 	});
+	
 	//ajax eliminazione del laboratorio + messaggio di conferma
 	$("button#confermaSospensione").on("click",function(){
-		motivazione=$(this).find("textarea#message-text").val();
-		if(motivazione == "") alert("Inserisci motivazione");
-		console.log(email);	
+		motivazione=$(this).find("textarea#message-text").value();
+		console.log(motivazione);
 		$.getJSON("utente",{
 			action: "effettuaSospensione",
 			emailStudente: email,
