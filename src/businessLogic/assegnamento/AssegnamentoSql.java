@@ -33,7 +33,7 @@ public class AssegnamentoSql implements SqlSpecification {
 	@Override
 	public String toSqlQuery() {
 		return String.format(
-                "SELECT * FROM %1$s WHERE laboratorio=%2$s && addetto=%3$s;",
+                "SELECT * FROM %1$s WHERE laboratorio=%2$s && responsabile='%3$s';",
                 TABLE_NAME,
                 this.laboratorio,
                 this.responsabile

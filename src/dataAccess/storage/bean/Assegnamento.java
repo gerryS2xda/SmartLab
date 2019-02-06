@@ -1,21 +1,18 @@
 package dataAccess.storage.bean;
 
-import java.io.Serializable;
 
-public class Assegnamento implements Serializable {
+public class Assegnamento{
 	
-	private static final long serialVersionUID = 1L;
+
 	private String responsabile;
 	private String laboratorio;
 	
 	public Assegnamento() {
-		super();
 		this.responsabile = "";
 		this.laboratorio = "";
 	}
 
 	public Assegnamento(String responsabile, String laboratorio) {
-		super();
 		this.responsabile = responsabile;
 		this.laboratorio = laboratorio;
 	}
