@@ -111,7 +111,6 @@ public class PrenotazioneManager {
 		lab = laboratorioRep.findItemByQuery(new LaboratorioSql(idLab));
 		pr.setLaboratorio(lab);
 		
-		
 		if(lab.getChiusura() == null){ throw new SQLException("Errore: problema nel recuperare i dati del laboratorio dal DB!!"); }
 		//ottieni orario di chisura e se orario corrente > orario di chiusura --> setta le prenotazioni per il giorno seguente
 		int oraCorrente = LocalTime.now().getHour();
@@ -121,8 +120,6 @@ public class PrenotazioneManager {
 		}else{
 			pr.setData(LocalDate.now().toString());
 		}
-		
-		
 		
 		Studente stud = new Studente();
 		stud.setEmail(emailStud);
