@@ -5,6 +5,7 @@ import businessLogic.laboratorio.IdLab;
 import businessLogic.laboratorio.LaboratorioRepository;
 import businessLogic.laboratorio.LaboratorioSql;
 import businessLogic.prenotazione.ListaPrenotazioniQuery;
+import businessLogic.prenotazione.PrenotazioneById;
 import businessLogic.prenotazione.PrenotazioneByStudent;
 import businessLogic.prenotazione.PrenotazioneGetSQL;
 import businessLogic.prenotazione.PrenotazioneManager;
@@ -26,7 +27,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PrenotazioneManagerTest {
+public class PrenotazioneManagerTestCase1 {
 
 	//instance field
 	private PrenotazioneManager manager;
@@ -61,8 +62,6 @@ public class PrenotazioneManagerTest {
 		post = new Postazione(100, lab.getIDlaboratorio(), true);
 		postazioneRep.add(post);
 		
-		
-		
 		oracle = new Prenotazione();
 		oracle.setData(LocalDate.now().toString());
 		oracle.setOraInizio(LocalTime.parse("09:00"));
@@ -76,7 +75,6 @@ public class PrenotazioneManagerTest {
 		//ottieni l'ID dopo inserimento poiche' si usa auto_increment (serve per delete)
 		Prenotazione temp = repository.findItemByQuery(new PrenotazioneByStudent(oracle.getStudente().getEmail()));
 		oracle.setID(temp.getId());
-		
 	}
 
 	@After
@@ -97,23 +95,30 @@ public class PrenotazioneManagerTest {
 
 	@Test
 	public void testEffettuaPrenotazione()throws Exception {
-		System.out.println("Testing: effettua prenotazione. Caso: oraCorrente < oraChiusura");
+		System.out.println("Testing: effettua prenotazione. Caso: oraCorrente < oraChiusura --> setta data di oggi");
 		
-		//incremento ora di chiusura e salva modifica in DB
+		//incremento ora di chiusura e salva modifica nella table di laboratorio
 		LocalTime oraChiusura = LocalTime.now().plusHours(1); 
 		lab.setChiusura(oraChiusura);
 		
 		laboratorioRep.update(lab);
 		
-		//crea oggetto prenotazione e confronta con oracle
+		//EffettuaPrenotazione: aggiunge la nuova prenotazione nella table di prenotazione
 		Prenotazione actualObj = manager.effettuaPrenotazione("teststud@studenti.unisa.it", 100, "09:00", "11:00", oracle.getLaboratorio().getIDlaboratorio());
 		
-		//rimuovi la prenotazione appena inserita con effettuaPrenotazione dal DB
+		//setta ID della prenotazione appena inserita
 		actualObj.setID(1 + oracle.getId()); 
-		repository.delete(actualObj);
 		
-		//effettua il confronto
-		assertEquals("Prenotazione non e' stata effettuata", oracle, actualObj);
+		//ottieni la prenotazione appena inserita e confronta la sua data con quella di oggi
+		Prenotazione newPren = repository.findItemByQuery(new PrenotazioneById(actualObj.getId()));
+		
+		String oracleToday = LocalDate.now().toString();	//oracolo del test
+		
+		//effettua il test: se newPren ha impostata la data di oggi --> prenotazione e' stata aggiunta nel DB
+		assertEquals("Prenotazione non e' stata effettuata con la data di oggi", oracleToday, newPren.getData());
+		
+		//rimuovi la prenotazione inserita con effettuaPrenotazione dal DB
+		repository.delete(actualObj);
 	}
 
 	@Test
@@ -125,7 +130,6 @@ public class PrenotazioneManagerTest {
 		oracle.setOraInizio(oraInizio);
 		repository.update(oracle);
 		
-		System.out.println("OraAttuale: " + LocalTime.now().getHour() + " OraInizio:" + oraInizio);
 		//annulla la prenotazione
 		manager.annullaPrenotazione(oracle);
 		
@@ -138,7 +142,7 @@ public class PrenotazioneManagerTest {
 
 	@Test
 	public void testFindPrenotazioneById()throws Exception  {
-		System.out.println("Testing: trova una prenotazione tramite id");
+		System.out.println("Testing: trova una prenotazione tramite id. Caso ID > 0");
 		
 		//la prenotazione da trovare e' gia' nel DB tramite setUp()
 		Prenotazione actualObj = manager.findPrenotazioneById(oracle.getId());
@@ -149,7 +153,7 @@ public class PrenotazioneManagerTest {
 
 	@Test
 	public void testGetListPrenotazioniByStudent()throws Exception  {
-		System.out.println("Testing: ottieni lista di prenotazioni fatte da uno studente");
+		System.out.println("Testing: ottieni lista di prenotazioni fatte da uno studente. Caso: lista piena");
 		
 		//il testing verra' fatta soltanto sul primo risultato ottenuto
 		List<Prenotazione> actualObjs = manager.getListPrenotazioniByStudent(oracle.getStudente().getEmail());
@@ -160,11 +164,11 @@ public class PrenotazioneManagerTest {
 
 	@Test
 	public void testIsPrenotazioneActive()throws Exception  {
-		System.out.println("Testing: verifica se una prenotazione e' attiva. Caso: active");
+		System.out.println("Testing: verifica se una prenotazione e' attiva. Caso: active (oraAttuale < oraFine)");
 		
 		//per ottenere che oraAttuale < oraFine (caso true), occorre:
-		String oraAttuale = LocalTime.now().plusHours(1).toString();	//oraAttuale + 1 
-		oracle.setOraFine(LocalTime.parse(oraAttuale)); //setta come oraFine (in modo che oraAttuale < oraFine)
+		String oraFine = LocalTime.now().plusHours(1).toString();	//oraAttuale + 1 
+		oracle.setOraFine(LocalTime.parse(oraFine)); //setta come oraFine (in modo che oraAttuale < oraFine)
 		
 		assertTrue("La prenotazione non e' attiva", manager.isPrenotazioneActive(oracle));
 		
@@ -175,8 +179,8 @@ public class PrenotazioneManagerTest {
 		System.out.println("Testing: verifica se una prenotazione e' attiva. Caso: setta Active");
 		
 		//si fa in modo che manager.isPrenotazioneActive() sia True --> setta True lo stato di prenotazione
-		String oraAttuale = LocalTime.now().plusHours(1).toString();	//oraAttuale + 1 
-		oracle.setOraFine(LocalTime.parse(oraAttuale)); //setta come oraFine (in modo che oraAttuale < oraFine)
+		String oraFine = LocalTime.now().plusHours(1).toString();	//oraAttuale + 1 
+		oracle.setOraFine(LocalTime.parse(oraFine)); //setta come oraFine (in modo che oraAttuale < oraFine)
 		
 		//setta l'oracle object a false per il test
 		oracle.setStatus(false);
@@ -188,7 +192,7 @@ public class PrenotazioneManagerTest {
 
 	@Test
 	public void testGetNumPrenotazioniEffettuateOggi()throws Exception  {
-		System.out.println("Testing: ottieni numero di prenotazione fatte oggi da uno studente");
+		System.out.println("Testing: ottieni numero di prenotazione fatte oggi da uno studente. Caso: studente ha fatto almeno una prenotazione");
 
 		int oracleValue = 1;
 		int actualValue = manager.getNumPrenotazioniEffettuateOggi(oracle.getStudente().getEmail());
