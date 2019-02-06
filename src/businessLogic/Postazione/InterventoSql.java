@@ -1,9 +1,6 @@
 package businessLogic.Postazione;
 
-import java.util.Date;
-
 import dataAccess.storage.SqlSpecification;
-import dataAccess.storage.bean.Laboratorio;
 
 public class InterventoSql implements SqlSpecification {
 	

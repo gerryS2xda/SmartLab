@@ -1,11 +1,9 @@
 package businessLogic.Postazione;
 
 import dataAccess.storage.SqlSpecification;
-import dataAccess.storage.bean.Laboratorio;
 
 public class PostazioneSql implements SqlSpecification {
 	
-	private static PostazioneSql instance;
 	private static final String TABLE_NAME = "Postazione";
 	private int numero;
 	private String idLab;

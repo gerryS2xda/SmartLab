@@ -4,11 +4,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.ResultSet;
 
 import dataAccess.storage.Connessione;
 import dataAccess.storage.bean.Intervento;
-import dataAccess.storage.bean.Postazione;
 
 public class InterventoRepository {
 	
