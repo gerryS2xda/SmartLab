@@ -31,7 +31,7 @@ public class Connessione  {
 		
 		newConnection = DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+db, username, password);
 
-/** NON TI AZZARDARE A TOCCARE QUESTA RIGA ALTRIMENTI VI AMMAZZO - ROCCO :)
+/** NON TI AZZARDARE A TOCCARE QUESTA RIGA ALTRIMENTI TI AMMAZZO - ROCCO :) 
  *		newConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/smartlab?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", username, password);
 **/	
 		newConnection.setAutoCommit(true);
