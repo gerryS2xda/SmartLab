@@ -155,6 +155,11 @@ public class ServletPostazioneManagement extends HttpServlet {
 			str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
 			response.getWriter().write(json.toJson(str));
 		}
+		else if(action.equals("intervento"))
+		{
+			String motivo=request.getParameter("inter");
+			
+		}
 		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

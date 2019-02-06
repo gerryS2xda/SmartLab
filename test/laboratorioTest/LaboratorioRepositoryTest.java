@@ -3,17 +3,43 @@ package laboratorioTest;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.time.LocalTime;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import businessLogic.laboratorio.IdLab;
 import businessLogic.laboratorio.LaboratorioRepository;
-import businessLogic.laboratorio.LaboratorioSql;
 import businessLogic.laboratorio.ListaLab;
 import dataAccess.storage.bean.Laboratorio;
 
 public class LaboratorioRepositoryTest {
+	
+	private LaboratorioRepository repository;
+	private Laboratorio oracle;
+	
+	@Before
+	public void setUp() throws SQLException{
+		repository=LaboratorioRepository.getInstance();
+		
+		oracle.setNome("lab4");
+		oracle.setPosti(25);
+		oracle.setStato(true);
+		oracle.setApertura(LocalTime.parse("9:00"));
+		oracle.setChiusura(LocalTime.parse("17:00"));
+		
+		repository.add(oracle);
+		
+		//ottengo l'oggetto completo perchè l'id è auto-increment
+		oracle=repository.findItemByQuery(new IdLab(oracle.getNome()));
+	}
+	
+	@After
+	public void tearDown() throws SQLException{
+		repository.delete(oracle);
+	}
 	
 	@Test
     public void testGetInstance() {
@@ -25,70 +51,58 @@ public class LaboratorioRepositoryTest {
 	@Test
 	public void testAdd() throws SQLException{
 		System.out.println("add");
-		Laboratorio lab= new Laboratorio();
-		lab.setNome("Lab1");
-		lab.setPosti(100);
-		lab.setStato(true);
-		lab.setIDlaboratorio("1");
-		//-----------------
-		LaboratorioRepository instance= LaboratorioRepository.getInstance();
-		instance.add(lab);
-		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
-		Laboratorio result=instance.findItemByQuery(sql);
-		instance.delete(lab);
-		System.out.println("lab: "+lab.toString()+"\nresult: "+result.toString());
-		assertEquals(lab.getIDlaboratorio(),result.getIDlaboratorio());
+		//l'oracolo viene inserito con setUp()
+		//controllo se è stato inserito
+		Laboratorio result=repository.findItemByQuery(new IdLab(oracle.getNome()));
+
+		assertEquals(oracle,result);
 	}
 	
 	@Test
 	public void testDelete() throws SQLException{
 		System.out.println("delete");
-		Laboratorio lab= new Laboratorio();
-		lab.setNome("Lab1");
-		lab.setPosti(100);
-		lab.setIDlaboratorio("3");
-		lab.setStato(true);
-		//-----------------
-		LaboratorioRepository instance= LaboratorioRepository.getInstance();
-		instance.add(lab);
-		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
-		instance.delete(lab);
-		Laboratorio result=instance.findItemByQuery(sql);
-		assertEquals("",result.getIDlaboratorio());
+		
+		repository.delete(oracle);
+		
+		Laboratorio result=repository.findItemByQuery(new IdLab(oracle.getNome()));
+		//l'oracolo deve essere null 
+		assertEquals(null,result);
+	}
+	
+	@Test
+	public void testUpdate() throws SQLException{
+		
+		Laboratorio result=oracle;
+		
+		assertSame(result,oracle);//verifico che puntano alla stessa istanza
+		
+		result.setStato(false);
+		result.setApertura(LocalTime.parse("11:00"));
+		result.setChiusura(LocalTime.parse("19:00"));
+		
+		repository.update(result);
+		
+		result=repository.findItemByQuery(new IdLab(oracle.getNome()));
+		
+		assertEquals(oracle,result);//verifica che la modifica sia stata apportata
 	}
 	
 	@Test
 	public void testFindItemByQuery() throws SQLException{
 		System.out.println("findItemByQuery");
-		Laboratorio lab= new Laboratorio();
-		lab.setNome("Lab1");
-		lab.setPosti(100);
-		lab.setIDlaboratorio("1");
-		lab.setStato(true);
-		//-----------------
-		LaboratorioRepository instance= LaboratorioRepository.getInstance();
-		instance.add(lab);
-		LaboratorioSql sql=new LaboratorioSql(lab.getIDlaboratorio());
-		Laboratorio result=instance.findItemByQuery(sql);
-		instance.delete(lab);
-		assertEquals(lab.getIDlaboratorio(),result.getIDlaboratorio());
+		
+		Laboratorio result=repository.findItemByQuery(new IdLab(oracle.getNome()));
+		
+		assertEquals(oracle,result);
 	}
 	
 	@Test
 	public void testQuery() throws SQLException{
 		System.out.println("query");
-		Laboratorio lab= new Laboratorio();
-		lab.setNome("Lab1");
-		lab.setPosti(100);
-		lab.setIDlaboratorio("2");
-		lab.setStato(true);
-		List<Laboratorio> laboratori =new ArrayList<Laboratorio>();
-		//-----------------
-
-		LaboratorioRepository.getInstance().add(lab);
-		laboratori=LaboratorioRepository.getInstance().query(new ListaLab());
-		LaboratorioRepository.getInstance().delete(lab);
-		assertTrue(!laboratori.isEmpty());
+		
+		List<Laboratorio> lista=repository.query(new ListaLab());
+		
+		assertEquals(lista.get(lista.size()-1),oracle);//controlla se l'ultimo elemento inserito è uguale a oracle
 
 	}
 
