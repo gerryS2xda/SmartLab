@@ -43,6 +43,7 @@ public class ServletAvviso extends HttpServlet {
 						id = lista.get(count).getId();
 					count++;
 				}
+				id++;
 				Addetto ad = (Addetto) session.getAttribute("user");
 				String titolo = request.getParameter("titolo");
 				String messaggio = request.getParameter("messaggio");
