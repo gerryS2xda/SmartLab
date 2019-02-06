@@ -37,30 +37,17 @@ public class LaboratorioManagerTestCase2 {
 	public void testCreateLaboratory() throws SQLException {
 		System.out.println("Test createLaboratory caso parametro null");
 		manager.createLaboratory(oracle);
-		Laboratorio result=repository.findItemByQuery(new IdLab(oracle.getNome()));
-		assertEquals(result,oracle);
+		Laboratorio result=repository.findItemByQuery(new IdLab(""));
+		assertEquals(result.getIDlaboratorio(),"");
 	}
 
 	@Test
 	public void testRemoveLaboratory() throws SQLException {
 		System.out.println("Test removeLaboratory caso parametro null");
 		Laboratorio result=new Laboratorio();
-		result.setNome("lab10");
-		result.setPosti(0);
-		result.setStato(true);
-		result.setApertura(LocalTime.parse("9:00"));
-		result.setChiusura(LocalTime.parse("17:00"));
-		
-		repository.add(result);
-		
-		//ottego l'id 
-		Laboratorio temp=repository.findItemByQuery(new IdLab(oracle.getNome()));
-		result.setIDlaboratorio(temp.getIDlaboratorio());
-		
-		manager.removeLaboratory(result);
-		
-		assertNotEquals(result,oracle);
-		repository.delete(result);
+		manager.removeLaboratory(oracle);
+		result=repository.findItemByQuery(new IdLab(result.getNome()));
+		assertNotEquals(result.getIDlaboratorio(),"");
 	}
 
 
