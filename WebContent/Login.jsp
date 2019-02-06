@@ -26,13 +26,13 @@
 					<img class="punto_Esc_image" src="./images/puntoEsc.png" alt="(!)">
 					<span class="err_txt"> </span>
 				</span>
-				<input type="text" name="usrname" placeholder="email di ateneo" id="nomeLog" onblur="validateUsernameLogin($(this))"/>
+				<input type="text" name="username" placeholder="email di ateneo" id="nomeLog" onblur="validateUsernameLogin($(this))"/>
 				<span id="errPwdArea">
 					<img class="punto_Esc_image" src="./images/puntoEsc.png" alt="(!)">
 					<span class="err_txt"> </span>
 				</span>
 				<input type="password" name="pwd" placeholder="password" id="passLog" onblur="validatePasswordLogin($(this))"/>
-				<button type="button" onclick="formValidationAndSubmit()">Login</button>
+				<button type="button" name="btn_sub_login" onclick="formValidationAndSubmit()">Login</button>
 				<p class="message">Not registered? <a class="reg_link" href="studentInterface/RegistrationStudente.jsp?userType=studente">Create an account</a></p>
 			</form>
 		</div>

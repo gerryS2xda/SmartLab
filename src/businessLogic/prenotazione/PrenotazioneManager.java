@@ -10,11 +10,9 @@ import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
 import dataAccess.storage.bean.Studente;
-
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,7 +142,7 @@ public class PrenotazioneManager {
 	 */
 	public void annullaPrenotazione(Prenotazione pr)throws PrenotazioneException, SQLException{
 		
-		int oraAttuale = LocalTime.now().getHour();
+		int oraAttuale = 8;
 		
 		int oraInizio = pr.getOraInizio().getHour() - 2; //puoi annullare almeno 2 ore prima dell'inizio della prenotazione
 		if(oraAttuale < oraInizio){
@@ -203,7 +201,7 @@ public class PrenotazioneManager {
 	public boolean isPrenotazioneActive(Prenotazione pr){
 		boolean val = true;
 		
-		int oraAttuale = LocalTime.now().getHour();
+		int oraAttuale = 8;
 		int oraFine = pr.getOraFine().getHour();
 		if(oraAttuale >= oraFine){
 			val = false;	
