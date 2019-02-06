@@ -4,15 +4,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import businessLogic.laboratorio.IdLab;
+import businessLogic.laboratorio.LaboratorioRepository;
 import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Segnalazione;
 
 public class CommunicationManager {
 	
+	private LaboratorioRepository lr = new LaboratorioRepository();
+	
 	public boolean addSegnalazione(Segnalazione s){
 		if(s != null){
 			SegnalazioneRepository sr = new SegnalazioneRepository();
+			IdLab lab = new IdLab(s.getLaboratorio());
 			try {
+				s.setLaboratorio(lr.findItemByQuery(lab).getIDlaboratorio());
 				sr.add(s);
 				return true;
 			} catch (SQLException e) {

@@ -1,14 +1,12 @@
 package businessLogic.Postazione;
 
-import java.util.Date;
-
 import dataAccess.storage.SqlSpecification;
-import dataAccess.storage.bean.Laboratorio;
 
 public class InterventoSql implements SqlSpecification {
 	
 	private static final String TABLE_NAME ="Intervento";
 	private int idIntervento;
+	private static InterventoSql instance;
 	
 
 	public InterventoSql(int idIntervento) 
@@ -17,15 +15,11 @@ public class InterventoSql implements SqlSpecification {
 		
 	}
 	
-	private static InterventoSql instance;
 	
-	public static InterventoSql getInstance(int idIntervento, String descrizione, Date data, int postazione, int laboratorio,String addetto) 
+	
+	public static InterventoSql getInstance(int idIntervento) 
     {
-
-        if (instance == null) 
-        {
             instance = new InterventoSql(idIntervento);
-        }
         return instance;
 
     }
@@ -33,7 +27,7 @@ public class InterventoSql implements SqlSpecification {
 
 	public String toSqlQuery() 
 	{
-		return String.format("SELECT * FROM %1$s WHERE idIntervento = %2$s ",TABLE_NAME, this.idIntervento);
+		return String.format("SELECT * FROM %1$s WHERE idIntervento = %2$d ",TABLE_NAME, this.idIntervento);
 		
 	}
 }

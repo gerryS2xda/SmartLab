@@ -42,7 +42,7 @@ public class ServletSegnalazione extends HttpServlet {
 			String descrizione = request.getParameter("descrizione");
 			String lab = request.getParameter("laboratorio");
 			int pos = Integer.parseInt(request.getParameter("postazione"));
-			String studente = st.getEmail();
+			String studente = "test";//st.getEmail();
 			java.util.Date d = new java.util.Date();
 			Date data = new Date(d.getTime());
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
