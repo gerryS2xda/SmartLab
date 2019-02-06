@@ -123,13 +123,13 @@ public class ServletUtenteManagement extends HttpServlet {
 			
 			Studente s = new Studente();
 			s.setEmail(request.getParameter("emailStudente"));
-			String motivazione = request.getParameter("motivazione");
+			String motivazione = (String) request.getParameter("motivazione");
 			try{
 				Sospensione v = manager.effettuaSospensione(s, motivazione);
 				if(v.getStudente()!= null && s.getStato() == true){
-					response.getWriter().write(json.toJson("{\"esito\":\"sospensione effettuata\"}"));
+					response.getWriter().write("{\"esito\":\"sospensione effettuata\"}");
 				} else {
-					response.getWriter().write(json.toJson("{\"esito\":\"sospensione fallita\"}"));
+					response.getWriter().write("{\"esito\":\"sospensione non effettuata\"}");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

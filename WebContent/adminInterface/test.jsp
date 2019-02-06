@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="../laboratorio?action=lista_lab">laboratori</a>
-<a href="../utente?action=getStudentList">sospendiAccount</a>
-<a href="../addetto?action=getListResp">visualizzaResponsabili</a>
+<a href="../laboratorio?action=lista_lab">laboratori</a><br>
+<a href="../utente?action=getStudentList">sospendi Account Studente</a><br>
+<a href="../addetto?action=getListResp">visualizza Responsabili</a><br>
 </body>
 </html>

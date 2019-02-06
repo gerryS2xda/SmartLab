@@ -15,7 +15,7 @@
 <div class="container">
 	<h5 class="text-center">Responsabili</h5>
 	<% Collection<?> responsabili = (Collection<?>) request.getAttribute("responsabili");
-	if(responsabili != null){
+	if(!responsabili.isEmpty()){
 		Iterator<?> it = responsabili.iterator();
 		while(it.hasNext()){
 			Addetto a = (Addetto) it.next(); %>
@@ -47,12 +47,9 @@
 			</div>
     	<%
 	    }
-    }else{
-    	%>
+    }else{ %>
     	<h3 class="text-center">Non ci sono responsabili registrati al sistema</h3>
-    	<%
-    }
-	%>
+    <%  }	%>
 </div>
 
 <!-- modal  conferma eliminazione del responsabile-->
@@ -100,7 +97,6 @@ $(document).ready(function(){
 		},function(data,status){
 			div.remove();//rimuovo la scheda dalla grafica
 			email="";
-
 			var mex=data.esito;
 			$("#success-alert").css("display","block");
 			$("#success-alert").html("");

@@ -14,10 +14,12 @@
 <div class="container">
 	<h5 class="text-center">Studenti</h5>
 	<% Collection<?> studenti = (Collection<?>) request.getAttribute("studenti");
-	if(studenti != null){
+	if(!studenti.isEmpty()){
 		Iterator<?> it = studenti.iterator();
 		while(it.hasNext()){
-			Studente s = (Studente) it.next(); %>
+			Studente s = (Studente) it.next();
+			if(s.getStato()==false){
+		%>
 			
 			<div class="card">
 			  <div class="card-header">
@@ -45,6 +47,7 @@
 		  		</div>
 			</div>
     	<%
+			} else { continue; }
 	    }
     }else{
     	%>
@@ -64,10 +67,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form name="area">
           <div class="form-group">
             <label for="message-text" class="col-form-label">Motivazione:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <textarea class="form-control" id="motivazione"></textarea>
           </div>
         </form>
       </div>
@@ -96,8 +99,8 @@ $(document).ready(function(){
 	
 	//ajax eliminazione del laboratorio + messaggio di conferma
 	$("button#confermaSospensione").on("click",function(){
-		motivazione=$(this).find("textarea#message-text").value();
-		console.log(motivazione);
+		motivazione=document.getElementById("motivazione").value;
+		if(motivazione == "") alert("Inserisci motivazione");
 		$.getJSON("utente",{
 			action: "effettuaSospensione",
 			emailStudente: email,
