@@ -105,5 +105,5 @@ public class LaboratorioRepositoryTest {
 		assertEquals(lista.get(lista.size()-1),oracle);//controlla se l'ultimo elemento inserito è uguale a oracle
 
 	}
-
+	
 }
