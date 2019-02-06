@@ -10,6 +10,10 @@
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+<!-- navbar -->
+<%@include file="navbar.jsp" %>
+
 <div class="container">
 	<h4 class="text-center">Crea Laboratorio</h4>
 	<form id="form">
@@ -17,21 +21,21 @@
 	  <div class="form-row">
 	    <div class="form-group col-md-6">
 	      <label for="nomeLaboratorio">Nome Laboratorio</label>
-	      <input name="nome" type="text" class="form-control" placeholder="lab1">
+	      <input name="nome" type="text" class="form-control">
 	    </div>
 	    <div class="form-group col-md-6">
 	      <label for="posti">Posti</label>
-	      <input name="posti" type="number" class="form-control" placeholder="20" min="0">
+	      <input name="posti" type="number" class="form-control" min="0">
 	    </div>
 	  </div>
 	  <div class="form-row">
 		  <div class="form-group col-md-6">
 		    <label for="oraApertura">Ora apertura</label>
-		    <input name="apertura" type="time" class="form-control" placeholder="8:00">
+		    <input name="apertura" type="time" class="form-control">
 		  </div>
 		  <div class="form-group col-md-6">
 		    <label for="oraChiusura">Ora chiusura</label>
-		    <input name=chiusura type="time" class="form-control" placeholder="18:00">
+		    <input name=chiusura type="time" class="form-control">
 		  </div>
 	  </div>
 	  <div class="row">
