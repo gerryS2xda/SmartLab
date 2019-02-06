@@ -65,12 +65,14 @@ public class ServletPostazioneManagement extends HttpServlet {
 		
 			pm.liberaPostazione(pre);
 		//mandare alla jsp
-			
+			s="{[";
 			for(int i = 0; i < lista.size()-1; i++){
 				Prenotazione p = lista.get(i);
-				s += " { "+ p.toString() + " }";
+				s += " { "+ p.toString() + " },";
 			}
-			
+			s.substring(0, s.length()-2);
+			s=s+"]}";
+			System.out.println(s);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().write(s);
@@ -108,6 +110,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 			String s;
 			String idlab=request.getParameter("idlab");
 			String idpos=request.getParameter("id");
+			String msg=request.getParameter("msg");
 			
 			//setta lo stato di postazione a false
 			flag=pm.disattivaPostazione(idpos, idlab);
