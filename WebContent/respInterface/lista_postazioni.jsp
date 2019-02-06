@@ -97,8 +97,8 @@
 		var div=$(this).parent();
 		var id=div.find("input#id").val();
 		var idlab=div.find("input#idlab").val();
-    	$("button#confermaatt").on("click",function(){
-    		
+    	$("button#confermaatt").click(function(){
+    		console.log("asd");
     		$.getJSON("postazioni", { 
     			action: "attiva_pos",
     			id: id,
@@ -113,10 +113,9 @@
     		
     		
     		});
-    		$("button#confermadisattiva").on("click",function(){
+    		$("button#confermadisattiva").click(function(){
     			
-    			
-        		
+    			console.log("asd");
         		console.log(id);
         		console.log(idlab);
         		

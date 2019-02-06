@@ -25,10 +25,37 @@
 </form>
 </div>        
 
-<script>
+
+<!-- modal per conferma libera postazione -->
+<div class="modal fade" id="exampleModaldisattiva" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">Confermi di voler liberare la postazi0ne?</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        <form>
+				          <div class="form-group">
+				            <label for="message-text" class="col-form-label">Inserisci motivazione (facoltativo):</label>
+				            <textarea class="form-control" id="message-text"></textarea>
+				          </div>
+				        </form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+				        <button type="button" class="btn btn-primary" id="confermadisattiva">Conferma</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+    <!-- ___________________________________ -->
+    <script>
 $(document).ready(function()
 {
-	$("button#libera_btn").on("click",function()
+	$("button#libera_btn").click(function()
 	{
 	console.log("asd");
 	
@@ -59,14 +86,14 @@ $(document).ready(function()
 	                        "</h4><p>ora di inizio:</p>"+k.oraInizio+
 	                        "<p>ora di fine:</p>" + k.orafine+ "</div></div></div></div>";
 					}
-					$("div#cerca").html(str);
+					$("div#cerca").append(str);
 				console.log(data);
 				},"json");
 	});
 	var mot=$("#message-text").val();
 	$.getJSON("postazioni",
 		{
-		action:"intervento"
+		action:"intervento",
 		inter: mot
 		},function(data,status)
 		{
@@ -86,32 +113,6 @@ $(document).ready(function()
 	
 	
 </script>
-<!-- modal per conferma libera postazione -->
-<div class="modal fade" id="exampleModaldisattiva" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				  <div class="modal-dialog" role="document">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="exampleModalLabel">Confermi di voler liberare la postazi0ne?</h5>
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">&times;</span>
-				        </button>
-				      </div>
-				      <div class="modal-body">
-				        <form>
-				          <div class="form-group">
-				            <label for="message-text" class="col-form-label">Inserisci motivazione (facoltativo):</label>
-				            <textarea class="form-control" id="message-text"></textarea>
-				          </div>
-				        </form>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-				        <button type="button" class="btn btn-primary" id="confermadisattiva">Conferma</button>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-    <!-- ___________________________________ -->
 
 </body>
 </html>

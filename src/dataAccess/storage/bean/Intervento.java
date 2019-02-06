@@ -8,7 +8,7 @@ public class Intervento {
 	private String descrizione;
 	private Date data;
 	private int postazione;
-	private int laboratorio;
+	private String laboratorio;
 	private String addetto;
 	
 	//costruttori
@@ -17,7 +17,7 @@ public class Intervento {
 		
 	}
 	
-	public Intervento(int idIntervento, String descrizione, Date data, int postazione, int laboratorio,String addetto) 
+	public Intervento(int idIntervento, String descrizione, Date data, int postazione, String laboratorio,String addetto) 
 	{
 		super();
 		this.idIntervento = idIntervento;
@@ -53,10 +53,10 @@ public class Intervento {
 	public void setPostazione(int postazione) {
 		this.postazione = postazione;
 	}
-	public int getLaboratorio() {
+	public String getLaboratorio() {
 		return laboratorio;
 	}
-	public void setLaboratorio(int laboratorio) {
+	public void setLaboratorio(String laboratorio) {
 		this.laboratorio = laboratorio;
 	}
 	public String getAddetto() {
