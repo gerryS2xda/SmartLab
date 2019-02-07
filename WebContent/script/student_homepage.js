@@ -28,7 +28,7 @@ function loadWidget(){
 				deletePrenotazioniAfterDays(); //invoca solo se non e' stato effettuato il reset dopo orario di chiusura
 			}
 		}else{
-			window.location.href = "./index.jsp"; //pagina errore 404
+			window.location.href = "./error.jsp"; //pagina errore 404
 		}
 	});
 }
@@ -53,10 +53,10 @@ function resetPostazioniDisponibiliAfterOrarioChiusura(){
 					var o = JSON.parse(resp);
 					var esito = o.esito;
 					if(!esito){
-						window.location.href = "./index.jsp";
+						window.location.href = "./error.jsp";
 					}
 				}else{
-					window.location.href = "./index.jsp"; //pagina errore 404
+					window.location.href = "./error.jsp"; //pagina errore 404
 				}
 			});
 			consumata = true;
@@ -72,10 +72,10 @@ function deletePrenotazioniAfterDays(){
 			var o = JSON.parse(resp);
 			var esito = o.esito;
 			if(!esito){
-				window.location.href = "./index.jsp";
+				window.location.href = "./error.jsp";
 			}
 		}else{
-			window.location.href = "./index.jsp"; //pagina errore 404
+			window.location.href = "./error.jsp"; //pagina errore 404
 		}
 	});
 }
@@ -157,10 +157,10 @@ function deleteAvviso(item){
 			if(res.esito == "successo"){
 				li.remove();
 			}else{
-				window.location.href("./index.jsp");
+				window.location.href("./error.jsp");
 			}
 		}else
-			window.location.href("./index.jsp");
+			window.location.href("./error.jsp");
 	});
 }
 

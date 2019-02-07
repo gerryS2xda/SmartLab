@@ -22,7 +22,7 @@ public class ServletAddettoManagement extends HttpServlet {
 		String action = request.getParameter("action");
 		if(action == null){
 			response.setStatus(404);
-			response.sendRedirect("./index.jsp");
+			response.sendRedirect("./error.jsp");
 			
 		} else if(action.equals("addResp")){
 			Addetto a = new Addetto();
