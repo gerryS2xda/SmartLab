@@ -15,7 +15,7 @@
 <!-- navbar -->
 <%@include file="navbarWebContent.jsp" %>
     <h1 style="text-align: center"> LABORATORIO  </h1>
-    <div>
+    <div class="container">
     	<% Collection<?> postazioni = (Collection<?>) request.getAttribute("lista");
 	Iterator<?> it = postazioni.iterator();
     while (it.hasNext()) {
@@ -31,11 +31,14 @@
                         <input type="hidden" id="id" value="<%= pos.getNumero() %>">
                         <input type="hidden" id="idlab" value="<%=pos.getLaboratorio() %>">
                         <% if(pos.isStato()==true){ %> 	
+                        	<h5 class="card-title" id="notifica"> attivata </h5>
                         	<button type="button" data-toggle="modal" data-target="#exampleModaldisattiva" data-whatever="@mdo" style="display:block" class="btn btn-danger" id="disattiva">disattiva</button>
                         	<button type="button" data-toggle="modal" data-target="#exampleModalattiva" style="display:none" class="btn btn-success" id="attiva">attiva</button>
                         	<% }else{%>
+                        	<h5 class="card-title" id="notifica"> disattivata </h5>
                         	<button type="button" data-toggle="modal" data-target="#exampleModaldisattiva" data-whatever="@mdo" style="display:none" class="btn btn-danger" id="disattiva">disattiva</button>
                         	<button type="button" data-toggle="modal" data-target="#exampleModalattiva" style="display:block" class="btn btn-success" id="attiva">attiva</button>
+                        	
                         	<% } %>
                     </div>
                     </div>
@@ -60,7 +63,7 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-				        <button type="button" class="btn btn-primary" id="confermadisattiva">Conferma</button>
+				        <button type="button" class="btn btn-primary" data-dismiss="modal" id="confermadisattiva">Conferma</button>
 				      </div>
 				    </div>
 				  </div>
@@ -119,6 +122,7 @@
     				if(data.esito="stato modificato"){
     					button.css("display","none");
         	    		div.find("button#disattiva").css("display","block");
+        	    		div.find("h5#notifica").text("attivata");
     				}
     	    		console.log(data.esito);
     			});
@@ -149,6 +153,7 @@
     			if(data.esito="stato modificato"){
     				button.css("display","none");
             		div.find("button#attiva").css("display","block");
+            		div.find("h5#notifica").text("disattivata");
     			}
         		console.log(data.esito);
     		});

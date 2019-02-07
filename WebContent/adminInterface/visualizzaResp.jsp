@@ -17,7 +17,7 @@
 		}else if(userType.equals("admin")){	
 	%>
 <body>
-<%@include file="navbar.jsp" %>
+<%@include file="navbarWebContent.jsp" %>
 
 <div class="container">
 	<h5 class="text-center">Responsabili</h5>

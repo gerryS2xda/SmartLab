@@ -51,7 +51,7 @@ public class AssegnamentoManager {
     * @post il laboratorio ha un responsabile in meno assegnato
     * @return flag indica se l'operazione e' andata a buon fine
     */
-    public boolean removeResponsabile(Assegnamento ass){
+    public boolean removeResponsabile(Assegnamento ass) {
     	boolean flag;
     	if(ass!=null){
     		AssegnamentoRepository repository= new AssegnamentoRepository();

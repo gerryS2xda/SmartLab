@@ -18,7 +18,7 @@
 	%>
 <body>
 <!-- navbar -->
-<%@include file="navbar.jsp" %>
+<%@include file="navbarWebContent.jsp" %>
 <div class="container">
 <h5  class="text-center"><%=request.getAttribute("nome") %></h5><!-- nome laboratorio -->
 <%Collection<?> responsabili = (Collection<?>) request.getAttribute("responsabili");
