@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import businessLogic.Postazione.ListaPos;
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.laboratorio.IdLab;
 import businessLogic.laboratorio.LaboratorioManager;
@@ -31,6 +32,8 @@ public class LaboratorioManagerTestCase1 {
 		manager=LaboratorioManager.getInstance();
 		repository=LaboratorioRepository.getInstance();
 		repositoryp=PostazioneRepository.getInstance();
+		
+		postazione =new Postazione();
 		
 		oracle=new Laboratorio();
 		oracle.setNome("lab10");
@@ -72,9 +75,13 @@ public class LaboratorioManagerTestCase1 {
 		//l'oracolo viene inserito con setUp()
 		Laboratorio result=repository.findItemByQuery(new IdLab(oracle.getNome()));
 		//postazioni generate dalla creazione del laboratorio
-		//List<Postazione> postazioni=repositoryp.query(new ListaPos(oracle.getIDlaboratorio()));
+		List<Postazione> postazioni=repositoryp.query(new ListaPos(oracle.getIDlaboratorio()));
+		boolean flag=false;
+		if(!postazioni.isEmpty() && result.equals(oracle)) {
+			flag=true;
+		}
 		
-		assertEquals(result,oracle);
+		assertTrue(flag);
 	}
 	
 	@Test
@@ -94,7 +101,7 @@ public class LaboratorioManagerTestCase1 {
 		
 		List<Laboratorio> laboratori=manager.getLaboratoryList();
 		
-		assertEquals(laboratori.get(laboratori.size()-1),oracle);
+		assertTrue(!laboratori.isEmpty());
 	}
 	
 	@Test

@@ -57,15 +57,23 @@
 $(document).ready(function(){
 	$("#submitButton").on("click",function(event){
 		var form = $("form#form");
-		console.log(form);
+		/*console.log(form);
 		console.log(form.find("input[name=\"nome\"]").val());
 		console.log(form.find("input[name=\"posti\"]").val());
 		console.log(form.find("input[name=\"apertura\"]").val());
-		console.log(form.find("input[name=\"chiusura\"]").val());
+		console.log(form.find("input[name=\"chiusura\"]").val());*/
+		// prendo i valori
 		var nome=form.find("input[name=\"nome\"]");
 		var posti=form.find("input[name=\"posti\"]");
 		var apertura=form.find("input[name=\"apertura\"]");
 		var chiusura=form.find("input[name=\"chiusura\"]")
+
+		//controlli
+		if((nome.val()==(null || "")) || (posti.val()==(null || ""))){
+			console.log("if");
+			window.location.replace("../error.jsp");
+		}
+
 		console.log("ok");
 		$.getJSON("../laboratorio",{
 			action:"aggiungi_lab",

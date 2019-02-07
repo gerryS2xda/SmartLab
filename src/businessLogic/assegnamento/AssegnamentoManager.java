@@ -24,8 +24,8 @@ public class AssegnamentoManager {
  /** permette di assegnare un responsabile a un laboratorio
     *@param ass contiene il responsabile e il laboratorio che saranno associati
     * @pre il laboratorio ha meno di 2 responsabile assegnati
-    * @post il laboratorio ha 1 responsabile in più assegnato
-    * @return flag indica se l'operazione è andata a buon fine
+    * @post il laboratorio ha 1 responsabile in piu' assegnato
+    * @return flag indica se l'operazione e' andata a buon fine
     */
     public boolean setRespToLab(Assegnamento ass){
     	boolean flag;
@@ -36,7 +36,7 @@ public class AssegnamentoManager {
     			flag=true;
     		} catch (SQLException e) {
     			flag=false;
-    			System.err.println("non è possibile inserire l'oggetto nel database");
+    			System.err.println("non e' possibile inserire l'oggetto nel database");
     			e.printStackTrace();
     		}
     	}else{
@@ -46,12 +46,12 @@ public class AssegnamentoManager {
     	return flag;
     }
  /**permette di rimuovere un responsabile da un laboratorio
-    * @param ass contiene la coppia responsabile laboratorio che sarà eliminata dal sistema
+    * @param ass contiene la coppia responsabile laboratorio che sara' eliminata dal sistema
     * @pre il laboratorio ha 1 o 2 responsabili assegnati
     * @post il laboratorio ha un responsabile in meno assegnato
-    * @return flag indica se l'operazione è andata a buon fine
+    * @return flag indica se l'operazione e' andata a buon fine
     */
-    public boolean removeResponsabile(Assegnamento ass){
+    public boolean removeResponsabile(Assegnamento ass) {
     	boolean flag;
     	if(ass!=null){
     		AssegnamentoRepository repository= new AssegnamentoRepository();
@@ -60,7 +60,7 @@ public class AssegnamentoManager {
     			flag=true;
     		} catch (SQLException e) {
     			flag=false;
-    			System.err.println("non è possibile eliminare l'oggetto nel database");
+    			System.err.println("non e' possibile eliminare l'oggetto nel database");
     			e.printStackTrace();
     		}
     	}else{

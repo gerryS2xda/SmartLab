@@ -40,7 +40,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
         Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-        //IDlaboratorio è auto increment
+        //IDlaboratorio a' auto increment
 		String insertSQL = "INSERT INTO " + TABLE_NAME
 				+ " (nome, posti, stato,ora_apertura, ora_chiusura) VALUES (?, ?, ?, ?, ?)";
 
@@ -52,7 +52,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 			preparedStatement.setBoolean(3, lab.isStato());
 			preparedStatement.setTime(4, Time.valueOf(lab.getApertura()));
 			preparedStatement.setTime(5, Time.valueOf(lab.getChiusura()));
-
+			//System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 
 			//connection.commit();

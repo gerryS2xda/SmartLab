@@ -37,7 +37,7 @@ public class LaboratorioManager {
 	    		try {
 					repository.add(lab);
 					Laboratorio temp=new Laboratorio();
-					temp=repository.findItemByQuery(new IdLab(lab.getIDlaboratorio()));
+					temp=repository.findItemByQuery(new IdLab(lab.getNome()));
 					lab.setIDlaboratorio(temp.getIDlaboratorio());
 					//System.out.println("id "+lab.getIDlaboratorio());
 					//crea le postazioni
@@ -52,11 +52,11 @@ public class LaboratorioManager {
 					
 				} catch (SQLException e) {
 					flag=false;
-					System.out.println("non è possibile aggiungere il laboratorio al sistema");
+					System.out.println("non e' possibile aggiungere il laboratorio al sistema");
 					e.printStackTrace();
 				}
 	    	}else{
-	    		System.out.println("è stato passato un oggetto laboratorio nullo");
+	    		System.out.println("e' stato passato un oggetto laboratorio nullo");
 	    		flag=false;
 	    	}
 	    	return flag;
@@ -77,11 +77,11 @@ public class LaboratorioManager {
 					//System.out.println("ok manager");
 				} catch (SQLException e) {
 					flag=false;
-					System.err.println("non è possibile eliminare il laboratorio dal sistema");
+					System.err.println("non e' possibile eliminare il laboratorio dal sistema");
 					e.printStackTrace();
 				}
 	    	}else{
-	    		System.err.println("è stato passato un oggetto laboratorio nullo");
+	    		System.err.println("e' stato passato un oggetto laboratorio nullo");
 	    		flag=false;
 	    	}
 	    	return flag;
@@ -94,7 +94,7 @@ public class LaboratorioManager {
 	    	try {
 				return repository.query(new ListaLab());
 			} catch (SQLException e) {
-				System.err.println("non è possibile ritornare la lista dei laboratori");
+				System.err.println("non e' possibile ritornare la lista dei laboratori");
 				e.printStackTrace();
 			}
 			return null;
@@ -111,7 +111,7 @@ public class LaboratorioManager {
 	    		try {
 					return repository.query(new ListaLabAss(email));//forse da spostare in laboratorio
 				} catch (SQLException e) {
-					System.err.println("non è possibile ritornare la lista dei laboratori");
+					System.err.println("non e' possibile ritornare la lista dei laboratori");
 					e.printStackTrace();
 				}
 	    	}
