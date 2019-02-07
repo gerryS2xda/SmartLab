@@ -53,7 +53,7 @@ function loadSegnalazioni(){
 			var str = "";
 			for(var i = 0; i < size; i++){
 				var tmp = segnalazioni["sg" + i];//vengono prese tutte le segnalazioni a ogni iterazione
-				str += "<tr><td><a href = \"./segnalazione.jsp\"" + tmp.id + "></td><td>"+ tmp.laboratorio + "</td><td>" + tmp.postazione + "</td><td>" + tmp.oggetto + "</td><td>" + tmp.descrizione + "</td><td>" + tmp.data + "</td></tr>";
+				str += "<tr><td onCLick = \"selectSegnalazione(" + tmp.id + ")\" id = \"sg " + tmp.id + "\">" + tmp.id + "</td><td>"+ tmp.laboratorio + "</td><td>" + tmp.postazione + "</td><td>" + tmp.oggetto + "</td><td>" + tmp.descrizione + "</td><td>" + tmp.data + "</td></tr>";
 			}
 			$("#tb_segnalazioni tbody").html(str);
 		}else
@@ -62,11 +62,11 @@ function loadSegnalazioni(){
 }
 
 //funzione per selezionare una singola segnalazione
-function selectSegnalazione(){
-	var id;
+function selectSegnalazione(id){
+	/*var id;
 	$(document).click(function(event){//l'evento che indica il click su una segnalazione
 		id = $(event.target).text();
-	})
+	});*/
 	var btn = document.createElement("BUTTON");
 	var t = document.createTextNode("Cancella segnalazione");
 	btn.appendChild(t);
@@ -105,3 +105,11 @@ $("delSegnalazione").click(function deleteSegnalazione(){
 			window.location.href("./index.jsp");
 	});
 });
+
+function sizeObject(obj) {
+	var size = 0, key;
+	for (key in obj) {
+		if (obj.hasOwnProperty(key)) size++;
+	}
+	return size;
+};
