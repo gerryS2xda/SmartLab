@@ -1,14 +1,17 @@
 package comunicazioneTest;
 
-import org.junit.Test;
-
+import businessLogic.comunicazione.ListaSegnalazioni;
 import businessLogic.comunicazione.SegnalazioneRepository;
+import businessLogic.comunicazione.SegnalazioneSql;
 import dataAccess.storage.bean.Segnalazione;
-
-import static org.junit.Assert.*;
-
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class SegnalazioneRepositoryTest {
 	
@@ -35,26 +38,26 @@ public class SegnalazioneRepositoryTest {
 	}
 	
 	@Test
-	public void testAdd(){
+	public void testAdd()throws SQLException{
 		Segnalazione res = sr.findItemByQuery(new SegnalazioneSql(oracle.getId()));
 		assertEquals(res, oracle);
 	}
 	
 	@Test
-	public void testDelete(){
+	public void testDelete()throws SQLException{
 		sr.delete(oracle);
 		Segnalazione res = sr.findItemByQuery(new SegnalazioneSql(oracle.getId()));
 		assertEquals(res, null);
 	}
 	
 	@Test
-	public void testFindItemByQuery(){
+	public void testFindItemByQuery()throws SQLException{
 		Segnalazione res = sr.findItemByQuery(new SegnalazioneSql(oracle.getId()));
-		assertequals(res, oracle);
+		assertEquals(res, oracle);
 	}
 	
 	@Test
-	public void testQuery(){
+	public void testQuery()throws SQLException{
 		List<Segnalazione> lista = new ArrayList<Segnalazione>();
 		lista = sr.query(new ListaSegnalazioni());
 		assertEquals(lista.get(lista.size() - 1), oracle);

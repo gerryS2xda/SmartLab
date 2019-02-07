@@ -1,16 +1,17 @@
-import static org.junit.Assert.*;
-
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Test;
+package comunicazioneTest;
 
 import businessLogic.comunicazione.AvvisoRepository;
 import businessLogic.comunicazione.AvvisoSql;
 import businessLogic.comunicazione.ListaAvvisi;
 import dataAccess.storage.bean.Avviso;
+import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AvvisoRepositoryTest {
 	
