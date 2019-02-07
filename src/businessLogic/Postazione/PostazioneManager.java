@@ -1,6 +1,8 @@
 package businessLogic.Postazione;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -100,9 +102,11 @@ public class PostazioneManager {
 		int idin=0;
 		
 		//mi ricavo la data di oggi
-		Date data=new Date(System.currentTimeMillis());
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
-		data = calendar.getTime();
+		 Date data = calendar.getTime();
+		 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
+		 String oggi=sdf.format(data);
+		 
 		
 		//trovo l'ultimo intervento e ne ricavo il numero di id
 		try {
@@ -110,7 +114,7 @@ public class PostazioneManager {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		inter.setData(data);			//setto la data di oggi da mettere nella tabella intervento
+		inter.setData(LocalDate.parse(oggi));			//setto la data di oggi da mettere nella tabella intervento
 		inter.setIdIntervento(idin); 	//setto il nuovo id incrementato
 		
 		System.out.println(id1);

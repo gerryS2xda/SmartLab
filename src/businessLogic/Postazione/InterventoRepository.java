@@ -41,7 +41,7 @@ public class InterventoRepository {
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, intervento.getIdIntervento());
 			preparedStatement.setString(2, intervento.getDescrizione());
-			preparedStatement.setDate(3, (Date) intervento.getData());
+			preparedStatement.setDate(3, Date.valueOf(intervento.getData()));
 			preparedStatement.setInt(4, intervento.getPostazione());
 			preparedStatement.setString(5, intervento.getLaboratorio());
 			preparedStatement.setString(6, intervento.getAddetto());
@@ -149,7 +149,7 @@ public Intervento findItemByQuery(Specification specification) throws SQLExcepti
 			in.setIdIntervento(rs.getInt("IDintervento"));
 			in.setLaboratorio(rs.getString("laboratorio"));
 			in.setPostazione(rs.getInt("postazione"));
-			in.setData(rs.getDate("data"));
+			in.setData(rs.getDate("data").toLocalDate());
            
 		}
 
