@@ -20,17 +20,20 @@ import dataAccess.storage.bean.Utente;
 public class UtenteManagerTestCase2 {
 	
 	private UtenteManager manager;
-	private UtenteRepository repository;
+	private StudenteRepository repository;
 	private Studente oracle;
 
 
 	@Before
 	public void setUp() throws Exception {
-		manager=UtenteManager.getInstance();
-		repository=StudenteRepository.getInstance();
-		oracle=null;
-		oracle.setEmail("");
-		manager.registraStudente(oracle.getEmail(), oracle.getPassword());
+		oracle=new Studente();
+		oracle.setEmail("esempio1@unisa.studenti.it");
+		oracle.setName("Rocco");
+		oracle.setStato(false);
+		oracle.setPassword("password");
+		oracle.setSurname("Lo Conte");
+		
+		manager.registraStudente(oracle);
 	}
 
 	@After
@@ -77,11 +80,11 @@ public class UtenteManagerTestCase2 {
 	}
 	
 	@Test
-	public void testEditPassword(){
+	public void testEditPassword()throws SQLException{
 		System.out.println("Test getLaboratoryListForResp con parametro null");
 		
 		manager.editPassword(oracle.getEmail(), "");
-		Studente result = repository.findItemByQuery(new StudenteLoginSQL("");
+		Studente result = repository.findItemByQuery(new StudenteSQL(""));
 		
 		assertEquals(oracle.getPassword(), result.getPassword());
 	}

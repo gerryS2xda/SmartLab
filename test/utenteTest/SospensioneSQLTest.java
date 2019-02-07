@@ -9,7 +9,7 @@ import org.junit.Test;
 import dataAccess.storage.SqlSpecification;
 import businessLogic.utente.*;
 
-public class SospensioneSQLTest implements SqlSpecification {
+public class SospensioneSQLTest {
 	
 	@Before
 	public void setUp() throws Exception{
@@ -27,7 +27,7 @@ public class SospensioneSQLTest implements SqlSpecification {
 		
 		String oracle = "SELECT * FROM sospensione WHERE id=1;\"";
 		
-		StudentList query = new SospensioneSQL();
+		SospensioneSQL query = new SospensioneSQL(1);
 		String actualObj = query.toSqlQuery();
 		
 		assertEquals("Le query sono diverse", oracle, actualObj);

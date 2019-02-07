@@ -1,15 +1,12 @@
 package utenteTest;
 
+import businessLogic.utente.*;
 import static org.junit.Assert.assertEquals;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import dataAccess.storage.SqlSpecification;
-import businessLogic.utente.*;
-
-public class SospensioneListTest implements SqlSpecification {
+public class SospensioneListTest {
 	
 	@Before
 	public void setUp() throws Exception{
@@ -18,7 +15,6 @@ public class SospensioneListTest implements SqlSpecification {
 	
 	@After
 	public void tearDown() throws Exception{
-		
 	}
 	
 	@Test
@@ -27,7 +23,7 @@ public class SospensioneListTest implements SqlSpecification {
 		
 		String oracle = "SELECT * FROM sospensione";
 		
-		StudentList query = new SospensioneList();
+		SospensioneList query = new SospensioneList();
 		String actualObj = query.toSqlQuery();
 		
 		assertEquals("Le query sono diverse", oracle, actualObj);

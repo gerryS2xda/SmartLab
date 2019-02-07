@@ -1,17 +1,18 @@
 package postazioneTest;
-import static org.junit.Assert.*;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
 import businessLogic.Postazione.PostazioneManager;
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.Postazione.PostazioneSql;
-import businessLogic.Postazione.Intervento;
+import dataAccess.storage.bean.Intervento;
 import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
 
 public class PostazioneManagerTest {
 

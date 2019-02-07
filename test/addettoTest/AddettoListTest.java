@@ -1,15 +1,12 @@
 package addettoTest;
 
+import businessLogic.addetto.*;
 import static org.junit.Assert.assertEquals;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import dataAccess.storage.SqlSpecification;
-import businessLogic.addetto.*;
-
-public class AddettoListTest implements SqlSpecification {
+public class AddettoListTest{
 	
 	@Before
 	public void setUp() throws Exception{
@@ -27,7 +24,7 @@ public class AddettoListTest implements SqlSpecification {
 		
 		String oracle = "SELECT * FROM addetto a join utente u on a.email = u.email WHERE tipo = 'false';";
 		
-		StudentList query = new AddettoList();
+		AddettoList query = new AddettoList();
 		String actualObj = query.toSqlQuery();
 		
 		assertEquals("Le query sono diverse", oracle, actualObj);

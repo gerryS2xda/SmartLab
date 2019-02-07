@@ -1,15 +1,10 @@
 package postazioneTest;
-import static org.junit.Assert.*;
 
-import org.junit.Test;
 import businessLogic.Postazione.InterventoSql;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class InterventoSqlTest {
-
-	@Test
-	public void testInterventoSql() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testGetInstance() {
