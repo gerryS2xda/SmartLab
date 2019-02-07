@@ -18,6 +18,7 @@
 		}else if(userType.equals("addetto")){
 	%>
 	<body>
+	<%@include file="navbar.jsp" %>
 		<header id="header_part">
 			<!--  add nav bar jsp -->
 			<span id="txt_logo">Admin Area</span>
