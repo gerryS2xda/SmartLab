@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	import = "dataAccess.storage.bean.Utente"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,6 +10,13 @@
 		<script src="../script/jquery-3.3.1.min.js"></script>
 		<script src="../bootstrap/js/bootstrap.min.js"></script>
 	</head>
+	<% 
+		Utente ut = (Utente) session.getAttribute("user");
+		String userType = (String) session.getAttribute("userType");
+		if(ut == null || userType == null) {
+			response.sendRedirect("./error.jsp"); //pagina errore 404
+		}else if(userType.equals("addetto")){	
+	%>
 	<body>
 		<header>
 			test
@@ -32,6 +40,10 @@
 		<footer>
 			testFooter
 		</footer>
+		<%
+			}else{
+				response.sendRedirect("./error.jsp"); //pagina errore 404
+			}%>
 		<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="../script/avviso_js.js"></script>
 	</body>
