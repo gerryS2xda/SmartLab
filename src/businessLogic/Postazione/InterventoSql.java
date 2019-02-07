@@ -9,25 +9,19 @@ public class InterventoSql implements SqlSpecification {
 	private static InterventoSql instance;
 	
 
-	public InterventoSql(int idIntervento) 
-	{
+	public InterventoSql(int idIntervento) {
 		this.idIntervento = idIntervento;
-		
 	}
 	
 	
 	
-	public static InterventoSql getInstance(int idIntervento) 
-    {
-            instance = new InterventoSql(idIntervento);
+	public static InterventoSql getInstance(int idIntervento){
+        instance = new InterventoSql(idIntervento);
         return instance;
-
     }
 
 
-	public String toSqlQuery() 
-	{
+	public String toSqlQuery(){ 
 		return String.format("SELECT * FROM %1$s WHERE idIntervento = %2$d ",TABLE_NAME, this.idIntervento);
-		
 	}
 }

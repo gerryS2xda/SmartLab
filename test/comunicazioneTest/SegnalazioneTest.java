@@ -5,7 +5,7 @@ import dataAccess.storage.bean.Segnalazione;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class SegnalazioneTest {

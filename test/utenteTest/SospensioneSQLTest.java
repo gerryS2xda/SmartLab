@@ -1,13 +1,11 @@
 package utenteTest;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import dataAccess.storage.SqlSpecification;
-import businessLogic.utente.*;
+import businessLogic.utente.SospensioneSQL;
 
 public class SospensioneSQLTest {
 	

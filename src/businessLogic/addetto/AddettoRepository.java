@@ -54,11 +54,13 @@ public class AddettoRepository {
 			preparedStatement.executeUpdate();
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}  	
     }
@@ -77,16 +79,18 @@ public class AddettoRepository {
 			preparedStatement.executeUpdate();
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}
     }
     	
-    public void update(Addetto a) throws SQLException{
+    public void update(Addetto a) throws SQLException {
     	Connection connection = null;
     	PreparedStatement ps = null;
     	
@@ -110,8 +114,9 @@ public class AddettoRepository {
     		
     		ps.executeUpdate();
     	} finally {
-    		if(ps != null)
+    		if(ps != null) {
     			ps.close();
+    		}
     		Connessione.releaseConnection(connection);
     	}	
     }
@@ -136,11 +141,13 @@ public class AddettoRepository {
 			}
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}
         
@@ -173,11 +180,13 @@ public class AddettoRepository {
 
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}
 

@@ -8,19 +8,16 @@ public class PostazioneSql implements SqlSpecification {
 	private int numero;
 	private String idLab;
 	
-	public PostazioneSql(int num, String idLab) 
-	{
+	public PostazioneSql(int num, String idLab) { 
 		this.numero = num;
 		this.idLab = idLab;
 	}
 	
-    public static PostazioneSql getInstance(int num, String idLab) 
-    {
+    public static PostazioneSql getInstance(int num, String idLab) {
         return new PostazioneSql(num, idLab);
     }
 
-	public String toSqlQuery() 
-	{
+	public String toSqlQuery() {
 		return String.format("SELECT * FROM %1$s WHERE numero = %2$d AND laboratorio = %3$s ",TABLE_NAME, this.numero, this.idLab);
 	}
 

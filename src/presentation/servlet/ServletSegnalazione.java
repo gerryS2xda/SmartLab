@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.google.gson.*;
-
+import com.google.gson.Gson;
 import businessLogic.comunicazione.CommunicationManager;
 import dataAccess.storage.bean.Segnalazione;
 import dataAccess.storage.bean.Studente;
@@ -35,8 +33,9 @@ public class ServletSegnalazione extends HttpServlet {
 			List<Segnalazione> lista = cm.viewSegnalazione();
 			int count = 0, id = -1;
 			while(count < lista.size()){
-				if(lista.get(count).getId() >= id)
+				if(lista.get(count).getId() >= id) {
 					id = lista.get(count).getId() + 1;
+				}
 				count++;
 			}
 			Studente st = (Studente) session.getAttribute("user");
@@ -49,10 +48,11 @@ public class ServletSegnalazione extends HttpServlet {
 			Date data = new Date(d.getTime());
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
 			response.setContentType("aplication/json");
-			if(cm.addSegnalazione(s))
+			if(cm.addSegnalazione(s)) {
 				response.getWriter().write(json.toJson("{\"esito\": \"successo\"}"));
-			else
+			}else {
 				response.getWriter().write(json.toJson("{\"esito\": \"fallimento\"}"));
+			}
 		}else if(segnalazione.equals("deleteSegnalazione")){
 			int id = Integer.parseInt(request.getParameter("id"));
 			String oggetto = request.getParameter("oggetto");
@@ -64,10 +64,11 @@ public class ServletSegnalazione extends HttpServlet {
 			Date data = new Date(d.getTime());
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
 			response.setContentType("application/json");
-			if(cm.deleteSegnalazione(s))
+			if(cm.deleteSegnalazione(s)) {
 				response.getWriter().write(json.toJson("{\"esito\": \"successo\"}"));
-			else
+			}else {
 				response.getWriter().write(json.toJson("{\"esito\": \"errore\"}"));
+			}
 		}else if(segnalazione.equals("viewSegnalazioni")){
 			Studente st = (Studente) session.getAttribute("user");
 			response.setContentType("application/json");
@@ -80,8 +81,9 @@ public class ServletSegnalazione extends HttpServlet {
 						result += "\"sg" + i + "\": {\"id\": \"" + lista.get(count).getId() + "\", \"oggetto\": \"" + lista.get(count).getOggetto() + "\", \"descrizione\": \"" + lista.get(count).getDescrizione() + "\", \"data\": \"" + lista.get(count).getData() + "\", \"studente\": \"" + lista.get(count).getStudente() + "\", \"laboratorio\": \"" + lista.get(count).getLaboratorio() + "\", \"postazione\": \"" + lista.get(count).getPostazione() + "\"},";
 						count++;
 						i++;
-					}else
+					}else {
 						count++;
+					}
 				}
 			}else{
 				while(count < lista.size()){
@@ -90,7 +92,6 @@ public class ServletSegnalazione extends HttpServlet {
 				}
 			}
 			result = result.substring(0, result.length() - 1) + "}";
-			//response.sendRedirect("./viewSegnalazioni.jsp");
 			response.getWriter().write(json.toJson(result));
 		}else if(segnalazione.equals("openSegnalazione")){
 			int flag = 0, i = 0;
@@ -99,10 +100,11 @@ public class ServletSegnalazione extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id"));
 			List<Segnalazione> lista = cm.viewSegnalazione();
 			while(flag == 0){
-				if(lista.get(i).getId() == id)
+				if(lista.get(i).getId() == id) {
 					flag++;
-				else
+				}else{
 					i++;
+				}
 			}
 			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"oggetto\": \"" + lista.get(i).getOggetto()) + "\", \"descrizione\": \"" + lista.get(i).getDescrizione() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"laboratorio\": " + lista.get(i).getLaboratorio() + "\", \"postazione\": " + lista.get(i).getPostazione() + "\", \"studente\": " + lista.get(i).getStudente() + "\"}");
 		}

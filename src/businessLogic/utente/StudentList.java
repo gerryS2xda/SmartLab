@@ -8,7 +8,6 @@ public class StudentList implements SqlSpecification {
 	    
 	@Override
 	public String toSqlQuery() {
-		return "SELECT U.nome, U.cognome, S.*, U.password " +
-				"FROM utente U JOIN studente S ON U.email = S.email;";
+		return "SELECT U.nome, U.cognome, S.*, U.password FROM utente U JOIN studente S ON U.email = S.email;";
 	}
 }

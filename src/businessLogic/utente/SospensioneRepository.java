@@ -13,7 +13,7 @@ import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.bean.Sospensione;
 
-public class SospensioneRepository implements Repository<Sospensione>{
+public class SospensioneRepository implements Repository<Sospensione> {
 	
 	private static SospensioneRepository instance;
 
@@ -52,16 +52,12 @@ public class SospensioneRepository implements Repository<Sospensione>{
 			preparedStatement.setBoolean(1, true);
 			preparedStatement.executeUpdate();
 			
-		//	connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		}finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
-		}  	
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
+		}	
     }
     
     public void delete(Sospensione s) throws SQLException {
@@ -83,14 +79,11 @@ public class SospensioneRepository implements Repository<Sospensione>{
 			preparedStatement.setBoolean(1, false);
 			preparedStatement.executeUpdate();
 			
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		}finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
     }
     	
@@ -114,15 +107,15 @@ public class SospensioneRepository implements Repository<Sospensione>{
        		ps.close();
     
        		ps = connection.prepareStatement(updateSQLStudente);
-       		//Come faccio l'upgrade dello stato?
        		ps.setBoolean(1, true); 
        		ps.executeUpdate();       		
     	
-    	} finally {
-    		if(ps != null)
-    			ps.close();
-    		Connessione.releaseConnection(connection);
-    	}
+    	}finally{
+			if(ps != null) { 
+				ps.close();
+			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
+		}
     }
     	
     public Sospensione findItemByQuery(Specification specification) throws SQLException{
@@ -141,14 +134,11 @@ public class SospensioneRepository implements Repository<Sospensione>{
 				s.setMotivazione(rs.getString("motivazione"));
                 s.setStudente(rs.getString("studente"));
 			}
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		}finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
         
         return s;
@@ -171,18 +161,14 @@ public class SospensioneRepository implements Repository<Sospensione>{
                 s.setID(rs.getInt("IDsospensione"));
 				s.setMotivazione(rs.getString("motivazione"));
                 s.setStudente(rs.getString("studente"));
-                
 				sospesi.add(s);
 			}
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		} finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
 
         return sospesi;

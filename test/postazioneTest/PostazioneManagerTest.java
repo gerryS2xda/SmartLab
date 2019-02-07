@@ -9,20 +9,25 @@ import dataAccess.storage.bean.Prenotazione;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.junit.Before;
 import org.junit.Test;
 
 
 public class PostazioneManagerTest {
 
-	PostazioneManager instance=PostazioneManager.getInstance();
-	PostazioneRepository repository=PostazioneRepository.getInstance();
+	private PostazioneManager instance;
+	private PostazioneRepository repository;
 	private Postazione oracle;
 	
 	@Before
-	public void setUp() throws Exception 
-	{
+	public void setUp() throws Exception {
+		instance = PostazioneManager.getInstance();
+		repository = PostazioneRepository.getInstance();
 		oracle =new Postazione(1, "lab1",true);
 	}
 
@@ -51,8 +56,7 @@ public class PostazioneManagerTest {
 	}
 
 	@Test
-	public void testAttivaPostazione() throws SQLException
-	{
+	public void testAttivaPostazione() throws SQLException {
 		boolean flag=true;
 		System.out.println("testing: attiva");
 		//-----------------
@@ -65,8 +69,7 @@ public class PostazioneManagerTest {
 	}
 
 	@Test
-	public void testDisattivaPostazione() throws SQLException
-	{
+	public void testDisattivaPostazione() throws SQLException {
 		boolean flag=true;
 		System.out.println("testing: disattiva");
 		
@@ -81,8 +84,7 @@ public class PostazioneManagerTest {
 	}
 
 	@Test
-	public void testLiberaPostazione() throws SQLException
-	{
+	public void testLiberaPostazione() throws SQLException {
 		Prenotazione pre=new Prenotazione();
 		boolean flag=true;
 		System.out.println("testing: libera");
@@ -94,8 +96,7 @@ public class PostazioneManagerTest {
 	}
 
 	@Test
-	public void testListaPostazioni() throws SQLException
-	{
+	public void testListaPostazioni() throws SQLException {
 		System.out.println("testing: listaPos");
 		List<Postazione> postazioni=new ArrayList<>();
 		
@@ -103,16 +104,12 @@ public class PostazioneManagerTest {
 		assertTrue(!postazioni.isEmpty());
 	}
 
-	public void testDeletePos() throws SQLException 
-
-	{
+	public void testDeletePos() throws SQLException { 
+		
 		System.out.println("testing: delete");
 		PostazioneSql sql=new PostazioneSql(oracle.getNumero(),oracle.getLaboratorio());
 			repository.delete(oracle);
 			Postazione pos=repository.findItemByQuery(sql);
 			assertEquals(pos,oracle);
-		
 	}
-
-
 }

@@ -2,7 +2,7 @@ package comunicazioneTest;
 
 import businessLogic.comunicazione.CommunicationManager;
 import dataAccess.storage.bean.Avviso;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import java.sql.Date;
 import java.util.ArrayList;

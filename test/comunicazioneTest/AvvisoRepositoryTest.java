@@ -4,7 +4,7 @@ import businessLogic.comunicazione.AvvisoRepository;
 import businessLogic.comunicazione.AvvisoSql;
 import businessLogic.comunicazione.ListaAvvisi;
 import dataAccess.storage.bean.Avviso;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

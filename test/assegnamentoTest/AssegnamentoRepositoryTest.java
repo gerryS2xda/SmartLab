@@ -1,13 +1,13 @@
 package assegnamentoTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.sql.SQLException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import businessLogic.assegnamento.AssegnamentoRepository;
 import businessLogic.assegnamento.AssegnamentoSql;
 import businessLogic.assegnamento.ListaLabAss;
@@ -39,6 +39,7 @@ public class AssegnamentoRepositoryTest {
         assertNotNull(result);
         
 	}
+	
 	@Test
 	public void testAdd() throws SQLException{
 		System.out.println("add");

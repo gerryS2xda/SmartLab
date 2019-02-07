@@ -1,15 +1,15 @@
 package laboratorioTest;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import businessLogic.laboratorio.IdLab;
 import businessLogic.laboratorio.LaboratorioRepository;
 import businessLogic.laboratorio.ListaLab;

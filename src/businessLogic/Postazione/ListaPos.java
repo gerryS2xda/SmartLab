@@ -7,8 +7,7 @@ public class ListaPos implements SqlSpecification{
 	private static ListaPos instance;
 	private String laboratorio;
 	
-	public ListaPos(String lab) 
-	{
+	public ListaPos(String lab) {
 		this.laboratorio=lab;
 	}
 	

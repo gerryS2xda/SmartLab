@@ -1,18 +1,16 @@
 package presentation.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.google.gson.Gson;
-
-import businessLogic.Postazione.*;
+import businessLogic.Postazione.InterventoRepository;
+import businessLogic.Postazione.PostazioneManager;
 import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Intervento;
 import dataAccess.storage.bean.Postazione;
@@ -37,25 +35,20 @@ public class ServletPostazioneManagement extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Gson json = new Gson();
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String action=request.getParameter("action");
 //		action="lista_pos";
-		PostazioneManager pm=new PostazioneManager();
+		PostazioneManager pm = new PostazioneManager();
 		
 		//PostazioneSql psql=new PostazioneSql();
-		Prenotazione pre=new Prenotazione();
 		
-		if(action == null)
-		{
+		if(action == null){
 			response.setStatus(404);
 			response.sendRedirect("./error.jsp");
-		}
-		else if(action.equals("libera_pos"))   //libera la postazione
-		{ 
+		}else if(action.equals("libera_pos")){   //libera la postazione
 			System.out.println("libera pos");
 			String s="";
 			List<Prenotazione> lista=new ArrayList<Prenotazione>();
@@ -75,11 +68,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 			response.getWriter().write(s);
-		
-		}
-		
-		else if(action.equals("attiva_pos"))   //attiva postazione
-		{
+		} else if(action.equals("attiva_pos")){   //attiva postazione
 			String s;
 			boolean flag;
 			//setta lo stato di postazione a true
@@ -91,19 +80,14 @@ public class ServletPostazioneManagement extends HttpServlet {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 			
-			if(flag)
-			{
+			if(flag){
 				s="{\"esito\":\"stato modificato\" }";
-			}else 
-			{
+			}else {
 				s="{\"esito\":\"stato non modificato\" }";
 			}
 			
 			response.getWriter().write(s);
-		}
-		
-		else if(action.equals("disattiva_pos"))   //disattiva postazione
-		{
+		} else if(action.equals("disattiva_pos")) {   //disattiva postazione
 			
 			boolean flag;
 			String s;
@@ -123,33 +107,23 @@ public class ServletPostazioneManagement extends HttpServlet {
 			inter.setLaboratorio(idlab);
 			inter.setPostazione(idpos1);
 			
-			
-			
 			//setta lo stato di postazione a false
 			flag=pm.disattivaPostazione(idpos, idlab,inter);
 			
-
-//			request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
+			//request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
 
-			
-			if(flag)
-			{
+			if(flag) {
 				s="{\"esito\":\"stato modificato\" }";
-			}else 
-			{
+			}else {
 				s="{\"esito\":\"stato non modificato\" }";
 			}
 			
 			response.getWriter().write(s);
-		}
-				
-		else if(action.equals("lista_pos"))
-		{
+		} else if(action.equals("lista_pos")) {
 
 			String idlab =(String) request.getParameter("idlaboratorio");
-			
 			List<Postazione> lp=pm.listaPostazioni(idlab);
 			
 			//mandare alla jsp
@@ -168,16 +142,13 @@ public class ServletPostazioneManagement extends HttpServlet {
 			String str = "{";
 			for(int i = 0; i < postazioni.size(); i++){
 				Postazione p = postazioni.get(i);
-				str +=  "\"post" + i + "\": {\"numero\":" + p.getNumero() + ", \"labID\": " + p.getLaboratorio() + ", " + 
-				"\"stato\": " + p.isStato() + " },";
+				str +=  "\"post" + i + "\": {\"numero\":" + p.getNumero() + ", \"labID\": " + p.getLaboratorio() + ", \"stato\": " + p.isStato() + " },";
 			}
 			str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
 			response.getWriter().write(json.toJson(str));
-		}
-		else if(action.equals("intervento"))
-		{
+		}else if(action.equals("intervento")){
+			
 			String motivo=request.getParameter("inter");
-			int id=0;
 			String pos=request.getParameter("pos");
 			String lab=request.getParameter("lab");
 			Addetto addetto=(Addetto) request.getSession().getAttribute("user");
@@ -190,12 +161,15 @@ public class ServletPostazioneManagement extends HttpServlet {
 			in.setPostazione(pos1);
 			in.setLaboratorio(lab);
 			
-			interventoR.add(in);
-			
-			
+			try {
+				interventoR.add(in);
+			} catch (SQLException e) {
+				System.out.println("Errore: problema nell'aggiungere Intervento nel DB");
+				e.printStackTrace();
+			}
 		}
-		
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

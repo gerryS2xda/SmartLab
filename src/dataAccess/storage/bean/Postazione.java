@@ -8,9 +8,7 @@ public class Postazione {
 	private boolean stato;
 	
 	//costructor
-	
-	public Postazione() 
-	{
+	public Postazione(){
 		this.numero=0;
 		this.idlab="";
 		this.stato=false;

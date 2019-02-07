@@ -1,13 +1,12 @@
 package postazioneTest;
-import static org.junit.Assert.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.AfterClass;
 import org.junit.Test;
-
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.Postazione.PostazioneSql;
 import dataAccess.storage.Specification;
@@ -20,17 +19,14 @@ public class PostazioneRepositoryTest {
 	}
 
 	@Test
-    public void testGetInstance()
-	{
+    public void testGetInstance() {
         System.out.println("getInstance");
         PostazioneRepository result = PostazioneRepository.getInstance();
         assertNotNull(result);
-
 	}
 
 	@Test
-	public void testAdd() throws SQLException
-	{
+	public void testAdd() throws SQLException {
 		System.out.println("add");
 		Postazione pos= new Postazione();
 		pos.setNumero(1);
@@ -46,8 +42,7 @@ public class PostazioneRepositoryTest {
 
 
 	@Test
-	public void testUpdate() throws SQLException
-	{
+	public void testUpdate() throws SQLException {
 		System.out.println("testing: update");
 		Postazione pos= new Postazione();
 		pos.setNumero(2);
@@ -61,8 +56,7 @@ public class PostazioneRepositoryTest {
 		assertEquals(pos,result);
 	}
 	
-	public void testDelete(Postazione pos) throws SQLException
-	{
+	public void testDelete(Postazione pos) throws SQLException {
 		System.out.println("delete");
 		pos.setNumero(1);
 		pos.setLaboratorio("lab1");
@@ -74,8 +68,7 @@ public class PostazioneRepositoryTest {
 	}
 
 
-	public void testFindItemByQuery(Specification specification) throws SQLException
-	{
+	public void testFindItemByQuery(Specification specification) throws SQLException {
 		System.out.println("findItemByQuery");
 		Postazione pos=new Postazione();
 		PostazioneRepository instance = PostazioneRepository.getInstance();
@@ -89,8 +82,7 @@ public class PostazioneRepositoryTest {
 		assertEquals(pos,test);
 		instance.delete(pos);
 	}
-	public void testQuery() throws SQLException 
-	{
+	public void testQuery() throws SQLException {
 		System.out.println("query");
 		Postazione pos=new Postazione();
 		

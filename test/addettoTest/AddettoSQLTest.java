@@ -2,10 +2,11 @@ package addettoTest;
 
 import static org.junit.Assert.assertEquals;
 
-import businessLogic.addetto.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import businessLogic.addetto.AddettoSQL;
 
 public class AddettoSQLTest {
 	

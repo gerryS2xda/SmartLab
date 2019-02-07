@@ -6,8 +6,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.project.utils.Utils;
-import dataAccess.storage.*;
-import dataAccess.storage.bean.*;
+import dataAccess.storage.Connessione;
+import dataAccess.storage.Repository;
+import dataAccess.storage.Specification;
+import dataAccess.storage.SqlSpecification;
+import dataAccess.storage.bean.Laboratorio;
+import dataAccess.storage.bean.Postazione;
+import dataAccess.storage.bean.Prenotazione;
+import dataAccess.storage.bean.Studente;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Statement;
@@ -18,7 +25,7 @@ import java.sql.Time;
  * ottenere, aggiornare i dati di prenotazione presenti nella table di 'Prenotazione' 
  * @author gerardo michele laucella
 */
-public class PrenotazioneRepository implements Repository<Prenotazione>{
+public class PrenotazioneRepository implements Repository<Prenotazione> {
 
 	//variabili di classe
 	public static final String TABLE_NAME = "Prenotazione";
@@ -73,8 +80,9 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 			
 			ps.executeUpdate();	
 		}finally{
-			if(ps != null) 
+			if(ps != null) { 
 				ps.close();
+			}
 			Connessione.releaseConnection(conn); //rilascia la connessione e la rende nuovamente disponibile
 		}
 	}
@@ -99,8 +107,9 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 					
 			stmt.executeUpdate(delSQL);
 		}finally{
-			if(stmt != null) 
+			if(stmt != null) { 
 				stmt.close();
+			}
 			Connessione.releaseConnection(conn); //rilascia la connessione e la rende nuovamente disponibile
 		}
 	}
@@ -134,8 +143,9 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				
 			ps.executeUpdate();
 		}finally{
-			if(ps != null) 
+			if(ps != null) {
 				ps.close();
+			}
 			Connessione.releaseConnection(conn); //rilascia la connessione e la rende nuovamente disponibile
 		}
 	}
@@ -186,8 +196,9 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				
 			}
 		}finally{
-			if(stmt != null) 
+			if(stmt != null) {
 				stmt.close();
+			}
 			Connessione.releaseConnection(conn); //rilascia la connessione e la rende nuovamente disponibile
 		}
 		
@@ -240,8 +251,9 @@ public class PrenotazioneRepository implements Repository<Prenotazione>{
 				prenotazioni.add(pr);
 			}
 		}finally{
-			if(stmt != null) 
+			if(stmt != null) {
 				stmt.close();
+			}
 			Connessione.releaseConnection(conn); //rilascia la connessione e la rende nuovamente disponibile
 		}
 		

@@ -1,9 +1,8 @@
 package assegnamentoTest;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-
 import businessLogic.assegnamento.ListaLabAss;
 
 public class ListaLabAssTest {
@@ -14,7 +13,6 @@ public class ListaLabAssTest {
         ListaLabAss result = ListaLabAss.getInstance();
         assertNotNull(result);
         // TODO review the generated test code and remove the default call to fail.
-        
 	}
 	
 	@Test

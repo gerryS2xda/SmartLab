@@ -1,27 +1,21 @@
 package prenotazionetest;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.laboratorio.IdLab;
 import businessLogic.laboratorio.LaboratorioRepository;
-import businessLogic.prenotazione.ListaPrenotazioniQuery;
 import businessLogic.prenotazione.PrenotazioneById;
 import businessLogic.prenotazione.PrenotazioneByStudent;
 import businessLogic.prenotazione.PrenotazioneException;
 import businessLogic.prenotazione.PrenotazioneManager;
 import businessLogic.prenotazione.PrenotazioneRepository;
 import businessLogic.utente.StudenteRepository;
-import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
