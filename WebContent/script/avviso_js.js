@@ -39,7 +39,7 @@ function loadAvvisi(){
 			var str = "";
 			for(var i = 0; i < size; i++){
 				var tmp = avvisi["av" + i];
-				str += "<tr><td><a href = \"avviso.jsp\"" + tmp.id + ">" + tmp.id + "</td><td>"+ tmp.titolo + "</td><td>" + tmp.messaggio + "</td><td>" + tmp.data + "</td><td>" + tmp.addetto + "</td></tr>";
+				str += "<tr><td>" + tmp.id + "</td><td>"+ tmp.titolo + "</td><td>" + tmp.messaggio + "</td><td>" + tmp.data + "</td><td>" + tmp.addetto + "</td></tr>";
 			}
 			$("#tb_avvisi tbody").html(str);
 		}else
