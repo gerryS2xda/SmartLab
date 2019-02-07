@@ -28,7 +28,7 @@ public class LaboratorioRepositoryTest {
 		System.out.println(oracle);
 		repository.add(oracle);
 		
-		//ottengo l'oggetto completo perchè l'id è auto-increment
+		//ottengo l'oggetto completo perche' l'id e' auto-increment
 		oracle=repository.findItemByQuery(new IdLab(oracle.getNome()));
 	}
 
@@ -50,7 +50,7 @@ public class LaboratorioRepositoryTest {
 	public void testAdd() throws SQLException {
 		System.out.println("add");
 		//l'oracolo viene inserito con setUp()
-		//controllo se è stato inserito
+		//controllo se e' stato inserito
 		Laboratorio result=repository.findItemByQuery(new IdLab(oracle.getNome()));
 
 		assertEquals(oracle,result);
@@ -101,7 +101,7 @@ public class LaboratorioRepositoryTest {
 		
 		List<Laboratorio> lista=repository.query(new ListaLab());
 		
-		assertEquals(lista.get(lista.size()-1),oracle);//controlla se l'ultimo elemento inserito è uguale a oracle
+		assertEquals(lista.get(lista.size()-1),oracle);//controlla se l'ultimo elemento inserito e' uguale a oracle
 
 	}
 

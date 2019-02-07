@@ -23,7 +23,7 @@ public class ListaRespDaAssegnare implements SqlSpecification {
 	
 	@Override
 	public String toSqlQuery() {
-		//tipo= false è un responsabile
+		//tipo= false e' un responsabile
 		return String.format("select * from addetto join (select * from utente where email in ("
 				+ "select email from addetto ad1 where ad1.tipo='false' && ad1.email not in("
 				+ " SELECT email FROM addetto ad join assegnamento a on ad.email = a.responsabile "
