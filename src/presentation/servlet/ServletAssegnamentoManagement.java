@@ -76,7 +76,7 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 			json=json.substring(0, json.length()-2);
 			json=json+"]}";
 			
-			System.out.println(json);
+			//System.out.println(json);
 			
 			response.getWriter().write(json);
 			
@@ -90,7 +90,7 @@ public class ServletAssegnamentoManagement extends HttpServlet {
 			List<Addetto> responsabili=manager.showResponsabileAndLaboratorio(idlab);
 			request.setAttribute("responsabili", responsabili);
 			
-			System.out.println(responsabili);
+			//System.out.println(responsabili);
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/adminInterface/viewRespAssegnati.jsp");
 			dispatcher.forward(request, response);
