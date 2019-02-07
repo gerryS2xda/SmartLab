@@ -31,12 +31,14 @@ public class Addetto extends Utente {
 	
 	//other method
 	public String toString(){
-		String str = super.toString();
-		return str += "\"tipo\": " + tipo + " }";
+		String str = super.toString(); 
+		str += "\"tipo\": " + tipo + " }";
+		return str;
 	}
 	
 	public boolean equals(Object otherObject){
-		return super.equals(otherObject);
+		boolean val = super.equals(otherObject);
+		return val;
 	}
 	
 	

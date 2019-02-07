@@ -32,8 +32,10 @@ public class PostazioneManager {
      
 /**
  * Crea una postazione con i vari parametri prescelti
- * @param "laboratorio" indica il laboratorio in cui verrà inserita la postazione, "numero" indica il numero di    
- * postazione che gli verrà assegnato, "b" è lo stato della postazione.
+ * @param laboratorio indica il laboratorio in cui verrà inserita la postazione, "numero" indica il numero di    
+ *  postazione che gli verrà assegnato, "b" è lo stato della postazione.
+ *  @param numero indica il numero della postazione
+ *  @param b indica lo stato
  * @return p ritorna una postazione
  */
 	public boolean creaPostazione(int numero,String laboratorio,boolean b) {
@@ -57,7 +59,7 @@ public class PostazioneManager {
  * Riattiva una postazione precedentemente disattivata
  * @param id indica quale postazione va attivata
  * @param idlab serve per modificare la postazione dato che ha una chiave composta
- *  
+ * @return esito dell'operazione
  */
 	public boolean attivaPostazione(String id, String idlab) {
 		boolean flag = true;
@@ -78,10 +80,11 @@ public class PostazioneManager {
 	
 	/**
 	 * Disattiva e rende quindi non prenotabile una postazione precedentemente disattivata
-	 * @param p indica quale postazione va disattivata
+	 * @param id e' un intero
 	 * @param idlab serve per modificare la postazione dato che ha una chiave composta
 	 * @param inter è l'intervento che viene salvato nel DB per tenere traccia del motivo della disattivazione
-	 * @pre deve esistere quella postazione che si vuole disattivare
+	 * @precondition deve esistere quella postazione che si vuole disattivare
+	 * @return esito dell'operazione
 	 */
 	public boolean disattivaPostazione(String id, String idlab, Intervento inter){
 		boolean flag = true;
@@ -114,7 +117,7 @@ public class PostazioneManager {
 	
 	/**
 	 * Libera una postazione che era stata prenotata da uno studente ma non è fisicamente presente
-	 * @param p indica quale postazione va Liberata
+	 * @param pre indica quale postazione va Liberata
 	 * @return boolean che indica se è andata a buon fine l’operazione (true)
 	 * @throws SQLException 
 	 *  
@@ -135,7 +138,7 @@ public class PostazioneManager {
 	
 	/**
 	 * Crea una lista di Postazioni che possiamo
-	 * @param Lab E’ il laboratorio da cui andrà a ricavare la lista delle postazioni
+	 * @param lab E’ il laboratorio da cui andrà a ricavare la lista delle postazioni
 	 * @return listaPos
 	 * @pre la stringa non deve essere vuota ne null
 	 */
@@ -162,9 +165,9 @@ public class PostazioneManager {
 	
 	/**
 	 * Elimina una postazione p
-	 * @param p è la postazione che verrà eliminata
+	 * @param pos è la postazione che verrà eliminata
 	 * @return boolean che indica se l’operazione è andata a buon fine (true)
-	 * @pre p deve esistere
+	 * @precondition p deve esistere
 	 * @post viene eliminata una Postazione p
 	 */
 	public boolean deletePostazione(Postazione pos){

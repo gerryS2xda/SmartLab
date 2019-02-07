@@ -17,6 +17,7 @@ public class ListaPrenotazioniQuery implements SqlSpecification{
 	/**
 	 * Query che permette di ottenere tutte le prenotazioni presenti nel DB
 	 * @post stringa che rappresenta una query da eseguire 
+	 * @return una stringa che rappresenta una query
 	 */
 	public String toSqlQuery(){
 		String str = String.format("SELECT * FROM " + PrenotazioneRepository.TABLE_NAME);

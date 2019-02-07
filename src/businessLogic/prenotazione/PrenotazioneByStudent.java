@@ -24,6 +24,7 @@ public class PrenotazioneByStudent implements SqlSpecification{
 	/**
 	 * Query che permette di ottenere una lista di prenotazioni che effettuato uno studente in base all'email
 	 * @post stringa che rappresenta una query da eseguire 
+	 * @return stringa che rappresenta una query da eseguire
 	 */	
 	public String toSqlQuery(){
 		String str = String.format("SELECT * FROM " + PrenotazioneRepository.TABLE_NAME 

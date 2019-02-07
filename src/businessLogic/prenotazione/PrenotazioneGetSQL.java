@@ -35,6 +35,7 @@ public class PrenotazioneGetSQL implements SqlSpecification{
 	 * @post stringa che rappresenta una query che permette di ottenere le prenotazioni in base all'ora di inizio
 	 * @post stringa che rappresenta una query che permette di ottenere le prenotazioni in base all'ora di inizio e id del laboratorio
 	 * @post stringa che rappresenta una query che permette di ottenere le prenotazioni in base all'ora di inizio, fine, numero postazione e id del laboratorio
+	 * @return stringa che rappresenta una query da eseguire
 	 */		
 	public String toSqlQuery(){
 		String str = "";

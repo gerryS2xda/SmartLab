@@ -70,7 +70,8 @@ public class AssegnamentoManager {
     	return flag;
     }
     /**permette di visualizzare la lista dei responsabili assegnati a un laboratorio
-    *@return lista dei responsabili assegnati ai corrispettivi laboratori
+     * @param idlaboratorio l'id
+    *	@return lista dei responsabili assegnati ai corrispettivi laboratori
     */
     public List<Addetto> showResponsabileAndLaboratorio(String idlaboratorio){
     	AddettoRepository repository=new AddettoRepository();
@@ -85,9 +86,11 @@ public class AssegnamentoManager {
     	return null;
 	}
     
-    /*ritorna tutti i responsabile che non sono assegnati al laboratorio
+    /** ritorna tutti i responsabile che non sono assegnati al laboratorio
      * @param idlaboratorio id del laboratorio
-     * @return una lista con tutti i responsabili che non sono assegnati a un laboratorio*/
+     * @return una lista con tutti i responsabili che non sono assegnati a un laboratorio
+     * 
+     * */
     public List<Addetto> showResponsabileAddLaboratorio(String idlaboratorio){
     	AddettoRepository repository=new AddettoRepository();
     	
