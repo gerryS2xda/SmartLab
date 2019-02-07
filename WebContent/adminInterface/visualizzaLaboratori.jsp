@@ -37,7 +37,7 @@
 			  </div>
 			  <div class="row card-body">
 				  <div class="col-md-4 text-center">
-				    <label class="card-text">Stato: <%=lab.isStato() %></label>
+				    <label class="card-text">Stato: <%if(lab.isStato()){ %>Aperto<%}else{ %>Chiuso<%} %></label>
 				  </div>
 				  <div class="col-md-4 text-center">
 				    <label class="card-text">Apertura: <%=lab.getApertura().toString() %></label>
