@@ -96,22 +96,18 @@ public class PostazioneManager {
 		int id1=Integer.parseInt(id); //converto la stringa in intero 
 		Postazione pos=new Postazione(); 
 		InterventoRepository intRe=new InterventoRepository();
-		InterventoSql insql=new InterventoSql(0);
-		int idin=0;
+		
+		
 		
 		//mi ricavo la data di oggi
 		Date data=new Date(System.currentTimeMillis());
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
 		data = calendar.getTime();
 		
-		//trovo l'ultimo intervento e ne ricavo il numero di id
-		try {
-			idin=intRe.trovaUltimoInter(insql);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
+		
+		
 		inter.setData(data);			//setto la data di oggi da mettere nella tabella intervento
-		inter.setIdIntervento(idin); 	//setto il nuovo id incrementato
+		
 		
 		System.out.println(id1);
 		System.out.println(idlab);
