@@ -1,12 +1,13 @@
 package dataAccess.storage.bean;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Intervento {
 	
 	private int idIntervento;
 	private String descrizione;
-	private Date data;
+	private LocalDate data;
 	private int postazione;
 	private String laboratorio;
 	private String addetto;
@@ -17,7 +18,7 @@ public class Intervento {
 		
 	}
 	
-	public Intervento(int idIntervento, String descrizione, Date data, int postazione, String laboratorio,String addetto) 
+	public Intervento(int idIntervento, String descrizione, LocalDate data, int postazione, String laboratorio,String addetto) 
 	{
 		super();
 		this.idIntervento = idIntervento;
@@ -41,10 +42,10 @@ public class Intervento {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 	public int getPostazione() {

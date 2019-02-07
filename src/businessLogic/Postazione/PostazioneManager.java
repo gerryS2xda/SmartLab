@@ -1,9 +1,11 @@
 package businessLogic.Postazione;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 import dataAccess.storage.bean.*;
 import java.util.List;
@@ -100,14 +102,13 @@ public class PostazioneManager {
 		
 		
 		//mi ricavo la data di oggi
-		Date data=new Date(System.currentTimeMillis());
-		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
-		data = calendar.getTime();
-		
-		
-		
-		inter.setData(data);			//setto la data di oggi da mettere nella tabella intervento
-		
+		//Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
+		 Date data = new Date(Calendar.getInstance().getTime().getTime());
+		 //SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
+		 //String oggi=sdf.format(data);
+
+		inter.setData(data.toLocalDate());			//setto la data di oggi da mettere nella tabella intervento
+		System.out.println(inter.getData());
 		
 		System.out.println(id1);
 		System.out.println(idlab);

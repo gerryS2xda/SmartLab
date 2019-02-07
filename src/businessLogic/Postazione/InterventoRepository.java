@@ -32,23 +32,21 @@ public class InterventoRepository {
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL = "INSERT INTO " + TABLE_NAME
-				+ " (IDintervento,descrizione,data,postazione,laboratorio,addetto) VALUES (?, ?, ?, ?,?,?)";
+				+ " (descrizione,data,postazione,laboratorio,addetto) VALUES (?, ?, ?,?,?)";
 		
 		
 		try {
 				connection = Connessione.getConnection();
 			
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, intervento.getIdIntervento());
-			preparedStatement.setString(2, intervento.getDescrizione());
-			preparedStatement.setDate(3, (Date) intervento.getData());
-			preparedStatement.setInt(4, intervento.getPostazione());
-			preparedStatement.setString(5, intervento.getLaboratorio());
-			preparedStatement.setString(6, intervento.getAddetto());
+			preparedStatement.setString(1, intervento.getDescrizione());
+			preparedStatement.setDate(2, Date.valueOf(intervento.getData()));
+			preparedStatement.setInt(3, intervento.getPostazione());
+			preparedStatement.setString(4, intervento.getLaboratorio());
+			preparedStatement.setString(5, intervento.getAddetto());
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
 		} catch (SQLException e) 
 		{
 			e.printStackTrace();
@@ -83,7 +81,6 @@ public class InterventoRepository {
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -149,7 +146,7 @@ public Intervento findItemByQuery(Specification specification) throws SQLExcepti
 			in.setIdIntervento(rs.getInt("IDintervento"));
 			in.setLaboratorio(rs.getString("laboratorio"));
 			in.setPostazione(rs.getInt("postazione"));
-			in.setData(rs.getDate("data"));
+			in.setData(rs.getDate("data").toLocalDate());
            
 		}
 
