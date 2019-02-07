@@ -14,7 +14,9 @@
       <li class="nav-item  active">
         <a class="nav-link" href="#">Crea avviso</a>
       </li>
-
+      <li class="nav-item  active">
+        <a class="nav-link" href="sospendiAccount.jsp">Sospendi Account</a>
+      </li>
 
     </ul>
     <form class="form-inline my-2 my-lg-0">

@@ -1,8 +1,8 @@
 package presentation.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,10 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import businessLogic.Postazione.*;
-import businessLogic.laboratorio.*;
 import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Intervento;
-import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
 
@@ -110,10 +108,24 @@ public class ServletPostazioneManagement extends HttpServlet {
 			String s;
 			String idlab=request.getParameter("idlab");
 			String idpos=request.getParameter("id");
+			int idpos1=Integer.parseInt(idpos);
 			String msg=request.getParameter("msg");
+			Addetto ad=new Addetto();
+			ad=(Addetto)request.getSession().getAttribute("addetto");
+			
+			
+			
+			//costruisco l'oggetto intervento
+			Intervento inter=new Intervento();
+			inter.setDescrizione(msg);
+			inter.setAddetto(ad.getEmail());
+			inter.setLaboratorio(idlab);
+			inter.setPostazione(idpos1);
+			
+			
 			
 			//setta lo stato di postazione a false
-			flag=pm.disattivaPostazione(idpos, idlab);
+			flag=pm.disattivaPostazione(idpos, idlab,inter);
 			
 
 //			request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);
