@@ -18,7 +18,10 @@
         <a class="nav-link" href="#">Crea avviso</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Aggiungi responsabile</a>
+        <a class="nav-link" href="AddResp.jsp">Aggiungi responsabile</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="visualizzaResp.jsp">Elimina responsabile</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">

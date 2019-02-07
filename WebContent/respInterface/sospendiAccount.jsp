@@ -9,6 +9,13 @@
 <script src="script/jquery-3.3.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
+<% 
+		Utente ut = (Utente) session.getAttribute("user");
+		String userType = (String) session.getAttribute("userType");
+		if(ut == null || userType == null) {
+			response.sendRedirect("./error.jsp"); //pagina errore 404
+		}else if(userType.equals("responsabile")){	
+	%>
 <body>
 <!-- navbar -->
 <%@include file="navbarWebContent.jsp" %>
@@ -126,4 +133,7 @@ $(document).ready(function(){
 });
 </script>
 </body>
+<%} else{
+				response.sendRedirect("./error.jsp"); //pagina errore 404
+			}%>
 </html>
