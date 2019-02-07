@@ -15,13 +15,13 @@
         <a class="nav-link" href="creaLaboratorio.jsp">Crea laboratorio</a>
       </li>
       <li class="nav-item  active">
-        <a class="nav-link" href="#">Crea avviso</a>
+        <a class="nav-link" href="creaAvviso.jsp">Crea avviso</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Visualizza avviso</a>
+        <a class="nav-link" href="viewAvvisi.jsp">Visualizza avvisi</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Visualizza segnalazioni</a>
+        <a class="nav-link" href="viewSegnalazioni.jsp">Visualizza segnalazioni</a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="../addetto?action=getListResp">Elimina responsabile</a>
