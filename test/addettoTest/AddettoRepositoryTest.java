@@ -1,4 +1,4 @@
-package utenteTest;
+package addettoTest;
 
 import static org.junit.Assert.*;
 
@@ -10,25 +10,25 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import businessLogic.utente.*;
-import dataAccess.storage.bean.Studente;
+import businessLogic.addetto.*;
+import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Utente;
 
-public class StudenteRepositoryTest {
+public class AddettoRepositoryTest {
 	
 	private StudenteRepository repository;
 	private Studente oracle;
 	
 	@Before
 	public void setUp() throws Exception {
-		repository=StudenteRepository.getInstance();
+		repository=AddettoRepository.getInstance();
 		
-		oracle = new Studente("test@unisa.studenti.it", "12345678", "Rocco", "Lo Conte");
-		oracle.setStato(false);
+		oracle = new Addetto("test@unisa.studenti.it", "12345678", "Rocco", "Lo Conte");
+		oracle.setTipo(false);
 		System.out.println(oracle);
 		repository.add(oracle);
 		
-		oracle=repository.findItemByQuery(new StudenteSQL(oracle.getEmail()));
+		oracle=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 	}
 
 	@After
@@ -40,7 +40,7 @@ public class StudenteRepositoryTest {
 	@Test
 	public void testGetInstance() {
 		System.out.println("getInstance");
-        StudenteRepository result = StudenteRepository.getInstance();
+		AddettoRepository result = AddettoRepository.getInstance();
         assertNotNull(result);
 	}
 
@@ -49,7 +49,7 @@ public class StudenteRepositoryTest {
 	public void testAdd() throws SQLException {
 		System.out.println("add");
 		
-		Studente result=repository.findItemByQuery(new StudenteSQL(oracle.getEmail()));
+		Studente result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 
 		assertEquals(oracle,result);
 	}
@@ -60,7 +60,7 @@ public class StudenteRepositoryTest {
 		
 		repository.delete(oracle);
 		
-		Studente result=repository.findItemByQuery(new StudenteSQL(oracle.getEmail()));
+		Studente result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 
 		assertEquals("",result.getEmail());
 	}
@@ -76,7 +76,7 @@ public class StudenteRepositoryTest {
 		
 		repository.update(result);
 		
-		result=repository.findItemByQuery(new StudenteSQL(oracle.getEmail()));
+		result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 		
 		assertEquals(oracle,result);
 	}
@@ -85,7 +85,7 @@ public class StudenteRepositoryTest {
 	public void testFindItemByQuery() throws SQLException{
 		System.out.println("findItemByQuery");
 		
-		Studente result=repository.findItemByQuery(new StudenteSQL(oracle.getEmail()));
+		Studente result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 		
 		assertEquals(oracle,result);
 	}
@@ -94,7 +94,7 @@ public class StudenteRepositoryTest {
 	public void testQuery() throws SQLException{
 		System.out.println("query");
 		
-		List<Studente> lista=repository.query(new StudentList());
+		List<Addetto> lista=repository.query(new AddettoList());
 		
 		assertEquals(lista.get(lista.size()-1),oracle);
 
