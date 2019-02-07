@@ -2,8 +2,13 @@ package businessLogic.Postazione;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 import dataAccess.storage.bean.*;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import businessLogic.prenotazione.PrenByStudPost;
 import businessLogic.prenotazione.PrenotazioneByOra;
@@ -82,21 +87,42 @@ public class PostazioneManager {
  * Disattiva e rende quindi non prenotabile una postazione precedentemente disattivata
  * @param p indica quale postazione va disattivata
  * @param idlab serve per modificare la postazione dato che ha una chiave composta
+ * @param inter è l'intervento che viene salvato nel DB per tenere traccia del motivo della disattivazione
  * @pre deve esistere quella postazione che si vuole disattivare
  */
-	public boolean disattivaPostazione(String id, String idlab) 
+	public boolean disattivaPostazione(String id, String idlab,Intervento inter) 
 	{
 		boolean flag=true;
 		int id1=Integer.parseInt(id); //converto la stringa in intero 
 		Postazione pos=new Postazione(); 
+		InterventoRepository intRe=new InterventoRepository();
+		InterventoSql insql=new InterventoSql(0);
+		int idin=0;
+		
+		//mi ricavo la data di oggi
+		Date data=new Date(System.currentTimeMillis());
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
+		data = calendar.getTime();
+		
+		//trovo l'ultimo intervento e ne ricavo il numero di id
+		try {
+			idin=intRe.trovaUltimoInter(insql);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		inter.setData(data);			//setto la data di oggi da mettere nella tabella intervento
+		inter.setIdIntervento(idin); 	//setto il nuovo id incrementato
 		
 		System.out.println(id1);
 		System.out.println(idlab);
 		
+		//setto l'oggetto pos per aggiornarlo
 		pos.setNumero(id1);
 		pos.setLaboratorio(idlab);
 		pos.setStato(false);
+		//aggiungo entrambi al DB
 		try {
+			intRe.add(inter);
 			posr.update(pos);
 		} catch (SQLException e) {
 			flag=false;
