@@ -56,6 +56,7 @@ function loadSegnalazioni(){
 				str += "<tr><td onCLick = \"selectSegnalazione(" + tmp.id + ")\" id = \"sg " + tmp.id + "\">" + tmp.id + "</td><td>"+ tmp.laboratorio + "</td><td>" + tmp.postazione + "</td><td>" + tmp.oggetto + "</td><td>" + tmp.descrizione + "</td><td>" + tmp.data + "</td></tr>";
 			}
 			$("#tb_segnalazioni tbody").html(str);
+			$("#main_content").show();
 		}else
 			window.location.href("./error.jsp");
 	});
@@ -67,21 +68,23 @@ function selectSegnalazione(id){
 	$(document).click(function(event){//l'evento che indica il click su una segnalazione
 		id = $(event.target).text();
 	});*/
-	var btn = document.createElement("BUTTON");
-	var t = document.createTextNode("Cancella segnalazione");
-	btn.appendChild(t);
-	btn.setAttribute("id", "delSegnalazione");
-	btn.setAttribute("tag", id);
-	document.body.appendChild(btn);
 	$.post("../ServletSegnalazione", {"action": "openSegnalazione", "id": id}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var segnalazione = JSON.parse(resp);
 			document.getElementById("delSegnalazione").setAttribute("id", id);//il bottone per poter eliminare una segnalazione
+			$("#main_content").hide();
 			$("#data").html(segnalazione.data);
 			$("#oggetto").html(segnalazione.oggetto);
 			$("descrizione").html(segnalazione.descrizione);
 			$("lab").html(segnalazione.laboratorio);
 			$("pos").html(segnalazione.postazione);
+			var btn = document.createElement("BUTTON");
+			var t = document.createTextNode("Cancella segnalazione");
+			btn.appendChild(t);
+			btn.setAttribute("id", "delSegnalazione");
+			btn.setAttribute("tag", id);
+			btn.setAttribute("align", "center");
+			document.body.appendChild(btn);
 		}else
 			window.location.href("./error.jsp");
 	});

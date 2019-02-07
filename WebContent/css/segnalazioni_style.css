@@ -8,6 +8,17 @@ body{
 	font-size:12px; 
 	background: none repeat scroll 0 0 #eeeeee;	
 }
+
+.title_page{
+    font-size: 28px;
+    text-align: center;
+}
+
+.hidden_item{
+	display: none;
+}
+
+/* Header bar */
 #header_part {
 	height: 40px;
 	position: fixed;
@@ -62,6 +73,7 @@ body{
 	padding-right: 4px;
 }
 
+/* Barra laterale sinistra*/
 #left_sidebar{
     display: block;
 	float: left;
@@ -73,10 +85,13 @@ body{
 	background: #2E363F;
 }
 
+/* Barra laterale destra*/
 #right_sidebar{
     display: none;
 }
 
+
+/* Contenuto principale */
 #main_content{
 	background: none repeat scroll 0 0 #eeeeee;
 	margin-top: 60px;
@@ -90,6 +105,7 @@ body{
 	display: none;
 }
 
+/* Sidebar Navigation (left side) */
 #sidebar {
 	top: 38px;
 	display: block;

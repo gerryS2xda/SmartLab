@@ -8,11 +8,11 @@
 		<link type="text/css" rel="stylesheet" href="../css/segnalazione_style.css">
 	</head>
 	<% 
-		Utente ut = (Utente) session.getAttribute("user");
+		/*Utente ut = (Utente) session.getAttribute("user");
 		String userType = (String) session.getAttribute("userType");
 		if(ut == null || userType == null) {
 			response.sendRedirect("./error.jsp"); //pagina errore 404
-		}else if(userType.equals("studente")){	
+		}else if(userType.equals("studente")){*/	
 	%>
 	<body>
 		<header id="header_part">
@@ -29,6 +29,7 @@
 					<li><a href="laboratoriAttivi.jsp">Prenota postazione</a></li>
 					<li> <a href="PrenotazioniEffettuate.jsp">Mie prenotazioni</a></li>
 					<li class="active"> <a href="javascript:void(0);">Segnala problema</a></li>
+					<li> <a href="viewSegnalazioni.jsp">Lista segnalazioni</a></li>
 				</ul>
 			</div>
 		</section>
@@ -57,9 +58,9 @@
 			<!-- add footer jsp -->
 		</footer>
 		<%
-			}else{
+			/*}else{
 				response.sendRedirect("./error.jsp"); //pagina errore 404
-			}%>
+			}*/%>
 	</body>
 		<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="../script/segnalazione_js.js"></script>
