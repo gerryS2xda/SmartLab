@@ -65,32 +65,43 @@ public class InterventoRepository {
 		}
 	}
     
-    public void delete(Intervento intervento) throws SQLException 
+    public void delete(Intervento intervento)  
     {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE IDintervento=?";
-		
 		try {
+		
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, intervento.getIdIntervento());
 
-			preparedStatement.executeUpdate();
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+			
+				preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
 			}
-		}
-
+			
+			
+				if (preparedStatement != null)
+					try {
+						preparedStatement.close();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+			
+				if (connection != null)
+					try {
+						Connessione.releaseConnection(connection);
+					} catch (SQLException e) {
+						
+						e.printStackTrace();
+					}
 	}
+
     
 
 public Intervento findItemByQuery(Specification specification) throws SQLException {
