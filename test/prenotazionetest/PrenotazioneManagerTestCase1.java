@@ -53,7 +53,7 @@ public class PrenotazioneManagerTestCase1 {
 		studenteRep = StudenteRepository.getInstance();
 		
 		//oggetti usati al posto dei tipi primitivi
-		lab = new Laboratorio("0", "lab0", 100, true, LocalTime.parse("09:00"), LocalTime.parse("17:00"), new ArrayList<Addetto>());
+		lab = new Laboratorio("0", "lab0", 100, true, LocalTime.parse("09:00"), LocalTime.parse("17:00"));
 		laboratorioRep.add(lab);
 		lab = laboratorioRep.findItemByQuery(new IdLab(lab.getNome()));
 		System.out.println("IDLab: " + lab.getIDlaboratorio() + " Nome: " + lab.getNome());

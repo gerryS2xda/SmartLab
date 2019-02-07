@@ -32,7 +32,7 @@ public class LaboratorioRepositoryTest {
 		
 		repository = LaboratorioRepository.getInstance();
 		
-		oracle = new Laboratorio("0", "lab0", 100, true, LocalTime.parse("09:00"), LocalTime.parse("17:00"), new ArrayList<Addetto>());
+		oracle = new Laboratorio("0", "lab0", 100, true, LocalTime.parse("09:00"), LocalTime.parse("17:00"));
 		repository.add(oracle);	
 		oracle = repository.findItemByQuery(new IdLab(oracle.getNome()));
 	}
@@ -79,7 +79,7 @@ public class LaboratorioRepositoryTest {
 		
 		//crea oggetto simile ad oracle 
 		Laboratorio actualObj = new Laboratorio(oracle.getIDlaboratorio(), oracle.getNome(), oracle.getPosti(), 
-				oracle.isStato(), oracle.getApertura(), oracle.getChiusura(), new ArrayList<Addetto>());
+				oracle.isStato(), oracle.getApertura(), oracle.getChiusura());
 		
 		//modifica qualche attributo di actualObj
 		actualObj.setChiusura(LocalTime.parse("18:00"));
