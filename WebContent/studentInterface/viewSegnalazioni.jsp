@@ -9,11 +9,11 @@
 	<title>Lista segnalazioni</title>
 	</head>
 	<% 
-		/*Utente ut = (Utente) session.getAttribute("user");
+		Utente ut = (Utente) session.getAttribute("user");
 		String userType = (String) session.getAttribute("userType");
 		if(ut == null || userType == null) {
 			response.sendRedirect("./error.jsp"); //pagina errore 404
-		}else if(userType.equals("studente")){	*/
+		}else if(userType.equals("studente")){
 	%>
 	<body onload = "loadSegnalazioni()">
 		<header id="header_part">
@@ -29,8 +29,9 @@
 					<li><a href="StudentHomePage.jsp">Dashboard</a></li>
 					<li><a href="laboratoriAttivi.jsp">Prenota postazione</a></li>
 					<li> <a href="PrenotazioniEffettuate.jsp">Mie prenotazioni</a></li>
-					<li class="active"> <a href="javascript:void(0);">Segnala problema</a></li>
-					<li> <a href="viewSegnalazioni.jsp">Lista segnalazioni</a></li>
+					<li> <a href="creaSegnalazione.jsp">Segnala problema</a></li>
+					<li class = "active"> <a href="javascript:void(0);">Lista segnalazioni</a></li>
+					<li> <a href="viewAvvisi.jsp">Lista avvisi</a></li>
 				</ul>
 			</div>
 		</section>
@@ -52,9 +53,9 @@
 			</div>
 		</section>
 		<%
-			/*}else{
+			}else{
 				response.sendRedirect("./error.jsp"); //pagina errore 404
-			}*/%>
+			}%>
 	</body>
 		<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="../script/segnalazione_js.js"></script>

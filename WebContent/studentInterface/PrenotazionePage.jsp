@@ -29,6 +29,7 @@
 					<li class="active"><a href="laboratoriAttivi.jsp">Prenota postazione</a></li>
 					<li> <a href="PrenotazioniEffettuate.jsp">Mie prenotazioni</a></li>
 					<li> <a href="creaSegnalazione.jsp">Segnala problema</a></li>
+					<li> <a href="viewAvvisi.jsp">Lista avvisi</a></li>
 				</ul>
 			</div>
 		</section>
