@@ -14,7 +14,7 @@ public class InterventoSqlTest {
 	@Test
 	public void testGetInstance() {
 		System.out.println("test: getInstance");
-		InterventoSql result = InterventoSql.getInstance();
+		InterventoSql result = InterventoSql.getInstance(0);
         assertNotNull(result);
 	}
 
@@ -22,7 +22,7 @@ public class InterventoSqlTest {
 	public void testToSqlQuery() {
 		System.out.println("testing: toSqlQuery");
 		InterventoSql lista=new InterventoSql(1);
-		InterventoSql result=InterventoSql.getInstance();
+		InterventoSql result=InterventoSql.getInstance(0);
 		assertEquals(lista.toSqlQuery(),result.toSqlQuery());
 	}
 

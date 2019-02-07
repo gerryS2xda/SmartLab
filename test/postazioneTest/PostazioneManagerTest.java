@@ -71,7 +71,7 @@ public class PostazioneManagerTest {
 		//-----------------
 		int num=oracle.getNumero();
 		String s=""+num;
-		flag=instance.disattivaPostazione(s,oracle.getLaboratorio());
+		flag=instance.disattivaPostazione(s,oracle.getLaboratorio(),    );
 		System.out.println(oracle.isStato());
 		System.out.println(flag);
 		assertTrue(flag);
