@@ -32,8 +32,8 @@ public class ServletAddettoManagement extends HttpServlet {
 			a.setSurname(request.getParameter("cognome"));
 			a.setTipo(false);
 			
-			System.out.println("email: "+a.getEmail()+"\npassword: "+a.getPassword()+""
-					+ "\nnome: "+a.getName()+"\ncognome: "+a.getSurname()+"\nstato: "+a.getTipo());
+			//System.out.println("email: "+a.getEmail()+"\npassword: "+a.getPassword()+""
+			//		+ "\nnome: "+a.getName()+"\ncognome: "+a.getSurname()+"\nstato: "+a.getTipo());
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");

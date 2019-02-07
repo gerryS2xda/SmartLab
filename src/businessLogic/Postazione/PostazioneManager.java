@@ -1,18 +1,16 @@
 package businessLogic.Postazione;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 import dataAccess.storage.bean.*;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
-import businessLogic.prenotazione.PrenByStudPost;
+
+
 import businessLogic.prenotazione.PrenotazioneByOra;
 import businessLogic.prenotazione.PrenotazioneRepository;
 
@@ -34,7 +32,7 @@ public class PostazioneManager {
     public PostazioneManager(){
     	
     }
-    
+     
 /**
  * Crea una postazione con i vari parametri prescelti
  * @param "laboratorio" indica il laboratorio in cui verrà inserita la postazione, "numero" indica il numero di    
@@ -98,24 +96,17 @@ public class PostazioneManager {
 		int id1=Integer.parseInt(id); //converto la stringa in intero 
 		Postazione pos=new Postazione(); 
 		InterventoRepository intRe=new InterventoRepository();
-		InterventoSql insql=new InterventoSql(0);
-		int idin=0;
+		
+		
 		
 		//mi ricavo la data di oggi
-		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
-		 Date data = calendar.getTime();
-		 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
-		 String oggi=sdf.format(data);
-		 
-		
-		//trovo l'ultimo intervento e ne ricavo il numero di id
-		try {
-			idin=intRe.trovaUltimoInter(insql);
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		inter.setData(LocalDate.parse(oggi));			//setto la data di oggi da mettere nella tabella intervento
-		inter.setIdIntervento(idin); 	//setto il nuovo id incrementato
+		//Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
+		 Date data = new Date(Calendar.getInstance().getTime().getTime());
+		 //SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
+		 //String oggi=sdf.format(data);
+
+		inter.setData(data.toLocalDate());			//setto la data di oggi da mettere nella tabella intervento
+		System.out.println(inter.getData());
 		
 		System.out.println(id1);
 		System.out.println(idlab);

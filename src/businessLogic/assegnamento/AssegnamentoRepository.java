@@ -45,7 +45,7 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, ass.getLaboratorio());
 			preparedStatement.setString(2, ass.getResponsabile());
-			System.out.println(preparedStatement);
+			//System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 
 		} finally {
@@ -71,7 +71,7 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setString(1, ass.getLaboratorio());
 			preparedStatement.setString(2, ass.getResponsabile());
-			System.out.println(preparedStatement);
+			//System.out.println(preparedStatement);
 			
 			preparedStatement.executeUpdate();
 		} finally {
@@ -100,7 +100,7 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
         try{
             connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
-            System.out.println(preparedStatement);
+            //System.out.println(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				ass.setLaboratorio(rs.getString("laboratorio"));
