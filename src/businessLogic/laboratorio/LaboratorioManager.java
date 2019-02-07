@@ -39,7 +39,7 @@ public class LaboratorioManager {
 					Laboratorio temp=new Laboratorio();
 					temp=repository.findItemByQuery(new IdLab(lab.getIDlaboratorio()));
 					lab.setIDlaboratorio(temp.getIDlaboratorio());
-					System.out.println("id "+lab.getIDlaboratorio());
+					//System.out.println("id "+lab.getIDlaboratorio());
 					//crea le postazioni
 					PostazioneRepository rPostazione=new PostazioneRepository();
 					for(int i=0;i<lab.getPosti();i++){
@@ -74,12 +74,11 @@ public class LaboratorioManager {
 	    		flag=true;
 	    		try {
 					repository.delete(lab);
-					System.out.println("ok manager");
+					//System.out.println("ok manager");
 				} catch (SQLException e) {
 					flag=false;
 					System.err.println("non è possibile eliminare il laboratorio dal sistema");
 					e.printStackTrace();
-					System.out.println("no manager");
 				}
 	    	}else{
 	    		System.err.println("è stato passato un oggetto laboratorio nullo");

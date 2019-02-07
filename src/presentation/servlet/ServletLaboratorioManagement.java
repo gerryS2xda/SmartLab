@@ -39,7 +39,7 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			
 			lab.setApertura(LocalTime.parse(request.getParameter("apertura")));
 			lab.setChiusura(LocalTime.parse(request.getParameter("chiusura")));
-			System.out.println("nome: "+lab.getNome()+"\nposti: "+lab.getPosti()+"\napertura: "+lab.getApertura());
+			//System.out.println("nome: "+lab.getNome()+"\nposti: "+lab.getPosti()+"\napertura: "+lab.getApertura());
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
@@ -65,7 +65,7 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
-			System.out.println(lab.getIDlaboratorio());
+			//System.out.println(lab.getIDlaboratorio());
 			if(manager.removeLaboratory(lab)){
 				response.getWriter().write("{\"esito\":\"laboratorio eliminato\"}");
 			}else{

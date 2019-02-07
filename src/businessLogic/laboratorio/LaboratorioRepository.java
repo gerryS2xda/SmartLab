@@ -82,7 +82,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 			preparedStatement.executeUpdate();
 			
 			//connection.commit();
-			System.out.println(preparedStatement);
+			//System.out.println(preparedStatement);
 
 		} finally {
 			try {
@@ -115,7 +115,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 			preparedStatement.executeUpdate();
 			
 			//connection.commit();
-			System.out.println(preparedStatement);
+			//System.out.println(preparedStatement);
 
 		} finally {
 			try {
@@ -180,7 +180,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
             connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
-            System.out.println(preparedStatement);
+            //System.out.println(preparedStatement);
 			while (rs.next()) {
 				Laboratorio lab=new Laboratorio();
 
