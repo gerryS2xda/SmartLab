@@ -106,10 +106,7 @@ public class PostazioneManager {
 		 //String oggi=sdf.format(data);
 
 		inter.setData(data.toLocalDate());			//setto la data di oggi da mettere nella tabella intervento
-		System.out.println(inter.getData());
 		
-		System.out.println(id1);
-		System.out.println(idlab);
 		
 		//setto l'oggetto pos per aggiornarlo
 		pos.setNumero(id1);

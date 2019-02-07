@@ -10,7 +10,6 @@ import dataAccess.storage.Connessione;
 import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.bean.Intervento;
-import dataAccess.storage.bean.Postazione;
 
 public class InterventoRepository {
 	
@@ -93,38 +92,7 @@ public class InterventoRepository {
 
 	}
     
-public int trovaUltimoInter(Specification specification) throws SQLException {
-		
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-        SqlSpecification sqlSpecification = (SqlSpecification) specification;
-        String selectSQL= sqlSpecification.toSqlQuery();
-        Intervento inter= new Intervento();
-        int n=0;
-        
-        try{
-            connection = Connessione.getConnection();
-            preparedStatement = connection.prepareStatement(selectSQL);
-            ResultSet rs = preparedStatement.executeQuery();
 
-            rs.last();
-            n=rs.getRow();
-            n++;
-            
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
-			}
-		}
-
-        return n;
-
-	}
 public Intervento findItemByQuery(Specification specification) throws SQLException {
 	
 	Connection connection = null;
