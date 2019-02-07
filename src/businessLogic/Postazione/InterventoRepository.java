@@ -10,7 +10,6 @@ import dataAccess.storage.Connessione;
 import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.bean.Intervento;
-import dataAccess.storage.bean.Postazione;
 
 public class InterventoRepository {
 	
@@ -32,23 +31,21 @@ public class InterventoRepository {
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL = "INSERT INTO " + TABLE_NAME
-				+ " (IDintervento,descrizione,data,postazione,laboratorio,addetto) VALUES (?, ?, ?, ?,?,?)";
+				+ " (descrizione,data,postazione,laboratorio,addetto) VALUES (?, ?, ?,?,?)";
 		
 		
 		try {
 				connection = Connessione.getConnection();
 			
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, intervento.getIdIntervento());
-			preparedStatement.setString(2, intervento.getDescrizione());
-			preparedStatement.setDate(3, (Date) intervento.getData());
-			preparedStatement.setInt(4, intervento.getPostazione());
-			preparedStatement.setString(5, intervento.getLaboratorio());
-			preparedStatement.setString(6, intervento.getAddetto());
+			preparedStatement.setString(1, intervento.getDescrizione());
+			preparedStatement.setDate(2, Date.valueOf(intervento.getData()));
+			preparedStatement.setInt(3, intervento.getPostazione());
+			preparedStatement.setString(4, intervento.getLaboratorio());
+			preparedStatement.setString(5, intervento.getAddetto());
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
 		} catch (SQLException e) 
 		{
 			e.printStackTrace();
@@ -83,7 +80,6 @@ public class InterventoRepository {
 
 			preparedStatement.executeUpdate();
 
-			connection.commit();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -96,38 +92,7 @@ public class InterventoRepository {
 
 	}
     
-public int trovaUltimoInter(Specification specification) throws SQLException {
-		
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-        SqlSpecification sqlSpecification = (SqlSpecification) specification;
-        String selectSQL= sqlSpecification.toSqlQuery();
-        Intervento inter= new Intervento();
-        int n=0;
-        
-        try{
-            connection = Connessione.getConnection();
-            preparedStatement = connection.prepareStatement(selectSQL);
-            ResultSet rs = preparedStatement.executeQuery();
 
-            rs.last();
-            n=rs.getRow();
-            n++;
-            
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
-			}
-		}
-
-        return n;
-
-	}
 public Intervento findItemByQuery(Specification specification) throws SQLException {
 	
 	Connection connection = null;
@@ -149,7 +114,7 @@ public Intervento findItemByQuery(Specification specification) throws SQLExcepti
 			in.setIdIntervento(rs.getInt("IDintervento"));
 			in.setLaboratorio(rs.getString("laboratorio"));
 			in.setPostazione(rs.getInt("postazione"));
-			in.setData(rs.getDate("data"));
+			in.setData(rs.getDate("data").toLocalDate());
            
 		}
 

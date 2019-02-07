@@ -10,7 +10,7 @@ function loadTableBody(){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
 			if(o.pren0 == "failure"){
-				window.location.href = "./index.jsp"; //pagina errore 404}
+				window.location.href = "./error.jsp"; //pagina errore 404}
 			}
 			var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
 			var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto
@@ -25,7 +25,7 @@ function loadTableBody(){
 			
 			updatePrenotazioniStatus(); //aggiorna lo stato delle prenotazioni in base all'ora corrente
 		}else{
-			window.location.href = "./index.jsp"; //pagina errore 404
+			window.location.href = "./error.jsp"; //pagina errore 404
 		}
 	});
 }
@@ -73,10 +73,10 @@ function updatePrenotazioniStatus(){
 				var o = JSON.parse(resp);
 				var esito = o.esito;
 				if(esito == "failure"){ 
-					window.location.href = "./index.jsp"; //pagina errore 404
+					window.location.href = "./error.jsp"; //pagina errore 404
 				}
 			}else{
-				window.location.href = "./index.jsp"; //pagina errore 404
+				window.location.href = "./error.jsp"; //pagina errore 404
 			} 
 		});
 	}

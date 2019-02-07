@@ -17,6 +17,7 @@ import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Intervento;
 import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
+import dataAccess.storage.bean.Utente;
 
 /**
  * Servlet implementation class ServletPostazione
@@ -51,7 +52,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 		if(action == null)
 		{
 			response.setStatus(404);
-			response.sendRedirect("./Index.jsp");
+			response.sendRedirect("./error.jsp");
 		}
 		else if(action.equals("libera_pos"))   //libera la postazione
 		{ 
@@ -110,10 +111,10 @@ public class ServletPostazioneManagement extends HttpServlet {
 			String idpos=request.getParameter("id");
 			int idpos1=Integer.parseInt(idpos);
 			String msg=request.getParameter("msg");
-			Addetto ad=new Addetto();
-			ad=(Addetto)request.getSession().getAttribute("addetto");
+
+			Utente ad=(Utente) request.getSession().getAttribute("user");
 			
-			
+			System.out.println(ad.getEmail());
 			
 			//costruisco l'oggetto intervento
 			Intervento inter=new Intervento();

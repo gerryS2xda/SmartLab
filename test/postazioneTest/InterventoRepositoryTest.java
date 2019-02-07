@@ -9,6 +9,7 @@ import businessLogic.Postazione.InterventoRepository;
 import businessLogic.Postazione.PostazioneManager;
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.Postazione.PostazioneSql;
+import businessLogic.Postazione.InterventoSql;
 import dataAccess.storage.bean.Intervento;
 import dataAccess.storage.bean.Postazione;
 
@@ -34,7 +35,7 @@ public class InterventoRepositoryTest {
 		inter.setPostazione(1);
 		inter.setLaboratorio("lab1");
 		//-----------------
-		interventoRepository instance= .getInstance();
+		InterventoRepository instance= InterventoRepository.getInstance();
 		instance.add(inter);
 		InterventoSql sql=new InterventoSql(inter.getIdIntervento());
 		Intervento result=instance.findItemByQuery(sql);

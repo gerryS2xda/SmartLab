@@ -150,7 +150,7 @@ public class PrenotazioneManager {
 	 */
 	public void annullaPrenotazione(Prenotazione pr)throws PrenotazioneException, SQLException{
 		
-		int oraAttuale = 8;
+		int oraAttuale = LocalTime.now().getHour();
 		
 		int oraInizio = pr.getOraInizio().getHour() - 2; //puoi annullare almeno 2 ore prima dell'inizio della prenotazione
 		if(oraAttuale < oraInizio){
@@ -217,7 +217,7 @@ public class PrenotazioneManager {
 	public boolean isPrenotazioneActive(Prenotazione pr){
 		boolean val = true;
 		
-		int oraAttuale = 8;
+		int oraAttuale = LocalTime.now().getHour();
 		int oraFine = pr.getOraFine().getHour();
 		if(oraAttuale >= oraFine){
 			val = false;	

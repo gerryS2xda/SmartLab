@@ -38,7 +38,7 @@ public class ServletPrenotazioneManagement extends HttpServlet {
 		String action = request.getParameter("action");
 		if(action == null){
 			response.setStatus(404);
-			response.sendRedirect("./index.jsp"); //pagina errore 404
+			response.sendRedirect("./error.jsp"); //pagina errore 404
 		}else if(action.equals("effettua")){
 			boolean done = true;
 			
