@@ -18,8 +18,11 @@
         <a class="nav-link" href="#">Crea avviso</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Aggiungi responsabile</a>
-
+        <a class="nav-link" href="addetto?action=getListResp">Elimina responsabile</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="adminInterface/AddResp.jsp">Aggiungi responsabile</a>
+      </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <button class="btn btn-secondary my-2 my-sm-0" type="button" id="logout"><img src="images/icon-logout.png"> Logout</button>

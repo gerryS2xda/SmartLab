@@ -1,4 +1,4 @@
-package accountTest;
+package utenteTest;
 
 import businessLogic.utente.StudentLoginSQL;
 import static org.junit.Assert.*;
