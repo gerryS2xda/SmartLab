@@ -14,7 +14,7 @@ import businessLogic.assegnamento.AssegnamentoSql;
 import businessLogic.laboratorio.LaboratorioRepository;
 import dataAccess.storage.bean.Assegnamento;
 
-public class AssegnamentoManagerTest {
+public class AssegnamentoManagerTest1 {
 	private AssegnamentoManager manager;
 	private AssegnamentoRepository repository;
 	private Assegnamento oracle;
