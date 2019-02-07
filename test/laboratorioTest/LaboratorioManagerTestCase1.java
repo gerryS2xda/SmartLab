@@ -32,6 +32,8 @@ public class LaboratorioManagerTestCase1 {
 		repository=LaboratorioRepository.getInstance();
 		repositoryp=PostazioneRepository.getInstance();
 		
+		postazione =new Postazione();
+		
 		oracle=new Laboratorio();
 		oracle.setNome("lab10");
 		oracle.setPosti(posti);
