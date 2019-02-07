@@ -143,7 +143,7 @@ public class Prenotazione {
 
 	/**
 	 * Setta l'oggetto Laboratorio a questa prenotazione in base al valore fornito in input
-	 * @param postazione rappresenta l'oggetto Laboratorio che modella i dati di un laboratorio
+	 * @param laboratorio rappresenta l'oggetto Laboratorio che modella i dati di un laboratorio
 	 */
 	public void setLaboratorio(Laboratorio laboratorio) {
 		this.laboratorio = laboratorio;

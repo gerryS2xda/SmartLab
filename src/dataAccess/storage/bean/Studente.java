@@ -22,7 +22,8 @@ public class Studente extends Utente {
 	//other methods
 	public String toString(){
 		String str = super.toString();
-		return str += "\"statoStudente\": " + stato + " }";
+		str += "\"statoStudente\": " + stato + " }";
+		return str;
 	}
 	
 	public boolean equals(Object otherObject){

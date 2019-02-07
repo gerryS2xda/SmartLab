@@ -24,6 +24,7 @@ public class PrenotazioneById implements SqlSpecification{
 	/**
 	 * Query che permette di ottenere una prenotazione avente IDprenotazione = id
 	 * @post stringa che rappresenta una query da eseguire 
+	 * @return stringa che rappresenta una query da eseguire
 	 */	
 	public String toSqlQuery(){
 		String str = String.format("SELECT * FROM " + PrenotazioneRepository.TABLE_NAME 

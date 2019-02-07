@@ -23,8 +23,9 @@ import dataAccess.storage.bean.Utente;
 public class ServletLaboratorioManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	LaboratorioManager manager=new LaboratorioManager();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		LaboratorioManager manager = new LaboratorioManager();
 		String action=request.getParameter("action");
 		Gson json = new Gson();
 		

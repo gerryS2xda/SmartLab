@@ -55,7 +55,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione> {
 	 * @param item indica l'oggetto Prenotazione da memorizzare
 	 * @precondition item != null
 	 * @post i dati di item diventano persistenti (aggiunta di una tupla)
-	 * @throws SQLException: se si ha un problema con l'aggiungere i dati della prenotazione nel DB
+	 * @throws SQLException se si ha un problema con l'aggiungere i dati della prenotazione nel DB
 	 */
 	public void add(Prenotazione item)throws SQLException{
 		
@@ -92,7 +92,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione> {
 	 * @param item indica l'oggetto Prenotazione da cancellare dal DB
 	 * @precondition item.getId() > 0
 	 * @post si cancella la tupla il cui valore dell'attributo IDprenotazione == item.getId()
-	 * @throws SQLException: se si ha un problema con la rimozione dei dati
+	 * @throws SQLException se si ha un problema con la rimozione dei dati
 	 */
 	public void delete(Prenotazione item)throws SQLException{
 		
@@ -119,7 +119,7 @@ public class PrenotazioneRepository implements Repository<Prenotazione> {
 	 * @param item indica l'oggetto Prenotazione che contiene i valori aggiornati da sostituire con quelli vecchi
 	 * @precondition item.getId() > 0
 	 * @post si aggiornano i valori la tupla, cioe' degli attributi: data, ora_inizio, ora_fine, stato, studente, postazione, laboratorio
-	 * @throws SQLException: se si ha un problema con l'aggiornamento dei dati
+	 * @throws SQLException se si ha un problema con l'aggiornamento dei dati
 	 */
 	public void update(Prenotazione item)throws SQLException{
 		
@@ -154,7 +154,8 @@ public class PrenotazioneRepository implements Repository<Prenotazione> {
 	 * Restituisci i dati di una prenotazione che sono presenti nel DB attraverso una query
 	 * @param spec - oggetto Specification le cui sottoclassi implementano toSqlQuery() che e' la query da eseguire
 	 * @post in base alla query si ottengono i dati di una prenotazione dal DB
-	 * @throws SQLException: se si ha un problema con l'esecuzione di una query
+	 * @throws SQLException se si ha un problema con l'esecuzione di una query
+	 * @return stringa che rappresenta una query da eseguire
 	 */
 	public Prenotazione findItemByQuery(Specification spec)throws SQLException{
 		
@@ -209,7 +210,8 @@ public class PrenotazioneRepository implements Repository<Prenotazione> {
 	 * Restituisce una lista prenotazioni attraverso una query
 	 * @param spec - oggetto Specification le cui sottoclassi implementano toSqlQuery() che e' la query da eseguire
 	 * @post in base alla query si ottiene una lista di prenotazioni
-	 * @throws SQLException: se si ha un problema con l'esecuzione di una query
+	 * @throws SQLException se si ha un problema con l'esecuzione di una query
+	 * @return stringa che rappresenta una query da eseguire
 	 */	
 	public List<Prenotazione> query(Specification spec)throws SQLException{
 		

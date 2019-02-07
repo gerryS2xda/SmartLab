@@ -118,7 +118,8 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 				list.add(temp);
 			}
 		}finally{
-			//con.close();
+			con.close();
+			ps.close();
 		}
 		return list;
 	}

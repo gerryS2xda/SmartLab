@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 public class Laboratorio{
 	
-	private String IDlaboratorio;
+	private String iDlaboratorio;
 	private String nome;
 	private int posti;
 	private boolean stato;
@@ -12,8 +12,7 @@ public class Laboratorio{
 	private LocalTime chiusura;
 	
 	public Laboratorio(){
-		super();
-		IDlaboratorio = "";
+		iDlaboratorio = "";
 		this.nome = "";
 		this.posti = 0;
 		this.stato = false;
@@ -23,7 +22,7 @@ public class Laboratorio{
 	
 	public Laboratorio(String iDlaboratorio, String nome, int posti, boolean stato, LocalTime apertura, LocalTime chiusura) {
 		super();
-		IDlaboratorio = iDlaboratorio;
+		iDlaboratorio = iDlaboratorio;
 		this.nome = nome;
 		this.posti = posti;
 		this.stato = stato;
@@ -32,11 +31,11 @@ public class Laboratorio{
 	}
 
 	public String getIDlaboratorio() {
-		return IDlaboratorio;
+		return iDlaboratorio;
 	}
 
 	public void setIDlaboratorio(String iDlaboratorio) {
-		IDlaboratorio = iDlaboratorio;
+		this.iDlaboratorio = iDlaboratorio;
 	}
 
 	public String getNome() {
@@ -82,7 +81,7 @@ public class Laboratorio{
 
 	@Override
 	public String toString() {
-		return "Laboratorio [IDlaboratorio=" + IDlaboratorio + ", nome=" + nome + ", posti=" + posti + ", stato="
+		return "Laboratorio [iDlaboratorio=" + iDlaboratorio + ", nome=" + nome + ", posti=" + posti + ", stato="
 				+ stato + ", apertura=" + apertura + ", chiusura=" + chiusura + "]";
 	}
 	

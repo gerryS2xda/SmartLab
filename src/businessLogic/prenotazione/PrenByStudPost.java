@@ -31,6 +31,7 @@ public class PrenByStudPost implements SqlSpecification{
 	 * Query che permette di ottenere tutte le prenotazioni aventi: 
 	 * Studente == email, Postazione == numeroPost e Laboratorio == idLab. 
 	 * @post stringa che rappresenta una query da eseguire 
+	 * @return stringa che rappresenta una query
 	 */	
 	public String toSqlQuery() {
 		String str = String.format("SELECT * FROM " + PrenotazioneRepository.TABLE_NAME 

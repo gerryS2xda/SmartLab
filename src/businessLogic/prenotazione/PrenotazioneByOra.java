@@ -30,6 +30,7 @@ public class PrenotazioneByOra implements SqlSpecification{
 	/**
 	 * Query che permette di ottenere una lista di prenotazioni in base all'ora di inizio, fine e id del laboratorio
 	 * @post stringa che rappresenta una query da eseguire 
+	 * @return stringa che rappresenta una query da eseguire
 	 */	
 	public String toSqlQuery(){
 		String str = String.format("SELECT * FROM " + PrenotazioneRepository.TABLE_NAME 
