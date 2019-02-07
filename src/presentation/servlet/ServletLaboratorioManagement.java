@@ -93,9 +93,9 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			String str = "{";
 			for(int i = 0; i < laboratori.size(); i++){
 				Laboratorio lab = laboratori.get(i);
-				str +=  "\"lab" + i + "\": {\"IDlaboratorio\":" + lab.getIDlaboratorio() + ", \"nome\": \"" + lab.getNome() + "\", " + 
-				"\"posti\": " + lab.getPosti() + ", \"stato\": " + lab.isStato() + ",  \"apertura\": \"" + lab.getApertura().toString() + "\", " + 
-				"\"chiusura\": \"" + lab.getChiusura().toString() + "\" },";
+				str +=  "\"lab" + i + "\": {\"IDlaboratorio\":" + lab.getIDlaboratorio() + ", \"nome\": \"" + lab.getNome() + "\", " 
+						+ "\"posti\": " + lab.getPosti() + ", \"stato\": " + lab.isStato() + ",  \"apertura\": \"" + lab.getApertura().toString() + "\", " 
+						+ "\"chiusura\": \"" + lab.getChiusura().toString() + "\" },";
 			}
 			str = str.substring(0, str.length() - 1) + "}"; //rimuovi ultima ',' e poi aggiungi '}'
 			response.getWriter().write(json.toJson(str));

@@ -1,14 +1,16 @@
-import static org.junit.Assert.*;
+package comunicazioneTest;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import java.sql.Date;
-
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import businessLogic.comunicazione.AvvisoRepository;
 import businessLogic.comunicazione.CommunicationManager;
 import businessLogic.comunicazione.SegnalazioneRepository;
+import businessLogic.comunicazione.SegnalazioneSql;
 import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Segnalazione;
 

@@ -35,10 +35,12 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			ps.setString(7, segnalazione.getStudente());
 			ps.executeUpdate();
 		}finally{
-			if(con != null)
+			if(con != null) {
 				con.close();
-			if(ps != null)
+			}
+			if(ps != null) {
 				ps.close();
+			}
 		}
 	}
 

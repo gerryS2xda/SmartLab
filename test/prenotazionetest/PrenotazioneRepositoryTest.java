@@ -7,11 +7,12 @@ import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
 import dataAccess.storage.bean.Studente;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotEquals;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

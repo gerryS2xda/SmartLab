@@ -51,7 +51,9 @@ public class PrenotazioneManager {
 	//private methods
 	//usato per ricreare l'informazione completa di una prenotazione
 	private void setAllInformationInPrenotazione(Prenotazione pr){
-		if(pr == null){ return;}	//se null non fare altro.. non ha senso recupare i dati dal DB
+		if(pr == null){ 
+			return; //se null non fare altro.. non ha senso recupare i dati dal DB
+		}	
 		int post = pr.getPostazione().getNumero();
 		String idLab = pr.getLaboratorio().getIDlaboratorio();
 		String emailStud = pr.getStudente().getEmail();
@@ -116,7 +118,10 @@ public class PrenotazioneManager {
 		lab = laboratorioRep.findItemByQuery(new LaboratorioSql(idLab));
 		pr.setLaboratorio(lab);
 		
-		if(lab.getChiusura() == null){ throw new SQLException("Errore: problema nel recuperare i dati del laboratorio dal DB!!"); }
+		if(lab.getChiusura() == null){
+			throw new SQLException("Errore: problema nel recuperare i dati del laboratorio dal DB!!"); 
+		}
+		
 		//ottieni orario di chisura e se orario corrente > orario di chiusura --> setta le prenotazioni per il giorno seguente
 		int oraCorrente = LocalTime.now().getHour();
 		int oraChiusura = lab.getChiusura().getHour();

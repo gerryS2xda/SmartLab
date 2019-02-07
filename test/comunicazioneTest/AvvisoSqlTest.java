@@ -1,8 +1,9 @@
 package comunicazioneTest;
 
-import businessLogic.comunicazione.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import businessLogic.comunicazione.AvvisoSql;
 
 public class AvvisoSqlTest {
 	

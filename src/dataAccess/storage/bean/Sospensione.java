@@ -9,13 +9,13 @@ public class Sospensione {
 		
 	}
 	
-	public Sospensione (){
+	public Sospensione(){
 		motivazione = "";
 		studente = "";
 		id = 0;
 	}
 
-	public void setID (int x){
+	public void setID(int x){
 		id = x;
 	}
 	
@@ -48,8 +48,8 @@ public class Sospensione {
 		boolean val = false;
 		if(o instanceof Sospensione){
 			Sospensione s = (Sospensione) o;
-			if(getID() == (s.getID()) && getMotivazione().compareTo(s.getMotivazione()) == 0 &&
-					studente.compareTo(s.getStudente()) == 0){
+			if(getID() == (s.getID()) && getMotivazione().compareTo(s.getMotivazione()) == 0 
+					&& studente.compareTo(s.getStudente()) == 0){
 				val = true;
 			}
 		}

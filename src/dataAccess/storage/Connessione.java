@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Connessione  {
+public class Connessione {
 
 	private static List<Connection> freeDbConnections;
 
@@ -20,20 +20,16 @@ public class Connessione  {
 	}
 	
 	private static synchronized Connection createDBConnection() throws SQLException {
+		
 		Connection newConnection = null;
-//		String ip = "192.168.1.125";
 		String ip = "localhost";
 		String port = "3306";
 		String db = "smartlab";
-
 		String username = "root";
-		String password = "asd456JKL";
+		String password = "0582";
 		
 		newConnection = DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+db, username, password);
 
-/** NON TI AZZARDARE A TOCCARE QUESTA RIGA ALTRIMENTI TI AMMAZZO - ROCCO :) 
- *		newConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/smartlab?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", username, password);
-**/	
 		newConnection.setAutoCommit(true);
 
 		return newConnection;
@@ -48,8 +44,9 @@ public class Connessione  {
 			freeDbConnections.remove(0);
 
 			try {
-				if (connection.isClosed())
+				if (connection.isClosed()) {
 					connection = getConnection();
+				}
 			} catch (SQLException e) {
 				connection.close();
 				connection = getConnection();
@@ -62,6 +59,8 @@ public class Connessione  {
 	}
 
 	public static synchronized void releaseConnection(Connection connection) throws SQLException {
-		if(connection != null) freeDbConnections.add(connection);
+		if(connection != null){
+			freeDbConnections.add(connection);
+		}
 	}
 }

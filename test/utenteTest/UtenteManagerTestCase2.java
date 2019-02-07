@@ -1,21 +1,16 @@
 package utenteTest;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-
 import java.sql.SQLException;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import businessLogic.addetto.AddettoSQL;
-import businessLogic.utente.*;
+import businessLogic.utente.StudenteRepository;
+import businessLogic.utente.StudenteSQL;
+import businessLogic.utente.UtenteManager;
 import dataAccess.storage.bean.Studente;
-import dataAccess.storage.bean.Sospensione;
-import dataAccess.storage.bean.Utente;
 
 public class UtenteManagerTestCase2 {
 	

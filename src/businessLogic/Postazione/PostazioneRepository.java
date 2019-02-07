@@ -14,20 +14,16 @@ import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.bean.Postazione;
 
-public class PostazioneRepository implements Repository<Postazione>{
+public class PostazioneRepository implements Repository<Postazione> {
 	
 	private static PostazioneRepository instance;
 
-    public static PostazioneRepository getInstance() 
-    {
-
-            instance = new PostazioneRepository();
-        
+    public static PostazioneRepository getInstance() {
+        instance = new PostazioneRepository();
         return instance;
-
     }
 
-	 public static final String TABLE_NAME = "postazione";
+	public static final String TABLE_NAME = "postazione";
 	 
 	@Override
 	public void add(Postazione pos) throws SQLException {
@@ -38,8 +34,6 @@ public class PostazioneRepository implements Repository<Postazione>{
 		String insertSQL = "INSERT INTO " + TABLE_NAME
 				+ " (numero, laboratorio, stato) VALUES (?, ?, ?)";
 		
-		
-		
 		try {
 			connection = Connessione.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
@@ -47,50 +41,39 @@ public class PostazioneRepository implements Repository<Postazione>{
 			preparedStatement.setString(2, pos.getLaboratorio());
 			preparedStatement.setBoolean(3, pos.isStato());
 			preparedStatement.executeUpdate();
-
-			
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		}finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
 
 	}
 
 	@Override
-	public void delete(Postazione pos)
-	{
+	public void delete(Postazione pos){
 		
-			Connection connection = null;
-			PreparedStatement preparedStatement = null;
-			
-			
-			
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE numero = ? && laboratorio=? ;";
 
-			String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE numero = ? && laboratorio=? ;";
-
-			try {
-				connection = Connessione.getConnection();
-				preparedStatement = connection.prepareStatement(deleteSQL);
-				preparedStatement.setInt(1, pos.getNumero());
-				preparedStatement.setString(2, pos.getLaboratorio());
-
+		try {
+			connection = Connessione.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, pos.getNumero());
+			preparedStatement.setString(2, pos.getLaboratorio());
+			
+			preparedStatement.executeUpdate();
 				
-					preparedStatement.executeUpdate();
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}	
+			Connessione.releaseConnection(connection);
 				
-					if (preparedStatement != null)
-						preparedStatement.close();
-				
-					if (connection != null)
-						Connessione.releaseConnection(connection);
-			} catch (SQLException e) {
-				
-				e.printStackTrace();
-			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 
@@ -112,16 +95,12 @@ public class PostazioneRepository implements Repository<Postazione>{
 			preparedStatement.executeUpdate();
 		
 
-			} finally {
-				try {
-					if (preparedStatement != null)
-						preparedStatement.close();
-				} finally {
-					if (connection != null)
-						Connessione.releaseConnection(connection);
-				}
+		}finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
-		
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
+		}
 	}
 
 	@Override
@@ -132,28 +111,23 @@ public class PostazioneRepository implements Repository<Postazione>{
         SqlSpecification sqlSpecification = (SqlSpecification) specification;
         String selectSQL= sqlSpecification.toSqlQuery();
         Postazione pos= new Postazione();
-        
-        
+
         try{
             connection = Connessione.getConnection();
             preparedStatement = connection.prepareStatement(selectSQL);
             ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-
                 pos.setNumero(rs.getInt("numero"));
                 pos.setLaboratorio(rs.getString("laboratorio"));	                
 				pos.setStato(rs.getBoolean("stato"));
 			}
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		}finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
 
         return pos;
@@ -167,8 +141,7 @@ public class PostazioneRepository implements Repository<Postazione>{
 		PreparedStatement preparedStatement = null;
         SqlSpecification sqlSpecification = (SqlSpecification) specification;
         String selectSQL= sqlSpecification.toSqlQuery();
-        List <Postazione> postazioni= new ArrayList<>();
-        
+        List<Postazione> postazioni= new ArrayList<>();
         
         try{
             connection = Connessione.getConnection();
@@ -180,24 +153,17 @@ public class PostazioneRepository implements Repository<Postazione>{
                 pos.setNumero(rs.getInt("numero"));
                 pos.setLaboratorio(rs.getString("laboratorio"));
 				pos.setStato(rs.getBoolean("stato"));
-              
 				postazioni.add(pos);
 			}
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		}finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
 
         return postazioni;
 
-		
 	}
-
-
 }

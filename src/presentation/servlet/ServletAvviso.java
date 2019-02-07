@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.google.gson.*;
-
+import com.google.gson.Gson;
 import businessLogic.comunicazione.CommunicationManager;
 import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Avviso;
@@ -39,8 +37,9 @@ public class ServletAvviso extends HttpServlet {
 				List<Avviso> lista = cm.viewAvviso();
 				int count = 0, id = -1;
 				while(count < lista.size()){
-					if(lista.get(count).getId() > id)
+					if(lista.get(count).getId() > id) {
 						id = lista.get(count).getId();
+					}
 					count++;
 				}
 				id++;
@@ -52,20 +51,22 @@ public class ServletAvviso extends HttpServlet {
 				String addetto = ad.getEmail();
 				Avviso a = new Avviso(id, titolo, messaggio, data, addetto);
 				response.setContentType("application/json");
-				if(cm.addAvviso(a))
+				if(cm.addAvviso(a)) {
 					response.getWriter().write("{\"esito\": \"avviso creato\"}");
-				else
+				}else{
 					response.getWriter().write("{\"esito\": \"avviso non creato\"}");
+				}
 			}
 		}else if(avviso.equals("deleteAvviso")){
 			response.setContentType("application/json");
 			int id = Integer.parseInt(request.getParameter("id"));
 			Avviso a = new Avviso();
 			a.setId(id);
-			if(cm.deleteAvviso(a))
+			if(cm.deleteAvviso(a)){
 				response.getWriter().write(json.toJson("{\"esito\": \"successo\"}"));
-			else
+			}else{
 				response.getWriter().write(json.toJson("{\"esito\": \"errore\"}"));
+			}
 		}else if(avviso.equals("viewAvvisi")){
 			response.setContentType("application/json");
 			int count = 0;
@@ -80,24 +81,29 @@ public class ServletAvviso extends HttpServlet {
 		}else if(avviso.equals("openAvviso")){
 			Studente st = (Studente) session.getAttribute("user");
 			String tipo;
+			
 			if(st instanceof Studente){
 				tipo = "studente";
-			}else
+			}else{
 				tipo = "addetto";
+			}
+			
 			int flag = 0, i = 0;
 			response.setContentType("application/json");
 			int id = Integer.parseInt(request.getParameter("id"));
 			List<Avviso> lista = cm.viewAvviso();
 			while(flag == 0 && i < lista.size()){
-				if(lista.get(i).getId() == id)
+				if(lista.get(i).getId() == id) {
 					flag++;
-				else
+				}else {
 					i++;
+				}
 			}
 			if(flag != 0){
 				response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"titolo\": \"" + lista.get(i).getTitolo() + "\", \"messaggio\": \"" + lista.get(i).getMessaggio() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"addetto\": \"" + lista.get(i).getAddetto() + "\", \"tipo\": \"" + tipo + "\"}"));
-			}else
+			}else{
 				response.getWriter().write(json.toJson("{\"esito\": \"errore\"}"));
+			}
 		}
 	}
 	

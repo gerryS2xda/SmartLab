@@ -1,25 +1,19 @@
 package prenotazionetest;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import businessLogic.Postazione.ListaPos;
-import businessLogic.Postazione.PostazioneRepository;
-import businessLogic.Postazione.PostazioneSql;
 import businessLogic.laboratorio.IdLab;
 import businessLogic.laboratorio.LaboratorioRepository;
 import businessLogic.laboratorio.LaboratorioSql;
 import businessLogic.laboratorio.ListaLab;
-import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Laboratorio;
-import dataAccess.storage.bean.Postazione;
 
 public class LaboratorioRepositoryTest {
 

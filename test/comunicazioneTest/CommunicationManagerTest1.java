@@ -11,13 +11,12 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class CommunicationManagerTest {
+public class CommunicationManagerTest1 {
 	
 	private CommunicationManager cm;
 	private AvvisoRepository ar;

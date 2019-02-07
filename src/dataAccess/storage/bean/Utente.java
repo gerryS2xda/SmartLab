@@ -8,7 +8,7 @@ public abstract class Utente {
 	private String name;
 	private String surname;
 	
-	public Utente (String email, String password, String name, String surname){
+	public Utente(String email, String password, String name, String surname){
 		this.email = email;
 		this.password = password;
 		this.name = name;
@@ -64,8 +64,8 @@ public abstract class Utente {
 		boolean val = false;
 		if(o instanceof Utente){
 			Utente u = (Utente) o;
-			if(getEmail().compareTo(u.getEmail()) == 0 && getPassword().compareTo(u.getPassword()) == 0 && 
-					getName().compareTo(u.getName()) == 0 && getSurname().compareTo(u.getSurname()) == 0){
+			if(getEmail().compareTo(u.getEmail()) == 0 && getPassword().compareTo(u.getPassword()) == 0 
+					&& getName().compareTo(u.getName()) == 0 && getSurname().compareTo(u.getSurname()) == 0){
 				val = true;
 			}
 		}

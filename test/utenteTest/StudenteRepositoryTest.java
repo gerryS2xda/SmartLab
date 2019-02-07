@@ -1,18 +1,17 @@
 package utenteTest;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import java.sql.SQLException;
-import java.time.LocalTime;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import businessLogic.utente.*;
+import businessLogic.utente.StudentList;
+import businessLogic.utente.StudenteRepository;
+import businessLogic.utente.StudenteSQL;
 import dataAccess.storage.bean.Studente;
-import dataAccess.storage.bean.Utente;
 
 public class StudenteRepositoryTest {
 	

@@ -22,32 +22,12 @@ public class UtenteManager {
 		sospensione = SospensioneRepository.getInstance();
 	}
 	
-	public void registraStudente (Studente s) throws SQLException{
+	public void registraStudente(Studente s) throws SQLException{
 		studente.add(s);
 	}
 	
-	private boolean isEmailRight(String email) {
-		char c;
-		String str;
-		for(int i=0; i<email.length(); i++){
-			c = email.charAt(i);
-			if(c=='@'){
-			str = email.substring(i+1, email.length()-1);
-			if(str.compareTo("studenti.unisa.it") == 0 || str.compareTo("unisa.it") == 0)
-				return true;
-			}
-		}
-		return false;
-	}
 
-	private boolean isPasswordRight(String password) {
-		if(password.length()<8 || password.length()>16) return false;
-		else return true;
-		
-		/** DA COMPLETARE **/
-	}
-
-	public Studente effettuaAutenticazione (String email, String password){
+	public Studente effettuaAutenticazione(String email, String password){
 		Studente s = new Studente();
 		try{
 			s = studente.findItemByQuery(new StudenteLoginSQL(email, password));
@@ -57,7 +37,7 @@ public class UtenteManager {
 		return s;
 	}
 	
-	public Sospensione effettuaSospensione (Studente s, String motivazione) throws SQLException{
+	public Sospensione effettuaSospensione(Studente s, String motivazione) throws SQLException{
 		Sospensione sos = new Sospensione();
 		sos.setStudente(s.getEmail());
 		sos.setMotivazione(motivazione);

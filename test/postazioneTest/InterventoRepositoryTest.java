@@ -1,11 +1,9 @@
 package postazioneTest;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import java.sql.SQLException;
-
 import org.junit.Test;
-
 import businessLogic.Postazione.InterventoRepository;
 import businessLogic.Postazione.InterventoSql;
 import dataAccess.storage.bean.Intervento;
@@ -40,8 +38,7 @@ public class InterventoRepositoryTest {
 	}
 
 	@Test
-	public void testDelete() throws SQLException 
-	{
+	public void testDelete() throws SQLException {
 		Intervento inter=new Intervento();
 		inter.setIdIntervento(1);
 		InterventoRepository instance= InterventoRepository.getInstance();

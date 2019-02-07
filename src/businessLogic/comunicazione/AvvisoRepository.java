@@ -20,8 +20,8 @@ public class AvvisoRepository implements Repository<Avviso> {
 	private static AvvisoRepository instance;
 	
 	public static AvvisoRepository getInstance(){
-		if(instance == null)
-			instance = new AvvisoRepository();
+
+		instance = new AvvisoRepository();
 		return instance;
 	}
 	

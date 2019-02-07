@@ -1,17 +1,19 @@
 package utenteTest;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import java.sql.SQLException;
-import java.time.LocalTime;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import businessLogic.utente.*;
-import dataAccess.storage.bean.*;
+import businessLogic.utente.SospensioneList;
+import businessLogic.utente.SospensioneRepository;
+import businessLogic.utente.SospensioneSQL;
+import dataAccess.storage.bean.Sospensione;
+
 
 public class SospensioneRepositoryTest {
 	

@@ -1,7 +1,5 @@
 package businessLogic.prenotazione;
 
-import java.sql.SQLException;
-
 import dataAccess.storage.SqlSpecification;
 
 /**

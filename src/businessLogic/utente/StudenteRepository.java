@@ -13,7 +13,7 @@ import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.bean.Studente;
 
-public class StudenteRepository implements Repository<Studente>{
+public class StudenteRepository implements Repository<Studente> {
 	
 	private static StudenteRepository instance;
 	
@@ -30,7 +30,7 @@ public class StudenteRepository implements Repository<Studente>{
 		
 	}
 	
-	public void add(Studente s) throws SQLException{
+	public void add(Studente s) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -56,14 +56,11 @@ public class StudenteRepository implements Repository<Studente>{
 			preparedStatement.setBoolean(2, s.getStato());
 			
 			preparedStatement.executeUpdate();
-		} finally {
-			try{
-				if(preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if(connection != null)
-					Connessione.releaseConnection(connection);
+		}finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
 	}
 	
@@ -79,14 +76,11 @@ public class StudenteRepository implements Repository<Studente>{
 			preparedStatement.setString(1, s.getEmail());
 
 			preparedStatement.executeUpdate();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		}finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
 	}
 	
@@ -112,13 +106,13 @@ public class StudenteRepository implements Repository<Studente>{
     		
     		ps = connection.prepareStatement(updateSQLStudente);
     		ps.setBoolean(1, s.getStato());
-    		
     		ps.executeUpdate();
-    	} finally {
-    		if(ps != null)
-    			ps.close();
-    		Connessione.releaseConnection(connection);
-    	}
+    	}finally{
+			if(ps != null) { 
+				ps.close();
+			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
+		}
     }
 	
     public Studente findItemByQuery(Specification specification) throws SQLException{
@@ -139,14 +133,11 @@ public class StudenteRepository implements Repository<Studente>{
 				s.setStato(rs.getBoolean(4));
 				s.setPassword(rs.getString(5));
 			}
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		}finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
         
         return s;
@@ -174,14 +165,11 @@ public class StudenteRepository implements Repository<Studente>{
 				studenti.add(s);
 			}
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		} finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
 
         return studenti;

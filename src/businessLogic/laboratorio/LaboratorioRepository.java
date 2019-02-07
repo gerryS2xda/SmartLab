@@ -14,7 +14,7 @@ import dataAccess.storage.Specification;
 import dataAccess.storage.Repository;
 import dataAccess.storage.SqlSpecification;
 
-public class LaboratorioRepository implements Repository<Laboratorio>{
+public class LaboratorioRepository implements Repository<Laboratorio> {
 	
 	
 	private static LaboratorioRepository instance;
@@ -58,11 +58,13 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 			//connection.commit();
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}
 
@@ -86,11 +88,13 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}
 	}
@@ -119,11 +123,13 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}
     }
@@ -157,11 +163,13 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}
 
@@ -200,11 +208,13 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}
 

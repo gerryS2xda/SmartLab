@@ -12,7 +12,7 @@ import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.Repository;
 import dataAccess.storage.bean.Assegnamento;
 
-public class AssegnamentoRepository implements Repository<Assegnamento>{
+public class AssegnamentoRepository implements Repository<Assegnamento> {
 	
 	private static AssegnamentoRepository instance;
 
@@ -50,11 +50,13 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}
 
@@ -76,11 +78,13 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 			preparedStatement.executeUpdate();
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}
 	}
@@ -109,11 +113,13 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 
 		} finally {
 			try {
-				if (preparedStatement != null)
+				if (preparedStatement != null) {
 					preparedStatement.close();
+				}
 			} finally {
-				if (connection != null)
+				if (connection != null) {
 					Connessione.releaseConnection(connection);
+				}
 			}
 		}
 

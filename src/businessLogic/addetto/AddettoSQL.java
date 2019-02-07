@@ -16,8 +16,7 @@ public class AddettoSQL implements SqlSpecification {
 	@Override
 	public String toSqlQuery(){
 		return String.format(
-				"SELECT U.nome, U.cognome, A.*, U.password " +
-				"FROM %s U JOIN %s A ON U.email = A.email WHERE A.email='%s';",
+				"SELECT U.nome, U.cognome, A.*, U.password FROM %s U JOIN %s A ON U.email = A.email WHERE A.email='%s';",
                 TABLE_NAME, TABLE_NAME_UTENTE, email);
 	}
 }
