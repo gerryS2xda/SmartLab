@@ -46,7 +46,6 @@ public class PostazioneRepository implements Repository<Postazione>{
 			preparedStatement.setInt(1, pos.getNumero());
 			preparedStatement.setString(2, pos.getLaboratorio());
 			preparedStatement.setBoolean(3, pos.isStato());
-
 			preparedStatement.executeUpdate();
 
 			

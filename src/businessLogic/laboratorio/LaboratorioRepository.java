@@ -52,7 +52,7 @@ public class LaboratorioRepository implements Repository<Laboratorio>{
 			preparedStatement.setBoolean(3, lab.isStato());
 			preparedStatement.setTime(4, Time.valueOf(lab.getApertura()));
 			preparedStatement.setTime(5, Time.valueOf(lab.getChiusura()));
-
+			//System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 
 			//connection.commit();

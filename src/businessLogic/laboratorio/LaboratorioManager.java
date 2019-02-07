@@ -37,7 +37,7 @@ public class LaboratorioManager {
 	    		try {
 					repository.add(lab);
 					Laboratorio temp=new Laboratorio();
-					temp=repository.findItemByQuery(new IdLab(lab.getIDlaboratorio()));
+					temp=repository.findItemByQuery(new IdLab(lab.getNome()));
 					lab.setIDlaboratorio(temp.getIDlaboratorio());
 					//System.out.println("id "+lab.getIDlaboratorio());
 					//crea le postazioni
