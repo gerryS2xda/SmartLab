@@ -50,7 +50,6 @@ public class ServletPostazioneManagement extends HttpServlet {
 		//PostazioneSql psql=new PostazioneSql();
 		Prenotazione pre=new Prenotazione();
 		
-		
 		if(action == null)
 		{
 			response.setStatus(404);
@@ -58,13 +57,14 @@ public class ServletPostazioneManagement extends HttpServlet {
 		}
 		else if(action.equals("libera_pos"))   //libera la postazione
 		{ 
-		String s="";
-		List<Prenotazione> lista=new ArrayList<Prenotazione>();
-		lista=pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("lab"));
+			System.out.println("libera pos");
+			String s="";
+			List<Prenotazione> lista=new ArrayList<Prenotazione>();
+			lista=pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("lab"));
 			
-		
-			pm.liberaPostazione(pre);
-		//mandare alla jsp
+			System.out.println(lista);
+			//pm.liberaPostazione(pre);
+			//mandare alla jsp
 			s="{[";
 			for(int i = 0; i < lista.size()-1; i++){
 				Prenotazione p = lista.get(i);
@@ -73,9 +73,9 @@ public class ServletPostazioneManagement extends HttpServlet {
 			s.substring(0, s.length()-2);
 			s=s+"]}";
 			System.out.println(s);
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
-		response.getWriter().write(s);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().write(s);
 		
 		}
 		

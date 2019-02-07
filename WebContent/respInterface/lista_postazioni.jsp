@@ -12,6 +12,8 @@
 
 </head>
 <body>
+<!-- navbar -->
+<%@include file="navbarWebContent.jsp" %>
     <h1 style="text-align: center"> LABORATORIO  </h1>
     <div>
     	<% Collection<?> postazioni = (Collection<?>) request.getAttribute("lista");

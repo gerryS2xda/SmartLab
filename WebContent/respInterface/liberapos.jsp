@@ -11,6 +11,9 @@
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+<!-- navbar -->
+<%@include file="navbar.jsp" %>
+
 <div id="cerca">
 	<form id="lib_post_occ">
 	Inserisci l'ID del laboratorio: <input type="text" name="lab_in" id="lab_in" value="">
@@ -61,6 +64,7 @@ $(document).ready(function()
 	
 	var x = $("#fasc_ora_lib_pos").val().split("-");  //dammi il valore della <select> che e' stato impostato e dividi in due stringhe con split()
 	var lab = $("#lab_in").val();
+	console.log(x[0]+" "+x[1]+" "+lab);
 	//$.post("/postazioni", {"action": "libera_pos", "inizio": x[0], "fine": x[1], "lab": lab}, function(resp, stat, xhr){
 		//if(xhr.readyState == 4 && stat == "success"){
 			//codice del risultato
@@ -74,7 +78,7 @@ $(document).ready(function()
 			}, function(data,status)
 				{
 				//lista di prenotazioni
-				
+				/*
 					var o = JSON.parse(data);
 					var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
 					var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto
@@ -86,7 +90,7 @@ $(document).ready(function()
 	                        "</h4><p>ora di inizio:</p>"+k.oraInizio+
 	                        "<p>ora di fine:</p>" + k.orafine+ "</div></div></div></div>";
 					}
-					$("div#cerca").append(str);
+					$("div#cerca").append(str);*/
 				console.log(data);
 				},"json");
 	});

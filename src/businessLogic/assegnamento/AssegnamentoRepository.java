@@ -11,7 +11,6 @@ import dataAccess.storage.Specification;
 import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.Repository;
 import dataAccess.storage.bean.Assegnamento;
-import dataAccess.storage.bean.Laboratorio;
 
 public class AssegnamentoRepository implements Repository<Assegnamento>{
 	

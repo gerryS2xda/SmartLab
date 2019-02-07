@@ -3,7 +3,6 @@ package assegnamentoTest;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,7 +10,7 @@ import org.junit.Test;
 
 import businessLogic.assegnamento.AssegnamentoRepository;
 import businessLogic.assegnamento.AssegnamentoSql;
-import businessLogic.laboratorio.ListaLab;
+import businessLogic.assegnamento.ListaLabAss;
 import dataAccess.storage.bean.Assegnamento;
 
 public class AssegnamentoRepositoryTest {
@@ -65,7 +64,11 @@ public class AssegnamentoRepositoryTest {
 		assertEquals(oracle.getLaboratorio(),result.getLaboratorio());
 	}
 	
-
+	
+	@Test
+	public void testQuery(){
+		assertNull(repository.query(new ListaLabAss("")));
+	}
 
 
 }

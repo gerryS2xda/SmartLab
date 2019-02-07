@@ -10,6 +10,8 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+<!-- navbar -->
+<%@include file="navbarWebContent.jsp" %>
 
 <div class="container">
 	<h5 class="text-center">Studenti</h5>

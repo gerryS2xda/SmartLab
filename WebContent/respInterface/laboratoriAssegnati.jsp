@@ -11,7 +11,7 @@
 </head>
 <body>
 <!-- navbar -->
-<%@include file="navbar.jsp" %>
+<%@include file="navbarWebContent.jsp" %>
 
 <div class="container"> 
 	<h5 class="text-center">Laboratori</h5>

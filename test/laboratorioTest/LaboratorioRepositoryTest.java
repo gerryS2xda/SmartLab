@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -14,7 +13,6 @@ import org.junit.Test;
 import businessLogic.laboratorio.IdLab;
 import businessLogic.laboratorio.LaboratorioRepository;
 import businessLogic.laboratorio.ListaLab;
-import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Laboratorio;
 
 public class LaboratorioRepositoryTest {
@@ -26,7 +24,7 @@ public class LaboratorioRepositoryTest {
 	public void setUp() throws Exception {
 		repository=LaboratorioRepository.getInstance();
 		
-		oracle = new Laboratorio("0", "lab0", 100, true, LocalTime.parse("09:00"), LocalTime.parse("17:00"), new ArrayList<Addetto>());
+		oracle = new Laboratorio("0", "lab0", 10, true, LocalTime.parse("09:00"), LocalTime.parse("17:00"));
 		System.out.println(oracle);
 		repository.add(oracle);
 		

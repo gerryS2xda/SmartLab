@@ -6,6 +6,7 @@ import dataAccess.storage.bean.*;
 import java.util.List;
 
 import businessLogic.prenotazione.PrenByStudPost;
+import businessLogic.prenotazione.PrenotazioneByOra;
 import businessLogic.prenotazione.PrenotazioneRepository;
 
 public class PostazioneManager {
@@ -197,7 +198,7 @@ public class PostazioneManager {
 		//List <Prenotazione> pos= new ArrayList<>();
 			
 			PrenotazioneRepository preR=new PrenotazioneRepository();
-			PrenByStudPost presql=new PrenByStudPost(orainizio, idlab, orafine);
+			PrenotazioneByOra presql=new PrenotazioneByOra(orainizio, orafine, idlab);
 			
 			List<Prenotazione> lista=new ArrayList<Prenotazione>();
 		

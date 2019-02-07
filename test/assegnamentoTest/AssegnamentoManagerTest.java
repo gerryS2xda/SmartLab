@@ -3,24 +3,16 @@ package assegnamentoTest;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.assegnamento.AssegnamentoManager;
 import businessLogic.assegnamento.AssegnamentoRepository;
 import businessLogic.assegnamento.AssegnamentoSql;
-import businessLogic.laboratorio.IdLab;
-import businessLogic.laboratorio.LaboratorioManager;
 import businessLogic.laboratorio.LaboratorioRepository;
 import dataAccess.storage.bean.Assegnamento;
-import dataAccess.storage.bean.Laboratorio;
-import dataAccess.storage.bean.Postazione;
 
 public class AssegnamentoManagerTest {
 	private AssegnamentoManager manager;
