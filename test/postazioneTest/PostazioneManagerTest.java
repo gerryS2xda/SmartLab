@@ -9,6 +9,7 @@ import org.junit.Test;
 import businessLogic.Postazione.PostazioneManager;
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.Postazione.PostazioneSql;
+import businessLogic.Postazione.Intervento;
 import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
 
@@ -71,7 +72,8 @@ public class PostazioneManagerTest {
 		//-----------------
 		int num=oracle.getNumero();
 		String s=""+num;
-		flag=instance.disattivaPostazione(s,oracle.getLaboratorio(),    );
+		Intervento in=new Intervento();
+		flag=instance.disattivaPostazione(s,oracle.getLaboratorio(),in);
 		System.out.println(oracle.isStato());
 		System.out.println(flag);
 		assertTrue(flag);
