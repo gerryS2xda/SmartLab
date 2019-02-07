@@ -24,7 +24,7 @@ public class PostazioneManagerTest {
 	{
 		oracle =new Postazione(1, "lab1",true);
 	}
-	
+
 	@Test
 	public void testGetInstance() {
 		System.out.println("Testing: get Instance");
