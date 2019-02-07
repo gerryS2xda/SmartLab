@@ -51,7 +51,7 @@ public class ServletPostazioneManagement extends HttpServlet {
 		if(action == null)
 		{
 			response.setStatus(404);
-			response.sendRedirect("./Index.jsp");
+			response.sendRedirect("./error.jsp");
 		}
 		else if(action.equals("libera_pos"))   //libera la postazione
 		{ 

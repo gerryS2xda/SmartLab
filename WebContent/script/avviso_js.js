@@ -26,7 +26,7 @@ $("#crea").click(function(){
 				else
 					alert("Errore nella creazione dell'avviso");
 			}else
-				window.location.href("./index.jsp");
+				window.location.href("./error.jsp");
 		});
 	}
 });
@@ -43,7 +43,7 @@ function loadAvvisi(){
 			}
 			$("#tb_avvisi tbody").html(str);
 		}else
-			window.location.href = "./index.jsp";
+			window.location.href = "./error.jsp";
 	});
 }
 
@@ -72,7 +72,7 @@ function selectAvviso(){
 			}else
 				alert("Avviso non trovato");
 		}else
-			window.location.href = "./index.jsp";
+			window.location.href = "./error.jsp";
 	});
 }
 
@@ -89,6 +89,6 @@ $("#delAvviso").click(function(){
 			else
 				alert("Eliminazione non riuscita");
 		}else
-			window.location.href("./index.jsp");
+			window.location.href("./error.jsp");
 	});
 });

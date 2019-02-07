@@ -34,7 +34,7 @@ public class ServletUtenteManagement extends HttpServlet {
 		
     	if(action == null){
 			response.setStatus(404);
-			response.sendRedirect("./errorPage.jsp");
+			response.sendRedirect("./error.jsp");
 			
 		}else if(action.equals("editPassword")){ 
 			
