@@ -53,7 +53,7 @@ function loadSegnalazioni(){
 			var str = "";
 			for(var i = 0; i < size; i++){
 				var tmp = segnalazioni["sg" + i];//vengono prese tutte le segnalazioni a ogni iterazione
-				str += "<tr><td id = \"sg " + tmp.id + "\"><a href = \"#\"  onCLick = \"selectSegnalazione(" + tmp.id + ");\">" + tmp.id + "</a></td><td>"+ tmp.laboratorio + "</td><td>" + tmp.postazione + "</td><td>" + tmp.oggetto + "</td><td>" + tmp.descrizione + "</td><td>" + tmp.data + "</td></tr>";
+				str += "<tr><td class = \"sg\"><a href = \"#\">" + tmp.id + "</a></td><td>"+ tmp.laboratorio + "</td><td>" + tmp.postazione + "</td><td>" + tmp.oggetto + "</td><td>" + tmp.descrizione + "</td><td>" + tmp.data + "</td></tr>";
 			}
 			$("#tb_segnalazioni tbody").html(str);
 			$("#main_content").show();
@@ -63,15 +63,12 @@ function loadSegnalazioni(){
 }
 
 //funzione per selezionare una singola segnalazione
-function selectSegnalazione(id){
-	/*var id;
-	$(document).click(function(event){//l'evento che indica il click su una segnalazione
-		id = $(event.target).text();
-	});*/
+$(".sg").click(function selectSegnalazione(){
+	var id = jQuery(this);
 	$.post("../ServletSegnalazione", {"action": "openSegnalazione", "id": id}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var segnalazione = JSON.parse(resp);
-			document.getElementById("delSegnalazione").setAttribute("id", id);//il bottone per poter eliminare una segnalazione
+			window.location.href("./segnalazione.jsp");
 			$("#main_content").hide();
 			$("#data").html(segnalazione.data);
 			$("#oggetto").html(segnalazione.oggetto);
@@ -85,10 +82,11 @@ function selectSegnalazione(id){
 			btn.setAttribute("tag", id);
 			btn.setAttribute("align", "center");
 			document.body.appendChild(btn);
+			document.getElementById("delSegnalazione").setAttribute("id", id);//il bottone per poter eliminare una segnalazione
 		}else
 			window.location.href("./error.jsp");
 	});
-}
+});
 
 //funzione per poter eliminare una segnalazione
 $("delSegnalazione").click(function deleteSegnalazione(){
