@@ -14,8 +14,6 @@ public class PostazioneSqlTest {
         System.out.println("getInstance");
         PostazioneSql result = PostazioneSql.getInstance(1,"");
         assertNotNull(result);
-        
-        
 	}
 	
 	@Test
