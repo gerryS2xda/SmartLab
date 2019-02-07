@@ -46,16 +46,16 @@ public class ServletAvviso extends HttpServlet {
 				id++;
 				Addetto ad = (Addetto) session.getAttribute("user");
 				String titolo = request.getParameter("titolo");
-				String messaggio = request.getParameter("messaggio");
+				String messaggio = request.getParameter("descrizione");
 				java.util.Date d = new java.util.Date();
 				Date data = new Date(d.getTime());
-				String addetto = ad.getEmail();
+				String addetto = "test";//ad.getEmail();
 				Avviso a = new Avviso(id, titolo, messaggio, data, addetto);
 				response.setContentType("application/json");
 				if(cm.addAvviso(a))
-					response.getWriter().write("{\"esito\": \"avviso creato\"}");
+					response.getWriter().write(json.toJson("{\"esito\": \"avviso creato\"}"));
 				else
-					response.getWriter().write("{\"esito\": \"avviso non creato\"}");
+					response.getWriter().write(json.toJson("{\"esito\": \"avviso non creato\"}"));
 			}
 		}else if(avviso.equals("deleteAvviso")){
 			response.setContentType("application/json");

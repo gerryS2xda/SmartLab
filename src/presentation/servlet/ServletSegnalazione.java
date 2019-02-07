@@ -104,9 +104,7 @@ public class ServletSegnalazione extends HttpServlet {
 				else
 					i++;
 			}
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/studentInterface/segnalazione.jsp");
 			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"oggetto\": \"" + lista.get(i).getOggetto()) + "\", \"descrizione\": \"" + lista.get(i).getDescrizione() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"laboratorio\": " + lista.get(i).getLaboratorio() + "\", \"postazione\": " + lista.get(i).getPostazione() + "\", \"studente\": " + lista.get(i).getStudente() + "\"}");
-			dispatcher.forward(request, response);
 		}
 	}
 	
