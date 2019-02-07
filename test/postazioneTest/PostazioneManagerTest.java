@@ -38,7 +38,7 @@ public class PostazioneManagerTest {
 	}
 
 	@Test
-	public void testCreaPostazione() throws SQLException
+	public void testCreaPostazione() throws SQLException{
 
 		boolean flag=true;
 		System.out.println("testing: crea");
