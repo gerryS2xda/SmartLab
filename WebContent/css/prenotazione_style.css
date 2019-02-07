@@ -46,7 +46,7 @@ h1{
 
 #logout{
 	position: relative;
-	left: 72%;
+	left: 73%;
 	top: 5px;
 	color: white;
 	text-decoration: none;
@@ -92,11 +92,17 @@ h1{
 /* Contenuto principale */
 #main_content{
 	background: none repeat scroll 0 0 #eeeeee;
-	margin-top: 60px;
+	padding-top: 60px;
+	padding-bottom: 15%;
 	margin-left: 20%;
-	margin-right: 10%;
+	margin-right: 4%;
 	position: relative;
 	width: auto;
+}
+
+.main_content_margin{
+	margin-top: 20px;
+	margin-left: 6%;
 }
 
 .title_page{
@@ -294,5 +300,89 @@ h1{
 	color: red;
 	font-size: 16px;
 	top: 40px;
+}
+
+/* style for responsive */
+
+/* media query for header nav bar */
+@media screen and (max-width: 520px){
+	#welcome_txt{
+		left: 20%;
+		top: 8px;
+	}
+
+	#logout{
+		left: 38%;
+	}
+
+	#txt_logo{
+		display: none;
+	}
+}
+
+@media screen and (min-width: 521px) and (max-width: 650px){
+	#welcome_txt{
+		left: 20%;
+	}
+
+	#logout{
+		left: 40%;
+	}
+}
+
+@media screen and (min-width: 651px) and (max-width: 780px){
+	#welcome_txt{
+		left: 30%;
+	}
+
+	#logout{
+		left: 45%;
+	}
+}
+
+@media screen and (min-width: 781px) and (max-width: 900px){
+	#welcome_txt{
+		left: 30%;
+	}
+
+	#logout{
+		left: 55%;
+	}
+}
+
+@media screen and (min-width: 901px) and (max-width: 1000px){
+	#logout{
+		left: 60%;
+	}
+}
+
+@media screen and (min-width: 1001px) and (max-width: 1100px){
+	#logout{
+		left: 64%;
+	}
+}
+
+@media screen and (min-width: 1101px) and (max-width: 1200px){
+	#logout{
+		left: 68%;
+	}
+}
+
+/* media query for content page */
+/* for dashboard page */
+@media screen and (max-width: 900px){	
+	.list_block li{
+		width: 150px;
+	}
+}
+
+@media screen and (max-width: 800px){
+	#email_list{
+		display: none;
+	}
+
+	#personal_data{
+		width: 100%;
+	}
 }
 

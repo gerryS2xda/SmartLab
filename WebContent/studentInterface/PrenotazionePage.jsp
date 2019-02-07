@@ -33,35 +33,37 @@
 			</div>
 		</section>
 		<section id="main_content">
+			<div class="main_content_margin">
 			<% String lab = request.getParameter("lab_name");
 			   String idLab = request.getParameter("lab_selected");
 				if(lab == null || lab.equals("") || idLab == null || idLab.equals("")){
 					//vai alla pagina di errore
 				}
 			%>
-			<span id="idLab" class="hidden_item"><%=idLab %></span>
-			<h1 class="title_page"><%=lab %></h1>
-			<div class="text_content">
-				<p class="info_update_txt">
-					Situazione posti disponibili aggiornata alle <span><%=LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) %>
-					</span> del <span><%= LocalDate.now().toString() %></span>
-				</p>
-				<p class="text_suggest"> 
-					Scegli la postazione che si desidera prenotare, imposta la fascia oraria e premi su "Prenota" per continuare.
-				</p>
-			</div>
-			<div id="div_tb_prenota_content">
-				<div class="table_scroll">
-					<table id="tb_prenota" class="table_data">
-						<thead>
-							<tr>
-								<th> Postazione </th>
-								<th> Fascia oraria </th>
-								<th>  </th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
+				<span id="idLab" class="hidden_item"><%=idLab %></span>
+				<h1 class="title_page"><%=lab %></h1>
+				<div class="text_content">
+					<p class="info_update_txt">
+						Situazione posti disponibili aggiornata alle <span><%=LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) %>
+						</span> del <span><%= LocalDate.now().toString() %></span>
+					</p>
+					<p class="text_suggest"> 
+						Scegli la postazione che si desidera prenotare, imposta la fascia oraria e premi su "Prenota" per continuare.
+					</p>
+				</div>
+				<div id="div_tb_prenota_content">
+					<div class="table_scroll">
+						<table id="tb_prenota" class="table_data">
+							<thead>
+								<tr>
+									<th> Postazione </th>
+									<th> Fascia oraria </th>
+									<th>  </th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</section>

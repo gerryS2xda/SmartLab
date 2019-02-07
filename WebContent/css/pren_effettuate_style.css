@@ -12,3 +12,11 @@ body{
 	display: none;
 }
 
+.table_scroll_eff{
+	min-height: 100px;
+	overflow-y: auto;
+	overflow-x: auto;
+	margin-right: 15%;
+	margin-top: 48px;
+	margin-bottom: 48px;
+}
