@@ -49,7 +49,7 @@ public class ServletAvviso extends HttpServlet {
 				String messaggio = request.getParameter("descrizione");
 				java.util.Date d = new java.util.Date();
 				Date data = new Date(d.getTime());
-				String addetto = "test";//ad.getEmail();
+				String addetto = ad.getEmail();
 				Avviso a = new Avviso(id, titolo, messaggio, data, addetto);
 				response.setContentType("application/json");
 				if(cm.addAvviso(a))

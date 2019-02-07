@@ -37,6 +37,7 @@ public class CommunicationManagerTest2 {
 
 	@Test
 	public void testAddSegnalazione() {
+		System.out.println("Aggiunta segnalazione null");
 		cm.addSegnalazione(orcl);
 		Segnalazione res = sr.findItemByQuery(new SegnalazioneSql(0));
 		assertEquals(res.getId(), null);
@@ -44,6 +45,7 @@ public class CommunicationManagerTest2 {
 
 	@Test
 	public void testDeleteSegnalazione() {
+		System.out.println("Rimozione segnalazione null");
 		Segnalazione res = new Segnalazione();
 		cm.deleteSegnalazione(orcl);
 		res = sr.findItemByQuery(new SegnalazioneSql(res.getId()));
@@ -52,12 +54,14 @@ public class CommunicationManagerTest2 {
 
 	@Test
 	public void testViewSegnalazione() {
+		System.out.println("Lista laboratori con parametro null");
 		List<Segnalazione> res = cm.viewSegnalazione();
 		assertEquals(res, orcl);
 	}
 
 	@Test
 	public void testAddAvviso() {
+		System.out.println("Aggiunta avviso con parametro null");
 		cm.addAvviso(oracle);
 		Avviso av = ar.findItemByQuery(new AvvisoSql(0));
 		assertEquals(av, null);
@@ -65,6 +69,7 @@ public class CommunicationManagerTest2 {
 
 	@Test
 	public void testDeleteAvviso() {
+		System.out.println("Rimozione avviso con parametro null");
 		Avviso av = new Avviso();
 		cm.deleteAvviso(oracle);
 		av = ar.findItemByQuery(new AvvisoSql(av.getId()));
@@ -73,6 +78,7 @@ public class CommunicationManagerTest2 {
 
 	@Test
 	public void testViewAvviso() {
+		System.out.println("Lista avvisi con parametro null");
 		List<Avviso> lista = cm.viewAvviso();
 		assertEquals(lista, oracle);
 	}
