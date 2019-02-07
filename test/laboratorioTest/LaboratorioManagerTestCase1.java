@@ -10,7 +10,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import businessLogic.Postazione.ListaPos;
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.laboratorio.IdLab;
 import businessLogic.laboratorio.LaboratorioManager;

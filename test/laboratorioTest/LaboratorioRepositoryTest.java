@@ -64,6 +64,7 @@ public class LaboratorioRepositoryTest {
 		
 		Laboratorio result=repository.findItemByQuery(new IdLab(oracle.getNome()));
 		//l'oracolo deve essere null 
+		System.out.println(result);
 		assertEquals("",result.getIDlaboratorio());
 	}
 	
