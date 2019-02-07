@@ -73,7 +73,7 @@ public class LaboratorioManagerTestCase1 {
 		//l'oracolo viene inserito con setUp()
 		Laboratorio result=repository.findItemByQuery(new IdLab(oracle.getNome()));
 		//postazioni generate dalla creazione del laboratorio
-		List<Postazione> postazioni=repositoryp.query(new ListaPos(oracle.getIDlaboratorio()));
+		//List<Postazione> postazioni=repositoryp.query(new ListaPos(oracle.getIDlaboratorio()));
 		
 		assertEquals(result,oracle);
 	}

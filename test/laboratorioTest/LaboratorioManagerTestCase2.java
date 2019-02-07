@@ -3,7 +3,6 @@ package laboratorioTest;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
-import java.time.LocalTime;
 import java.util.List;
 
 import org.junit.After;
