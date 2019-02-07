@@ -32,7 +32,7 @@ public class PostazioneManager {
     public PostazioneManager(){
     	
     }
-    
+     
 /**
  * Crea una postazione con i vari parametri prescelti
  * @param "laboratorio" indica il laboratorio in cui verrà inserita la postazione, "numero" indica il numero di    
