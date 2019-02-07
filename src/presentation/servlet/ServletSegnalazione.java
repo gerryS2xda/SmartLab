@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +23,7 @@ public class ServletSegnalazione extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		HttpSession session = request.getSession();
 		Gson json = new Gson();
 		String segnalazione = request.getParameter("action");
@@ -42,7 +44,7 @@ public class ServletSegnalazione extends HttpServlet {
 			String descrizione = request.getParameter("descrizione");
 			String lab = request.getParameter("laboratorio");
 			int pos = Integer.parseInt(request.getParameter("postazione"));
-			String studente = "test";//st.getEmail();
+			String studente = st.getEmail();
 			java.util.Date d = new java.util.Date();
 			Date data = new Date(d.getTime());
 			Segnalazione s = new Segnalazione(id, oggetto, descrizione, data, studente, lab, pos);
@@ -102,11 +104,13 @@ public class ServletSegnalazione extends HttpServlet {
 				else
 					i++;
 			}
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/studentInterface/segnalazione.jsp");
 			response.getWriter().write(json.toJson("{\"id\": \"" + lista.get(i).getId() + "\", \"oggetto\": \"" + lista.get(i).getOggetto()) + "\", \"descrizione\": \"" + lista.get(i).getDescrizione() + "\", \"data\": \"" + lista.get(i).getData() + "\", \"laboratorio\": " + lista.get(i).getLaboratorio() + "\", \"postazione\": " + lista.get(i).getPostazione() + "\", \"studente\": " + lista.get(i).getStudente() + "\"}");
+			dispatcher.forward(request, response);
 		}
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		doGet(request, response);
 	}
 }

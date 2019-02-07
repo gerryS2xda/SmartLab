@@ -48,7 +48,7 @@ public class SospensioneRepositoryTest {
 	public void testAdd() throws SQLException {
 		System.out.println("add");
 		
-		Studente result=repository.findItemByQuery(new SospensioneSQL(oracle.getID()));
+		Sospensione result=repository.findItemByQuery(new SospensioneSQL(oracle.getID()));
 
 		assertEquals(oracle,result);
 	}
@@ -84,7 +84,7 @@ public class SospensioneRepositoryTest {
 	public void testFindItemByQuery() throws SQLException{
 		System.out.println("findItemByQuery");
 		
-		Studente result=repository.findItemByQuery(new SospensioneSQL(oracle.getID()));
+		Sospensione result=repository.findItemByQuery(new SospensioneSQL(oracle.getID()));
 		
 		assertEquals(oracle,result);
 	}

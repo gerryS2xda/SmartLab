@@ -23,7 +23,7 @@ public class UtenteManagerTestCase1 {
 
 	@Before
 	public void setUp() throws Exception {
-		manager=UtenteManager.getInstance();
+		manager=UtenteManager.getInstace();
 		repository=StudenteRepository.getInstance();
 		
 		oracle=new Studente();
@@ -101,11 +101,11 @@ public class UtenteManagerTestCase1 {
 	}
 	
 	@Test
-	public void testEditPassword(){
+	public void testEditPassword()throws SQLException{
 		System.out.println("getLaboratoryListForResp");
 		
 		manager.editPassword(oracle.getEmail(), "nuovaPassword");
-		Studente result = repository.findItemByQuery(new StudenteLoginSQL(oracle.getEmail()));
+		Studente result = repository.findItemByQuery(new StudenteSQL(oracle.getEmail())); 
 		
 		assertEquals(oracle.getPassword(), result.getPassword());
 	}

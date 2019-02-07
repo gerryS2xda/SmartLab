@@ -9,7 +9,7 @@ import org.junit.Test;
 import dataAccess.storage.SqlSpecification;
 import businessLogic.addetto.*;
 
-public class AddettoLoginSQLTest implements SqlSpecification {
+public class AddettoLoginSQLTest {
 	
 	@Before
 	public void setUp() throws Exception{
@@ -27,7 +27,7 @@ public class AddettoLoginSQLTest implements SqlSpecification {
 		
 		String oracle = "SELECT U.nome, U.cognome, A.*, U.password FROM utente U JOIN addetto A ON U.email = A.email WHERE U.email='esempio1@unisa.it' AND U.password='pass';";
 		
-		StudentList query = new AddettoLoginSQL();
+		AddettoLoginSQL query = new AddettoLoginSQL("esempio1@unisa.it", "pass");
 		String actualObj = query.toSqlQuery();
 		
 		assertEquals("Le query sono diverse", oracle, actualObj);

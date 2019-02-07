@@ -46,7 +46,7 @@ h1{
 
 #logout{
 	position: relative;
-	left: 72%;
+	left: 73%;
 	top: 5px;
 	color: white;
 	text-decoration: none;
@@ -91,10 +91,17 @@ h1{
 /* Contenuto principale */
 #main_content{
 	background: none repeat scroll 0 0 #eeeeee;
-	margin-top: 60px;
+	padding-top: 60px;
+	padding-bottom: 15%;
 	margin-left: 20%;
+	margin-right: 4%;
 	position: relative;
 	width: auto;
+}
+
+.main_content_margin{
+	margin-top: 20px;
+	margin-left: 6%;
 }
 
 .title_page{
@@ -416,7 +423,7 @@ h1{
 	}
 
 	#logout{
-		left: 40%;
+		left: 38%;
 	}
 
 	#txt_logo{
@@ -440,7 +447,7 @@ h1{
 	}
 
 	#logout{
-		left: 50%;
+		left: 45%;
 	}
 }
 
@@ -450,13 +457,25 @@ h1{
 	}
 
 	#logout{
+		left: 55%;
+	}
+}
+
+@media screen and (min-width: 901px) and (max-width: 1000px){
+	#logout{
 		left: 60%;
 	}
 }
 
-@media screen and (min-width: 901px) and (max-width: 1200px){
+@media screen and (min-width: 1001px) and (max-width: 1100px){
 	#logout{
-		left: 66%;
+		left: 64%;
+	}
+}
+
+@media screen and (min-width: 1101px) and (max-width: 1200px){
+	#logout{
+		left: 68%;
 	}
 }
 
@@ -477,3 +496,4 @@ h1{
 		width: 100%;
 	}
 }
+

@@ -50,7 +50,8 @@ function deletePostazioniOccupateFromSelect(){
 				for(z = 0; z < tr.length; z++){
 					var tds = tr.eq(z).find("td");
 					var numPost = tds.eq(0).text();
-					if(numPost == k.postazione){
+					var nomeLab = $(".title_page").text();
+					if(numPost == k.postazione && nomeLab == k.laboratorio){
 						console.log("NumPost: " + numPost + "  PostPren: " + k.postazione);
 						var selects = tr.eq(z).find("select");	//prendi la select
 						var options = selects.find("option");	//prendi le option della select

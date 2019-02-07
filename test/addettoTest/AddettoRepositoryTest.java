@@ -11,13 +11,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import businessLogic.addetto.*;
+import businessLogic.utente.StudenteRepository;
 import dataAccess.storage.bean.Addetto;
+import dataAccess.storage.bean.Studente;
 import dataAccess.storage.bean.Utente;
 
 public class AddettoRepositoryTest {
 	
-	private StudenteRepository repository;
-	private Studente oracle;
+	private AddettoRepository repository;
+	private Addetto oracle;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -49,7 +51,7 @@ public class AddettoRepositoryTest {
 	public void testAdd() throws SQLException {
 		System.out.println("add");
 		
-		Studente result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
+		Addetto result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 
 		assertEquals(oracle,result);
 	}
@@ -60,7 +62,7 @@ public class AddettoRepositoryTest {
 		
 		repository.delete(oracle);
 		
-		Studente result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
+		Addetto result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 
 		assertEquals("",result.getEmail());
 	}
@@ -68,7 +70,7 @@ public class AddettoRepositoryTest {
 	@Test
 	public void testUpdate() throws SQLException{
 		
-		Studente result=oracle;
+		Addetto result=oracle;
 		
 		assertSame(result,oracle);
 		
@@ -85,7 +87,7 @@ public class AddettoRepositoryTest {
 	public void testFindItemByQuery() throws SQLException{
 		System.out.println("findItemByQuery");
 		
-		Studente result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
+		Addetto result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 		
 		assertEquals(oracle,result);
 	}

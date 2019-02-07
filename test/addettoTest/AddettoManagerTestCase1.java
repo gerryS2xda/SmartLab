@@ -22,7 +22,7 @@ public class AddettoManagerTestCase1 {
 
 	@Before
 	public void setUp() throws Exception {
-		manager=AddettoManager.getInstance();
+		manager = AddettoManager.getInstace();
 		repository=AddettoRepository.getInstance();
 		
 		oracle=new Addetto();
@@ -44,7 +44,7 @@ public class AddettoManagerTestCase1 {
 	@Test
     public void testGetInstance() {
         System.out.println("getInstance");
-        StudenteRepository result = AddettoRepository.getInstance();
+        AddettoRepository result = AddettoRepository.getInstance();
         assertNotNull(result);
         
 	}
@@ -53,7 +53,7 @@ public class AddettoManagerTestCase1 {
 	public void testAddResp() throws SQLException{
 		System.out.println("addResp");
 		
-		Studente result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
+		Addetto result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 		
 		assertEquals(result,oracle);
 	}
