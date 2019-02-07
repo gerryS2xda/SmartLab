@@ -11,13 +11,14 @@
 		<script src="../bootstrap/js/bootstrap.min.js"></script>-->
 	</head>
 	<% 
-		/*Utente ut = (Utente) session.getAttribute("user");
+		Utente ut = (Utente) session.getAttribute("user");
 		String userType = (String) session.getAttribute("userType");
 		if(ut == null || userType == null) {
 			response.sendRedirect("./error.jsp"); //pagina errore 404
-		}else if(userType.equals("addetto")){*/	
+		}else if(userType.equals("addetto")){
 	%>
 	<body>
+	<%@include file="navbar.jsp" %>
 		<header id="header_part">
 			<!--  add nav bar jsp -->
 			<span id="txt_logo">Admin Area</span>
@@ -50,9 +51,9 @@
 			<!-- add footer jsp -->
 		</footer>
 		<%
-			/*}else{
+			}else{
 				response.sendRedirect("./error.jsp"); //pagina errore 404
-			}*/%>
+			}%>
 		<script type="text/javascript" src="../script/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src="../script/avviso_js.js"></script>
 	</body>
