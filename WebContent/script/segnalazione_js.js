@@ -53,7 +53,7 @@ function loadSegnalazioni(){
 			var str = "";
 			for(var i = 0; i < size; i++){
 				var tmp = segnalazioni["sg" + i];//vengono prese tutte le segnalazioni a ogni iterazione
-				str += "<tr><td class = \"sg\"><a href = \"#\">" + tmp.id + "</a></td><td>"+ tmp.laboratorio + "</td><td>" + tmp.postazione + "</td><td>" + tmp.oggetto + "</td><td>" + tmp.descrizione + "</td><td>" + tmp.data + "</td></tr>";
+				str += "<tr><td class = \"sg\">" + tmp.id + "</td><td>"+ tmp.laboratorio + "</td><td>" + tmp.postazione + "</td><td>" + tmp.oggetto + "</td><td>" + tmp.descrizione + "</td><td>" + tmp.data + "</td></tr>";
 			}
 			$("#tb_segnalazioni tbody").html(str);
 			$("#main_content").show();
