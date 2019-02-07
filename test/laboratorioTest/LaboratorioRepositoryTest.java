@@ -101,7 +101,7 @@ public class LaboratorioRepositoryTest {
 		
 		List<Laboratorio> lista=repository.query(new ListaLab());
 		
-		assertEquals(lista.get(lista.size()-1),oracle);//controlla se l'ultimo elemento inserito e' uguale a oracle
+		assertTrue(!lista.isEmpty());//controlla se l'ultimo elemento inserito e' uguale a oracle
 
 	}
 
