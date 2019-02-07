@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import businessLogic.comunicazione.AvvisoRepository;
+import businessLogic.comunicazione.AvvisoSql;
 import businessLogic.comunicazione.CommunicationManager;
 import businessLogic.comunicazione.SegnalazioneRepository;
 import businessLogic.comunicazione.SegnalazioneSql;
@@ -38,14 +39,14 @@ public class CommunicationManagerTest2 {
 	}
 
 	@Test
-	public void testAddSegnalazione() {
+	public void testAddSegnalazione()throws Exception {
 		cm.addSegnalazione(orcl);
 		Segnalazione res = sr.findItemByQuery(new SegnalazioneSql(0));
 		assertEquals(res.getId(), null);
 	}
 
 	@Test
-	public void testDeleteSegnalazione() {
+	public void testDeleteSegnalazione()throws Exception {
 		Segnalazione res = new Segnalazione();
 		cm.deleteSegnalazione(orcl);
 		res = sr.findItemByQuery(new SegnalazioneSql(res.getId()));
@@ -53,20 +54,20 @@ public class CommunicationManagerTest2 {
 	}
 
 	@Test
-	public void testViewSegnalazione() {
+	public void testViewSegnalazione()throws Exception {
 		List<Segnalazione> res = cm.viewSegnalazione();
 		assertEquals(res, orcl);
 	}
 
 	@Test
-	public void testAddAvviso() {
+	public void testAddAvviso()throws Exception {
 		cm.addAvviso(oracle);
 		Avviso av = ar.findItemByQuery(new AvvisoSql(0));
 		assertEquals(av, null);
 	}
 
 	@Test
-	public void testDeleteAvviso() {
+	public void testDeleteAvviso()throws Exception {
 		Avviso av = new Avviso();
 		cm.deleteAvviso(oracle);
 		av = ar.findItemByQuery(new AvvisoSql(av.getId()));
@@ -74,7 +75,7 @@ public class CommunicationManagerTest2 {
 	}
 
 	@Test
-	public void testViewAvviso() {
+	public void testViewAvviso()throws Exception {
 		List<Avviso> lista = cm.viewAvviso();
 		assertEquals(lista, oracle);
 	}

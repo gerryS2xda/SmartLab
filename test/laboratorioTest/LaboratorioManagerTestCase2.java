@@ -1,6 +1,7 @@
 package laboratorioTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import java.sql.SQLException;
 import java.util.List;
 import org.junit.After;
