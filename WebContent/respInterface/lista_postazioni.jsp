@@ -12,6 +12,8 @@
 
 </head>
 <body>
+<!-- navbar -->
+<%@include file="navbarWebContent.jsp" %>
     <h1 style="text-align: center"> LABORATORIO  </h1>
     <div>
     	<% Collection<?> postazioni = (Collection<?>) request.getAttribute("lista");
@@ -38,7 +40,7 @@
                     </div>
                     </div>
                 </div>
-                <!-- modulo della conferma "cambio stato postazione" -->
+                <!-- modulo della conferma "cambio stato postazione" disattiva-->
                 <div class="modal fade" id="exampleModaldisattiva" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog" role="document">
 				    <div class="modal-content">
@@ -66,7 +68,7 @@
 
 <!-- Button trigger modal -->
 
-<!-- Modal -->
+<!-- Modal attiva-->
 <div class="modal fade" id="exampleModalattiva" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -80,7 +82,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-        <button type="button" class="btn btn-primary" id="confermaatt">Conferma</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="confermaatt">Conferma</button>
       </div>
     </div>
   </div>
@@ -93,15 +95,25 @@
     <script>
     $(document).ready(function()
 	{
-    	var button=$(this);
-		var div=$(this).parent();
-		var id=div.find("input#id").val();
-		var idlab=div.find("input#idlab").val();
-    	$("button#confermaatt").click(function(){
-    		console.log("asd");
+    	var numero;
+    	var idlab;
+    	var div;
+    	var button;
+    	
+    	//prende i dati per l'attivazione
+    	$("button#attiva").on("click",function(){
+    		button=$(this);
+    		div=$(this).parent();
+    		numero=div.find("input#id").val();
+    		idlab=div.find("input#idlab").val();
+    		console.log(numero);
+    		console.log(idlab);
+    	});
+    	//conferma l'attivazione manda i dati alla servlet
+    	$("button#confermaatt").on("click",function(){
     		$.getJSON("postazioni", { 
     			action: "attiva_pos",
-    			id: id,
+    			id: numero,
     			idlab: idlab
     			},function(data,status){
     				if(data.esito="stato modificato"){
@@ -110,9 +122,38 @@
     				}
     	    		console.log(data.esito);
     			});
-    		
-    		
+    	});
+    	
+    	//prende i dati per la disattivazione
+    	$("button#disattiva").on("click",function(){
+    		button=$(this);
+    		div=$(this).parent();
+    		numero=div.find("input#id").val();
+    		idlab=div.find("input#idlab").val();
+    		console.log(numero);
+    		console.log(idlab);
+    	});
+    	
+    	//conferma la disattivazione, manda i dati alla servlet
+    	$("button#confermadisattiva").on("click",function(){
+    		var modal=$(this).parent().parent();
+    		var mex=modal.find("#message-text").val();
+    		console.log(mex);
+    		//invio dei dati
+    		$.post("postazioni", { 
+    			action: "disattiva_pos",
+    			id: numero,
+    			idlab: idlab,
+    			msg: mex
+    		},function(data,status){
+    			if(data.esito="stato modificato"){
+    				button.css("display","none");
+            		div.find("button#attiva").css("display","block");
+    			}
+        		console.log(data.esito);
     		});
+    	});
+    	/*
     		$("button#confermadisattiva").click(function(){
     			
     			console.log("asd");
@@ -131,7 +172,7 @@
             		console.log(data.esito);
         		});
         		
-    		});
+    		});*/
     	});
     
     </script>

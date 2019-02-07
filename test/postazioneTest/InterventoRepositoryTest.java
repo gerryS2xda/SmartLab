@@ -2,15 +2,13 @@ package postazioneTest;
 
 import static org.junit.Assert.*;
 
-import org.junit.AfterClass;
+import java.sql.SQLException;
+
 import org.junit.Test;
 
 import businessLogic.Postazione.InterventoRepository;
-import businessLogic.Postazione.PostazioneManager;
-import businessLogic.Postazione.PostazioneRepository;
-import businessLogic.Postazione.PostazioneSql;
+import businessLogic.Postazione.InterventoSql;
 import dataAccess.storage.bean.Intervento;
-import dataAccess.storage.bean.Postazione;
 
 public class InterventoRepositoryTest {
 
@@ -24,7 +22,7 @@ public class InterventoRepositoryTest {
 	}
 
 	@Test
-	public void testAdd() {
+	public void testAdd() throws SQLException {
 		
 		System.out.println("testing: add");
 		Intervento inter= new Intervento();
@@ -34,7 +32,7 @@ public class InterventoRepositoryTest {
 		inter.setPostazione(1);
 		inter.setLaboratorio("lab1");
 		//-----------------
-		interventoRepository instance= .getInstance();
+		InterventoRepository instance= InterventoRepository.getInstance();
 		instance.add(inter);
 		InterventoSql sql=new InterventoSql(inter.getIdIntervento());
 		Intervento result=instance.findItemByQuery(sql);
@@ -42,7 +40,7 @@ public class InterventoRepositoryTest {
 	}
 
 	@Test
-	public void testDelete() 
+	public void testDelete() throws SQLException 
 	{
 		Intervento inter=new Intervento();
 		inter.setIdIntervento(1);

@@ -1,13 +1,8 @@
 package dataAccess.storage.bean;
 
-import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Laboratorio implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+public class Laboratorio{
 	
 	private String IDlaboratorio;
 	private String nome;
@@ -15,7 +10,6 @@ public class Laboratorio implements Serializable {
 	private boolean stato;
 	private LocalTime apertura;
 	private LocalTime chiusura;
-	private List<Addetto> responsabili;
 	
 	public Laboratorio(){
 		super();
@@ -25,10 +19,9 @@ public class Laboratorio implements Serializable {
 		this.stato = false;
 		this.apertura = null;
 		this.chiusura = null;
-		responsabili=new ArrayList<Addetto>();
 	}
 	
-	public Laboratorio(String iDlaboratorio, String nome, int posti, boolean stato, LocalTime apertura, LocalTime chiusura, List<Addetto> responsabili) {
+	public Laboratorio(String iDlaboratorio, String nome, int posti, boolean stato, LocalTime apertura, LocalTime chiusura) {
 		super();
 		IDlaboratorio = iDlaboratorio;
 		this.nome = nome;
@@ -36,7 +29,6 @@ public class Laboratorio implements Serializable {
 		this.stato = stato;
 		this.apertura = apertura;
 		this.chiusura = chiusura;
-		this.responsabili=responsabili;
 	}
 
 	public String getIDlaboratorio() {
@@ -86,22 +78,12 @@ public class Laboratorio implements Serializable {
 	public void setChiusura(LocalTime chiusura) {
 		this.chiusura = chiusura;
 	}
-	
-	public void add(Addetto responsabile){//l'oggetto addetto deve essere un responsabile
-		if(!this.responsabili.contains(responsabile)){
-			this.responsabili.add(responsabile);
-			//responsabile.add(this);
-		}
-	}
-	
-	public void remuve(Addetto responsabile){
-		this.responsabili.remove(responsabile);
-	}
+		
 
 	@Override
 	public String toString() {
 		return "Laboratorio [IDlaboratorio=" + IDlaboratorio + ", nome=" + nome + ", posti=" + posti + ", stato="
-				+ stato + ", apertura=" + apertura + ", chiusura=" + chiusura + ", responsabili=" + responsabili + "]";
+				+ stato + ", apertura=" + apertura + ", chiusura=" + chiusura + "]";
 	}
 	
 	public boolean equals(Object otherObject){

@@ -30,7 +30,7 @@ public class ServletSegnalazione extends HttpServlet {
 		CommunicationManager cm = new CommunicationManager();
 		if(segnalazione == null){
 			response.setStatus(404);
-			response.sendRedirect("./Errore.jsp");
+			response.sendRedirect("./error.jsp");
 		}else if(segnalazione.equals("newSegnalazione")){
 			List<Segnalazione> lista = cm.viewSegnalazione();
 			int count = 0, id = -1;

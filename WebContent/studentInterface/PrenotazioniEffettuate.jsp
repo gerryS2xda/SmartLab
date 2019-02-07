@@ -33,30 +33,32 @@
 			</div>
 		</section>
 		<section id="main_content">
-			<h1 class="title_page">Mie prenotazioni</h1>
-			<div class="text_content">
-				<p class="text_suggest"> 
-					Ecco le tue prenotazioni che sono state effettuate. Per annullare una prenotazione, 
-					mettere la spunta sulla checkbox. Se una prenotazione è attiva, viene richiesto di confermare l'annullamento
-				</p>
-			</div>
-			<div id="div_tb_effettuate_content">
-				<div class="table_scroll">
-					<table id="tb_pren_effettuate" class="table_data">
-						<thead>
-							<tr>
-								<th> N.ro prenotazione </th>
-								<th> Data </th>
-								<th> Laboratorio </th>
-								<th> Postazione </th>
-								<th> Fascia oraria </th>
-								<th> </th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
+			<div class="main_content_margin">
+				<h1 class="title_page">Mie prenotazioni</h1>
+				<div class="text_content">
+					<p class="text_suggest"> 
+						Ecco le tue prenotazioni che sono state effettuate. Per annullare una prenotazione, 
+						mettere la spunta sulla checkbox. Se una prenotazione è attiva, viene richiesto di confermare l'annullamento
+					</p>
 				</div>
-			</div>
+				<div id="div_tb_effettuate_content">
+					<div class="table_scroll_eff">
+						<table id="tb_pren_effettuate" class="table_data">
+							<thead>
+								<tr>
+									<th> N.ro prenotazione </th>
+									<th> Data </th>
+									<th> Laboratorio </th>
+									<th> Postazione </th>
+									<th> Fascia oraria </th>
+									<th> </th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>	
 		</section>
 		<section id="right_sidebar"></section>
 		<footer>

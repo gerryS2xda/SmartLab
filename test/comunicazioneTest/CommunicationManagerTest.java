@@ -1,15 +1,21 @@
 package comunicazioneTest;
 
 import businessLogic.comunicazione.AvvisoRepository;
+import businessLogic.comunicazione.AvvisoSql;
 import businessLogic.comunicazione.CommunicationManager;
 import businessLogic.comunicazione.SegnalazioneRepository;
+import businessLogic.comunicazione.SegnalazioneSql;
 import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Segnalazione;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.sql.Date;
-import java.util.List;
 
 public class CommunicationManagerTest {
 	
@@ -24,7 +30,7 @@ public class CommunicationManagerTest {
 		java.util.Date d = new java.util.Date();
 		Date data = new Date(d.getTime());
 		cm = new CommunicationManager();
-		ar = new AvvisoReposistory();
+		ar = new AvvisoRepository();
 		sr = new SegnalazioneRepository();
 		oracle = new Avviso();
 		orcl = new Segnalazione();
@@ -51,40 +57,40 @@ public class CommunicationManagerTest {
 	}
 	
 	@Test
-	public void testaddSegnalazione(){
+	public void testaddSegnalazione()throws SQLException{
 		Segnalazione res = sr.findItemByQuery(new SegnalazioneSql(orcl.getId()));
 		assertEquals(res, orcl);
 	}
 	
 	@Test
-	public void testDeleteSegnalazione(){
+	public void testDeleteSegnalazione()throws SQLException{
 		cm.deleteSegnalazione(orcl);
 		Segnalazione res = sr.findItemByQuery(new SegnalazioneSql(orcl.getId()));
-		assertequals(res, null);
+		assertEquals(res, null);
 	}
 	
 	@Test
-	public void testViewSegnalazione(){
+	public void testViewSegnalazione()throws SQLException{
 		List<Segnalazione> lista = new ArrayList<Segnalazione>();
 		lista = cm.viewSegnalazione();
 		assertEquals(lista.get(lista.size() - 1), orcl);
 	}
 	
 	@Test
-	public void testAddAvviso(){
+	public void testAddAvviso()throws SQLException{
 		Avviso rs = ar.findItemByQuery(new AvvisoSql(oracle.getId()));
 		assertEquals(rs, oracle);
 	}
 	
 	@Test
-	public void testDeleteAvviso(){
+	public void testDeleteAvviso()throws SQLException{
 		cm.deleteAvviso(oracle);
 		Avviso rs = ar.findItemByQuery(new AvvisoSql(oracle.getId()));
 		assertEquals(rs, null);
 	}
 	
 	@Test
-	public void testViewAvviso(){
+	public void testViewAvviso()throws SQLException{
 		List<Avviso> lista = new ArrayList<Avviso>();
 		lista = cm.viewAvviso();
 		assertEquals(lista.get(lista.size() - 1), oracle);

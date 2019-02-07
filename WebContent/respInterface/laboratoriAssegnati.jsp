@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="dataAccess.storage.bean.Laboratorio, java.util.Collection, java.util.Iterator"%>
+    pageEncoding="ISO-8859-1" import="dataAccess.storage.bean.Laboratorio, java.util.Collection, java.util.Iterator, dataAccess.storage.bean.Utente"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,9 +9,16 @@
 <script src="script/jquery-3.3.1.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 </head>
+<% 
+		Utente ut = (Utente) session.getAttribute("user");
+		String userType = (String) session.getAttribute("userType");
+		if(ut == null || userType == null) {
+			response.sendRedirect("./error.jsp"); //pagina errore 404
+		}else if(userType.equals("responsabile")){	
+	%>
 <body>
 <!-- navbar -->
-<%@include file="navbar.jsp" %>
+<%@include file="navbarWebContent.jsp" %>
 
 <div class="container"> 
 	<h5 class="text-center">Laboratori</h5>
@@ -47,4 +54,7 @@
 	<%} %>
 </div>
 </body>
+<%}else{
+	response.sendRedirect("./error.jsp"); //pagina errore 404
+} %>
 </html>

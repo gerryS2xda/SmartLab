@@ -5,8 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ AllTestsPrenotazioneQuerySQL.class, PrenotazioneRepositoryTest.class, PostazioneRepositoryTest.class, 
-	StudenteRepositoryTest.class, LaboratorioRepositoryTest.class, AllTestsPrenotazioneManager.class })
+@SuiteClasses({ AllTestsPrenotazioneQuerySQL.class, StudenteRepositoryTest.class, PostazioneRepositoryTest.class, 
+	LaboratorioRepositoryTest.class, PrenotazioneRepositoryTest.class, AllTestsPrenotazioneManager.class })
 public class TestPrenotazioneComponent {
 
 }

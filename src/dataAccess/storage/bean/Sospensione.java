@@ -5,6 +5,10 @@ public class Sospensione {
 	private String studente;
 	private int id;
 	
+	public Sospensione(int id, String motivazione, String studente) {
+		
+	}
+	
 	public Sospensione (){
 		motivazione = "";
 		studente = "";

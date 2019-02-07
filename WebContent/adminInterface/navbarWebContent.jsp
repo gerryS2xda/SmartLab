@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="laboratorio?action=lista_lab"><img src="images/smartlab_ico.png"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -18,15 +18,15 @@
         <a class="nav-link" href="#">Crea avviso</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#">Aggiungi responsabile</a>
+        <a class="nav-link" href="addetto?action=getListResp">Elimina responsabile</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link disabled" href="#">Disabled</a>
+        <a class="nav-link" href="adminInterface/AddResp.jsp">Aggiungi responsabile</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <button class="btn btn-secondary my-2 my-sm-0" type="button" id="logout"><img src="images/icon-logout.png"> Logout</button>
     </form>
   </div>
 </nav>
+<script type="text/javascript" src="script/logoutWebContent.js"></script>

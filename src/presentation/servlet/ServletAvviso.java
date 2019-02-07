@@ -29,7 +29,7 @@ public class ServletAvviso extends HttpServlet {
 		CommunicationManager cm = new CommunicationManager();
 		if(avviso == null){
 			response.setStatus(404);
-			response.sendRedirect("./Errore.jsp");
+			response.sendRedirect("./error.jsp");
 		}else if(avviso.equals("newAvviso")){
 			Studente st = (Studente) session.getAttribute("user");
 			if(st instanceof Studente){

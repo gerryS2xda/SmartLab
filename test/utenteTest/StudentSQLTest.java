@@ -1,6 +1,6 @@
-package accountTest;
+package utenteTest;
 
-import businessLogic.utente.StudentSQL;
+import businessLogic.utente.StudenteSQL;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +24,7 @@ public class StudentSQLTest{
 		
 		String oracle = "SELECT U.nome, U.cognome, S.*, U.password FROM utente U JOIN studente S ON U.email = S.email WHERE U.email='teststud@studenti.unisa.it'";
 		
-		StudentList query = new StudentSQL();
+		StudenteSQL query = new StudenteSQL("teststud@studenti.unisa.it");
 		String actualObj = query.toSqlQuery();
 		
 		assertEquals("Le query sono diverse", oracle, actualObj);

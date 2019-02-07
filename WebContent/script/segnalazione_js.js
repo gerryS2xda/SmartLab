@@ -39,7 +39,7 @@ $("#button").click(function inviaSegnalazione(){
 				else
 					alert("Segnalazione non inviata");
 			}else
-				window.location.href("./index.jsp");
+				window.location.href("./error.jsp");
 		});
 	}
 });
@@ -57,7 +57,7 @@ function loadSegnalazioni(){
 			}
 			$("#tb_segnalazioni tbody").html(str);
 		}else
-			window.location.href("./index.jsp");
+			window.location.href("./error.jsp");
 	});
 }
 
@@ -83,7 +83,7 @@ function selectSegnalazione(id){
 			$("lab").html(segnalazione.laboratorio);
 			$("pos").html(segnalazione.postazione);
 		}else
-			window.location.href("./index.jsp");
+			window.location.href("./error.jsp");
 	});
 }
 
@@ -102,7 +102,7 @@ $("delSegnalazione").click(function deleteSegnalazione(){
 			else
 				alert("Segnalazione non eliminata");
 		}else
-			window.location.href("./index.jsp");
+			window.location.href("./error.jsp");
 	});
 });
 

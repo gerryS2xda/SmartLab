@@ -1,11 +1,17 @@
 package businessLogic.Postazione;
 
 import java.sql.SQLException;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.sql.Date;
+
 import dataAccess.storage.bean.*;
 import java.util.List;
 
-import businessLogic.prenotazione.PrenByStudPost;
+
+
+import businessLogic.prenotazione.PrenotazioneByOra;
 import businessLogic.prenotazione.PrenotazioneRepository;
 
 public class PostazioneManager {
@@ -26,7 +32,7 @@ public class PostazioneManager {
     public PostazioneManager(){
     	
     }
-    
+     
 /**
  * Crea una postazione con i vari parametri prescelti
  * @param "laboratorio" indica il laboratorio in cui verrà inserita la postazione, "numero" indica il numero di    
@@ -81,21 +87,34 @@ public class PostazioneManager {
  * Disattiva e rende quindi non prenotabile una postazione precedentemente disattivata
  * @param p indica quale postazione va disattivata
  * @param idlab serve per modificare la postazione dato che ha una chiave composta
+ * @param inter è l'intervento che viene salvato nel DB per tenere traccia del motivo della disattivazione
  * @pre deve esistere quella postazione che si vuole disattivare
  */
-	public boolean disattivaPostazione(String id, String idlab) 
+	public boolean disattivaPostazione(String id, String idlab,Intervento inter) 
 	{
 		boolean flag=true;
 		int id1=Integer.parseInt(id); //converto la stringa in intero 
 		Postazione pos=new Postazione(); 
+		InterventoRepository intRe=new InterventoRepository();
 		
-		System.out.println(id1);
-		System.out.println(idlab);
 		
+		
+		//mi ricavo la data di oggi
+		//Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"),Locale.ITALY);
+		 Date data = new Date(Calendar.getInstance().getTime().getTime());
+		 //SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
+		 //String oggi=sdf.format(data);
+
+		inter.setData(data.toLocalDate());			//setto la data di oggi da mettere nella tabella intervento
+		
+		
+		//setto l'oggetto pos per aggiornarlo
 		pos.setNumero(id1);
 		pos.setLaboratorio(idlab);
 		pos.setStato(false);
+		//aggiungo entrambi al DB
 		try {
+			intRe.add(inter);
 			posr.update(pos);
 		} catch (SQLException e) {
 			flag=false;
@@ -197,7 +216,7 @@ public class PostazioneManager {
 		//List <Prenotazione> pos= new ArrayList<>();
 			
 			PrenotazioneRepository preR=new PrenotazioneRepository();
-			PrenByStudPost presql=new PrenByStudPost(orainizio, idlab, orafine);
+			PrenotazioneByOra presql=new PrenotazioneByOra(orainizio, orafine, idlab);
 			
 			List<Prenotazione> lista=new ArrayList<Prenotazione>();
 		

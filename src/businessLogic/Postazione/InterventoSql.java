@@ -4,7 +4,7 @@ import dataAccess.storage.SqlSpecification;
 
 public class InterventoSql implements SqlSpecification {
 	
-	private static final String TABLE_NAME ="Intervento";
+	private static final String TABLE_NAME ="intervento";
 	private int idIntervento;
 	private static InterventoSql instance;
 	

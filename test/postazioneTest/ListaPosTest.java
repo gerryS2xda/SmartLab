@@ -1,16 +1,10 @@
 package postazioneTest;
-import static org.junit.Assert.*;
-
-import org.junit.AfterClass;
-import org.junit.Test;
 
 import businessLogic.Postazione.ListaPos;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 public class ListaPosTest {
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
 
 	@Test
     public void testGetInstance() {

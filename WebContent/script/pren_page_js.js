@@ -28,7 +28,7 @@ function loadTableBody(){
 			deletePostazioniOccupateFromSelect();
 			deleteFasceOrarieByOraCorrente();
 		}else{
-			window.location.href = "./index.jsp"; //pagina errore 404
+			window.location.href = "./error.jsp"; //pagina errore 404
 		}
 	});
 }
@@ -41,7 +41,7 @@ function deletePostazioniOccupateFromSelect(){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp); //conversione in oggetto JS da strina JSON ricevuta da servlet
 			if(o.pren0 == "failure"){
-				window.location.href = "./index.jsp"; //pagina errore 404}
+				window.location.href = "./error.jsp"; //pagina errore 404}
 			}
 			var size = sizeObject(o); //calcolo del numero di proprieta' presenti nell'oggetto
 			var str = ""; //stringa che contiene codice HTML per la costruzione del contenuto
@@ -50,7 +50,8 @@ function deletePostazioniOccupateFromSelect(){
 				for(z = 0; z < tr.length; z++){
 					var tds = tr.eq(z).find("td");
 					var numPost = tds.eq(0).text();
-					if(numPost == k.postazione){
+					var nomeLab = $(".title_page").text();
+					if(numPost == k.postazione && nomeLab == k.laboratorio){
 						console.log("NumPost: " + numPost + "  PostPren: " + k.postazione);
 						var selects = tr.eq(z).find("select");	//prendi la select
 						var options = selects.find("option");	//prendi le option della select
@@ -73,7 +74,7 @@ function deletePostazioniOccupateFromSelect(){
 				}
 			}
 		}else{
-			window.location.href = "./index.jsp"; //pagina errore 404
+			window.location.href = "./error.jsp"; //pagina errore 404
 		}
 	});
 }
@@ -95,10 +96,10 @@ function effettuaPrenotazione(button){	//pulsante "Prenota"
 				alert("Hai effettuato gia' 2 prenotazioni!! Riprova dopo la chiusura del laboratorio");
 				location.reload(); //refresh della pagina
 			}else if(esito == "failure"){
-				window.location.href = "./index.jsp"; //pagina errore 404
+				window.location.href = "./error.jsp"; //pagina errore 404
 			}
 		}else{
-			window.location.href = "./index.jsp"; //pagina errore 404
+			window.location.href = "./error.jsp"; //pagina errore 404
 		}
 	});
 }
@@ -115,13 +116,13 @@ function verifyPostazioneAvailable(item){
 			var o = JSON.parse(resp);
 			var status = o.status;
 			if(status == "failure"){
-				window.location.href = "./index.jsp"; //pagina errore 404
+				window.location.href = "./error.jsp"; //pagina errore 404
 			}else if(status != "disponibile"){
 				alert("Postazione e' stata gia' occupata! La pagina verra' ricaricata");
 				location.reload(); //refresh della pagina
 			}
 		}else{
-			window.location.href = "./index.jsp"; //pagina errore 404
+			window.location.href = "./error.jsp"; //pagina errore 404
 		}
 	});
 }

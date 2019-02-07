@@ -46,44 +46,46 @@
 			</div>
 		</section>
 		<section id="main_content">
-			<div class="row_block_info">
-					<ul class="list_block"></ul>
-			</div>
-			<table class="row_table_data">
-					<tr>
-						<th> </th>
-						<th> </th>
-					</tr>
-					<tr>
-						<td id="personal_data">
-							<div class="widget-box">
-								<div class="widget-title">
-									<span id="ic1" class="icon"><img class="icon_arrow" src="../images/arrow_btm.png"></span>
-									<span class="category_text">Dati personali</span>
+			<div class="main_content_margin">
+				<div class="row_block_info">
+						<ul class="list_block"></ul>
+				</div>
+				<table class="row_table_data">
+						<tr>
+							<th> </th>
+							<th> </th>
+						</tr>
+						<tr>
+							<td id="personal_data">
+								<div class="widget-box">
+									<div class="widget-title">
+										<span id="ic1" class="icon"><img class="icon_arrow" src="../images/arrow_btm.png"></span>
+										<span class="category_text">Dati personali</span>
+									</div>
+									<div id="content1" class="widget-content" >
+										<span class="text_content_dati_pers">Nome: <span><%= stud.getName() %></span></span><br>
+										<span class="text_content_dati_pers">Cognome: <span><%= stud.getSurname() %></span></span><br>
+										<span class="text_content_dati_pers">Email di ateneo: <span><%= stud.getEmail() %></span></span><br>
+										<span class="text_content_dati_pers">Password: 
+										<input type="text" id="pwd_input" name="pwd" value="<%= stud.getPassword() %>" onblur="validatePassword($(this))"> 
+										<span class="account_text_err"></span> <button type="button" id="edit_pwd">Modifica</button></span><br>
+									</div>
 								</div>
-								<div id="content1" class="widget-content" >
-									<span class="text_content_dati_pers">Nome: <span><%= stud.getName() %></span></span><br>
-									<span class="text_content_dati_pers">Cognome: <span><%= stud.getSurname() %></span></span><br>
-									<span class="text_content_dati_pers">Email di ateneo: <span><%= stud.getEmail() %></span></span><br>
-									<span class="text_content_dati_pers">Password: 
-									<input type="text" id="pwd_input" name="pwd" value="<%= stud.getPassword() %>" onblur="validatePassword($(this))"> 
-									<span class="account_text_err"></span> <button type="button" id="edit_pwd">Modifica</button></span><br>
+							</td>
+							<td id="email_list">
+								<div class="widget-box_email">
+									<div class="widget-title">
+										<span id="ic2" class="icon"><img class="icon_arrow" src="../images/arrow_btm.png"></span>
+										<span class="category_text">Bacheca avvisi</span>
+									</div>
+									<div id="content2" class="widget_content_mail" >
+										<ul class="mail_arrivate"></ul>
+									</div>
 								</div>
-							</div>
-						</td>
-						<td id="email_list">
-							<div class="widget-box_email">
-								<div class="widget-title">
-									<span id="ic2" class="icon"><img class="icon_arrow" src="../images/arrow_btm.png"></span>
-									<span class="category_text">Bacheca avvisi</span>
-								</div>
-								<div id="content2" class="widget_content_mail" >
-									<ul class="mail_arrivate"></ul>
-								</div>
-							</div>
-						</td>
-					</tr>
-				</table>
+							</td>
+						</tr>
+					</table>
+				</div>
 		</section>
 		<section id="right_sidebar"></section>
 		<footer>

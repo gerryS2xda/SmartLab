@@ -1,8 +1,8 @@
 package presentation.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,12 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import businessLogic.Postazione.*;
-import businessLogic.laboratorio.*;
 import dataAccess.storage.bean.Addetto;
 import dataAccess.storage.bean.Intervento;
-import dataAccess.storage.bean.Laboratorio;
 import dataAccess.storage.bean.Postazione;
 import dataAccess.storage.bean.Prenotazione;
+import dataAccess.storage.bean.Utente;
 
 /**
  * Servlet implementation class ServletPostazione
@@ -50,30 +49,32 @@ public class ServletPostazioneManagement extends HttpServlet {
 		//PostazioneSql psql=new PostazioneSql();
 		Prenotazione pre=new Prenotazione();
 		
-		
 		if(action == null)
 		{
 			response.setStatus(404);
-			response.sendRedirect("./Index.jsp");
+			response.sendRedirect("./error.jsp");
 		}
 		else if(action.equals("libera_pos"))   //libera la postazione
 		{ 
-		String s="";
-		List<Prenotazione> lista=new ArrayList<Prenotazione>();
-		lista=pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("lab"));
+			System.out.println("libera pos");
+			String s="";
+			List<Prenotazione> lista=new ArrayList<Prenotazione>();
+			lista=pm.listaPrenotazioni(request.getParameter("inizio") ,request.getParameter("fine") ,request.getParameter("lab"));
 			
-		
-			pm.liberaPostazione(pre);
-		//mandare alla jsp
-			
+			System.out.println(lista);
+			//pm.liberaPostazione(pre);
+			//mandare alla jsp
+			s="{[";
 			for(int i = 0; i < lista.size()-1; i++){
 				Prenotazione p = lista.get(i);
-				s += " { "+ p.toString() + " }";
+				s += " { "+ p.toString() + " },";
 			}
-			
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
-		response.getWriter().write(s);
+			s.substring(0, s.length()-2);
+			s=s+"]}";
+			System.out.println(s);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().write(s);
 		
 		}
 		
@@ -108,9 +109,24 @@ public class ServletPostazioneManagement extends HttpServlet {
 			String s;
 			String idlab=request.getParameter("idlab");
 			String idpos=request.getParameter("id");
+			int idpos1=Integer.parseInt(idpos);
+			String msg=request.getParameter("msg");
+
+			Utente ad=(Utente) request.getSession().getAttribute("user");
+			
+			System.out.println(ad.getEmail());
+			
+			//costruisco l'oggetto intervento
+			Intervento inter=new Intervento();
+			inter.setDescrizione(msg);
+			inter.setAddetto(ad.getEmail());
+			inter.setLaboratorio(idlab);
+			inter.setPostazione(idpos1);
+			
+			
 			
 			//setta lo stato di postazione a false
-			flag=pm.disattivaPostazione(idpos, idlab);
+			flag=pm.disattivaPostazione(idpos, idlab,inter);
 			
 
 //			request.getRequestDispatcher("lista_postazioni.jsp").forward(request,response);

@@ -21,41 +21,33 @@ public class LaboratorioRepositoryTest {
 	private Laboratorio oracle;
 	
 	@Before
-	public void setUp() throws SQLException{
-		repository=new LaboratorioRepository();
+	public void setUp() throws Exception {
+		repository=LaboratorioRepository.getInstance();
 		
-		oracle= new Laboratorio();
-		oracle.setNome("lab4");
-		oracle.setPosti(10);
-		oracle.setStato(true);
-		oracle.setApertura(LocalTime.parse("9:00"));
-		oracle.setChiusura(LocalTime.parse("17:00"));
+		oracle = new Laboratorio("0", "lab0", 10, true, LocalTime.parse("09:00"), LocalTime.parse("17:00"));
 		System.out.println(oracle);
 		repository.add(oracle);
 		
 		//ottengo l'oggetto completo perchè l'id è auto-increment
-		Laboratorio temp=repository.findItemByQuery(new IdLab(oracle.getNome()));
-		System.out.println(temp.getIDlaboratorio());
-		oracle.setIDlaboratorio(temp.getIDlaboratorio());
-		System.out.println(oracle);
-	}
-	
-	@After
-	public void tearDown() throws SQLException{
-		System.out.println("tearDown");
 		oracle=repository.findItemByQuery(new IdLab(oracle.getNome()));
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		System.out.println("tearDown");
 		repository.delete(oracle);
 	}
-	
+
 	@Test
-    public void testGetInstance() {
-        System.out.println("getInstance");
+	public void testGetInstance() {
+		System.out.println("getInstance");
         LaboratorioRepository result = LaboratorioRepository.getInstance();
         assertNotNull(result);
-        
 	}
+
+
 	@Test
-	public void testAdd() throws SQLException{
+	public void testAdd() throws SQLException {
 		System.out.println("add");
 		//l'oracolo viene inserito con setUp()
 		//controllo se è stato inserito
@@ -63,6 +55,7 @@ public class LaboratorioRepositoryTest {
 
 		assertEquals(oracle,result);
 	}
+
 	@Test
 	public void testDelete() throws SQLException{
 		System.out.println("delete");
@@ -71,7 +64,8 @@ public class LaboratorioRepositoryTest {
 		
 		Laboratorio result=repository.findItemByQuery(new IdLab(oracle.getNome()));
 		//l'oracolo deve essere null 
-		assertEquals(null,result);
+		System.out.println(result);
+		assertEquals("",result.getIDlaboratorio());
 	}
 	
 	@Test
@@ -110,5 +104,5 @@ public class LaboratorioRepositoryTest {
 		assertEquals(lista.get(lista.size()-1),oracle);//controlla se l'ultimo elemento inserito è uguale a oracle
 
 	}
-	
+
 }

@@ -33,35 +33,37 @@
 			</div>
 		</section>
 		<section id="main_content">
-			<h1 class="title_page">Laboratori disponibili</h1>
-			<div class="row_block_info">
-					<ul class="list_block"></ul>
-			</div>
-			<div class="text_content">
-				<p class="info_update_txt">
-					Situazione posti disponibili aggiornata alle <span><%=LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) %>
-					</span> del <span><%= LocalDate.now().toString() %></span>
-				</p>
-				<p class="text_suggest"> 
-					Le prenotazioni che si andranno a fare faranno riferimento al giorno <span id="info_data_prenotazione"></span><br>
-					Scegli il laboratorio in cui prenotare una postazione e premi su "Prenota" per continuare.
-				</p>
-			</div>
-			<div id="div_tb_prenota_content">
-				<div class="table_scroll">
-					<table id="tb_prenota" class="table_data">
-						<thead>
-							<tr>
-								<th> Laboratori </th>
-								<th> 09:00-11:00 </th>
-								<th> 11:00-13:00 </th>
-								<th> 13:00-15:00 </th>
-								<th> 15:00-17:00 </th>
-								<th> </th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
+			<div class="main_content_margin">
+				<h1 class="title_page">Laboratori disponibili</h1>
+				<div class="row_block_info">
+						<ul class="list_block"></ul>
+				</div>
+				<div class="text_content">
+					<p class="info_update_txt">
+						Situazione posti disponibili aggiornata alle <span><%=LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) %>
+						</span> del <span><%= LocalDate.now().toString() %></span>
+					</p>
+					<p class="text_suggest"> 
+						Le prenotazioni che si andranno a fare faranno riferimento al giorno <span id="info_data_prenotazione"></span><br>
+						Scegli il laboratorio in cui prenotare una postazione e premi su "Prenota" per continuare.
+					</p>
+				</div>
+				<div id="div_tb_prenota_content">
+					<div class="table_scroll">
+						<table id="tb_prenota" class="table_data">
+							<thead>
+								<tr>
+									<th> Laboratori </th>
+									<th> 09:00-11:00 </th>
+									<th> 11:00-13:00 </th>
+									<th> 13:00-15:00 </th>
+									<th> 15:00-17:00 </th>
+									<th> </th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</section>

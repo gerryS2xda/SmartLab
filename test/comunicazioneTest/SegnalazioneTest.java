@@ -1,64 +1,12 @@
-import static org.junit.Assert.*;
-
-import java.sql.Date;
-<<<<<<< HEAD
-
-import org.junit.Test;
+package comunicazioneTest;
 
 import businessLogic.comunicazione.CommunicationManager;
 import dataAccess.storage.bean.Segnalazione;
-
-public class SegnalazioneTest {
-
-	@Test
-	public void testAddSegnalazione() {
-		Segnalazione s = new Segnalazione();
-		s.setId(23);
-		s.setOggetto("Oggetto");
-		s.setDescrizione("Descrizione");
-		java.util.Date d = new java.util.Date();
-		Date data = new Date(d.getTime());
-		s.setData(data);
-		s.setStudente("test");
-		s.setLaboratorio("SesaLab");
-		s.setPostazione(25);
-		CommunicationManager cm = new CommunicationManager();
-		assertTrue(cm.addSegnalazione(s));
-	}
-
-	/*@Test
-	public void testDeleteSegnalazione() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testViewSegnalazione() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddAvviso() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteAvviso() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testViewAvviso() {
-		fail("Not yet implemented");
-	}*/
-
-=======
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
+import static org.junit.Assert.*;
 import org.junit.Test;
-
-import businessLogic.comunicazione.CommunicationManager;
-import dataAccess.storage.bean.Segnalazione;
 
 public class SegnalazioneTest {
 
@@ -72,7 +20,7 @@ public class SegnalazioneTest {
 		Date data = new Date(d.getTime());
 		s.setData(data);
 		s.setStudente("g.laucella@studenti.unisa.it");
-		s.setLaboratorio(1);
+		s.setLaboratorio("1");
 		s.setPostazione(25);
 		CommunicationManager cm = new CommunicationManager();
 		assertTrue(cm.addSegnalazione(s));
@@ -88,7 +36,7 @@ public class SegnalazioneTest {
 		Date data = new Date(d.getTime());
 		s.setData(data);
 		s.setStudente("g.laucella@studenti.unisa.it");
-		s.setLaboratorio(1);
+		s.setLaboratorio("1");
 		s.setPostazione(25);
 		CommunicationManager cm = new CommunicationManager();
 		assertTrue(cm.deleteSegnalazione(s));
@@ -104,7 +52,7 @@ public class SegnalazioneTest {
 		Date data = new Date(d.getTime());
 		s.setData(data);
 		s.setStudente("g.laucella@studenti.unisa.it");
-		s.setLaboratorio(1);
+		s.setLaboratorio("1");
 		s.setPostazione(25);
 		List<Segnalazione> lista = new ArrayList<Segnalazione>();
 		CommunicationManager cm = new CommunicationManager();
@@ -112,5 +60,4 @@ public class SegnalazioneTest {
 		lista = cm.viewSegnalazione();
 		assertTrue(!lista.isEmpty());
 	}
->>>>>>> branch 'master' of https://github.com/gerryS2xda/SmartLab
 }
