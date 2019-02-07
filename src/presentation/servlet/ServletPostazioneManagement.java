@@ -46,7 +46,6 @@ public class ServletPostazioneManagement extends HttpServlet {
 		PostazioneManager pm = new PostazioneManager();
 		
 		//PostazioneSql psql=new PostazioneSql();
-		Prenotazione pre=new Prenotazione();
 		
 		if(action == null){
 			response.setStatus(404);
@@ -152,7 +151,6 @@ public class ServletPostazioneManagement extends HttpServlet {
 		}else if(action.equals("intervento")){
 			
 			String motivo=request.getParameter("inter");
-			int id=0;
 			String pos=request.getParameter("pos");
 			String lab=request.getParameter("lab");
 			Addetto addetto=(Addetto) request.getSession().getAttribute("user");
