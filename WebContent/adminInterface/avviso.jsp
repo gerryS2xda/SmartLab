@@ -15,6 +15,7 @@
 		}else if(userType.equals("addetto")){	
 	%>
 	<body>
+		<%@include file="navbar.jsp" %>
 		<h1 id = "title"></h1><br>
 		<div id = "message"></div>
 		<span id = "date"></span>

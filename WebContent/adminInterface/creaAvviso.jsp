@@ -5,10 +5,9 @@
 <html>
 	<head>
 		<title>Creazione avviso</title>
-		<link type="text/css" rel="stylesheet" href="../css/avviso_style.css">
-		<!--<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 		<script src="../script/jquery-3.3.1.min.js"></script>
-		<script src="../bootstrap/js/bootstrap.min.js"></script>-->
+		<script src="../bootstrap/js/bootstrap.min.js"></script>
 	</head>
 	<% 
 		Utente ut = (Utente) session.getAttribute("user");
@@ -19,23 +18,6 @@
 	%>
 	<body>
 	<%@include file="navbar.jsp" %>
-		<header id="header_part">
-			<!--  add nav bar jsp -->
-			<span id="txt_logo">Admin Area</span>
-			<span id="welcome_txt">Benvenuto, Addetto</span>
-			<span id="logout"><img src="../images/icon-logout.png">Logout</span>
-		</header>
-		<section id="left_sidebar">
-			<!-- add navigation bar left jsp -->
-			<div id="sidebar">
-				<ul>
-					<li><a href="StudentHomePage.jsp">Dashboard</a></li>
-					<li><a href="laboratoriAttivi.jsp">Prenota postazione</a></li>
-					<li> <a href="PrenotazioniEffettuate.jsp">Mie prenotazioni</a></li>
-					<li class="active"> <a href="javascript:void(0);">Crea avviso</a></li>
-				</ul>
-			</div>
-		</section>
 		<section id = "main">
 			<h1 align = "center">Avviso</h1>
 				<h2 align = "center">Inserire le informazioni riguardo l'avviso qui sotto</h2>
