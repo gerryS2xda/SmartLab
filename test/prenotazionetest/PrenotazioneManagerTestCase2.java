@@ -155,7 +155,7 @@ public class PrenotazioneManagerTestCase2 {
 	public void testChangePrenotazioneStatus()throws Exception {
 		System.out.println("Testing: verifica se una prenotazione e' attiva. Caso: setta False (scaduta)");
 		
-		//si fa in modo che manager.isPrenotazioneActive() sia false --> false True lo stato di prenotazione
+		//si fa in modo che manager.isPrenotazioneActive() sia false --> setta false lo stato di prenotazione
 		String oraFine = LocalTime.now().minusHours(1).toString();	//oraAttuale + 1 
 		oracle.setOraFine(LocalTime.parse(oraFine)); //setta come oraFine (in modo che oraAttuale < oraFine)
 		
