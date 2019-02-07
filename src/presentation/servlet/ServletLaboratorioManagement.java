@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 
 import businessLogic.laboratorio.LaboratorioManager;
 import dataAccess.storage.bean.Laboratorio;
+import dataAccess.storage.bean.Utente;
 
 /**
  * Servlet implementation class ServletLaboratorio
@@ -77,7 +78,8 @@ public class ServletLaboratorioManagement extends HttpServlet {
 			dispatcher.forward(request, response);
 		}else if(action.equals("lista_lab_resp")){//visualizzazione lista laboratori responsaile
 			//List<Laboratorio> laboratori= manager.getLaboratoryList();
-			String email="esempio1@unisa.it";
+			Utente ut=(Utente)request.getSession().getAttribute("user");
+			String email=ut.getEmail();
 			request.setAttribute("laboratori", manager.getLaboratoryListForResp(email));
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/respInterface/laboratoriAssegnati.jsp");
 			dispatcher.forward(request, response);

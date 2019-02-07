@@ -2,7 +2,7 @@
 
 //pulsante 'Logout' presente in header
 $("#logout").click(function(){
-	$.post("../ServletUtente", {"action": "logout"}, function(resp, stat, xhr){
+	$.post("../utente", {"action": "logout"}, function(resp, stat, xhr){
 		if(xhr.readyState == 4 && stat == "success"){
 			var o = JSON.parse(resp);
 			var esito = o.done;
