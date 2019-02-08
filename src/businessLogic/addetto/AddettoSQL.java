@@ -17,6 +17,6 @@ public class AddettoSQL implements SqlSpecification {
 	public String toSqlQuery(){
 		return String.format(
 				"SELECT U.nome, U.cognome, A.*, U.password FROM %s U JOIN %s A ON U.email = A.email WHERE A.email='%s';",
-                TABLE_NAME, TABLE_NAME_UTENTE, email);
+                TABLE_NAME_UTENTE, TABLE_NAME, email);
 	}
 }

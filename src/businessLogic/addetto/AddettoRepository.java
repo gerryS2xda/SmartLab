@@ -95,8 +95,8 @@ public class AddettoRepository {
     	PreparedStatement ps = null;
     	
     	String updateSQLUtente = "update " + TABLE_NAME_UTENTE + " set email = ?, password = ?, nome = ?, "
-    			+ "cognome = ? where email = " + a.getEmail();
-    	String updateSQLAddetto = "update " + TABLE_NAME + " set tipo = ? where email = " + a.getEmail();
+    			+ "cognome = ? where email = '" + a.getEmail() + "'";
+    	String updateSQLAddetto = "update " + TABLE_NAME + " set tipo = ? where email = '" + a.getEmail() + "'";
     	
     	try{
     		connection = Connessione.getConnection();

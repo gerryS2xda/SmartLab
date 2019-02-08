@@ -28,7 +28,7 @@ public class InterventoRepositoryTest {
 		inter.setDescrizione("asdasd");
 		inter.setIdIntervento(2);
 		inter.setPostazione(1);
-		inter.setLaboratorio("lab1");
+		inter.setLaboratorio("0");
 		//-----------------
 		InterventoRepository instance= InterventoRepository.getInstance();
 		instance.add(inter);

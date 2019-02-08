@@ -56,7 +56,7 @@ public class PostazioneRepository implements Repository<Postazione> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE numero = ? && laboratorio=? ;";
+		String deleteSQL = "DELETE FROM " + TABLE_NAME + " WHERE numero = ? AND laboratorio = ?";
 
 		try {
 			connection = Connessione.getConnection();
@@ -83,7 +83,7 @@ public class PostazioneRepository implements Repository<Postazione> {
 		PreparedStatement preparedStatement = null;
 		
 
-		String updateSQL = "UPDATE " + TABLE_NAME + " SET stato = ? WHERE numero = ? && laboratorio = ? ;";
+		String updateSQL = "UPDATE " + TABLE_NAME + " SET stato = ? WHERE numero = ? AND laboratorio = ? ;";
 
 		try {
 			connection = Connessione.getConnection();

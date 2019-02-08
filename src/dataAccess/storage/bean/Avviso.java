@@ -1,4 +1,5 @@
 package dataAccess.storage.bean;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,6 +13,11 @@ public class Avviso implements Serializable {
 	private String addetto;
 	
 	public Avviso(){	
+		id = 0;
+		titolo = "";
+		messaggio = "";
+		data = null;
+		addetto = "";
 	}
 	
 	public Avviso(int i, String tit, String msg, Date d, String ad) {
@@ -60,5 +66,17 @@ public class Avviso implements Serializable {
 	
 	public void setAddetto(String nAd){
 		addetto = nAd;
+	}
+	
+	//other method
+	public boolean equals(Object otherObject){
+		boolean val = false;
+		if(otherObject instanceof Avviso){
+			Avviso avv = (Avviso) otherObject;
+			if(avv.getTitolo().equals(titolo) && avv.getMessaggio().equals(messaggio)){
+				val = true;
+			}
+		}
+		return val;
 	}
 }

@@ -9,7 +9,7 @@ public class Postazione {
 	
 	//costructor
 	public Postazione(){
-		this.numero=0;
+		this.numero=-1;
 		this.idlab="";
 		this.stato=false;
 	}

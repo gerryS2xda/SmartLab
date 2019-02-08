@@ -1,23 +1,47 @@
 package postazioneTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import org.junit.AfterClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import businessLogic.Postazione.GetPostazioneByLabSQL;
+import businessLogic.Postazione.ListaPos;
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.Postazione.PostazioneSql;
-import dataAccess.storage.Specification;
 import dataAccess.storage.bean.Postazione;
 
 public class PostazioneRepositoryTest {
 
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
+	//instance field
+	private PostazioneRepository repository;
+	private Postazione pos;
+		
+	@Before
+	public void setUp() throws Exception {
+			
+		repository = PostazioneRepository.getInstance();
+		
+		pos= new Postazione();
+		pos.setNumero(0);
+		pos.setLaboratorio("0");
+		pos.setStato(true);
+		repository.add(pos);
+		
+		//ottieni il numero dopo inserimento poiche' si usa auto_increment (serve per delete)
+		Postazione temp = repository.findItemByQuery(new GetPostazioneByLabSQL(pos.getLaboratorio()));
+		pos.setNumero(temp.getNumero());
 	}
 
+	@After
+	public void tearDown() throws Exception {
+		repository.delete(pos);
+	}
+	
 	@Test
     public void testGetInstance() {
         System.out.println("getInstance");
@@ -28,15 +52,11 @@ public class PostazioneRepositoryTest {
 	@Test
 	public void testAdd() throws SQLException {
 		System.out.println("add");
-		Postazione pos= new Postazione();
-		pos.setNumero(1);
-		pos.setLaboratorio("lab1");
-		pos.setStato(true);
-		//-----------------
-		PostazioneRepository instance= PostazioneRepository.getInstance();
-		instance.add(pos);
+		
+		
 		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
-		Postazione result=instance.findItemByQuery(sql);
+		Postazione result=repository.findItemByQuery(sql);
+		System.out.println("RESULT: " + result.getNumero());
 		assertEquals(pos,result);
 	}
 
@@ -44,61 +64,53 @@ public class PostazioneRepositoryTest {
 	@Test
 	public void testUpdate() throws SQLException {
 		System.out.println("testing: update");
-		Postazione pos= new Postazione();
-		pos.setNumero(2);
-		pos.setLaboratorio("lab2");
+		
 		pos.setStato(false);
 		//-----------------
-		PostazioneRepository instance= PostazioneRepository.getInstance();
-		instance.update(pos);
+		
+		repository.update(pos);
 		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
-		Postazione result=instance.findItemByQuery(sql);
-		assertEquals(pos,result);
+		Postazione result=repository.findItemByQuery(sql);
+		assertFalse(result.isStato());
 	}
 	
-	public void testDelete(Postazione pos) throws SQLException {
+	@Test
+	public void testDelete() throws SQLException {
 		System.out.println("delete");
-		pos.setNumero(1);
-		pos.setLaboratorio("lab1");
-		PostazioneRepository instance = PostazioneRepository.getInstance();
+		
 		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
-		instance.delete(pos);
-		Postazione test=instance.findItemByQuery(sql);
-		assertEquals(null,test);
+		repository.delete(pos);
+		Postazione test=repository.findItemByQuery(sql);
+		assertEquals(-1,test.getNumero());
 	}
 
-
-	public void testFindItemByQuery(Specification specification) throws SQLException {
+	@Test
+	public void testFindItemByQuery() throws SQLException {
 		System.out.println("findItemByQuery");
-		Postazione pos=new Postazione();
-		PostazioneRepository instance = PostazioneRepository.getInstance();
 		
-		pos.setNumero(1);
-		pos.setLaboratorio("lab1");
 		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
 		
-		instance.add(pos);
-		Postazione test=instance.findItemByQuery(sql);
+		Postazione test=repository.findItemByQuery(sql);
 		assertEquals(pos,test);
-		instance.delete(pos);
+		
 	}
+	
+	@Test
 	public void testQuery() throws SQLException {
-		System.out.println("query");
-		Postazione pos=new Postazione();
+		System.out.println("Testing: Query per ottenere una lista di postazioni e verificare se e' presente oracle nella lista");
+		boolean val = false; //se rimane false --> FAIL
 		
-		pos.setNumero(1);
-		pos.setLaboratorio("lab1");
-		List<Postazione> testlista=new ArrayList<Postazione>();
-		testlista.add(pos);
-		PostazioneSql sql=new PostazioneSql(pos.getNumero(),pos.getLaboratorio());
+		//ottieni lista dei risultati
+		List<Postazione> actualObjs = repository.query(new ListaPos(pos.getLaboratorio()));
 		
-		List<Postazione> test;
-		PostazioneRepository instance = PostazioneRepository.getInstance();
-		instance.add(pos);
+		//verifica se la postazione "oracle" e' presente nella lista.. se presente --> OK
+		for(Postazione p : actualObjs){
+			if(p.getNumero() == pos.getNumero() && p.getLaboratorio().equals(pos.getLaboratorio())){
+				val = true;
+				break;
+			}
+		}
 		
-		test=instance.query(sql);
-		assertEquals(testlista,test);
-		instance.delete(pos);
-		
+		assertTrue("Oracle non e' presente nella lista", val);
 	}
 }

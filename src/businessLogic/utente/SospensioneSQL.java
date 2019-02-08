@@ -15,7 +15,7 @@ public class SospensioneSQL implements SqlSpecification {
 	@Override
 	public String toSqlQuery(){
 		return String.format(
-				"SELECT * FROM %1$s WHERE id=%2$s;",
+				"SELECT * FROM %1$s WHERE IDsospensione=%2$s",
                 TABLE_NAME,
                 this.id);
 	}

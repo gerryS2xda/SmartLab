@@ -2,15 +2,13 @@ package addettoTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-
 import java.sql.SQLException;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import businessLogic.addetto.AddettoManager;
 import businessLogic.addetto.AddettoRepository;
 import businessLogic.addetto.AddettoSQL;
@@ -34,12 +32,11 @@ public class AddettoManagerTestCase1 {
 		oracle.setPassword("password");
 		oracle.setSurname("Lo Conte");
 
-		boolean b = manager.addResp(oracle);
+		repository.add(oracle);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		oracle=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 		repository.delete(oracle);
 	}
 
@@ -55,9 +52,14 @@ public class AddettoManagerTestCase1 {
 	public void testAddResp() throws SQLException{
 		System.out.println("addResp");
 
+		//cancella oracle inserito da setUp()
+		repository.delete(oracle);
+		
+		manager.addResp(oracle); //aggiungi oracle tramite il metodo da testare
+		
 		Addetto result=repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 
-		assertEquals(result,oracle);
+		assertNotEquals("", result.getEmail());
 	}
 
 	@Test
@@ -73,10 +75,10 @@ public class AddettoManagerTestCase1 {
 	public void testRimuoviResp() throws SQLException{
 		System.out.println("rimuoviResp");
 
-		boolean b = manager.rimuoviResp(oracle);
+		manager.rimuoviResp(oracle);
 		Addetto result = repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
 
-		assertEquals(b, true);
+		assertEquals("", result.getEmail());	//se null, allora e' stato rimosso
 
 	}
 
@@ -84,10 +86,17 @@ public class AddettoManagerTestCase1 {
 	public void testGetListaResp() throws SQLException{
 		System.out.println("getListaResp");
 
+		boolean val = false;
+		
 		List<Addetto> responsabili = manager.getListaResp();
-		Addetto result = repository.findItemByQuery(new AddettoSQL(oracle.getEmail()));
-
-		assertTrue(!responsabili.isEmpty());
-
+		
+		for(Addetto a : responsabili){
+			if(a.getEmail().equals(oracle.getEmail())){
+				val = true;
+				break;
+			}
+		}
+		
+		assertTrue("La prenotazione oracle non e' presente nella lista", val); 
 	}
 }

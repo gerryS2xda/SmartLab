@@ -5,8 +5,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.project.utils.Utils;
 
 import dataAccess.storage.Connessione;
 import dataAccess.storage.Repository;
@@ -16,23 +19,22 @@ import dataAccess.storage.bean.Segnalazione;
 
 public class SegnalazioneRepository implements Repository<Segnalazione> {
 	
-	private String table = "segnalazione";
+	public static final String TABLE_NAME = "segnalazione";
+	public static final String[] COLUMN_NAME = {"oggetto", "descrizione", "data", "postazione", "laboratorio", "studente"};
 	
 	public void add(Segnalazione segnalazione) throws SQLException{
-	    int id = Integer.parseInt(segnalazione.getLaboratorio());
 		Connection con = null;
 		PreparedStatement ps = null;
-		String addSegnalazione = "INSERT INTO " + table + " VALUES(?,?,?,?,?,?,?)";
+		String addSegnalazione = "INSERT INTO " + Utils.getRelazioneTable(TABLE_NAME, COLUMN_NAME) + " VALUES(?, ?, ?, ?, ?, ?)";
 		try{
 			con = Connessione.getConnection();
 			ps = con.prepareStatement(addSegnalazione);
-			ps.setInt(1, segnalazione.getId());
-			ps.setString(2, segnalazione.getOggetto());
-			ps.setString(3, segnalazione.getDescrizione());
-			ps.setDate(4, segnalazione.getData());
-			ps.setInt(5, segnalazione.getPostazione());
-			ps.setInt(6, id/*segnalazione.getLaboratorio()*/);
-			ps.setString(7, segnalazione.getStudente());
+			ps.setString(1, segnalazione.getOggetto());
+			ps.setString(2, segnalazione.getDescrizione());
+			ps.setDate(3, segnalazione.getData());
+			ps.setInt(4, segnalazione.getPostazione());
+			ps.setString(5, segnalazione.getLaboratorio());
+			ps.setString(6, segnalazione.getStudente());
 			ps.executeUpdate();
 		}finally{
 			if(con != null) {
@@ -47,7 +49,7 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 	public void delete(Segnalazione segnalazione) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String delSegnalazione = "DELETE FROM " + table + " WHERE idSegnalazione = ?";
+		String delSegnalazione = "DELETE FROM " + TABLE_NAME + " WHERE idSegnalazione = ?";
 		try{
 			con = Connessione.getConnection();
 			ps = con.prepareStatement(delSegnalazione);
@@ -61,31 +63,55 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 	}
 
 	public void update(Segnalazione item) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		String updateSQL = "update " + TABLE_NAME + " set oggetto = ?, descrizione = ?, data = ?, "
+				+ "postazione = ?, laboratorio = ?, studente = ? where idSegnalazione = " + item.getId();
+		
+		try{
+			conn = Connessione.getConnection();
+			ps = conn.prepareStatement(updateSQL);
+				
+			ps.setString(1, item.getOggetto());
+			ps.setString(2, item.getDescrizione());
+			ps.setDate(3, item.getData());
+			ps.setInt(4, item.getPostazione());
+			ps.setString(5, item.getLaboratorio());
+			ps.setString(6, item.getStudente());
+				
+			ps.executeUpdate();
+		}finally{
+			if(ps != null) {
+				ps.close();
+			}
+			Connessione.releaseConnection(conn); //rilascia la connessione e la rende nuovamente disponibile
+		}
 		
 	}
 
 	public Segnalazione findItemByQuery(Specification spec) throws SQLException {
-		int id, pos;
-		String og, des, stud, lab;
-		Date data;
 		Connection con = null;
 		PreparedStatement ps = null;
 		SqlSpecification sql = (SqlSpecification) spec;
 		String query = sql.toSqlQuery();
-		Segnalazione item;
+		Segnalazione item = new Segnalazione();
+		
 		try{
 			con = Connessione.getConnection();
 			ps = con.prepareStatement(query);
 			ResultSet res = ps.executeQuery();
-			id = res.getInt("idSegnalazione");
-			og = res.getString("oggetto");
-			des = res.getString("descrizione");
-			data = res.getDate("data");
-			stud = res.getString("studente");
-			lab = res.getString("laboratorio");
-			pos = res.getInt("postazione");
-			item = new Segnalazione(id, og, des, data, stud, lab, pos);
+			
+			while(res.next()){
+				item.setId(res.getInt("idSegnalazione"));
+				item.setOggetto(res.getString("oggetto"));
+				item.setDescrizione(res.getString("descrizione"));
+				item.setData(res.getDate("data"));
+				item.setStudente(res.getString("studente"));
+				item.setLaboratorio(res.getString("laboratorio"));
+				item.setPostazione(res.getInt("postazione"));
+			}
+			
 		}finally{
 			con.close();
 			ps.close();
@@ -94,9 +120,6 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 	}
 
 	public List<Segnalazione> query(Specification spec) throws SQLException {
-		int id, pos;
-		String og, des, stud, lab;
-		Date data;
 		Connection con = null;
 		PreparedStatement ps = null;
 		List<Segnalazione> list = new ArrayList<Segnalazione>();
@@ -107,15 +130,15 @@ public class SegnalazioneRepository implements Repository<Segnalazione> {
 			ps = con.prepareStatement(query);
 			ResultSet res = ps.executeQuery();
 			while(res.next()){
-				id = res.getInt("idSegnalazione");
-				og = res.getString("oggetto");
-				des = res.getString("descrizione");
-				data = res.getDate("data");
-				stud = res.getString("studente");
-				lab = res.getString("laboratorio");
-				pos = res.getInt("postazione");
-				Segnalazione temp = new Segnalazione(id, og, des, data, stud, lab, pos);
-				list.add(temp);
+				Segnalazione item = new Segnalazione();
+				item.setId(res.getInt("idSegnalazione"));
+				item.setOggetto(res.getString("oggetto"));
+				item.setDescrizione(res.getString("descrizione"));
+				item.setData(res.getDate("data"));
+				item.setStudente(res.getString("studente"));
+				item.setLaboratorio(res.getString("laboratorio"));
+				item.setPostazione(res.getInt("postazione"));
+				list.add(item);
 			}
 		}finally{
 			con.close();

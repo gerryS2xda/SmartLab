@@ -1,5 +1,6 @@
 package prenotazionetest;
 
+import businessLogic.Postazione.GetPostazioneByLabSQL;
 import businessLogic.Postazione.ListaPos;
 import businessLogic.Postazione.PostazioneRepository;
 import businessLogic.Postazione.PostazioneSql;
@@ -24,9 +25,13 @@ public class PostazioneRepositoryTest {
 		
 		repository = PostazioneRepository.getInstance();
 		
-		oracle = new Postazione(100, "0", true); //0 rappresenta l'id del laboratorio usato per il test
+		oracle = new Postazione(0, "0", true); //0 rappresenta l'id del laboratorio usato per il test
 		
 		repository.add(oracle);		
+		
+		//ottieni il numero dopo inserimento poiche' si usa auto_increment (serve per delete)
+		Postazione temp = repository.findItemByQuery(new GetPostazioneByLabSQL(oracle.getLaboratorio()));
+		oracle.setNumero(temp.getNumero());
 	}
 
 	@After
@@ -62,7 +67,7 @@ public class PostazioneRepositoryTest {
 		
 		//verifica se e' stato cancellato
 		Postazione actualObj = repository.findItemByQuery(new PostazioneSql(oracle.getNumero(), oracle.getLaboratorio()));
-		assertEquals("Oggetto prenotazione non e' stato rimosso", 0, actualObj.getNumero()); //in questo caso, post = 0 rappresenta l'oracolo del test
+		assertEquals("Oggetto prenotazione non e' stato rimosso", -1, actualObj.getNumero()); //in questo caso, post = 0 rappresenta l'oracolo del test
 		
 	}
 

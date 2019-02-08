@@ -8,18 +8,13 @@ import org.junit.Test;
 public class InterventoSqlTest {
 
 	@Test
-	public void testGetInstance() {
-		System.out.println("test: getInstance");
-		InterventoSql result = InterventoSql.getInstance(0);
-        assertNotNull(result);
-	}
-
-	@Test
 	public void testToSqlQuery() {
 		System.out.println("testing: toSqlQuery");
-		InterventoSql lista=new InterventoSql(1);
-		InterventoSql result=InterventoSql.getInstance(0);
-		assertEquals(lista.toSqlQuery(),result.toSqlQuery());
+		
+		String oracle = "SELECT * FROM intervento WHERE idIntervento = 1";
+		
+		InterventoSql result=new InterventoSql(1);
+		assertEquals(oracle,result.toSqlQuery());
 	}
 
 }

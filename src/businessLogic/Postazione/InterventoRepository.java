@@ -29,7 +29,7 @@ public class InterventoRepository {
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL = "INSERT INTO " + TABLE_NAME
-				+ " (descrizione,data,postazione,laboratorio,addetto) VALUES (?, ?, ?,?,?)";
+				+ " (descrizione, data, postazione, laboratorio, addetto) VALUES (?, ?, ?,?,?)";
 		
 		
 		try {

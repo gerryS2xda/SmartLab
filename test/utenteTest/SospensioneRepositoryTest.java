@@ -3,15 +3,22 @@ package utenteTest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import businessLogic.comunicazione.AvvisoByNameSQL;
+import businessLogic.comunicazione.AvvisoSql;
+import businessLogic.comunicazione.ListaAvvisi;
 import businessLogic.utente.SospensioneList;
 import businessLogic.utente.SospensioneRepository;
 import businessLogic.utente.SospensioneSQL;
+import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Sospensione;
 
 
@@ -25,8 +32,6 @@ public class SospensioneRepositoryTest {
 		repository=SospensioneRepository.getInstance();
 		
 		oracle = new Sospensione(1, "pippo", "esempio1@unisa.it");
-
-		System.out.println(oracle);
 		repository.add(oracle);
 		
 		oracle=repository.findItemByQuery(new SospensioneSQL(oracle.getID()));
@@ -63,23 +68,33 @@ public class SospensioneRepositoryTest {
 		
 		Sospensione result=repository.findItemByQuery(new SospensioneSQL(oracle.getID()));
 
-		assertEquals(null,result.getID());
+		assertEquals(-1,result.getID());
 	}
 	
 	@Test
 	public void testUpdate() throws SQLException{
+		System.out.println("Testing: Update");
 		
-		Sospensione result=oracle;
+		//crea oggetto simile ad oracle 
+		Sospensione actualObj = new Sospensione();
+		actualObj.setID(oracle.getID());
+		actualObj.setMotivazione(oracle.getMotivazione());
+		actualObj.setStudente(oracle.getStudente());
+		actualObj.setData(LocalDate.now().toString());
+		actualObj.setAddetto("addettoTest");
 		
-		assertSame(result,oracle);
+		//modifica qualche attributo di actualObj
+		int durata = 2;
+		actualObj.setDurata(2); 
 		
-		result.setStudente(oracle.getStudente());
+		//invocazione di update()
+		repository.update(actualObj);
 		
-		repository.update(result);
+		//prendi oggetto da DB appena modificato
+		actualObj = repository.findItemByQuery(new SospensioneSQL(oracle.getID()));
 		
-		result=repository.findItemByQuery(new SospensioneSQL(oracle.getID()));
-		
-		assertEquals(oracle,result);
+		//controlla se la modifica e' stata effettuata 
+		assertEquals("La modifica non e' stata apportata", durata, actualObj.getDurata());	
 	}
 	
 	@Test
@@ -95,9 +110,17 @@ public class SospensioneRepositoryTest {
 	public void testQuery() throws SQLException{
 		System.out.println("query");
 		
+		boolean val = false; //se rimane false --> FAIL
+		
+		//ottieni lista dei risultati
 		List<Sospensione> lista=repository.query(new SospensioneList());
 		
-		assertEquals(lista.get(lista.size()-1),oracle);
+		for(Sospensione s : lista){
+			if(s.getID() == oracle.getID()){
+				val = true;
+				break;
+			}
+		}
 
 	}
 

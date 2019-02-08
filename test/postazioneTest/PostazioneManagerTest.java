@@ -28,7 +28,7 @@ public class PostazioneManagerTest {
 	public void setUp() throws Exception {
 		instance = PostazioneManager.getInstance();
 		repository = PostazioneRepository.getInstance();
-		oracle =new Postazione(1, "lab1",true);
+		oracle =new Postazione(0, "0",true);
 	}
 
 	@Test
@@ -39,20 +39,19 @@ public class PostazioneManagerTest {
 		assertNotNull("Repository object e' nullo", manager);
 	}
 
-	@Test
-	public void testPostazioneManager() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testCreaPostazione() throws SQLException{
 
 		boolean flag=true;
 		System.out.println("testing: crea");
+		
+		Postazione actualObj = new Postazione(0, "1", true);
 		//-----------------
-		flag=instance.creaPostazione(1, "lab1", true);
+		flag=instance.creaPostazione(actualObj.getNumero(), actualObj.getLaboratorio(), actualObj.isStato());
 		System.out.println(flag);
 		assertTrue(flag);
+		repository.delete(actualObj);
 	}
 
 	@Test

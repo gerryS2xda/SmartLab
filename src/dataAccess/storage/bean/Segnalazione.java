@@ -14,6 +14,13 @@ public class Segnalazione implements Serializable {
 	private int postazione;
 	
 	public Segnalazione(){
+		id = 0;
+		oggetto = "";
+		descrizione = "";
+		data = null;
+		studente = "";
+		lab = "";
+		postazione = 0;
 	}
 	
 	public Segnalazione(int i, String og, String des, Date d, String s, String l, int pos){
@@ -80,5 +87,18 @@ public class Segnalazione implements Serializable {
 	
 	public void setPostazione(int nPos){
 		postazione = nPos;
+	}
+	
+	//other method
+	public boolean equals(Object otherObject){
+		boolean val = false;
+		if(otherObject instanceof Segnalazione){
+			Segnalazione segn = (Segnalazione) otherObject;
+			if(segn.getOggetto().equals(oggetto) && segn.getDescrizione().equals(descrizione)
+					&& segn.getPostazione() == postazione && segn.getLaboratorio().equals(lab)){
+				val = true;
+			}
+		}
+		return val;
 	}
 }

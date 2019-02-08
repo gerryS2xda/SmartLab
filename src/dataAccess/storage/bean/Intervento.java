@@ -13,11 +13,15 @@ public class Intervento {
 	
 	//costruttori
 	public Intervento() {
-		
+		this.idIntervento = 0;
+		this.descrizione = "";
+		this.data = LocalDate.now();
+		this.postazione = 0;
+		this.laboratorio = "0";
+		this.addetto = "";
 	}
 	
 	public Intervento(int idIntervento, String descrizione, LocalDate data, int postazione, String laboratorio,String addetto) {
-		
 		this.idIntervento = idIntervento;
 		this.descrizione = descrizione;
 		this.data = data;

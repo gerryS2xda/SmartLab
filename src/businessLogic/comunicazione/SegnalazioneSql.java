@@ -12,6 +12,7 @@ public class SegnalazioneSql implements SqlSpecification {
 
 	@Override
 	public String toSqlQuery() {
-		return "SELECT * FROM segnalazione WHERE idSegnalazione = " + idSegnalazione;
+		String str = "SELECT * FROM segnalazione WHERE idSegnalazione = " + idSegnalazione;
+		return str;
 	}
 }
