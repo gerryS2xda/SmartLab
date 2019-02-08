@@ -149,7 +149,7 @@ CREATE TABLE avviso(
 		ON UPDATE CASCADE
 );
 
-INSERT INTO `avviso` VALUES (1,'Avviso chiusura','Oggi il laboratorio Sistemi è chiuso','2019-02-03','antonio@unisa.it'),(2,'Avviso apertura','Oggi il laboratorio Reti apre alle 13','2019-02-03','antonio@unisa.it');
+INSERT INTO `avviso` VALUES (1,'Avviso chiusura','Oggi il laboratorio Sistemi e'' chiuso','2019-02-03','antonio@unisa.it'),(2,'Avviso apertura','Oggi il laboratorio Reti apre alle 13','2019-02-03','antonio@unisa.it');
 
 -- Autore: Fulvio Somma
 -- Ultima modifica: -
