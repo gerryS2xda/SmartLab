@@ -33,7 +33,7 @@ public class Sospensione {
 		studente = "";
 		id = -1;
 		addetto = "";
-		data = LocalDate.now().toString();;
+		data = LocalDate.now().toString();
 		durata = 0;
 	}
 

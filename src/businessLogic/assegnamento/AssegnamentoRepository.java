@@ -12,7 +12,7 @@ import dataAccess.storage.SqlSpecification;
 import dataAccess.storage.Repository;
 import dataAccess.storage.bean.Assegnamento;
 
-public class AssegnamentoRepository implements Repository<Assegnamento>{
+public class AssegnamentoRepository implements Repository<Assegnamento> {
 	
 	private static AssegnamentoRepository instance;
 
@@ -45,17 +45,14 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, ass.getLaboratorio());
 			preparedStatement.setString(2, ass.getResponsabile());
-			//System.out.println(preparedStatement);
+			
 			preparedStatement.executeUpdate();
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		} finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
 
     }
@@ -74,14 +71,11 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 			//System.out.println(preparedStatement);
 			
 			preparedStatement.executeUpdate();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		} finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
 	}
 
@@ -107,14 +101,11 @@ public class AssegnamentoRepository implements Repository<Assegnamento>{
 				ass.setResponsabile(rs.getString("responsabile"));
 			}
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					Connessione.releaseConnection(connection);
+		} finally{
+			if(preparedStatement != null) { 
+				preparedStatement.close();
 			}
+			Connessione.releaseConnection(connection); //rilascia la connessione e la rende nuovamente disponibile
 		}
 
         return ass;

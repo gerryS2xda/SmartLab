@@ -2,25 +2,16 @@ package utenteTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import businessLogic.comunicazione.AvvisoByNameSQL;
-import businessLogic.comunicazione.AvvisoSql;
-import businessLogic.comunicazione.ListaAvvisi;
 import businessLogic.utente.SospensioneList;
 import businessLogic.utente.SospensioneRepository;
 import businessLogic.utente.SospensioneSQL;
-import dataAccess.storage.bean.Avviso;
 import dataAccess.storage.bean.Sospensione;
-
 
 public class SospensioneRepositoryTest {
 	

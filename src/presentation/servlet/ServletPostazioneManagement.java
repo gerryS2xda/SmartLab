@@ -36,6 +36,8 @@ public class ServletPostazioneManagement extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 * @param request indica la richiesta fatta dal client
 	 * @param response  la risposta da fornire al client
+	 * @throws ServletException eccezione
+	 * @throws IOException  eccezione IO
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

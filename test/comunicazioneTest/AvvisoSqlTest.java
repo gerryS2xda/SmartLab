@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import businessLogic.comunicazione.AvvisoSql;
-import businessLogic.comunicazione.SegnalazioneSql;
 
 public class AvvisoSqlTest {
 
