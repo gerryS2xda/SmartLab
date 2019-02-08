@@ -45,7 +45,7 @@ public class ServletAvviso extends HttpServlet {
 				id++;
 				Addetto ad = (Addetto) session.getAttribute("user");
 				String titolo = request.getParameter("titolo");
-				String messaggio = request.getParameter("messaggio");
+				String messaggio = request.getParameter("descrizione");
 				java.util.Date d = new java.util.Date();
 				Date data = new Date(d.getTime());
 				String addetto = ad.getEmail();
