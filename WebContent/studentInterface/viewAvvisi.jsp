@@ -29,7 +29,7 @@
 					<li><a href="StudentHomePage.jsp">Dashboard</a></li>
 					<li><a href="laboratoriAttivi.jsp">Prenota postazione</a></li>
 					<li> <a href="PrenotazioniEffettuate.jsp">Mie prenotazioni</a></li>
-					<li> <a href="creasegnalaizone.jsp">Segnala problema</a></li>
+					<li> <a href="creaSegnalaizone.jsp">Segnala problema</a></li>
 					<li> <a href="viewSegnalazioni.jsp">Lista segnalazioni</a></li>
 					<li class = "active"> <a href="javascript:void(0);">Lista avvisi</a></li>
 				</ul>

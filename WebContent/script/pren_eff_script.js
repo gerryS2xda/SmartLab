@@ -44,6 +44,7 @@ function deletePrenotazione(item){	//usata da checkbox per cancellare le prenota
 						var res = JSON.parse(resp);
 						if(res.esito == "ok"){
 							row.remove();	//rimuovi la riga interessata
+							location.reload(); //refresh della pagina
 						}else{
 							alert("La prenotazione non e' piu' annullabile!!");
 							item.prop('checked', false);
